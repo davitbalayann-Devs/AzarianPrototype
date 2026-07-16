@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./nav.js" defer></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0}
+  @media(max-width:960px){[data-nav-center]{display:none !important;}}
+  @media(max-width:560px){[data-nav-cta]{display:none !important;}}
+  @media(max-width:768px){[data-grid-2],[data-grid-3],[data-grid-4],[data-team-grid]{grid-template-columns:1fr !important;}}
+</style>
+</helmet>
+<div ref="{{ setRoot }}" style="--accent:#1FC9A0;background:#ffffff;color:#0B1B38;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;width:100%;">
+
+  <!-- NAV — shared component built by ./nav.js (edit that file once, applies everywhere) -->
+  <nav class="agn-nav" data-agn-nav aria-label="Primary"></nav>
+
+  <!-- HERO -->
+  <header id="top" style="position:relative;min-height:70vh;background:radial-gradient(120% 100% at 50% -10%,#12315e 0%,#0B1B38 46%,#081226 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:150px 40px 90px;">
+    <div style="max-width:1160px;margin:0 auto;width:100%;">
+      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;display:inline-flex;align-items:center;gap:12px;margin-bottom:24px;">
+        <span style="width:30px;height:2px;background:var(--accent);"></span>
+        <span style="font-size:13px;font-weight:600;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;">About Azarian Growth Agency</span>
+      </div>
+      <h1 data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0;font-weight:800;font-size:clamp(34px,5vw,60px);line-height:1.06;letter-spacing:-.025em;max-width:20ch;">We built this agency to answer one question most marketing teams cannot answer: is this actually working?</h1>
+      <p data-reveal data-reveal-delay="160" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:28px 0 0;font-size:clamp(17px,1.4vw,20px);line-height:1.6;color:#AEB9CC;max-width:68ch;">Azarian Growth Agency is an AI-native senior-led growth marketing firm that partners with PE-backed companies, high-growth B2B SaaS, and venture-backed challenger brands to diagnose what is holding marketing back and build the engine to fix it. We have been doing this since 2020, and we lead every engagement ourselves.</p>
+    </div>
+  </header>
+
+  <!-- ORIGIN STORY -->
+  <section style="background:#ffffff;padding:130px 40px;">
+    <div style="max-width:800px;margin:0 auto;">
+      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+        <span style="width:28px;height:3px;border-radius:2px;background:var(--accent);"></span>
+        <span style="font-size:13px;font-weight:600;letter-spacing:.14em;color:#0E9E80;text-transform:uppercase;">Our story</span>
+      </div>
+      <div data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;font-size:18px;line-height:1.75;color:#5A6678;display:flex;flex-direction:column;gap:20px;">
+        <p style="margin:0;">In 2020, Hamlet Azarian had spent nearly two decades inside the growth engines of companies from pre-seed stage to Series B and beyond. He had been the VP of Growth and Marketing at Camino Financial. He had served as Senior Growth Advisor to DISQO, CBDfx, and a portfolio of companies across SaaS, financial services, and e-commerce.</p>
+        <p style="margin:0;">The pattern he kept seeing was always the same. A company hires a marketing team. The team hires agencies. The agencies run campaigns. Dashboards fill up with metrics. And at the end of the quarter, when the CEO sits in front of the board, nobody can answer the one question that matters: what is marketing actually contributing to revenue?</p>
+        <p style="margin:0;">Not because the people are bad. Because the diagnosis was never done.</p>
+        <p style="margin:0;color:#0B1B38;font-weight:500;">Azarian Growth Agency was built to close that gap. Every engagement begins with a paid Strategic Growth Diagnostic, because the most valuable thing we can do for a company is tell them the truth about their marketing before we do anything else.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HAMLET BIO -->
+  <section style="background:#F5F7FA;padding:130px 40px;">
+    <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:start;" data-grid-2>
+      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+        <img src="assets/team/placeholder.svg" alt="Hamlet Azarian" style="width:100%;max-width:240px;border-radius:20px;border:3px solid #fff;box-shadow:0 20px 50px -20px rgba(11,27,56,.3);" />
+      </div>
+      <div>
+        <div data-reveal data-reveal-delay="60" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+          <h2 style="margin:0 0 24px;font-weight:700;font-size:clamp(28px,3.5vw,42px);line-height:1.1;">The person you are hiring</h2>
+          <div style="font-size:17px;line-height:1.75;color:#5A6678;display:flex;flex-direction:column;gap:18px;">
+            <p style="margin:0;">I have been building growth engines for 20 years. Not as an observer. As the person accountable for the number.</p>
+            <p style="margin:0;">I was on the founding team &amp; VP of Growth and Marketing at Camino Financial, where I built the demand generation system from the ground up. I have served as Senior Growth Advisor to DISQO for five years and to CBDfx for six years. I am a Growth Advisor at Untapped Ventures and SmartGate VC, where I work with portfolio companies on the same growth challenges we solve at Azarian Growth Agency.</p>
+            <p style="margin:0;">I am a Techstars mentor, a guest lecturer on growth strategy at the USC Marshall School of Business, and the host of the [A] Growth Ventures Podcast.</p>
+            <p style="margin:0;color:#0B1B38;font-weight:500;">When you work with Azarian Growth Agency, I am personally involved. I lead every Strategic Growth Diagnostic. I am the senior strategist on every Fractional CMO engagement. The person who earns your trust is the person who does the work.</p>
+          </div>
+        </div>
+        <div data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" data-grid-3>
+          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;"><img src="assets/credentials/untapped.svg" alt="Untapped Ventures" style="height:28px;width:auto;" /><div style="font-size:12px;color:#94A3B8;margin-top:8px;">Growth Advisor</div></div>
+          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;"><img src="assets/credentials/techstars.svg" alt="Techstars" style="height:28px;width:auto;" /><div style="font-size:12px;color:#94A3B8;margin-top:8px;">Mentor</div></div>
+          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;"><img src="assets/credentials/usc.svg" alt="USC Marshall" style="height:28px;width:auto;" /><div style="font-size:12px;color:#94A3B8;margin-top:8px;">Guest Lecturer</div></div>
+          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;font-size:13px;font-weight:600;color:#0B1B38;">SmartGate VC<div style="font-size:12px;color:#94A3B8;margin-top:8px;font-weight:400;">Growth Advisor</div></div>
+          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;font-size:13px;font-weight:600;color:#0B1B38;">CBDfx<div style="font-size:12px;color:#94A3B8;margin-top:8px;font-weight:400;">Senior Growth Advisor · 6+ years</div></div>
+          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;font-size:13px;font-weight:600;color:#0B1B38;">[A] Growth Ventures<div style="font-size:12px;color:#94A3B8;margin-top:8px;font-weight:400;">Podcast Host</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section style="background:#ffffff;padding:130px 40px;">
+    <div style="max-width:1160px;margin:0 auto;">
+      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+        <span style="width:28px;height:3px;border-radius:2px;background:var(--accent);"></span>
+        <span style="font-size:13px;font-weight:600;letter-spacing:.14em;color:#0E9E80;text-transform:uppercase;">Values</span>
+      </div>
+      <h2 data-reveal data-reveal-delay="60" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 40px;font-weight:700;font-size:clamp(28px,3.5vw,40px);">What we believe, and how it shows up in the work</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" data-grid-3>
+        <div data-reveal data-reveal-delay="100" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#F5F7FA;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:#0B1B38;">Growth Mindset</strong><span style="font-size:15px;color:#5A6678;line-height:1.55;">Continuous improvement is how we stay ahead of market shifts.</span></div>
+        <div data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#F5F7FA;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:#0B1B38;">Innovation</strong><span style="font-size:15px;color:#5A6678;line-height:1.55;">We test boldly and measure rigorously.</span></div>
+        <div data-reveal data-reveal-delay="180" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#F5F7FA;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:#0B1B38;">Team</strong><span style="font-size:15px;color:#5A6678;line-height:1.55;">Senior people doing senior work — globally distributed, locally accountable.</span></div>
+        <div data-reveal data-reveal-delay="220" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#F5F7FA;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:#0B1B38;">Transparency</strong><span style="font-size:15px;color:#5A6678;line-height:1.55;">No hidden agendas. Findings belong to the client.</span></div>
+        <div data-reveal data-reveal-delay="260" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#0B1B38;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:var(--accent);">Diagnosis before prescription</strong><span style="font-size:15px;color:#AEB9CC;line-height:1.55;">We will never propose a solution before we have examined the problem. If we cannot find a problem worth solving, we will tell you.</span></div>
+        <div data-reveal data-reveal-delay="300" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#0B1B38;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:var(--accent);">Financial language, not marketing language</strong><span style="font-size:15px;color:#AEB9CC;line-height:1.55;">We report in CAC, LTV, payback period, and contribution margin because those are the metrics that drive decisions.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK RECORD -->
+  <section style="background:radial-gradient(120% 120% at 80% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);padding:110px 40px;color:#fff;">
+    <div style="max-width:1160px;margin:0 auto;">
+      <h2 data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 50px;font-weight:700;font-size:clamp(28px,3.5vw,40px);text-align:center;">Track record</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" data-grid-3>
+        <div data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;">$<span data-countup="300">0</span>M+</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">In client funding supported since 2020</div></div>
+        <div data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;">$<span data-countup="40">0</span>M+</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">In managed media spend optimized against CAC and LTV targets</div></div>
+        <div data-reveal data-reveal-delay="200" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;"><span data-countup="34">0</span>%</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">Average reduction in CAC within 90 days of diagnostic-led reallocation</div></div>
+        <div data-reveal data-reveal-delay="260" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;"><span data-countup="6">0</span>+</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">Years of senior-led engagements across SaaS, financial services, e-commerce, and PE-backed companies</div></div>
+        <div data-reveal data-reveal-delay="320" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;"><span data-countup="90">0</span> days</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">Average time from diagnostic findings to measurable growth impact</div></div>
+        <div data-reveal data-reveal-delay="380" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;">$<span data-countup="420">0</span>K</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">Annual value generated from a single $50K diagnostic engagement</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section style="background:#ffffff;padding:130px 40px;">
+    <div style="max-width:1160px;margin:0 auto;">
+      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+        <span style="width:28px;height:3px;border-radius:2px;background:var(--accent);"></span>
+        <span style="font-size:13px;font-weight:600;letter-spacing:.14em;color:#0E9E80;text-transform:uppercase;">Team</span>
+      </div>
+      <h2 data-reveal data-reveal-delay="60" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 16px;font-weight:700;font-size:clamp(28px,3.5vw,40px);">Senior people doing senior work</h2>
+      <p data-reveal data-reveal-delay="100" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 50px;font-size:18px;line-height:1.6;color:#5A6678;max-width:72ch;">Azarian Growth Agency is a team of approximately 25 specialists across three continents. Every client engagement is led by a senior strategist with direct experience in the client's growth stage and industry. We do not staff engagements with junior generalists who learn on your account.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;" data-team-grid>
+        <div data-reveal data-reveal-delay="120" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Hamlet Azarian</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Founder &amp; Principal Strategist</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">20+ years building growth engines across SaaS and financial services.</div></div>
+        <div data-reveal data-reveal-delay="160" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Head of Paid Media</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">12+ years managing $20M+ in annual paid spend against CAC targets.</div></div>
+        <div data-reveal data-reveal-delay="200" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Lead Growth Analyst</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">10+ years in attribution modeling and executive reporting.</div></div>
+        <div data-reveal data-reveal-delay="240" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Senior SEO Strategist</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">8+ years building organic pipelines for B2B and e-commerce brands.</div></div>
+        <div data-reveal data-reveal-delay="280" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Conversion Optimization Lead</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">9+ years running A/B programs tied to pipeline and revenue.</div></div>
+        <div data-reveal data-reveal-delay="320" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Lifecycle Marketing Lead</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">7+ years in CRM, email, and retention for high-LTV brands.</div></div>
+      </div>
+      <div data-reveal data-reveal-delay="360" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin-top:60px;padding-top:40px;border-top:1px solid #E3E8EF;">
+        <h3 style="margin:0 0 20px;font-size:22px;font-weight:700;">Open positions</h3>
+        <p style="margin:0;font-size:16px;color:#5A6678;">Azarian Growth Agency is an A-player partner, based in LA and Yerevan. We are growing — reach out via the form below if you want to join the team.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" style="background:radial-gradient(120% 130% at 50% 120%,#12315e 0%,#0B1B38 50%,#081226 100%);padding:140px 40px;color:#fff;">
+    <div style="max-width:720px;margin:0 auto;text-align:center;">
+      <h2 data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 16px;font-weight:800;font-size:clamp(28px,4vw,44px);">The next step is a conversation</h2>
+      <p data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 auto 40px;font-size:18px;line-height:1.6;color:#AEB9CC;max-width:62ch;">If you are a PE operating partner looking for a marketing partner who speaks the language of value creation, or a growth-stage company that needs marketing to start showing up on the P&amp;L, we should talk. The conversation is 30 minutes, there is no pitch, and you will leave with a clearer sense of whether we are the right fit.</p>
+      <form data-contact-form data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:left;display:flex;flex-direction:column;gap:16px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" data-grid-2>
+          <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">First Name *</span><input type="text" name="firstName" required style="height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:0 16px;" /></label>
+          <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">Last Name *</span><input type="text" name="lastName" required style="height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:0 16px;" /></label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">Email *</span><input type="email" name="email" required style="height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:0 16px;" /></label>
+        <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">Company Name *</span><input type="text" name="company" required style="height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:0 16px;" /></label>
+        <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">How can we help?</span><textarea name="message" rows="4" style="border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:14px 16px;resize:vertical;"></textarea></label>
+        <button type="submit" style="margin-top:8px;background:var(--accent);color:#0B1B38;font-weight:600;font-size:17px;padding:18px 36px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;">Start the Conversation</button>
+      </form>
+    </div>
+  </section>
+
+  <footer style="background:#081226;color:#AEB9CC;padding:60px 40px;">
+    <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <a href="Azarian Home.dc.html" style="display:flex;align-items:center;gap:11px;text-decoration:none;"><img src="assets/logo.svg" alt="" style="height:34px;" /><span style="color:#fff;font-weight:600;">Azarian Growth Agency</span></a>
+      <div style="font-size:14px;color:#5A6678;"><a href="Azarian Home.dc.html" style="color:var(--accent);text-decoration:none;">Home</a> · © 2026 Azarian Growth Agency</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  setRoot = (el) => { this.rootEl = el; };
+
+  componentDidMount() {
+    this.setupScrollFx();
+    this.setupContactForm();
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._fxRaf) cancelAnimationFrame(this._fxRaf);
+  }
+
+  setupScrollFx() {
+    if (!this.rootEl) return;
+    let reveals = Array.from(this.rootEl.querySelectorAll('[data-reveal]'));
+    let counts = Array.from(this.rootEl.querySelectorAll('[data-countup]'));
+    const tick = () => {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      reveals = reveals.filter((el) => {
+        if (el.getBoundingClientRect().top < vh * 0.9) {
+          const delay = parseInt(el.getAttribute('data-reveal-delay') || '0', 10);
+          el.animate([{ opacity: 0, translate: '0 28px' }, { opacity: 1, translate: '0 0' }], { duration: 720, delay, easing: 'cubic-bezier(.16,.84,.44,1)', fill: 'forwards' });
+          return false;
+        }
+        return true;
+      });
+      counts = counts.filter((el) => {
+        if (el.getBoundingClientRect().top < vh * 0.85) { this.animateCount(el); return false; }
+        return true;
+      });
+      if (reveals.length || counts.length) this._fxRaf = requestAnimationFrame(tick);
+    };
+    this._fxRaf = requestAnimationFrame(tick);
+  }
+
+  animateCount(el) {
+    const to = parseFloat(el.getAttribute('data-countup'));
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / 2000);
+      const ease = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(to * ease);
+      if (t < 1) requestAnimationFrame(step);
+      else el.textContent = to;
+    };
+    requestAnimationFrame(step);
+  }
+
+  setupContactForm() {
+    const form = this.rootEl && this.rootEl.querySelector('[data-contact-form]');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const prev = btn.textContent;
+      btn.textContent = 'Message sent — we\'ll be in touch';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = prev; btn.disabled = false; form.reset(); }, 4000);
+    });
+  }
+
+  renderVals() {
+    return { setRoot: this.setRoot };
+  }
+}
+</script>
+</body>
+</html>
