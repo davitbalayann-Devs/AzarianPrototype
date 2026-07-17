@@ -338,16 +338,20 @@
 
   // --- one-time global CSS ---------------------------------------------------
   function injectStyles() {
-    if (document.getElementById("agn-nav-css")) return;
     var css = [
     // Theme tokens — DARK is the default (over dark sections). The JS samples the
-    // background behind the bar and toggles .theme-light over light sections so
-    // everything in the bar stays readable. The dropdown box is opaque, so it is
-    // always readable regardless of theme.
+    // background behind the bar and toggles .theme-light over light sections.
+    // Dropdown is portaled to <body> with the same blur(22px) saturate(1.4) glass
+    // as the bar, plus a denser tint so menu text stays readable.
     ".agn-nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:120;",
       "--agn-txt:#C6D0E0;--agn-txt-strong:#fff;--agn-bar-bg:rgba(255,255,255,0.06);--agn-bar-border:rgba(255,255,255,0.12);",
       "--agn-icon-bg:rgba(255,255,255,0.06);--agn-icon-border:rgba(255,255,255,0.14);--agn-icon-fg:#E7ECF4;",
       "--agn-icon-hbg:rgba(255,255,255,0.12);--agn-icon-hborder:rgba(255,255,255,0.28);--agn-hl:rgba(255,255,255,0.10);--agn-logo-fg:#fff;",
+      "--agn-drop-bg:rgba(11,27,56,0.66);--agn-drop-border:rgba(255,255,255,0.14);",
+      "--agn-drop-shadow:0 34px 80px -26px rgba(3,10,26,.55),inset 0 1px 0 rgba(255,255,255,.16);",
+      "--agn-tile-bg:rgba(255,255,255,0.05);--agn-tile-border:rgba(255,255,255,0.10);--agn-tile-hover:rgba(255,255,255,0.22);",
+      "--agn-accent:#1BFED1;--agn-tile-active-bg:rgba(27,254,209,0.10);--agn-divider:rgba(255,255,255,0.12);",
+      "--agn-link-hover-bg:rgba(255,255,255,0.08);--agn-ico:#9FB0C8;",
       "width:min(1296px,calc(100% - 36px));height:72px;box-sizing:border-box;display:flex;align-items:center;gap:14px;",
       "padding:0 14px 0 24px;border-radius:100px;border:1px solid var(--agn-bar-border);",
       "background:var(--agn-bar-bg);",
@@ -358,6 +362,11 @@
     ".agn-nav.theme-light{--agn-txt:#39465A;--agn-txt-strong:#0B1B38;--agn-bar-bg:rgba(255,255,255,0.66);--agn-bar-border:rgba(11,27,56,0.10);",
       "--agn-icon-bg:rgba(11,27,56,0.05);--agn-icon-border:rgba(11,27,56,0.12);--agn-icon-fg:#0B1B38;",
       "--agn-icon-hbg:rgba(11,27,56,0.10);--agn-icon-hborder:rgba(11,27,56,0.24);--agn-hl:rgba(11,27,56,0.06);--agn-logo-fg:#0B1B38;",
+      "--agn-drop-bg:rgba(255,255,255,0.78);--agn-drop-border:rgba(11,27,56,0.12);",
+      "--agn-drop-shadow:0 28px 64px -22px rgba(20,40,80,.22),inset 0 1px 0 rgba(255,255,255,.7);",
+      "--agn-tile-bg:rgba(11,27,56,0.04);--agn-tile-border:rgba(11,27,56,0.10);--agn-tile-hover:rgba(11,27,56,0.20);",
+      "--agn-accent:#11d5ae;--agn-tile-active-bg:rgba(17,213,174,0.14);--agn-divider:rgba(11,27,56,0.10);",
+      "--agn-link-hover-bg:rgba(11,27,56,0.06);--agn-ico:#5A6B80;",
       "box-shadow:0 16px 44px -18px rgba(20,40,80,.30),inset 0 1px 0 rgba(255,255,255,.55);}",
     ".agn-logo{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0;transition:opacity .3s ease;}",
     ".agn-logo img{height:34px;width:auto;display:block;}",
@@ -381,95 +390,139 @@
     ".agn-trigger.is-open .agn-caret{transform:rotate(180deg);}",
     ".agn-cta{display:inline-flex;align-items:center;height:46px;background:var(--accent,#1BFED1);color:#0B1B38;",
       "font-weight:600;font-size:15px;padding:0 24px;border-radius:100px;text-decoration:none;white-space:nowrap;flex-shrink:0;",
-      "transition:transform .3s cubic-bezier(.16,.84,.44,1),box-shadow .3s;box-shadow:0 8px 24px -8px rgba(31,201,160,.55);}",
+      "transition:transform .3s cubic-bezier(.16,.84,.44,1),box-shadow .3s,opacity .35s ease;box-shadow:0 8px 24px -8px rgba(31,201,160,.55);}",
     ".agn-cta:hover{box-shadow:0 14px 34px -8px rgba(31,201,160,.8);}",
-    // viewport
-    ".agn-mega{position:absolute;top:100%;left:0;right:0;padding-top:14px;z-index:110;pointer-events:none;}",
+    /* Search mode — explode chrome only (not the mega panel). */
+    ".agn-nav > .agn-logo,.agn-nav > .agn-center,.agn-nav > [data-nav-search],.agn-nav > .agn-cta,.agn-nav > .agn-burger{",
+      "transform-origin:50% 50%;",
+      "transition:opacity .28s cubic-bezier(.15,.85,.25,1),transform .32s cubic-bezier(.12,.9,.2,1.05),filter .28s ease;}",
+    ".agn-nav.is-searching > .agn-logo,.agn-nav.is-searching > .agn-center,.agn-nav.is-searching > [data-nav-search],",
+    ".agn-nav.is-searching > .agn-cta,.agn-nav.is-searching > .agn-burger{opacity:0;pointer-events:none;filter:blur(3px);}",
+    ".agn-nav.is-searching > .agn-logo{transform:scale(1.55) translateX(-18%);}",
+    ".agn-nav.is-searching > .agn-center{transform:scale(1.85);}",
+    ".agn-nav.is-searching > [data-nav-search]{transform:scale(2.1);}",
+    ".agn-nav.is-searching > .agn-cta{transform:scale(1.65) translateX(22%);}",
+    ".agn-nav.is-searching > .agn-burger{transform:scale(1.9) translateX(30%);}",
+    // Mega is portaled to <body> (fixed) so backdrop-filter works — it cannot live
+    // under .agn-nav's transform:translateX(-50%). Same blur/saturate as the bar.
+    ".agn-mega{position:fixed;left:0;top:0;width:0;z-index:119;pointer-events:none;box-sizing:border-box;padding-top:14px;",
+      "font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;",
+      "--agn-txt:#C6D0E0;--agn-txt-strong:#fff;--agn-drop-bg:rgba(11,27,56,0.66);--agn-drop-border:rgba(255,255,255,0.14);",
+      "--agn-drop-shadow:0 34px 80px -26px rgba(3,10,26,.55),inset 0 1px 0 rgba(255,255,255,.16);",
+      "--agn-tile-bg:rgba(255,255,255,0.05);--agn-tile-border:rgba(255,255,255,0.10);--agn-tile-hover:rgba(255,255,255,0.22);",
+      "--agn-accent:#1BFED1;--agn-tile-active-bg:rgba(27,254,209,0.10);--agn-divider:rgba(255,255,255,0.12);",
+      "--agn-link-hover-bg:rgba(255,255,255,0.08);--agn-ico:#9FB0C8;}",
+    ".agn-mega.theme-light{--agn-txt:#39465A;--agn-txt-strong:#0B1B38;--agn-drop-bg:rgba(255,255,255,0.78);--agn-drop-border:rgba(11,27,56,0.12);",
+      "--agn-drop-shadow:0 28px 64px -22px rgba(20,40,80,.22),inset 0 1px 0 rgba(255,255,255,.7);",
+      "--agn-tile-bg:rgba(11,27,56,0.04);--agn-tile-border:rgba(11,27,56,0.10);--agn-tile-hover:rgba(11,27,56,0.20);",
+      "--agn-accent:#11d5ae;--agn-tile-active-bg:rgba(17,213,174,0.14);--agn-divider:rgba(11,27,56,0.10);",
+      "--agn-link-hover-bg:rgba(11,27,56,0.06);--agn-ico:#5A6B80;}",
     ".agn-mega.is-open{pointer-events:auto;}",
-    ".agn-mega-pos{position:absolute;top:14px;left:0;right:0;transition:left .38s cubic-bezier(.22,1,.36,1),right .38s cubic-bezier(.22,1,.36,1);}",
-    ".agn-box{position:relative;overflow:hidden;border-radius:24px;border:1px solid rgba(255,255,255,0.10);",
-      "background:rgb(11, 27, 56);",
-      "backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);",
-      "box-shadow:0 34px 80px -26px rgba(3,10,26,.9),inset 0 1px 0 rgba(255,255,255,.08);",
-      "opacity:0;transform:scale(.97);transform-origin:top center;",
-      "transition:width .42s cubic-bezier(.22,1,.36,1),height .42s cubic-bezier(.22,1,.36,1),",
-      "opacity .28s ease,transform .32s cubic-bezier(.22,1,.36,1);width:0;height:0;}",
-    ".agn-mega.is-open .agn-box{opacity:1;transform:scale(1);}",
-    ".agn-panel{position:absolute;top:0;left:0;right:0;box-sizing:border-box;width:100%;",
+    ".agn-mega-pos{position:relative;width:100%;}",
+    ".agn-box{position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--agn-drop-border);",
+      "background:var(--agn-drop-bg);",
+      "backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);",
+      "box-shadow:var(--agn-drop-shadow);",
+      "color:var(--agn-txt);",
+      "visibility:hidden;pointer-events:none;",
+      "transform:scale(0.86) translateY(-8px);transform-origin:top center;",
+      "width:0;height:0;box-sizing:border-box;",
+      "transition:transform .34s cubic-bezier(.22,1,.36,1),visibility .28s ease,",
+      "height .36s cubic-bezier(.22,1,.36,1),background .4s ease,border-color .4s ease,box-shadow .4s ease;}",
+    ".agn-mega.is-open .agn-box{visibility:visible;pointer-events:auto;transform:scale(1) translateY(0);}",
+    ".agn-panel{position:absolute;top:0;left:0;width:100%;box-sizing:border-box;",
       "display:flex;flex-direction:column;padding:24px;opacity:0;pointer-events:none;",
-      "transition:opacity .3s ease,transform .34s cubic-bezier(.22,1,.36,1);}",
+      "transition:opacity .28s ease,transform .32s cubic-bezier(.22,1,.36,1);}",
     ".agn-panel.is-active{opacity:1;pointer-events:auto;}",
     // level 1 — tiles
     ".agn-tiles{display:flex;flex-wrap:nowrap;gap:12px;width:100%;}",
     ".agn-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;flex:1 1 0;",
       "min-width:160px;min-height:fit-content;padding:12px 14px;box-sizing:border-box;border-radius:16px;overflow:hidden;",
-      "border:1.5px solid rgba(255, 255, 255, 0.06);background:rgba(255,255,255,0.03);color:#C6D0E0;",
-      "font-family:inherit;font-size:14px;font-weight:500;text-align:center;text-decoration:none;cursor:pointer;",
+      "border:1.5px solid var(--agn-tile-border);background:var(--agn-tile-bg);color:var(--agn-txt);",
+      "font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;font-weight:500;line-height:1;letter-spacing:0;",
+      "text-align:center;text-decoration:none;cursor:pointer;",
       "transition:border-color .2s ease,background .2s ease,color .2s ease;}",
-    ".agn-tile .agn-ico{width:30px;height:30px;color:#9FB0C8;transition:color .2s ease;}",
-    ".agn-tile:hover{border-color:rgba(255,255,255,0.22);color:#fff;}",
-    ".agn-tile.is-active{border-color:var(--accent,#1BFED1);background:rgba(27,254,209,0.07);color:var(--accent,#1BFED1);}",
-    ".agn-tile.is-active .agn-ico{color:var(--accent,#1BFED1);}",
-    ".agn-tlabel{line-height:1.2;word-break:break-word;overflow-wrap:break-word;max-width:100%;text-align:center;}",
+    ".agn-tile .agn-ico{width:30px;height:30px;color:var(--agn-ico);transition:color .2s ease;}",
+    ".agn-tile:hover{border-color:var(--agn-tile-hover);color:var(--agn-txt-strong);}",
+    ".agn-tile:hover .agn-ico{color:var(--agn-txt-strong);}",
+    ".agn-tile.is-active{border-color:var(--agn-accent,#1BFED1);background:var(--agn-tile-active-bg);color:var(--agn-accent,#1BFED1);}",
+    ".agn-tile.is-active .agn-ico{color:var(--agn-accent,#1BFED1);}",
+    ".agn-tlabel{line-height:1.2;word-break:break-word;overflow-wrap:break-word;max-width:100%;text-align:center;",
+      "font-family:inherit;font-size:14px;font-weight:500;}",
     // sub area (levels 2 + 3)
     ".agn-sub{display:flex;flex-direction:column;}",
-    ".agn-sub:not(:empty){margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.10);}",
+    ".agn-sub:not(:empty){margin-top:16px;padding-top:16px;border-top:1px solid var(--agn-divider);}",
     // reveal animation (auto-plays on insertion — no JS/rAF needed, always ends visible)
     "@keyframes agnReveal{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}",
-    // level 2 — tabs
+    // level 2 — tabs · Figma Poppins/14/Medium
     ".agn-tabs{display:flex;flex-wrap:wrap;gap:6px 24px;animation:agnReveal .28s cubic-bezier(.22,1,.36,1) both;}",
     ".agn-tab{display:inline-flex;align-items:center;gap:5px;padding:2px 0;border:0;background:transparent;",
-      "color:#C6D0E0;font-family:inherit;font-size:14px;font-weight:500;white-space:nowrap;cursor:pointer;",
-      "text-decoration:none;opacity:.5;transition:opacity .2s ease,color .2s ease;}",
-    ".agn-tab:hover{opacity:1;color:#fff;}",
-    ".agn-tab.is-active{opacity:1;color:var(--accent,#1BFED1);}",
+      "color:var(--agn-txt);font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;",
+      "font-size:14px;font-weight:500;line-height:1;letter-spacing:0;white-space:nowrap;cursor:pointer;",
+      "text-decoration:none;opacity:.55;transition:opacity .2s ease,color .2s ease;}",
+    ".agn-tab:hover{opacity:1;color:var(--agn-txt-strong);}",
+    ".agn-tab.is-active{opacity:1;color:var(--agn-accent,#1BFED1);}",
     ".agn-tcaret{display:inline-flex;transition:transform .25s cubic-bezier(.22,1,.36,1);}",
     ".agn-tab.is-active .agn-tcaret{transform:rotate(180deg);}",
-    // level 3 — links in sections of max 5
+    // level 3 — links · Figma Poppins/14/Medium
     ".agn-linkwrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 16px;margin-top:16px;width:100%;animation:agnReveal .28s cubic-bezier(.22,1,.36,1) both;}",
     ".agn-linkwrap:empty{margin-top:0;}",
-    ".agn-link3{padding:8px 12px;color:#C6D0E0;font-family:inherit;font-size:14px;font-weight:500;",
-      "line-height:1.3;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:8px;text-align:left;transition:color .18s ease,background .18s ease;}",
-    ".agn-link3:hover{color:#fff;background:rgba(255,255,255,0.05);}",
-    // search
+    ".agn-link3{padding:8px 12px;color:var(--agn-txt);",
+      "font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;",
+      "font-size:14px;font-weight:500;line-height:1.3;letter-spacing:0;",
+      "text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:8px;text-align:left;transition:color .18s ease,background .18s ease;}",
+    ".agn-link3:hover{color:var(--agn-txt-strong);background:var(--agn-link-hover-bg);}",
+    // search — colors follow .theme-dark / .theme-light tokens from the bar
     ".agn-search{position:absolute;left:20px;right:14px;top:0;bottom:0;display:flex;align-items:center;gap:12px;",
-      "opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:5;}",
-    ".agn-search.is-open{opacity:1;pointer-events:auto;}",
-    ".agn-search input{flex:1;min-width:0;height:44px;border:0;outline:0;background:transparent;color:#fff;",
-      "font-family:inherit;font-size:17px;font-weight:500;}",
-    ".agn-search input::placeholder{color:rgba(231,236,244,.55);}",
+      "opacity:0;pointer-events:none;transform:scale(.88);transform-origin:50% 50%;",
+      "transition:opacity .32s ease .1s,transform .38s cubic-bezier(.16,.84,.44,1) .1s;z-index:5;}",
+    ".agn-search.is-open{opacity:1;pointer-events:auto;transform:scale(1);}",
+    ".agn-nav:not(.is-searching) .agn-search{transition-delay:0s;}",
+    ".agn-search input{flex:1;min-width:0;height:44px;border:0;outline:0;background:transparent;color:var(--agn-txt-strong);",
+      "font-family:inherit;font-size:17px;font-weight:500;caret-color:var(--agn-accent,#1BFED1);}",
+    ".agn-search input::placeholder{color:var(--agn-txt);opacity:.72;}",
     // mobile
     ".agn-burger{display:none;}",
-    ".agn-drawer{display:none;}",
+    ".agn-drawer{display:none;",
+      "font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;",
+      "--agn-txt:#C6D0E0;--agn-txt-strong:#fff;--agn-drop-bg:rgba(11,27,56,0.66);--agn-drop-border:rgba(255,255,255,0.14);",
+      "--agn-drop-shadow:0 34px 80px -26px rgba(3,10,26,.55),inset 0 1px 0 rgba(255,255,255,.16);",
+      "--agn-divider:rgba(255,255,255,0.12);--agn-ico:#9FB0C8;}",
+    ".agn-drawer.theme-light{--agn-txt:#39465A;--agn-txt-strong:#0B1B38;--agn-drop-bg:rgba(255,255,255,0.78);--agn-drop-border:rgba(11,27,56,0.12);",
+      "--agn-drop-shadow:0 28px 64px -22px rgba(20,40,80,.22),inset 0 1px 0 rgba(255,255,255,.7);",
+      "--agn-divider:rgba(11,27,56,0.10);--agn-ico:#5A6B80;}",
     "@media(max-width:960px){",
       ".agn-center{display:none !important;}",
       ".agn-burger{display:inline-flex;}",
       ".agn-drawer{display:block;position:fixed;top:100px;left:50%;transform:translateX(-50%);z-index:115;",
         "width:min(1296px,calc(100% - 36px));max-height:calc(100vh - 120px);overflow-y:auto;box-sizing:border-box;",
-        "border-radius:24px;border:1px solid rgba(255,255,255,0.12);background:rgba(9,20,42,0.96);",
-        "-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);padding:12px;",
-        "box-shadow:0 30px 70px -24px rgba(3,10,26,.85);",
-        "opacity:0;pointer-events:none;translate:0 -10px;transition:opacity .3s ease,translate .3s ease;}",
+        "border-radius:24px;border:1px solid var(--agn-drop-border);background:var(--agn-drop-bg);color:var(--agn-txt);",
+        "-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);padding:12px;",
+        "box-shadow:var(--agn-drop-shadow);",
+        "opacity:0;pointer-events:none;translate:0 -10px;transition:opacity .3s ease,translate .3s ease,background .4s ease,border-color .4s ease;}",
       ".agn-drawer.is-open{opacity:1;pointer-events:auto;translate:0 0;}",
-      ".agn-macc{border-bottom:1px solid rgba(255,255,255,.06);}",
+      ".agn-macc{border-bottom:1px solid var(--agn-divider);}",
       ".agn-macc:last-child{border-bottom:0;}",
       ".agn-msum{display:flex;align-items:center;gap:10px;width:100%;padding:14px 12px;",
-        "border:0;background:transparent;color:#fff;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;}",
-      ".agn-msum .agn-ico{width:20px;height:20px;color:#9FB0C8;flex-shrink:0;}",
+        "border:0;background:transparent;color:var(--agn-txt-strong);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;}",
+      ".agn-msum .agn-ico{width:20px;height:20px;color:var(--agn-ico);flex-shrink:0;}",
       ".agn-msum .agn-caret{margin-left:auto;transition:transform .3s ease;}",
       ".agn-macc.is-open>.agn-msum .agn-caret{transform:rotate(180deg);}",
-      ".agn-mbody{display:none;padding:0 0 8px 12px;margin-left:6px;border-left:1px solid rgba(255,255,255,.08);}",
+      ".agn-mbody{display:none;padding:0 0 8px 12px;margin-left:6px;border-left:1px solid var(--agn-divider);}",
       ".agn-macc.is-open>.agn-mbody{display:block;}",
-      ".agn-mleaf{display:block;padding:10px 12px;color:#AEB9CC;text-decoration:none;font-size:14px;font-weight:500;}",
-      ".agn-mleaf:hover{color:#fff;}",
-      ".agn-msum.lvl2{font-size:14px;font-weight:500;color:#C6D0E0;padding:11px 12px;}",
+      ".agn-mleaf{display:block;padding:10px 12px;color:var(--agn-txt);text-decoration:none;font-size:14px;font-weight:500;}",
+      ".agn-mleaf:hover{color:var(--agn-txt-strong);}",
+      ".agn-msum.lvl2{font-size:14px;font-weight:500;color:var(--agn-txt);padding:11px 12px;}",
     "}",
     "@media(max-width:560px){ .agn-cta{display:none;} }"
     ].join("");
-    var s = document.createElement("style");
-    s.id = "agn-nav-css";
+    var s = document.getElementById("agn-nav-css");
+    if (!s) {
+      s = document.createElement("style");
+      s.id = "agn-nav-css";
+      document.head.appendChild(s);
+    }
     s.textContent = css;
-    document.head.appendChild(s);
   }
 
   // --- mount one nav bar into an empty <nav data-agn-nav> shell ---------------
@@ -482,9 +535,10 @@
       drawer: null, closeSearch: null, closeTimer: null,
       curPanel: null, tabEls: [], tabNodes: [], linkwrap: null };
 
-    // logo
+    // logo → Hero (smooth scroll on Home; otherwise navigate to Home#top)
     var logo = el("a", "agn-logo");
     logo.href = HOME + "#top";
+    logo.setAttribute("aria-label", "Azarian Growth Agency — Home");
     // Inlined logo so the white "A" mark can recolor per theme (.agn-logo-fg).
     logo.innerHTML = '<svg viewBox="0 0 64 64" fill="none" role="img" aria-label="Azarian Growth Agency" xmlns="http://www.w3.org/2000/svg">' +
       '<path fill-rule="evenodd" clip-rule="evenodd" d="M33.0761 41.5463C32.3459 41.478 31.5915 41.478 30.8608 41.5463V60.0229H33.0761V41.5463Z" fill="#2997FF"></path>' +
@@ -495,14 +549,16 @@
       '<path d="M63.6003 50.9097H56.3046V49.4332H61.9167V4.73042H56.3046V3.25391H63.6003V50.9097Z" fill="#1BFED1"></path>' +
       '<path d="M7.70703 49.4336H2.04395V4.73047H7.70703V3.25391H0.360352V50.9102H7.70703V49.4336ZM63.6006 3.25391H56.3047V4.73047H61.917V49.4336H56.3047V50.9102H63.6006V3.25391ZM7.96094 4.98438H2.29785V49.1787H7.96094V51.1641H0.106445V3H7.96094V4.98438ZM63.8545 51.1641H56.0508V49.1787H61.6621V4.98438H56.0508V3H63.8545V51.1641Z" fill="#1BFED1"></path>' +
       '</svg>';
+    logo.addEventListener("click", function (e) {
+      var hero = document.getElementById("top") || document.querySelector("[data-hero-pin], [data-hero-scroll]");
+      if (!hero) return; // other pages → follow href to Home#top
+      e.preventDefault();
+      if (state.closeSearch) state.closeSearch();
+      closeNow();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      try { history.replaceState(null, "", "#top"); } catch (err) {}
+    });
     nav.appendChild(logo);
-
-    // search button
-    var searchBtn = el("button", "agn-icon");
-    searchBtn.type = "button";
-    searchBtn.setAttribute("aria-label", "Search");
-    searchBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>';
-    nav.appendChild(searchBtn);
 
     // center trigger row + drop-down viewport
     var center = el("div", "agn-center");
@@ -512,6 +568,7 @@
     state.hl = hl;
 
     var mega = el("div", "agn-mega");
+    mega.setAttribute("data-agn-mega", "");
     var megaPos = el("div", "agn-mega-pos");
     var box = el("div", "agn-box");
     megaPos.appendChild(box);
@@ -520,16 +577,43 @@
 
     // --- controller functions ---
     var boxGlass = null;
+    // Mega lives on <body> as position:fixed so backdrop-filter can blur the page
+    // (broken under .agn-nav's transform). Keep it aligned to the bar.
+    function positionMega() {
+      var r = nav.getBoundingClientRect();
+      mega.style.left = r.left + "px";
+      mega.style.width = r.width + "px";
+      mega.style.top = r.bottom + "px";
+    }
+
+    // Origin at the hovered trigger so the panel grows out from the cursor.
+    function originFromTrigger(trigger) {
+      positionMega();
+      var navR = nav.getBoundingClientRect();
+      var w = navR.width || nav.offsetWidth;
+      if (!trigger || !w) return "50% 0%";
+      var tr = trigger.getBoundingClientRect();
+      var x = tr.left + tr.width / 2 - navR.left;
+      x = Math.max(28, Math.min(w - 28, x));
+      return x.toFixed(1) + "px 0px";
+    }
+
+    // Measure panel at the FINAL width. Measuring while width is 0 stacks the
+    // grid into a tall column and locks a huge empty height (the old bug).
     function layout() {
       var i = state.active;
       var panel = state.panels[i];
       if (!panel) return;
-      var h = panel.offsetHeight;
-      if (h === 0) { requestAnimationFrame(function () { if (state.active === i) layout(); }); return; }
-      var navW = nav.offsetWidth;
-      box.style.width = navW + "px";
+      positionMega();
+      var w = nav.offsetWidth;
+      box.style.width = w + "px";
+      void panel.offsetWidth;
+      var h = Math.ceil(panel.scrollHeight || panel.offsetHeight);
+      if (h < 8) {
+        requestAnimationFrame(function () { if (state.active === i) layout(); });
+        return;
+      }
       box.style.height = h + "px";
-      megaPos.style.left = "0px";
       if (boxGlass) setTimeout(function () { boxGlass.updateSize(); }, 60);
     }
 
@@ -600,7 +684,9 @@
       cancelClose();
       if (state.active === i) return;
       var prev = state.active;
-      var dir = prev === -1 ? 0 : (i > prev ? 1 : -1);
+      var wasClosed = prev === -1;
+      var dir = wasClosed ? 0 : (i > prev ? 1 : -1);
+      var trigger = state.triggers[i];
       state.active = i;
       state.curPanel = state.panels[i];
       state.triggers.forEach(function (t, k) {
@@ -625,21 +711,41 @@
           p.classList.remove("is-active");
         }
       });
+
+      box.style.transformOrigin = originFromTrigger(trigger);
       mega.classList.add("is-open");
-      setTile(0);                                          // preselect first tile (Figma default)
-      layout();
-      // Update liquid glass displacement map after transition completes
+
+      if (wasClosed) {
+        // Size first (no width animation), then scale up from the trigger.
+        box.style.transition = "none";
+        box.style.transform = "scale(0.86) translateY(-8px)";
+        setTile(0);
+        layout();
+        void box.offsetWidth;
+        box.style.transition = "";
+        box.style.transform = "scale(1) translateY(0)";
+      } else {
+        setTile(0);
+        layout();
+      }
       setTimeout(function () { if (boxGlass) boxGlass.updateSize(); }, 450);
     }
 
     function close() {
       cancelClose();
       if (state.active === -1) return;
+      var trigger = state.triggers[state.active];
+      if (trigger) box.style.transformOrigin = originFromTrigger(trigger);
       state.active = -1; state.curPanel = null;
       state.triggers.forEach(function (t) { if (t.classList) t.classList.remove("is-open"); if (t.setAttribute) t.setAttribute("aria-expanded", "false"); });
       mega.classList.remove("is-open");
-      box.style.width = "0px";
-      box.style.height = "0px";
+      box.style.transform = "scale(0.86) translateY(-8px)";
+      // Collapse size after the scale-out so the next open measures cleanly.
+      setTimeout(function () {
+        if (state.active !== -1) return;
+        box.style.width = "0px";
+        box.style.height = "0px";
+      }, 320);
       hl.style.opacity = "0";
     }
     function closeNow() { close(); }
@@ -704,10 +810,23 @@
       }
     });
     nav.appendChild(center);
-    nav.appendChild(mega);
+    // Portal mega to body so glass blur works (not under nav transform).
+    var staleMega = document.querySelector("[data-agn-mega]");
+    if (staleMega && staleMega !== mega) staleMega.parentNode.removeChild(staleMega);
+    document.body.appendChild(mega);
+    mega.classList.add("theme-dark");
+    positionMega();
 
     state.triggers.forEach(function (t) { t.addEventListener("pointerenter", function () { moveHl(t); }); });
     center.addEventListener("pointerleave", function () { hl.style.opacity = "0"; });
+
+    // Search button sits to the LEFT of the CTA (right side of the bar).
+    var searchBtn = el("button", "agn-icon");
+    searchBtn.type = "button";
+    searchBtn.setAttribute("aria-label", "Search");
+    searchBtn.setAttribute("data-nav-search", "");
+    searchBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>';
+    nav.appendChild(searchBtn);
 
     // CTA
     var cta = el("a", "agn-cta");
@@ -723,25 +842,31 @@
     burger.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg>';
     nav.appendChild(burger);
 
-    // search overlay
+    // search overlay (inherits dark/light theme tokens from .agn-nav)
     var search = el("div", "agn-search");
     search.innerHTML =
-      '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent,#1BFED1)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>' +
-      '<input type="text" placeholder="Search Azarian Growth Agency…" />' +
+      '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--agn-accent,var(--accent,#1BFED1))" stroke-width="2" stroke-linecap="round" style="flex-shrink:0" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>' +
+      '<input type="search" placeholder="Search Azarian Growth Agency…" autocomplete="off" enterkeyhint="search" />' +
       '<button type="button" class="agn-icon" data-search-close aria-label="Close search" style="width:38px;height:38px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg></button>';
     nav.appendChild(search);
 
-    // wire search
+    // wire search — CSS class drives the cross-fade; theme stays on the bar
     (function () {
       var input = search.querySelector("input");
       var closeX = search.querySelector("[data-search-close]");
-      var hide = [].slice.call(nav.children).filter(function (c) { return c !== search; });
       var isOpen = false;
       var set = function (v) {
-        if (v === isOpen) return; isOpen = v;
-        hide.forEach(function (e) { e.style.opacity = v ? "0" : ""; e.style.pointerEvents = v ? "none" : ""; });
+        if (v === isOpen) return;
+        isOpen = v;
+        nav.classList.toggle("is-searching", v);
         search.classList.toggle("is-open", v);
-        if (v) { close(); setTimeout(function () { try { input.focus(); } catch (e) {} }, 120); } else { input.blur(); }
+        if (v) {
+          close();
+          if (state.drawer) state.drawer.classList.remove("is-open");
+          setTimeout(function () { try { input.focus(); } catch (err) {} }, 180);
+        } else {
+          input.blur();
+        }
       };
       searchBtn.addEventListener("click", function (e) { e.stopPropagation(); set(!isOpen); });
       closeX.addEventListener("click", function (e) { e.stopPropagation(); set(false); });
@@ -788,9 +913,9 @@
     });
     drawer.querySelectorAll("a[href]").forEach(function (a) { a.addEventListener("click", function () { drawer.classList.remove("is-open"); }); });
 
-    // Adapt the bar to whatever section is behind it: sample the background
-    // luminance under the bar and switch to the light or dark theme so the bar
-    // contents are always readable. (The dropdown box is opaque, always readable.)
+    // Adapt the bar (and glass dropdown) to whatever section is behind it: sample
+    // the background luminance under the bar and switch light/dark theme tokens
+    // so bar + menu text stay readable over any page section.
     function colorLum(c) {
       if (!c) return null;
       var m = c.match(/[\d.]+/g);
@@ -834,24 +959,37 @@
       var light = avg > 0.55;
       nav.classList.toggle("theme-light", light);
       nav.classList.toggle("theme-dark", !light);
+      mega.classList.toggle("theme-light", light);
+      mega.classList.toggle("theme-dark", !light);
+      if (state.drawer) {
+        state.drawer.classList.toggle("theme-light", light);
+        state.drawer.classList.toggle("theme-dark", !light);
+      }
     }
     function applyScroll() {                        // rAF-throttled; keeps the name the listeners use
       if (_themeRaf) return;
-      _themeRaf = requestAnimationFrame(function () { _themeRaf = null; detectTheme(); });
+      _themeRaf = requestAnimationFrame(function () {
+        _themeRaf = null;
+        detectTheme();
+        if (state.active !== -1) positionMega();
+      });
     }
     nav.classList.add("theme-dark");               // definite default (dark bg / light bar)
+    mega.classList.add("theme-dark");
+    if (state.drawer) state.drawer.classList.add("theme-dark");
     detectTheme();
     // re-check after layout / fonts / async content settle
     setTimeout(detectTheme, 120);
     setTimeout(detectTheme, 500);
     setTimeout(detectTheme, 1200);
 
-    // close 350ms after the pointer leaves the nav (incl. the open panel);
-    // re-entering cancels it.
+    // close 350ms after the pointer leaves the nav OR the portaled mega panel
     nav.addEventListener("pointerenter", cancelClose);
     nav.addEventListener("pointerleave", scheduleClose);
+    mega.addEventListener("pointerenter", cancelClose);
+    mega.addEventListener("pointerleave", scheduleClose);
 
-    // Apply Liquid Glass effect to the nav bar
+    // Liquid Glass on the bar. Mega uses the same CSS blur tokens (portaled to body).
     liquidGlass(nav, {
       displacementScale: 50,
       blurAmount: 0.90,
@@ -861,17 +999,9 @@
       cornerRadius: 100
     });
 
-    // Apply Liquid Glass effect to the dropdown box
-    boxGlass = liquidGlass(box, {
-      displacementScale: 100,
-      blurAmount: 0.90,
-      saturation: 140,
-      aberrationIntensity: 2,
-      elasticity: 0,
-      cornerRadius: 22
-    });
+    boxGlass = null;
 
-    nav._agn = { navEl: nav, open: open, close: close, closeNow: closeNow, layout: layout, applyScroll: applyScroll,
+    nav._agn = { navEl: nav, mega: mega, open: open, close: close, closeNow: closeNow, layout: layout, applyScroll: applyScroll,
       cancelClose: cancelClose, closeSearch: function () { if (state.closeSearch) state.closeSearch(); },
       drawer: drawer, active: function () { return state.active; } };
     return nav._agn;
@@ -893,9 +1023,12 @@
   window.addEventListener("scroll", function () { var c = currentCtrl(); if (c) c.applyScroll(); }, { passive: true });
   document.addEventListener("pointerdown", function (e) {
     var c = currentCtrl(); if (!c) return;
-    if (!c.navEl.contains(e.target)) {
+    var inNav = c.navEl.contains(e.target);
+    var inMega = c.mega && c.mega.contains(e.target);
+    var inDrawer = c.drawer && c.drawer.contains(e.target);
+    if (!inNav && !inMega) {
       c.closeNow(); c.closeSearch();
-      if (c.drawer && !c.drawer.contains(e.target)) c.drawer.classList.remove("is-open");
+      if (c.drawer && !inDrawer) c.drawer.classList.remove("is-open");
     }
   });
   document.addEventListener("keydown", function (e) {
