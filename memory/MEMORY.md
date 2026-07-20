@@ -1,0 +1,3 @@
+- [Azarian site architecture](azarian-site-architecture.md) — dc-runtime `.dc.html` components; reuse via `<dc-import name="X"/>`; never edit support.js
+- [Nav component](nav-component.md) — shared nav.js (vertical cascade drop-down); edit the NAV tree to change links everywhere
+- [GrowthOS SEO tutorial](gos-seo-tutorial.md) — hover the SEO node in #os to play the animated tutorial screen (BlurText + CountUp)
