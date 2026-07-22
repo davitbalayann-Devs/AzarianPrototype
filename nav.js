@@ -572,13 +572,18 @@
       '<path d="M7.70703 49.4336H2.04395V4.73047H7.70703V3.25391H0.360352V50.9102H7.70703V49.4336ZM63.6006 3.25391H56.3047V4.73047H61.917V49.4336H56.3047V50.9102H63.6006V3.25391ZM7.96094 4.98438H2.29785V49.1787H7.96094V51.1641H0.106445V3H7.96094V4.98438ZM63.8545 51.1641H56.0508V49.1787H61.6621V4.98438H56.0508V3H63.8545V51.1641Z" fill="#1BFED1"></path>' +
       '</svg>';
     logo.addEventListener("click", function (e) {
-      var hero = document.getElementById("top") || document.querySelector("[data-hero-pin], [data-hero-scroll]");
-      if (!hero) return; // other pages → follow href to Home#top
       e.preventDefault();
       if (state.closeSearch) state.closeSearch();
       closeNow();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      try { history.replaceState(null, "", "#top"); } catch (err) {}
+      // Always go to Home — never stay on About/other pages just because they also have #top.
+      var page = (location.pathname || "").split("/").pop() || "";
+      var onHome = !page || page === HOME || page === "index.html";
+      if (onHome) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        try { history.replaceState(null, "", "#top"); } catch (err) {}
+      } else {
+        location.href = HOME + "#top";
+      }
     });
     nav.appendChild(logo);
 

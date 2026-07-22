@@ -1,0 +1,10 @@
+---
+name: page-transition
+description: Shared full-screen page-transition wipe (React Bits Staggered Menu style)
+metadata:
+  type: project
+---
+
+`page-transition.js` (repo root, loaded non-deferred right after `support.js` in the `<head>` of every `.dc.html`) is a shared, dependency-free full-screen page-transition overlay inspired by React Bits' **Staggered Menu** open/close animation (the layered staggered panels), repurposed as a page-flip wipe.
+
+Flow: a capture-phase `click` listener on `document` intercepts internal `a[href]` navigations (skips external links, `#`/mailto/tel, modified clicks, and same-pathname/hash links; `stopImmediatePropagation` so it beats the nav logo's own handler). On click it plays **cover** — 3 panels of COLOURED FROSTED GLASS (translucent radial gradients on the SAME shape as the Home hero — `radial-gradient(ellipse 120% 110% at 80% 0%, …)`: back = teal-tinted, mid = hero-purple-tinted, front/main = the EXACT Home hero gradient `#12315e→#0B1B38→#081226` as translucent rgba — each with `backdrop-filter:blur(22px) saturate(1.2)` so the page behind shows through blurred and tinted) sweep in from the right, staggered, fading in (opacity 0→1) (WAAPI, dur 336ms, stagger 57ms — 40% faster than the original 560/95 — ease `cubic-bezier(.16,1,.3,1)`) — then sets `sessionStorage['agn-pt-reveal']` and navigates. NOTE: the blur is `backdrop-filter` (blurs content behind), NOT `filter` — a plain `filter:blur` on a solid panel is invisible; translucent rgba is what keeps transparency + colour. On the next page's load, if that flag is set, the overlay covers instantly (hides the dc-runtime render) then plays **reveal** — panels exit to the left (front layer first) uncovering the page. Colors follow the site palette. Exposes `window.__agnPageGo(href)`. Honors `prefers-reduced-motion` (instant, no wipe). Overlay mounts to `document.body || document.documentElement` (z-index ~2.1e9) so it survives the body re-render on arrival. See [[azarian-site-architecture]], [[nav-component]].

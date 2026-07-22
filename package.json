@@ -1,0 +1,11 @@
+{
+  "name": "azarian-prototype",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "shadcn:mcp": "npx shadcn@latest mcp"
+  },
+  "devDependencies": {
+    "shadcn": "^4.13.1"
+  }
+}

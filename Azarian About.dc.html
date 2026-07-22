@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<script src="./nav.js?v=20260719-2" defer></script>
+<script src="./page-transition.js?v=20260722-6"></script>
+<script src="./nav.js?v=20260722-1" defer></script>
 </head>
 <body>
 <x-dc>
@@ -20,37 +21,104 @@
   @media(max-width:960px){[data-nav-center]{display:none !important;}}
   @media(max-width:560px){[data-nav-cta]{display:none !important;}}
   @media(max-width:768px){[data-grid-2],[data-grid-3],[data-grid-4],[data-team-grid]{grid-template-columns:1fr !important;}}
+
+  /* ===== ABOUT HERO — Grid squares · fixed pin + spacer so the next section covers it on scroll ===== */
+  .agn-hero-scroll{position:relative;z-index:0;height:100vh;height:100dvh;}
+  .agn-hero-spacer{height:100vh;height:100dvh;pointer-events:none;}
+  .agn-hero-scroll ~ *{position:relative;z-index:2;}
+  .agn-about-hero{position:fixed;top:0;left:0;right:0;height:100vh;height:100dvh;z-index:0;
+    overflow:hidden;transform-origin:50% 42%;will-change:transform;box-sizing:border-box;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:130px 40px 90px;color:#fff;
+    background:linear-gradient(180deg,#1e1a47 0%,#181441 42%,#0e0b29 100%);}
+  .agn-about-hero::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:#04101f;opacity:var(--hero-veil,0);}
+  .agn-hero-grid-wrap{position:absolute;top:0;left:0;width:100%;height:100%;
+    overflow:hidden;pointer-events:none;z-index:1;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(180deg,transparent 0,#000 108px,#000 calc(100% - 7%),transparent 100%);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(180deg,transparent 0,#000 108px,#000 calc(100% - 7%),transparent 100%);
+    mask-composite:intersect;}
+  .agn-hero-grid{position:absolute;top:0;left:50%;transform:translateX(-50%);display:grid;}
+  .agn-cell{position:relative;border:.5px solid rgba(255,255,255,.06);will-change:opacity,transform;}
+  .agn-cell.has-photo{border-color:rgba(255,255,255,.10);overflow:hidden;pointer-events:auto;
+    transition:background .45s ease,border-color .45s ease,box-shadow .45s ease;}
+  .agn-cell-photo{position:absolute;inset:0;opacity:.2;transition:opacity .5s ease,transform .6s ease;will-change:opacity,filter;}
+  .agn-cell-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .agn-cell.has-photo:hover{border-color:rgba(24,229,188,.35);
+    background:radial-gradient(120% 120% at 50% 0%,#2a2170 0%,#171049 45%,#05031f 100%);
+    box-shadow:inset 0 0 0 1px rgba(24,229,188,.18),0 18px 50px -18px rgba(0,0,0,.75);z-index:5;}
+  .agn-cell.has-photo:hover .agn-cell-photo{opacity:1;transform:scale(1.02);}
+  .agn-hero-content{position:relative;z-index:3;width:100%;max-width:1296px;margin:0 auto;
+    display:flex;flex-direction:column;gap:12px;align-items:center;}
+  .agn-hero-title{margin:0;width:100%;font-weight:800;letter-spacing:-.02em;line-height:1.04;font-size:clamp(38px,6vw,88px);}
+  .agn-hero-title .agn-hero-accent{color:#18e5bc;}
+  .agn-hero-title .agn-hero-plain{color:#e8fffa;}
+  .agn-hero-sub{margin:0;max-width:932px;font-size:clamp(15px,1.2vw,18px);line-height:1.6;color:#b2c2d2;font-weight:500;}
+  .agn-hero-word{display:inline-block;white-space:nowrap;}
+  .agn-hero-char{display:inline-block;will-change:transform,opacity;}
+  @media(max-width:640px){.agn-about-hero{padding:110px 20px 70px;}}
+  @media(prefers-reduced-motion:reduce){
+    .agn-hero-scroll{height:auto;}
+    .agn-hero-spacer{display:none;}
+    .agn-about-hero{position:relative;transform:none !important;opacity:1 !important;filter:none !important;visibility:visible !important;}
+    .agn-about-hero::after{opacity:0 !important;}
+  }
+
+  /* ===== 02 ABOUT HAMLET ===== */
+  .agn-hamlet{position:relative;overflow:visible;background:#021526;color:#fff;padding:clamp(80px,10vw,120px) 40px;}
+  .agn-hamlet-glow{position:absolute;left:-6%;top:22%;width:min(680px,60%);height:52%;z-index:0;pointer-events:none;
+    background:radial-gradient(50% 50% at 50% 50%,rgba(86,75,204,.55) 0%,rgba(86,75,204,.18) 45%,transparent 72%);filter:blur(50px);}
+  .agn-hamlet-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;display:flex;gap:clamp(32px,4vw,56px);align-items:flex-start;}
+  .agn-hamlet-photo{position:sticky;top:clamp(100px,12vw,140px);align-self:flex-start;flex:0 0 auto;width:clamp(180px,18vw,242px);aspect-ratio:1;border-radius:999px;overflow:hidden;
+    background:#564bcc;border:6px solid rgba(255,255,255,.12);box-shadow:0 24px 60px -24px rgba(86,75,204,.6),inset 0 0 0 1px rgba(255,255,255,.06);will-change:opacity,filter,transform;}
+  .agn-hamlet-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;}
+  .agn-hamlet-text{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:24px;}
+  .agn-hamlet-group{display:flex;flex-direction:column;gap:18px;}
+  .agn-hamlet-text p{margin:0;}
+  .agn-hamlet-body{font-size:clamp(16px,1.25vw,20px);line-height:1.5;font-weight:500;color:#fff;}
+  .agn-hamlet-accent{font-size:clamp(18px,1.6vw,24px);line-height:1.35;font-weight:600;color:#1bfed1;}
+  .agn-hamlet-lead{font-size:clamp(18px,1.6vw,24px);line-height:1.4;font-weight:600;color:#fff;}
+  .agn-word{display:inline-block;will-change:transform,filter,opacity;}
+  @media(max-width:800px){
+    .agn-hamlet-inner{flex-direction:column;align-items:center;text-align:center;gap:36px;}
+    .agn-hamlet-photo{position:relative;top:auto;}
+  }
+  @media(max-width:640px){.agn-hamlet{padding:70px 20px;}}
 </style>
 </helmet>
-<div ref="{{ setRoot }}" style="--accent:#1FC9A0;background:#ffffff;color:#0B1B38;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;width:100%;">
+<div ref="{{ setRoot }}" style="--accent:#1FC9A0;background:linear-gradient(180deg,#1e1a47 0%,#181441 42%,#0e0b29 100%);background-attachment:fixed;color:#0B1B38;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;width:100%;">
 
   <!-- NAV — shared component built by ./nav.js (edit that file once, applies everywhere) -->
   <nav class="agn-nav" data-agn-nav aria-label="Primary"></nav>
 
-  <!-- HERO -->
-  <header id="top" style="position:relative;min-height:70vh;background:radial-gradient(120% 100% at 50% -10%,#12315e 0%,#0B1B38 46%,#081226 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:150px 40px 90px;">
-    <div style="max-width:1160px;margin:0 auto;width:100%;">
-      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;display:inline-flex;align-items:center;gap:12px;margin-bottom:24px;">
-        <span style="width:30px;height:2px;background:var(--accent);"></span>
-        <span style="font-size:13px;font-weight:600;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;">About Azarian Growth Agency</span>
+  <!-- HERO — Grid squares (team photos) · fixed pin + spacer (parallax cover-scroll) -->
+  <div class="agn-hero-scroll" data-hero-scroll>
+    <div class="agn-hero-spacer" aria-hidden="true"></div>
+    <header id="top" class="agn-about-hero" data-hero data-hero-pin>
+      <div class="agn-hero-grid-wrap" data-grid-wrap aria-hidden="true">
+        <div class="agn-hero-grid" data-grid></div>
       </div>
-      <h1 data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0;font-weight:800;font-size:clamp(34px,5vw,60px);line-height:1.06;letter-spacing:-.025em;max-width:20ch;">We built this agency to answer one question most marketing teams cannot answer: is this actually working?</h1>
-      <p data-reveal data-reveal-delay="160" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:28px 0 0;font-size:clamp(17px,1.4vw,20px);line-height:1.6;color:#AEB9CC;max-width:68ch;">Azarian Growth Agency is an AI-native senior-led growth marketing firm that partners with PE-backed companies, high-growth B2B SaaS, and venture-backed challenger brands to diagnose what is holding marketing back and build the engine to fix it. We have been doing this since 2020, and we lead every engagement ourselves.</p>
-    </div>
-  </header>
+      <div class="agn-hero-content" data-hero-content data-hero-layer>
+        <h1 class="agn-hero-title" data-hero-title><span class="agn-hero-accent">We Built This Agency to </span><span class="agn-hero-plain">Answer One Question:</span></h1>
+        <p class="agn-hero-sub" data-hero-sub>An AI-native, senior-led growth firm for PE-backed and venture-backed brands. We find what's holding marketing back and build the engine to fix it — founder-led since 2020.</p>
+      </div>
+    </header>
+  </div>
 
-  <!-- ORIGIN STORY -->
-  <section style="background:#ffffff;padding:130px 40px;">
-    <div style="max-width:800px;margin:0 auto;">
-      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;display:flex;align-items:center;gap:12px;margin-bottom:22px;">
-        <span style="width:28px;height:3px;border-radius:2px;background:var(--accent);"></span>
-        <span style="font-size:13px;font-weight:600;letter-spacing:.14em;color:#0E9E80;text-transform:uppercase;">Our story</span>
+  <!-- 02 ABOUT HAMLET -->
+  <section id="story" class="agn-hamlet" data-hamlet>
+    <div class="agn-hamlet-glow" aria-hidden="true"></div>
+    <div class="agn-hamlet-inner">
+      <div class="agn-hamlet-photo" data-hamlet-photo>
+        <img src="assets/team/hamlet-round.png" alt="Hamlet Azarian" />
       </div>
-      <div data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;font-size:18px;line-height:1.75;color:#5A6678;display:flex;flex-direction:column;gap:20px;">
-        <p style="margin:0;">In 2020, Hamlet Azarian had spent nearly two decades inside the growth engines of companies from pre-seed stage to Series B and beyond. He had been the VP of Growth and Marketing at Camino Financial. He had served as Senior Growth Advisor to DISQO, CBDfx, and a portfolio of companies across SaaS, financial services, and e-commerce.</p>
-        <p style="margin:0;">The pattern he kept seeing was always the same. A company hires a marketing team. The team hires agencies. The agencies run campaigns. Dashboards fill up with metrics. And at the end of the quarter, when the CEO sits in front of the board, nobody can answer the one question that matters: what is marketing actually contributing to revenue?</p>
-        <p style="margin:0;">Not because the people are bad. Because the diagnosis was never done.</p>
-        <p style="margin:0;color:#0B1B38;font-weight:500;">Azarian Growth Agency was built to close that gap. Every engagement begins with a paid Strategic Growth Diagnostic, because the most valuable thing we can do for a company is tell them the truth about their marketing before we do anything else.</p>
+      <div class="agn-hamlet-text">
+        <div class="agn-hamlet-group">
+          <p class="agn-hamlet-body" data-blur>In 2020, Hamlet Azarian had spent nearly two decades inside the growth engines of companies from pre-seed stage to Series B and beyond. He had been the VP of Growth and Marketing at Camino Financial. He had served as Senior Growth Advisor to DISQO, CBDfx, and a portfolio of companies across SaaS, financial services, and e-commerce.</p>
+          <p class="agn-hamlet-body" data-blur>The pattern he kept seeing was always the same. A company hires a marketing team. The team hires agencies. The agencies run campaigns. Dashboards fill up with metrics. And at the end of the quarter, when the CEO sits in front of the board, nobody can answer the one question that matters: what is marketing actually contributing to revenue?</p>
+          <p class="agn-hamlet-accent" data-blur>Not because the people are bad. Because the diagnosis was never done.</p>
+        </div>
+        <p class="agn-hamlet-lead" data-blur>[A] Growth Agency was built to close that gap. Every engagement begins with a paid Strategic Growth Diagnostic, because the most valuable thing we can do for a company is tell them the truth about their marketing before we do anything else.</p>
       </div>
     </div>
   </section>
@@ -173,6 +241,9 @@ class Component extends DCLogic {
   setRoot = (el) => { this.rootEl = el; };
 
   componentDidMount() {
+    this.setupHero();
+    this.setupHeroCover();
+    this.setupHamlet();
     this.setupScrollFx();
     this.setupContactForm();
   }
@@ -180,6 +251,372 @@ class Component extends DCLogic {
   componentWillUnmount() {
     if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
     if (this._fxRaf) cancelAnimationFrame(this._fxRaf);
+    if (this._onHeroResize) window.removeEventListener('resize', this._onHeroResize);
+    if (this._heroResizeT) clearTimeout(this._heroResizeT);
+    (this._heroTimers || []).forEach((t) => clearTimeout(t));
+    if (this._hamletIO) this._hamletIO.disconnect();
+    if (this._heroCoverCleanup) this._heroCoverCleanup();
+  }
+
+  // ---- HERO parallax cover-scroll: pinned hero fades/scales as the next section rises over it ----
+  setupHeroCover() {
+    const root = this.rootEl;
+    if (!root) return;
+    const wrap = root.querySelector('[data-hero-scroll]');
+    const pin = root.querySelector('[data-hero-pin]');
+    const layer = root.querySelector('[data-hero-layer]');
+    if (!wrap || !pin) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (reduce) return;
+
+    const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    let lastKey = '';
+    let running = false;
+
+    const apply = () => {
+      const vh = Math.max(1, wrap.offsetHeight || window.innerHeight || 1);
+      const top = wrap.getBoundingClientRect().top;
+      const raw = clamp((-top) / vh, 0, 1);
+      const p = easeOutCubic(raw);
+      const key = raw.toFixed(4);
+      if (key === lastKey) return raw;
+      lastKey = key;
+
+      const scale = 1 + p * 0.22;
+      const y = p * 28;
+      const veil = p * 0.55;
+      const blur = p < 0.01 ? 0 : p * 16;
+
+      pin.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
+      pin.style.setProperty('--hero-veil', veil.toFixed(3));
+      pin.style.filter = blur < 0.05 ? 'none' : 'blur(' + blur.toFixed(2) + 'px)';
+      pin.style.opacity = Math.max(0, 1 - p * 0.35).toFixed(3);
+      pin.style.visibility = raw >= 0.999 ? 'hidden' : 'visible';
+      pin.style.pointerEvents = raw > 0.2 ? 'none' : '';
+      if (layer) {
+        layer.style.transform = 'translate3d(0,' + (p * 14).toFixed(2) + 'px,0)';
+        layer.style.opacity = Math.max(0, 1 - p * 1.15).toFixed(3);
+      }
+      return raw;
+    };
+
+    const tick = () => {
+      const raw = apply();
+      if (raw > 0.001 && raw < 0.999) {
+        this._heroCoverRaf = requestAnimationFrame(tick);
+      } else {
+        running = false;
+        this._heroCoverRaf = 0;
+      }
+    };
+    const kick = () => {
+      if (running) return;
+      running = true;
+      lastKey = '';
+      this._heroCoverRaf = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('scroll', kick, { passive: true });
+    window.addEventListener('resize', kick, { passive: true });
+    kick();
+
+    this._heroCoverCleanup = () => {
+      if (this._heroCoverRaf) cancelAnimationFrame(this._heroCoverRaf);
+      window.removeEventListener('scroll', kick);
+      window.removeEventListener('resize', kick);
+    };
+  }
+
+  // ---- 02 ABOUT HAMLET: BlurText cascade + photo blur-in ----
+  setupHamlet() {
+    const root = this.rootEl;
+    if (!root) return;
+    const section = root.querySelector('[data-hamlet]');
+    if (!section) return;
+    const photo = section.querySelector('[data-hamlet-photo]');
+    const blurs = Array.from(section.querySelectorAll('[data-blur]'));
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const PER_WORD = 3, BLOCK_GAP = 350, DUR = 400; // BlurText: stepDuration .35s × 3 steps
+
+    // split each paragraph into animatable word spans (BlurText animateBy words)
+    blurs.forEach((p) => {
+      const words = p.textContent.split(/(\s+)/);
+      p.textContent = '';
+      words.forEach((tok) => {
+        if (tok === '') return;
+        if (/^\s+$/.test(tok)) { p.appendChild(document.createTextNode(tok)); return; }
+        const s = document.createElement('span');
+        s.className = 'agn-word';
+        s.textContent = tok;
+        if (!reduce) { s.style.opacity = '0'; s.style.filter = 'blur(10px)'; s.style.transform = 'translateY(-50px)'; }
+        p.appendChild(s);
+      });
+    });
+
+    const run = () => {
+      if (this._hamletDone) return;
+      this._hamletDone = true;
+      if (reduce) {
+        blurs.forEach((p) => p.querySelectorAll('.agn-word').forEach((s) => { s.style.opacity = ''; s.style.filter = ''; s.style.transform = ''; }));
+        return;
+      }
+      // photo blurs in first
+      if (photo) {
+        photo.style.opacity = '0';
+        const pa = photo.animate([
+          { opacity: 0, filter: 'blur(24px)', transform: 'scale(1.06)' },
+          { opacity: 1, filter: 'blur(0px)', transform: 'scale(1)' },
+        ], { duration: 1000, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'both' });
+        pa.onfinish = () => { photo.style.opacity = ''; photo.style.filter = ''; photo.style.transform = ''; try { pa.cancel(); } catch (e) {} };
+      }
+      // each paragraph reveals in turn, top → bottom, words blurring in (BlurText)
+      let acc = 240;
+      blurs.forEach((p) => {
+        p.querySelectorAll('.agn-word').forEach((s) => {
+          const a = s.animate([
+            { filter: 'blur(10px)', opacity: 0, transform: 'translateY(-50px)' },
+            { filter: 'blur(5px)', opacity: 0.5, transform: 'translateY(5px)' },
+            { filter: 'blur(0px)', opacity: 1, transform: 'translateY(0)' },
+          ], { duration: DUR, delay: acc, easing: 'linear', fill: 'both' });
+          a.onfinish = () => { s.style.opacity = ''; s.style.filter = ''; s.style.transform = ''; try { a.cancel(); } catch (e) {} };
+          acc += PER_WORD;
+        });
+        acc += BLOCK_GAP;
+      });
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { run(); io.disconnect(); } });
+    }, { threshold: 0.1 });
+    io.observe(section);
+    this._hamletIO = io;
+  }
+
+  // ---- ABOUT HERO: animated grid of team photos ----
+  setupHero() {
+    const root = this.rootEl;
+    if (!root) return;
+    const hero = root.querySelector('[data-hero]');
+    const wrap = root.querySelector('[data-grid-wrap]');
+    const grid = root.querySelector('[data-grid]');
+    const content = root.querySelector('[data-hero-content]');
+    const titleEl = root.querySelector('[data-hero-title]');
+    const subEl = root.querySelector('[data-hero-sub]');
+    if (!hero || !wrap || !grid || !content) return;
+
+    const PHOTOS = [
+      // top row (5)
+      'assets/team/hero/Amile.png', 'assets/team/hero/Hamlet.png',
+      'assets/team/hero/Sara.png', 'assets/team/hero/Elen.png',
+      'assets/team/hero/Mari Makaryan.png',
+      // lower band (3)
+      'assets/team/hero/Davit.png', 'assets/team/hero/Naneh.png', 'assets/team/hero/Antika.png',
+      // bottom pair (2)
+      'assets/team/hero/Mari.png', 'assets/team/hero/Arevik.png',
+    ];
+    const EASE = 'cubic-bezier(.215,.61,.355,1)'; // power3.out
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    this._heroTimers = [];
+    const later = (fn, ms) => { const t = setTimeout(fn, ms); this._heroTimers.push(t); return t; };
+    const shuffle = (arr) => { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp; } return arr; };
+
+    // --- Split heading + subtext into animatable spans (once) ---
+    const appendText = (parent, text, mode) => {
+      text.split(/(\s+)/).forEach((tok) => {
+        if (tok === '') return;
+        if (/^\s+$/.test(tok)) { parent.appendChild(document.createTextNode(tok)); return; }
+        const word = document.createElement('span');
+        word.className = 'agn-hero-word';
+        if (mode === 'chars') {
+          for (const chr of tok) { const s = document.createElement('span'); s.className = 'agn-hero-char'; s.textContent = chr; word.appendChild(s); }
+        } else {
+          const s = document.createElement('span'); s.className = 'agn-hero-char'; s.textContent = tok; word.appendChild(s);
+        }
+        parent.appendChild(word);
+      });
+    };
+    const splitInto = (el, mode) => {
+      const kids = Array.from(el.childNodes);
+      el.textContent = '';
+      kids.forEach((kid) => {
+        if (kid.nodeType === 3) { appendText(el, kid.textContent, mode); }
+        else if (kid.nodeType === 1) { const holder = kid.cloneNode(false); el.appendChild(holder); appendText(holder, kid.textContent, mode); }
+        else { el.appendChild(kid); }
+      });
+    };
+    if (titleEl) splitInto(titleEl, 'chars');
+    if (subEl) splitInto(subEl, 'words');
+    const allChars = () => (titleEl ? Array.from(titleEl.querySelectorAll('.agn-hero-char')) : [])
+      .concat(subEl ? Array.from(subEl.querySelectorAll('.agn-hero-char')) : []);
+    if (!reduce) allChars().forEach((c) => { c.style.opacity = '0'; });
+
+    // --- reveal text (SplitText style) ---
+    const revealText = () => {
+      if (this._heroTextDone) return;
+      this._heroTextDone = true;
+      if (reduce) { allChars().forEach((c) => { c.style.opacity = ''; }); return; }
+      const titleChars = titleEl ? Array.from(titleEl.querySelectorAll('.agn-hero-char')) : [];
+      titleChars.forEach((ch, i) => {
+        const a = ch.animate([{ opacity: 0, transform: 'translateY(40px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 800, delay: i * 30, easing: EASE, fill: 'both' });
+        a.onfinish = () => { ch.style.opacity = ''; ch.style.transform = ''; try { a.cancel(); } catch (e) {} };
+      });
+      const subStart = Math.min(titleChars.length, 22) * 50 + 180;
+      const subChars = subEl ? Array.from(subEl.querySelectorAll('.agn-hero-char')) : [];
+      subChars.forEach((w, i) => {
+        const a = w.animate([{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 600, delay: subStart + i * 20, easing: EASE, fill: 'both' });
+        a.onfinish = () => { w.style.opacity = ''; w.style.transform = ''; try { a.cancel(); } catch (e) {} };
+      });
+    };
+
+    // --- reveal photos (random order, blur-in) ---
+    const revealPhotos = (chosen, baseDelay) => {
+      const order = shuffle(chosen.slice());
+      order.forEach((cell, i) => {
+        const p = cell.querySelector('.agn-cell-photo');
+        if (!p) return;
+        if (reduce) { p.style.opacity = ''; p.style.filter = ''; return; }
+        p.style.opacity = '0';
+        const d = baseDelay + i * 65 + Math.random() * 180;
+        const a = p.animate([
+          { opacity: 0, filter: 'blur(14px)', transform: 'scale(1.06)' },
+          { opacity: 0.2, filter: 'blur(0px)', transform: 'scale(1)' },
+        ], { duration: 900, delay: d, easing: EASE, fill: 'both' });
+        a.onfinish = () => { p.style.opacity = ''; p.style.filter = ''; p.style.transform = ''; try { a.cancel(); } catch (e) {} };
+      });
+    };
+
+    // --- build the grid, optionally play the intro ---
+    // fixed photo layout mirroring Figma (node 22739-2677): a top band, a lower
+    // band and a bottom pair, all flanking the centred text. Columns are given as
+    // fractions of width; the rows are computed per screen so all 8 photos always
+    // sit fully on-screen (deterministic, never random placement).
+    const COL_TOP = [0.14, 0.32, 0.50, 0.68, 0.86];
+    const COL_LOW = [0.14, 0.52, 0.86];
+    const COL_BOT = [0.34, 0.66];
+
+    const buildGrid = (animate) => {
+      const gridW = wrap.clientWidth, gridH = wrap.clientHeight;
+
+      // measure the (grid-independent) centred text block first, so cells can be
+      // sized to leave a full row above it (under the nav) and two rows below it
+      const wRect = wrap.getBoundingClientRect();
+      const cRect = content.getBoundingClientRect();
+      const pad = 10;
+      const tTop = (cRect.top - wRect.top) - pad;
+      const tBot = (cRect.bottom - wRect.top) + pad;
+      const navClear = 112;                      // reserved for the overlaid nav
+      const botMargin = Math.max(32, gridH * 0.06);
+
+      // square cells that tile the width, capped by the vertical room so every one
+      // of the 8 photos stays fully visible on any screen size (the column count
+      // may differ per screen, the composition stays the same)
+      const baseCols = Math.max(8, Math.min(13, Math.round(gridW / 148)));
+      let cell = Math.min(
+        gridW / baseCols,
+        Math.max(64, tTop - navClear),
+        Math.max(64, (gridH - botMargin - tBot) / 2.1)
+      );
+      const cols = Math.max(baseCols, Math.round(gridW / cell));
+      cell = gridW / cols;                       // retile to fill the width exactly
+      // the grid bleeds a little past the top edge (so it fades in behind the nav
+      // instead of ending on a hard line) while still keeping a row boundary right
+      // at navClear for the top photo band
+      const gTop = (navClear % cell) - cell;
+      const rows = Math.max(6, Math.ceil((gridH - gTop) / cell) + 1);
+      grid.style.top = gTop + 'px';
+      grid.style.gridTemplateColumns = 'repeat(' + cols + ',' + cell + 'px)';
+      grid.style.gridTemplateRows = 'repeat(' + rows + ',' + cell + 'px)';
+      grid.style.width = (cols * cell) + 'px';
+      grid.style.height = (rows * cell) + 'px';
+      grid.innerHTML = '';
+
+      const cells = [];
+      const cellAt = {};
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const el = document.createElement('div');
+          el.className = 'agn-cell';
+          el.dataset.r = r; el.dataset.c = c;
+          grid.appendChild(el);
+          cells.push(el);
+          cellAt[r + '_' + c] = el;
+        }
+      }
+
+      // band rows (relative to the grid's offset top gTop): one full row above the
+      // text (below the nav) and two rows below it, all clamped inside the visible
+      // window so all 8 photos stay on-screen
+      const navBandRow = Math.round((navClear - gTop) / cell);      // row that starts at navClear
+      const bottomRowMax = Math.min(rows - 1, Math.floor((gridH - botMargin - gTop) / cell) - 1);
+      const firstAbove = Math.floor((tTop - gTop) / cell) - 1;      // last full row above text
+      const firstBelow = Math.ceil((tBot - gTop) / cell);           // first full row below text
+      const topRow = Math.max(navBandRow, firstAbove);
+      let lowerRow = firstBelow;
+      let bottomRow = firstBelow + 1;
+      if (bottomRow > bottomRowMax) { bottomRow = bottomRowMax; lowerRow = Math.max(firstBelow, bottomRow - 1); }
+
+      const taken = new Set();
+      const chosen = [];
+      const place = (fracs, row, imgOffset) => {
+        fracs.forEach((fx, k) => {
+          const c = Math.max(0, Math.min(cols - 1, Math.round(fx * cols - 0.5)));
+          const r = Math.max(0, Math.min(rows - 1, row));
+          const key = r + '_' + c;
+          if (taken.has(key) || !cellAt[key]) return;
+          taken.add(key);
+          const el = cellAt[key];
+          el.classList.add('has-photo');
+          const ph = document.createElement('div'); ph.className = 'agn-cell-photo';
+          const im = document.createElement('img'); im.src = PHOTOS[(imgOffset + k) % PHOTOS.length]; im.alt = ''; im.loading = 'eager';
+          ph.appendChild(im); el.appendChild(ph);
+          chosen.push(el);
+        });
+      };
+      place(COL_TOP, topRow, 0);
+      place(COL_LOW, lowerRow, 5);
+      place(COL_BOT, bottomRow, 8);
+
+      if (animate && !reduce) {
+        // 1) squares sweep in — left half bottom→up→right, right half (offset 20ms) top→down
+        const ROW_STEP = 70, COL_STEP = 14, CELL_DUR = 520, RIGHT_OFFSET = 20;
+        const half = cols / 2;
+        let maxEnd = 0;
+        cells.forEach((cell) => {
+          const r = +cell.dataset.r, c = +cell.dataset.c;
+          const delay = (c < half)
+            ? (rows - 1 - r) * ROW_STEP + c * COL_STEP
+            : RIGHT_OFFSET + r * ROW_STEP + (cols - 1 - c) * COL_STEP;
+          const p = cell.querySelector('.agn-cell-photo');
+          if (p) p.style.opacity = '0'; // hold photos until phase 3
+          cell.style.opacity = '0';
+          const a = cell.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'translateY(0)' }],
+            { duration: CELL_DUR, delay, easing: EASE, fill: 'both' });
+          a.onfinish = () => { cell.style.opacity = '1'; cell.style.transform = ''; try { a.cancel(); } catch (e) {} };
+          if (delay + CELL_DUR > maxEnd) maxEnd = delay + CELL_DUR;
+        });
+        // 2) after the full grid is in → text; 3) +20ms → photos blur in
+        later(() => { revealText(); revealPhotos(chosen, 20); }, maxEnd);
+      } else {
+        cells.forEach((cell) => { cell.style.opacity = '1'; });
+        if (this._heroTextDone) {
+          chosen.forEach((cell) => { const p = cell.querySelector('.agn-cell-photo'); if (p) p.style.opacity = ''; });
+        } else {
+          revealText(); revealPhotos(chosen, 0);
+        }
+      }
+    };
+
+    buildGrid(true);
+
+    // rebuild geometry on resize (no replay of the intro)
+    this._onHeroResize = () => {
+      if (this._heroResizeT) clearTimeout(this._heroResizeT);
+      this._heroResizeT = setTimeout(() => { buildGrid(false); }, 220);
+    };
+    window.addEventListener('resize', this._onHeroResize);
   }
 
   setupScrollFx() {

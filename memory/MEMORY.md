@@ -1,3 +1,5 @@
 - [Azarian site architecture](azarian-site-architecture.md) — dc-runtime `.dc.html` components; reuse via `<dc-import name="X"/>`; never edit support.js
 - [Nav component](nav-component.md) — shared nav.js (vertical cascade drop-down); edit the NAV tree to change links everywhere
 - [GrowthOS SEO tutorial](gos-seo-tutorial.md) — hover the SEO node in #os to play the animated tutorial screen (BlurText + CountUp)
+- [About Hero grid](about-hero-grid.md) — JS-generated animated grid of team-photo squares; SplitText title, blur-in photos, 1920 cap + edge fade
+- [Page transition](page-transition.md) — shared page-transition.js full-screen staggered wipe (React Bits Staggered Menu style) on internal navigation
