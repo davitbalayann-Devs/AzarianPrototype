@@ -6,7 +6,11 @@
 <script src="./support.js"></script>
 <script src="./page-transition.js?v=20260722-6"></script>
 <script src="./lottie.min.js"></script>
-<script src="./nav.js?v=20260722-1" defer></script>
+<script src="./button.js?v=20260723-2"></script>
+<script src="./cursor.js?v=20260723-2"></script>
+<script src="./cta.js?v=20260723-2" defer></script>
+<script src="./footer.js?v=20260723-1" defer></script>
+<script src="./nav.js?v=20260723-2" defer></script>
 </head>
 <body>
 <x-dc>
@@ -50,7 +54,6 @@
   .hero-title [data-prox-letter].is-accent{color:#1BFED1;}
   .hero-sub{margin:0;max-width:920px;font-family:Poppins,system-ui,sans-serif;font-weight:400;font-size:clamp(14px,1.15vw,16px);line-height:22px;color:#DEE2E5;}
   .hero-cta-wrap{display:flex;justify-content:center;width:100%;}
-  .hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#063B6D;font-weight:600;font-size:16px;padding:16px 24px;border-radius:999px;text-decoration:none;transition:transform .3s cubic-bezier(.16,.84,.44,1),box-shadow .3s;box-shadow:0 12px 34px -10px rgba(31,201,160,.6);}
   .hero-scroll ~ *{position:relative;z-index:2;}
   /* Mobile Hero — Figma 22664:4424 · full first screen + same cover-scroll as desktop
      Type bumped above raw Figma 20/12 so it reads at real phone size (Figma frame
@@ -66,7 +69,6 @@
     .hero-copy{gap:14px;}
     .hero-title{font-size:clamp(26px,7.2vw,32px);line-height:1.2;}
     .hero-sub{font-size:clamp(14px,3.8vw,16px);line-height:1.45;max-width:100%;}
-    .hero-cta{font-size:14px;font-weight:600;padding:12px 18px;gap:4px;box-shadow:0 12px 34px -10px rgba(31,201,160,.6);}
   }
   @media(prefers-reduced-motion:reduce){
     .hero-scroll{height:auto;}
@@ -321,11 +323,6 @@
   .gos2-card b{font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:32px;line-height:36px;color:#fff;}
   .gos2-card span{font-family:'Poppins',system-ui,sans-serif;font-weight:400;font-size:14px;color:#FAFAFB;}
   .gos2-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
-  .gos2-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Poppins',system-ui,sans-serif;font-weight:600;font-size:16px;padding:16px 24px;border-radius:999px;text-decoration:none;cursor:pointer;transition:transform .3s cubic-bezier(.16,.84,.44,1),box-shadow .3s ease,background .3s ease;}
-  .gos2-btn.primary{background:#1BFED1;color:#063b6d;box-shadow:0 12px 34px -10px rgba(31,201,160,.6);}
-  .gos2-btn.primary:hover{box-shadow:0 20px 46px -12px rgba(27,254,209,.85);}
-  .gos2-btn.ghost{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);color:#fff;backdrop-filter:blur(2.5px);-webkit-backdrop-filter:blur(2.5px);}
-  .gos2-btn.ghost:hover{background:rgba(255,255,255,.16);}
   @media(prefers-reduced-motion:reduce){.gos-threads{display:none;}}
   /* ── GrowthOS Effect · Figma 08 / mobile 22664:4684 ── */
   .gos-fx{
@@ -463,8 +460,8 @@
     #os .gos2-card b{font-size:22px;line-height:16px;}
     #os .gos2-card span{font-size:12px;}
     #os .gos2-btns{flex-direction:column;width:100%;gap:8px;}
-    #os .gos2-btn{width:100%;justify-content:center;font-size:16px;padding:16px 24px;box-sizing:border-box;border-radius:999px;}
-    #os .gos2-btn.ghost{border-color:rgba(255,255,255,.1);}
+    #os .gos2-btns .agn-btn{width:100%;justify-content:center;font-size:16px;padding:16px 24px;box-sizing:border-box;border-radius:999px;}
+    #os .gos2-btns .agn-btn--ghost{border-color:rgba(255,255,255,.1);}
     /* Tutorial overlays · full width of block (section already has 16px side padding) */
     #os .gos2{position:relative;}
     #os .gos-screen{
@@ -752,9 +749,7 @@
   .pe-title b{color:#1BFED1;font-weight:700;}
   .pe-title .pe-muted{color:#fff;font-weight:700;}
   .pe-sub{margin:22px auto 0;max-width:700px;font-family:'Poppins',system-ui,sans-serif;font-weight:400;font-size:clamp(16px,1.4vw,18px);line-height:1.65;color:#AEB9CC;}
-  .pe-cta{margin-top:36px;display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#0B1B38;font-family:'Poppins',system-ui,sans-serif;font-weight:600;font-size:16px;padding:16px 30px;border-radius:999px;text-decoration:none;box-shadow:0 16px 42px -12px rgba(27,254,209,.6);transition:transform .3s cubic-bezier(.16,.84,.44,1),box-shadow .3s ease;}
-  .pe-cta svg{transition:transform .3s cubic-bezier(.16,.84,.44,1);}
-  .pe-cta:hover svg{transform:translateX(4px);}
+  #pe-entry .agn-btn{margin-top:36px;}
   @media(prefers-reduced-motion:reduce){.pe-kicker i{animation:none !important;}}
   /* Mobile · Figma 22664:4839 — 390 frame, panel 358×252 */
   @media(max-width:960px){
@@ -774,7 +769,7 @@
     #pe-entry .pe-sub{
       margin:8px 0 0;max-width:none;font-size:12px;line-height:17px;font-weight:400;color:#dee2e5;
     }
-    #pe-entry .pe-cta{
+    #pe-entry .agn-btn{
       margin-top:14px;width:100%;justify-content:center;box-sizing:border-box;
       font-size:12px;font-weight:600;line-height:normal;color:#063b6d;
       padding:8px 12px;box-shadow:0 12px 34px -10px rgba(31,201,160,.6);
@@ -865,119 +860,7 @@
     .tcard--results .tm-metrics strong{display:block;margin-top:4px;font-size:11px;font-weight:700;line-height:normal;}
     .tcard--results .tm-metrics p{margin:5px 0 0;font-size:7.5px;font-weight:400;line-height:10.5px;}
   }
-  /* ── Contact / Final CTA (Figma 11) ────────────────────────── */
-  .cf-wrap{position:relative;max-width:1000px;margin:0 auto;}
-  .cf-head{text-align:center;max-width:760px;margin:0 auto;}
-  .cf-title{margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:clamp(30px,4.4vw,48px);line-height:1.1;letter-spacing:-.02em;color:#fff;}
-  .cf-sub{margin:16px auto 0;max-width:720px;font-family:'Poppins',system-ui,sans-serif;font-weight:400;font-size:clamp(15px,1.3vw,17px);line-height:1.6;color:#AEB9CC;}
-  .cf-card{margin-top:clamp(30px,4vw,44px);background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:28px;padding:clamp(24px,3vw,40px);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;flex-direction:column;gap:20px;box-shadow:0 40px 90px -50px rgba(0,0,0,.7);}
-  .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  .cf-field{display:flex;flex-direction:column;gap:10px;}
-  .cf-label{font-family:'Poppins',system-ui,sans-serif;font-weight:600;font-size:15px;color:#fff;}
-  .cf-input,.cf-textarea{width:100%;box-sizing:border-box;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font-family:'Poppins',system-ui,sans-serif;font-size:15px;outline:none;transition:border-color .25s ease,background .25s ease;}
-  .cf-input{height:54px;padding:0 18px;}
-  .cf-textarea{padding:16px 18px;min-height:130px;resize:vertical;line-height:1.5;}
-  .cf-input::placeholder,.cf-textarea::placeholder{color:#8894A5;}
-  .cf-input:focus,.cf-textarea:focus{border-color:rgba(27,254,209,.55);background:rgba(255,255,255,.07);}
-  .cf-submit{align-self:center;margin-top:6px;display:inline-flex;align-items:center;justify-content:center;background:#1BFED1;color:#063b6d;font-family:'Poppins',system-ui,sans-serif;font-weight:600;font-size:16px;padding:16px 34px;border-radius:999px;border:none;cursor:pointer;box-shadow:0 14px 40px -10px rgba(31,201,160,.6);transition:box-shadow .3s ease,transform .3s cubic-bezier(.16,.84,.44,1);}
-  .cf-submit:hover{box-shadow:0 22px 56px -12px rgba(31,201,160,.9);}
-  .cf-note{margin:0;align-self:center;font-family:'Poppins',system-ui,sans-serif;font-weight:400;font-size:14px;line-height:1.4;color:#AEB9CC;text-align:center;}
-  /* Mobile · Figma 22664:4856 — 390×916 */
-  @media(max-width:960px){
-    #cta{padding:32px 16px !important;}
-    #cta .cf-wrap{max-width:none;display:flex;flex-direction:column;gap:32px;}
-    #cta .cf-head{max-width:none;}
-    #cta .cf-title{font-size:20px;line-height:24px;letter-spacing:0;font-weight:700;}
-    #cta .cf-sub{margin:8px 0 0;max-width:none;font-size:12px;line-height:17px;color:#aeb9cc;}
-    #cta .cf-card{
-      margin-top:0;border-radius:20px;padding:24px 12px;gap:0;
-      background:rgba(255,255,255,.1);border:none;box-shadow:none;
-      backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-    }
-    #cta .cf-row{grid-template-columns:1fr;gap:14px;}
-    #cta .cf-row + .cf-row{margin-top:14px;}
-    #cta .cf-row + .cf-field{margin-top:14px;}
-    #cta .cf-field{gap:3px;}
-    #cta .cf-label{font-size:14px;font-weight:600;padding-left:16px;box-sizing:border-box;}
-    #cta .cf-input,#cta .cf-textarea{
-      border-radius:18px;border:1px solid rgba(205,228,252,.2);
-      background:rgba(255,255,255,.06);font-size:12px;line-height:17px;
-    }
-    #cta .cf-input{height:50px;padding:0 16px;}
-    #cta .cf-textarea{height:121px;min-height:121px;padding:16px;resize:none;}
-    #cta .cf-input::placeholder,#cta .cf-textarea::placeholder{color:rgba(255,255,255,.5);}
-    #cta .cf-submit{
-      align-self:stretch;width:100%;margin-top:20px;box-sizing:border-box;
-      padding:16px 24px;font-size:16px;font-weight:600;color:#063b6d;
-      box-shadow:0 12px 34px -10px rgba(31,201,160,.6);
-    }
-    #cta .cf-note{align-self:stretch;margin-top:12px;font-size:14px;line-height:normal;color:#aeb9cc;}
-  }
-  /* ── Footer (Figma 12) ─────────────────────────────────────── */
-  .ft{background:radial-gradient(120% 130% at 50% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);color:#AEB9CC;padding:clamp(56px,6vw,72px) 40px 40px;}
-  .ft-inner{max-width:1160px;margin:0 auto;}
-  .ft-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;}
-  .ft-col h4{margin:0 0 20px;font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:18px;color:#fff;}
-  .ft-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
-  .ft-col a{font-family:'Poppins',system-ui,sans-serif;font-size:15px;color:#AEB9CC;text-decoration:none;transition:color .25s ease;}
-  .ft-col a:hover{color:#1BFED1;}
-  .ft-div{height:1px;background:rgba(255,255,255,.1);margin:clamp(36px,4vw,48px) 0 28px;}
-  .ft-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;}
-  .ft-brand{display:flex;flex-direction:column;gap:4px;}
-  .ft-brand-row{display:flex;align-items:center;gap:12px;}
-  .ft-brand-row img{height:38px;width:auto;display:block;}
-  .ft-brand-name{font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:20px;color:#fff;}
-  .ft-brand-name em{font-style:normal;color:#1BFED1;}
-  .ft-brand-tag{font-family:'Poppins',system-ui,sans-serif;font-size:13px;color:#5A6678;letter-spacing:.02em;padding-left:50px;}
-  .ft-meta{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:flex-end;}
-  .ft-copy{font-size:14px;color:#8894A5;}
-  .ft-socials{display:flex;gap:10px;}
-  .ft-socials a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#AEB9CC;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);transition:color .25s ease,border-color .25s ease;}
-  .ft-socials a:hover{color:#1BFED1;border-color:rgba(27,254,209,.5);}
-  .ft-legal{display:flex;gap:16px;font-size:14px;align-items:center;}
-  .ft-legal a{color:#AEB9CC;text-decoration:none;}
-  .ft-legal a:hover{color:#1BFED1;}
-  .ft-legal-sep{width:1px;height:16px;background:#3a4658;flex:none;}
-  .ft-logo-m{display:none;}
-  .ft-social-m{display:none;}
-  .ft-social-d{display:block;}
-  .ft-meta-foot{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-  /* Mobile · Figma 22664:4879 — 390×1981, single-column */
-  @media(max-width:960px){
-    .ft{padding:24px 16px;color:#fff;}
-    .ft-inner{max-width:none;}
-    .ft-cols{grid-template-columns:1fr;gap:32px;}
-    .ft-col h4{margin:0 0 16px;font-size:20px;line-height:24px;font-weight:700;color:#eff6fe;}
-    .ft-col ul{gap:14px;}
-    .ft-col a{font-size:14px;font-weight:500;color:#fff;}
-    /* Bottom block · Figma 22664:4937 — 358×205 */
-    .ft-div{height:1px;background:#1b3f61;margin:64px 0 0;}
-    .ft-bottom{
-      flex-direction:column;align-items:flex-start;justify-content:flex-start;
-      gap:10px;margin-top:0;padding-top:24px;width:100%;
-    }
-    .ft-brand{display:none;}
-    .ft-logo-m{
-      display:block;width:337px;max-width:100%;height:58px;
-      object-fit:contain;object-position:left center;
-    }
-    .ft-meta{
-      flex-direction:column;align-items:flex-start;justify-content:flex-start;
-      gap:18px;width:100%;
-    }
-    .ft-copy{font-size:14px;line-height:20px;color:#fff;max-width:100%;}
-    .ft-meta-foot{flex-direction:column;align-items:flex-start;gap:10px;width:100%;}
-    .ft-socials{gap:14px;}
-    .ft-socials a{
-      width:24px;height:24px;border:none;background:transparent;color:#fff;padding:0;
-      display:grid;place-items:center;overflow:hidden;
-    }
-    .ft-social-d{display:none;}
-    .ft-social-m{display:block;width:24px;height:24px;}
-    .ft-legal{gap:12px;align-items:center;font-size:14px;}
-    .ft-legal a{font-family:'Poppins',system-ui,sans-serif;font-weight:500;color:#fff;}
-    .ft-legal-sep{width:1px;height:21px;background:#1b3f61;}
-  }
+  /* Contact CTA + Footer styles live in ./cta.js and ./footer.js */
   /* ── 02 Track Record ───────────────────────────────────────── */
   .track-record{background:radial-gradient(120% 120% at 80% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);padding:110px 40px;color:#fff;}
   .track-record__inner{max-width:1160px;margin:0 auto;}
@@ -1117,7 +1000,7 @@
         <p class="hero-sub" data-hero="sub">Azarian Growth Agency partners with PE- and VC-backed companies to find what's stalling growth and fix it. Data first. No guesswork.</p>
       </div>
       <div class="hero-cta-wrap" data-reveal data-reveal-delay="220" style="opacity:0;translate:0 28px;transition:opacity .7s cubic-bezier(.16,.84,.44,1),translate .7s cubic-bezier(.16,.84,.44,1);">
-        <a href="#cta" class="hero-cta" data-magnetic="true" style-hover="box-shadow:0 20px 46px -12px rgba(31,201,160,.85)">Start a Conversation</a>
+        <a href="#cta" class="agn-btn" data-magnetic="true">Start a Conversation</a>
       </div>
     </div>
   </header>
@@ -1589,8 +1472,8 @@
         </div>
 
         <div class="gos2-btns">
-          <a href="#cta" class="gos2-btn primary" data-magnetic="true">See it in action</a>
-          <a href="#growthos-effect" class="gos2-btn ghost" data-magnetic="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor" stroke="none"></path></svg>See how it works</a>
+          <a href="#cta" class="agn-btn" data-magnetic="true">See it in action</a>
+          <a href="#growthos-effect" class="agn-btn agn-btn--ghost" data-magnetic="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor" stroke="none"></path></svg>See how it works</a>
         </div>
       </div>
 
@@ -2025,131 +1908,16 @@
       <div class="pe-inner">
         <h2 class="pe-title" style="margin-top:0;">A senior marketing partner who answers to the P&amp;L, not the dashboard.</h2>
         <p class="pe-sub">We embed with operating partners and portfolio leadership through Strategic Growth Diagnostics and Fractional CMO engagements — owning the growth number and reporting in the metrics your investment committee already tracks.</p>
-        <a href="#cta" class="pe-cta" data-magnetic="true" style-hover="box-shadow:0 24px 54px -12px rgba(27,254,209,.9)">See how we work with PE-backed companies</a>
+        <a href="#cta" class="agn-btn" data-magnetic="true">See how we work with PE-backed companies</a>
       </div>
     </div>
   </section>
 
-  <!-- CTA / CONTACT -->
-  <section id="cta" data-cursor-theme="dark" style="position:relative;background:radial-gradient(120% 130% at 50% 120%,#12315e 0%,#0B1B38 50%,#081226 100%);padding:140px 40px;color:#fff;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 0%,rgba(31,201,160,.12),transparent 70%);pointer-events:none;"></div>
-    <div class="cf-wrap">
-      <div class="cf-head" data-reveal data-reveal-delay="60" style="opacity:0;translate:0 28px;transition:opacity .7s cubic-bezier(.16,.84,.44,1),translate .7s cubic-bezier(.16,.84,.44,1);">
-        <h2 class="cf-title">Start with a conversation,<br>not a commitment</h2>
-        <p class="cf-sub">Every engagement begins with a 30-minute call where we listen to what you are dealing with and help you determine whether a Strategic Growth Diagnostic is the right next step. No pitch deck. No pressure.</p>
-      </div>
-      <form class="cf-card" data-contact-form data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s cubic-bezier(.16,.84,.44,1),translate .7s cubic-bezier(.16,.84,.44,1);">
-        <div class="cf-row">
-          <label class="cf-field"><span class="cf-label">First Name*</span><input class="cf-input" type="text" name="firstName" placeholder="Enter Your First Name" required></label>
-          <label class="cf-field"><span class="cf-label">Last Name*</span><input class="cf-input" type="text" name="lastName" placeholder="Enter Your Last Name" required></label>
-        </div>
-        <div class="cf-row">
-          <label class="cf-field"><span class="cf-label">Your Email*</span><input class="cf-input" type="email" name="email" placeholder="Enter Your Email" required></label>
-          <label class="cf-field"><span class="cf-label">Company Name *</span><input class="cf-input" type="text" name="company" placeholder="Enter Your Company Name" required></label>
-        </div>
-        <label class="cf-field"><span class="cf-label">Tell us more about your growth goals and challenges</span><textarea class="cf-textarea" name="message" placeholder="How can we help you?"></textarea></label>
-        <button class="cf-submit" type="submit" data-magnetic="true">Start the Conversation</button>
-        <p class="cf-note">We respond to every inquiry within one business day.</p>
-      </form>
-    </div>
-  </section>
+  <!-- CTA / CONTACT — shared ./cta.js -->
+  <section id="cta" data-agn-cta data-cursor-theme="dark"></section>
 
-  <!-- 12 FOOTER (Figma) -->
-  <footer class="ft" data-cursor-theme="dark">
-    <div class="ft-inner">
-      <div class="ft-cols">
-        <div class="ft-col">
-          <h4>Digital Advertising</h4>
-          <ul>
-            <li><a href="#">Diagnostic Services</a></li>
-            <li><a href="#">Paid Search Marketing</a></li>
-            <li><a href="#">Google Ads Agency</a></li>
-            <li><a href="#">Facebook Ads Agency</a></li>
-            <li><a href="#">Amazon Ads Agency</a></li>
-            <li><a href="#">Social Media Marketing</a></li>
-            <li><a href="#">Search Engine Marketing</a></li>
-            <li><a href="#">Yelp Marketing Agency</a></li>
-          </ul>
-        </div>
-        <div class="ft-col">
-          <h4>Website Optimization</h4>
-          <ul>
-            <li><a href="#">Social Media Marketing</a></li>
-            <li><a href="#">E-commerce Solutions</a></li>
-            <li><a href="#">Graphic Design Services</a></li>
-            <li><a href="#">Mobile App Development</a></li>
-            <li><a href="#">Content Management Systems</a></li>
-            <li><a href="#">Digital Marketing Analytics</a></li>
-            <li><a href="#">User Interface Design</a></li>
-            <li><a href="#">Email Marketing Solutions</a></li>
-          </ul>
-        </div>
-        <div class="ft-col">
-          <h4>Growth &amp; Strategy</h4>
-          <ul>
-            <li><a href="#">Content Creation</a></li>
-            <li><a href="#">Payment Gateway Integration</a></li>
-            <li><a href="#">Logo Design</a></li>
-            <li><a href="#">Cross-Platform Solutions</a></li>
-            <li><a href="#">WordPress Development</a></li>
-            <li><a href="#">Web Analytics Setup</a></li>
-            <li><a href="#">Wireframing and Prototyping</a></li>
-            <li><a href="#">Campaign Management</a></li>
-          </ul>
-        </div>
-        <div class="ft-col">
-          <h4>Industries</h4>
-          <ul>
-            <li><a href="#">Brand Strategy</a></li>
-            <li><a href="#">Inventory Management</a></li>
-            <li><a href="#">Brand Identity</a></li>
-            <li><a href="#">User Experience Design</a></li>
-            <li><a href="#">Custom CMS Solutions</a></li>
-            <li><a href="#">Performance Measurement</a></li>
-            <li><a href="#">Usability Testing</a></li>
-            <li><a href="#">Subscriber Segmentation</a></li>
-          </ul>
-        </div>
-        <div class="ft-col">
-          <h4>Who We Are</h4>
-          <ul>
-            <li><a href="#">Influencer Collaborations</a></li>
-            <li><a href="#">Customer Support Systems</a></li>
-            <li><a href="#">Marketing Materials</a></li>
-            <li><a href="#">App Store Optimization</a></li>
-            <li><a href="#">Theme and Plugin Development</a></li>
-            <li><a href="#">Reporting Dashboards</a></li>
-            <li><a href="#">Interaction Design</a></li>
-            <li><a href="#">Analytics and Reporting</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="ft-div"></div>
-      <div class="ft-bottom">
-        <img class="ft-logo-m" src="assets/footer/logo-horizontal-on-dark.svg" alt="Azarian Growth Agency" width="337" height="58" draggable="false">
-        <div class="ft-brand">
-          <div class="ft-brand-row">
-            <img src="assets/logo.svg" alt="Azarian Growth Agency" draggable="false">
-            <span class="ft-brand-name">Azarian<em>Growth</em>Agency</span>
-          </div>
-          <span class="ft-brand-tag">data-driven | full-funnel</span>
-        </div>
-        <div class="ft-meta">
-          <span class="ft-copy">© Copyright © 2026. Azarian Growth Agency. All rights reserved.</span>
-          <div class="ft-meta-foot">
-            <div class="ft-socials">
-              <a href="#" aria-label="Instagram"><img class="ft-social-m" src="assets/footer/social-ig.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-              <a href="#" aria-label="Facebook"><img class="ft-social-m" src="assets/footer/social-fb.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V9.8c0-.5.3-.8.8-.8z"></path></svg></a>
-              <a href="#" aria-label="YouTube"><img class="ft-social-m" src="assets/footer/social-yt.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="3.5"></rect><path d="M10.5 9.2l4.2 2.8-4.2 2.8z" fill="currentColor" stroke="none"></path></svg></a>
-              <a href="#" aria-label="LinkedIn"><img class="ft-social-m" src="assets/footer/social-li.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5V18H4V8.5zM5.25 4.5A1.5 1.5 0 1 1 5.24 7.5a1.5 1.5 0 0 1 .01-3zM9 8.5h2.4v1.3c.4-.7 1.4-1.5 2.8-1.5 2.3 0 3.3 1.4 3.3 3.9V18h-2.5v-4.9c0-1.3-.5-2-1.5-2s-1.6.7-1.6 2V18H9z"></path></svg></a>
-              <a href="#" aria-label="X"><img class="ft-social-m" src="assets/footer/social-x.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-6.6 7.6L21.7 21h-5.9l-4.2-5.5L6.6 21H3.5l7-8.1L2.6 3h6l3.8 5z"></path></svg></a>
-            </div>
-            <div class="ft-legal"><a href="#">Privacy Policy</a><span class="ft-legal-sep" aria-hidden="true"></span><a href="#">Security Policy</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <!-- FOOTER — shared ./footer.js -->
+  <footer class="ft" data-agn-footer data-cursor-theme="dark"></footer>
 
 </div>
 </x-dc>
@@ -2293,7 +2061,7 @@ class Component extends DCLogic {
     this.setupHeroProximity();
     this.setupHeroCover();
     this.setupHeroFit();
-    this.setupCursor();
+    // cursor: shared ./cursor.js (AzarianCursor)
     this.setupGrowthChart();
     // this.setupGradualBlur(); // disabled — removed fixed bottom blur strip
     this.setupContactForm();
@@ -2366,133 +2134,6 @@ class Component extends DCLogic {
     if (this._glowRaf) cancelAnimationFrame(this._glowRaf);
     if (this._agentTimer) clearInterval(this._agentTimer);
     if (this._agentCleanup) this._agentCleanup();
-    this._cursorCleanup && this._cursorCleanup();
-  }
-
-  setupCursor() {
-    const root = this.rootEl;
-    if (!root) return;
-    const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-    if (isTouch && window.innerWidth <= 768) return;
-
-    const CS = 12, BW = 3;
-    // Brand-adaptive colours: green pops on the navy sections, navy pops on the
-    // light sections, bright teal on hover targets — always visible.
-    const COL_DARK = '#1FC9A0';   // over dark backgrounds
-    const COL_LIGHT = '#0B1B38';  // over light backgrounds
-    const COL_TARGET = '#1BFED1'; // hovering an interactive target
-    const SELECTOR = 'a[href], button, [data-tilt], [data-deck-card]';
-
-    const wrap = document.createElement('div');
-    Object.assign(wrap.style, { position: 'fixed', left: '0', top: '0', width: '0', height: '0', pointerEvents: 'none', zIndex: '9999', willChange: 'transform' });
-    const dot = document.createElement('div');
-    Object.assign(dot.style, { position: 'absolute', left: '50%', top: '50%', width: '5px', height: '5px', borderRadius: '50%', background: COL_DARK, transform: 'translate(-50%,-50%)', transition: 'background-color .25s ease', willChange: 'transform' });
-    wrap.appendChild(dot);
-
-    const removes = [['borderRight', 'borderBottom'], ['borderLeft', 'borderBottom'], ['borderLeft', 'borderTop'], ['borderRight', 'borderTop']];
-    const defaults = [[-18, -18], [6, -18], [6, 6], [-18, 6]];
-    const corners = [];
-    for (let i = 0; i < 4; i++) {
-      const c = document.createElement('div');
-      Object.assign(c.style, { position: 'absolute', left: '50%', top: '50%', width: CS + 'px', height: CS + 'px', border: '2.5px solid ' + COL_DARK, transition: 'border-color .25s ease', willChange: 'transform' });
-      removes[i].forEach((r) => { c.style[r] = 'none'; });
-      c._cur = { x: defaults[i][0], y: defaults[i][1] };
-      c._def = defaults[i];
-      corners.push(c);
-      wrap.appendChild(c);
-    }
-    root.appendChild(wrap);
-    const prevCursor = root.style.cursor;
-    root.style.cursor = 'none';
-
-    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-    let px = mx, py = my, rot = 0, active = null, down = false;
-    let curColor = COL_DARK;
-    const spinPerFrame = 360 / (2.6 * 60);
-
-    const setColor = (col) => {
-      if (col === curColor) return;
-      curColor = col;
-      corners.forEach((c) => { c.style.borderColor = col; });
-      dot.style.background = col;
-    };
-    // Sections are tagged data-cursor-theme="dark|light"; walk up to the
-    // nearest tag (gradient backgrounds have no readable backgroundColor).
-    const themeUnder = (el) => {
-      let n = el;
-      while (n && n !== root && n.nodeType === 1) {
-        const t = n.getAttribute && n.getAttribute('data-cursor-theme');
-        if (t) return t;
-        n = n.parentElement;
-      }
-      return 'dark';
-    };
-
-    const onMove = (e) => {
-      mx = e.clientX; my = e.clientY;
-      if (!active) {
-        const under = document.elementFromPoint(mx, my);
-        setColor(under && themeUnder(under) === 'light' ? COL_LIGHT : COL_DARK);
-      }
-    };
-    const onOver = (e) => {
-      let n = e.target;
-      while (n && n !== root && n.nodeType === 1) { if (n.matches && n.matches(SELECTOR)) break; n = n.parentElement; }
-      const t = (n && n.matches && n.matches(SELECTOR)) ? n : null;
-      if (t) { active = t; setColor(COL_TARGET); }
-    };
-    const onOut = (e) => {
-      if (active && (e.target === active || (active.contains && !active.contains(e.relatedTarget)))) {
-        active = null;
-      }
-    };
-    const onDown = () => { down = true; };
-    const onUp = () => { down = false; };
-
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseover', onOver, { passive: true });
-    window.addEventListener('mouseout', onOut, { passive: true });
-    window.addEventListener('mousedown', onDown);
-    window.addEventListener('mouseup', onUp);
-
-    const raf = () => {
-      px += (mx - px) * 0.2; py += (my - py) * 0.2;
-      if (active && !document.body.contains(active)) active = null;
-      let desired;
-      if (active) {
-        const r = active.getBoundingClientRect();
-        desired = [
-          [r.left - BW - px, r.top - BW - py],
-          [r.right + BW - CS - px, r.top - BW - py],
-          [r.right + BW - CS - px, r.bottom + BW - CS - py],
-          [r.left - BW - px, r.bottom + BW - CS - py]
-        ];
-      } else {
-        rot = (rot + spinPerFrame) % 360;
-        desired = corners.map((c) => c._def);
-      }
-      const scale = down ? 0.82 : 1;
-      wrap.style.transform = 'translate(' + px + 'px,' + py + 'px) rotate(' + (active ? 0 : rot) + 'deg) scale(' + scale + ')';
-      corners.forEach((c, i) => {
-        const s = active ? 0.28 : 0.32;
-        c._cur.x += (desired[i][0] - c._cur.x) * s;
-        c._cur.y += (desired[i][1] - c._cur.y) * s;
-        c.style.transform = 'translate(' + c._cur.x + 'px,' + c._cur.y + 'px)';
-      });
-      this._cursorRaf = requestAnimationFrame(raf);
-    };
-    this._cursorRaf = requestAnimationFrame(raf);
-
-    this._cursorCleanup = () => {
-      cancelAnimationFrame(this._cursorRaf);
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseover', onOver);
-      window.removeEventListener('mouseout', onOut);
-      window.removeEventListener('mousedown', onDown);
-      window.removeEventListener('mouseup', onUp);
-      try { root.removeChild(wrap); } catch (e) {}
-      root.style.cursor = prevCursor;
-    };
   }
 
   dirKey() {
@@ -4315,8 +3956,14 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}`;
 
   setupMagnetic() {
     if (!this.rootEl) return;
+    if (window.AzarianButton && typeof window.AzarianButton.bindMagnetic === 'function') {
+      window.AzarianButton.bindMagnetic(this.rootEl);
+      return;
+    }
     const els = this.rootEl.querySelectorAll('[data-magnetic]');
     els.forEach((el) => {
+      if (el.__agnMagneticBound) return;
+      el.__agnMagneticBound = true;
       const move = (ev) => {
         const r = el.getBoundingClientRect();
         const dx = (ev.clientX - (r.left + r.width / 2)) * 0.28;

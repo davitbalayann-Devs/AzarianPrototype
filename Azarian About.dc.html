@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 <script src="./page-transition.js?v=20260722-6"></script>
-<script src="./nav.js?v=20260722-1" defer></script>
+<script src="./plasma.js?v=20260723-2"></script>
+<script src="./orbital-image-wheel.js?v=20260723-3"></script>
+<script src="./button.js?v=20260723-2"></script>
+<script src="./cursor.js?v=20260723-2"></script>
+<script src="./cta.js?v=20260723-2" defer></script>
+<script src="./footer.js?v=20260723-1" defer></script>
+<script src="./glass-surface.js?v=20260723-1"></script>
+<script src="./nav.js?v=20260723-2" defer></script>
 </head>
 <body>
 <x-dc>
@@ -15,6 +22,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
+  /* Inter Variable — hero title proximity weight morph (same as Home) */
+  @font-face{
+    font-family:"InterVariableHero";
+    src:url("https://rsms.me/inter/font-files/InterVariable.woff2?v=4.0") format("woff2-variations");
+    font-weight:100 900;
+    font-style:normal;
+    font-display:swap;
+  }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0}
@@ -22,7 +37,7 @@
   @media(max-width:560px){[data-nav-cta]{display:none !important;}}
   @media(max-width:768px){[data-grid-2],[data-grid-3],[data-grid-4],[data-team-grid]{grid-template-columns:1fr !important;}}
 
-  /* ===== ABOUT HERO — Grid squares · fixed pin + spacer so the next section covers it on scroll ===== */
+  /* ===== ABOUT HERO — text only · fixed pin + spacer (cover-scroll) ===== */
   .agn-hero-scroll{position:relative;z-index:0;height:100vh;height:100dvh;}
   .agn-hero-spacer{height:100vh;height:100dvh;pointer-events:none;}
   .agn-hero-scroll ~ *{position:relative;z-index:2;}
@@ -32,40 +47,42 @@
     padding:130px 40px 90px;color:#fff;
     background:linear-gradient(180deg,#1e1a47 0%,#181441 42%,#0e0b29 100%);}
   .agn-about-hero::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:#04101f;opacity:var(--hero-veil,0);}
-  .agn-hero-grid-wrap{position:absolute;top:0;left:0;width:100%;height:100%;
-    overflow:hidden;pointer-events:none;z-index:1;
-    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(180deg,transparent 0,#000 108px,#000 calc(100% - 7%),transparent 100%);
-    -webkit-mask-composite:source-in;
-    mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(180deg,transparent 0,#000 108px,#000 calc(100% - 7%),transparent 100%);
-    mask-composite:intersect;}
-  .agn-hero-grid{position:absolute;top:0;left:50%;transform:translateX(-50%);display:grid;}
-  .agn-cell{position:relative;border:.5px solid rgba(255,255,255,.06);will-change:opacity,transform;}
-  .agn-cell.has-photo{border-color:rgba(255,255,255,.10);overflow:hidden;pointer-events:auto;
-    transition:background .45s ease,border-color .45s ease,box-shadow .45s ease;}
-  .agn-cell-photo{position:absolute;inset:0;opacity:.2;transition:opacity .5s ease,transform .6s ease;will-change:opacity,filter;}
-  .agn-cell-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
-  .agn-cell.has-photo:hover{border-color:rgba(24,229,188,.35);
-    background:radial-gradient(120% 120% at 50% 0%,#2a2170 0%,#171049 45%,#05031f 100%);
-    box-shadow:inset 0 0 0 1px rgba(24,229,188,.18),0 18px 50px -18px rgba(0,0,0,.75);z-index:5;}
-  .agn-cell.has-photo:hover .agn-cell-photo{opacity:1;transform:scale(1.02);}
+  .agn-hero-plasma{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
+    contain:strict;transform:translateZ(0);}
   .agn-hero-content{position:relative;z-index:3;width:100%;max-width:1296px;margin:0 auto;
-    display:flex;flex-direction:column;gap:12px;align-items:center;}
-  .agn-hero-title{margin:0;width:100%;font-weight:800;letter-spacing:-.02em;line-height:1.04;font-size:clamp(38px,6vw,88px);}
-  .agn-hero-title .agn-hero-accent{color:#18e5bc;}
-  .agn-hero-title .agn-hero-plain{color:#e8fffa;}
-  .agn-hero-sub{margin:0;max-width:932px;font-size:clamp(15px,1.2vw,18px);line-height:1.6;color:#b2c2d2;font-weight:500;}
-  .agn-hero-word{display:inline-block;white-space:nowrap;}
-  .agn-hero-char{display:inline-block;will-change:transform,opacity;}
-  @media(max-width:640px){.agn-about-hero{padding:110px 20px 70px;}}
+    display:flex;flex-direction:column;gap:24px;align-items:center;
+    container-type:inline-size;container-name:about-hero;}
+  /* Logo · desktop reference 400px @ 1296 content; scales with container (cqi). */
+  .agn-hero-logo{position:relative;width:clamp(160px,30.864cqi,400px);aspect-ratio:617 / 105;flex:0 0 auto;}
+  .agn-hero-logo-mark{position:absolute;left:0;top:0;width:18.65%;height:100%;}
+  .agn-hero-logo-mark img{display:block;width:84%;height:82.7%;margin:9.44% 7.88% 7.85% 8.18%;object-fit:contain;}
+  .agn-hero-logo-word{position:absolute;left:21.44%;top:9.17%;width:78.56%;height:46.49%;}
+  .agn-hero-logo-tag{position:absolute;left:21.77%;top:58.45%;width:77.53%;height:23.38%;}
+  .agn-hero-logo-word img,.agn-hero-logo-tag img{display:block;width:100%;height:100%;object-fit:contain;object-position:left center;}
+  .agn-hero-copy{display:flex;flex-direction:column;gap:18px;align-items:center;width:100%;}
+  .agn-hero-title{margin:0;width:100%;font-family:"InterVariableHero","Inter Variable",Poppins,system-ui,sans-serif;
+    font-size:clamp(36px,6vw,72px);line-height:0.90;letter-spacing:0;color:#e8fffa;font-weight:700;
+    font-variation-settings:"wght" 700;}
+  .agn-hero-title [data-prox-word]{display:inline-block;white-space:nowrap;}
+  .agn-hero-title [data-prox-letter]{display:inline-block;font-variation-settings:"wght" 700;color:#e8fffa;
+    contain:layout style;}
+  .agn-hero-title [data-prox-letter].is-accent{color:#1BFED1;}
+  .agn-hero-sub{margin:0;max-width:932px;font-family:Poppins,system-ui,sans-serif;font-size:16px;line-height:1.5;color:#b2c2d2;font-weight:500;}
+  @media(max-width:640px){
+    .agn-about-hero{padding:110px 20px 70px;}
+    .agn-hero-content{gap:18px;}
+    .agn-hero-title{font-size:clamp(28px,7.2vw,36px);line-height:1.2;}
+  }
   @media(prefers-reduced-motion:reduce){
     .agn-hero-scroll{height:auto;}
     .agn-hero-spacer{display:none;}
     .agn-about-hero{position:relative;transform:none !important;opacity:1 !important;filter:none !important;visibility:visible !important;}
     .agn-about-hero::after{opacity:0 !important;}
+    .agn-hero-plasma{display:none !important;}
   }
 
   /* ===== 02 ABOUT HAMLET ===== */
-  .agn-hamlet{position:relative;overflow:visible;background:#021526;color:#fff;padding:clamp(80px,10vw,120px) 40px;}
+  .agn-hamlet{position:relative;overflow:visible;background:linear-gradient(180deg,#0c0a24 0%,#08111f 45%,#05121e 100%);color:#fff;padding:clamp(80px,10vw,120px) 40px;}
   .agn-hamlet-glow{position:absolute;left:-6%;top:22%;width:min(680px,60%);height:52%;z-index:0;pointer-events:none;
     background:radial-gradient(50% 50% at 50% 50%,rgba(86,75,204,.55) 0%,rgba(86,75,204,.18) 45%,transparent 72%);filter:blur(50px);}
   .agn-hamlet-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;display:flex;gap:clamp(32px,4vw,56px);align-items:flex-start;}
@@ -84,29 +101,306 @@
     .agn-hamlet-photo{position:relative;top:auto;}
   }
   @media(max-width:640px){.agn-hamlet{padding:70px 20px;}}
+
+  /* ===== 03 OUR VALUE · Orbital image wheel (horizontal scroll) ===== */
+  .agn-values{position:relative;z-index:2;background:linear-gradient(180deg,#05121e 0%,#06141f 100%);color:#fff;}
+  /* Soft bottom veil — blends carousel into the next section (no hard crop) */
+  .agn-values::after{content:"";position:absolute;left:0;right:0;bottom:0;z-index:5;pointer-events:none;
+    height:min(160px,20vh);
+    background:linear-gradient(180deg,
+      rgba(4,16,31,0) 0%,
+      rgba(4,16,31,.35) 42%,
+      rgba(4,16,31,.78) 78%,
+      #04101f 100%);}
+  .oiw{position:relative;width:100%;height:100vh;height:100dvh;}
+  .oiw-scroller{position:absolute;inset:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;outline:none;
+    touch-action:pan-x;overscroll-behavior-x:contain;cursor:grab;}
+  .oiw-scroller::-webkit-scrollbar{display:none;}
+  .oiw-scroller.is-grabbing{cursor:grabbing;}
+  .oiw-rail{position:relative;height:100%;}
+  .oiw-stage{position:sticky;left:0;top:0;width:100vw;height:100%;box-sizing:border-box;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+    padding:clamp(72px,10vh,110px) 24px 0;overflow:hidden;}
+  .oiw-heading{margin:0;position:relative;z-index:5;text-align:center;font-family:'Poppins',system-ui,sans-serif;
+    font-weight:700;font-size:clamp(26px,4vw,48px);line-height:1.08;color:#fff;max-width:min(900px,92vw);}
+  .oiw-viewport{position:absolute;inset:0;pointer-events:none;z-index:1;}
+  /* Dissolve the wheel scene into the section's bottom colour so 03→04 is seamless. */
+  .oiw-viewport::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(150px,26vh,280px);
+    background:linear-gradient(180deg,rgba(6,20,31,0) 0%,#06141f 90%);pointer-events:none;z-index:110;}
+  .oiw-wheel{position:absolute;left:50%;transform:translateX(-50%);will-change:transform;}
+  .oiw-wheel-inner{position:relative;width:100%;height:100%;perspective:1200px;transform-style:preserve-3d;}
+  .oiw-item{position:absolute;left:50%;top:50%;margin:0;overflow:hidden;border-radius:32px;
+    box-shadow:0 28px 60px -28px rgba(0,0,0,.65);will-change:transform,filter;background:#0b1b38;}
+  .oiw-item-media{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;}
+  .oiw-caption{position:absolute;left:0;right:0;bottom:clamp(28px,6vh,56px);z-index:6;
+    display:flex;flex-direction:column;align-items:center;gap:24px;pointer-events:none;}
+  .oiw-subtitle{min-height:1.4em;position:relative;display:flex;align-items:center;justify-content:center;padding:0 20px;
+    font-family:'Poppins',system-ui,sans-serif;font-weight:400;font-size:16px;line-height:22px;
+    color:rgba(255,255,255,.6);text-align:center;max-width:min(900px,90vw);}
+  .oiw-pills-viewport{pointer-events:auto;width:min(96vw,1100px);overflow:hidden;padding:4px 0;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%);}
+  .oiw-pills-track{display:flex;align-items:center;width:max-content;gap:16px;
+    transition:transform .62s cubic-bezier(.16,1,.3,1);will-change:transform;}
+  .oiw-pill-pad{display:block;height:1px;flex:0 0 auto;}
+  .oiw-pill{appearance:none;cursor:pointer;flex:0 0 auto;border-radius:999px;
+    border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.1);
+    -webkit-backdrop-filter:blur(2.5px);backdrop-filter:blur(2.5px);
+    color:#fff;font-family:'Poppins',system-ui,sans-serif;font-weight:600;font-size:16px;line-height:1;
+    padding:16px 24px;white-space:nowrap;transition:opacity .3s ease,transform .3s ease,border-color .3s ease,background .3s ease;}
+  .oiw-pill.is-active{border-color:rgba(27,254,209,.45);background:rgba(27,254,209,.14);}
+  .oiw-pill:hover{border-color:rgba(255,255,255,.28);}
+  @media(max-width:720px){
+    .oiw-heading{font-size:26px;padding:0 8px;}
+    .oiw-item{border-radius:22px;}
+    .oiw-pill{font-size:14px;padding:12px 16px;}
+    .oiw-caption{gap:16px;bottom:20px;}
+    .oiw-subtitle{font-size:14px;line-height:20px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .oiw-pills-track{transition:none;}
+  }
+
+  /* ===== 04 CASE STUDY · Growth partners (marquee) + hover cards ===== */
+  .agn-cases{position:relative;z-index:2;overflow-x:clip;overflow-y:visible;background:linear-gradient(180deg,#06141f 0%,#081827 100%);color:#fff;padding:clamp(80px,10vw,120px) 0;}
+  .agn-cases-glow{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:min(1100px,130vw);height:640px;
+    pointer-events:none;z-index:0;filter:blur(18px);
+    background:radial-gradient(50% 50% at 50% 50%,rgba(27,254,209,.16) 0%,rgba(27,254,209,.05) 44%,transparent 72%);}
+  .agn-cases-inner{position:relative;z-index:1;max-width:1296px;margin:0 auto;padding:0 40px;
+    display:flex;flex-direction:column;align-items:center;gap:42px;width:100%;box-sizing:border-box;}
+  .agn-cases-title{margin:0;text-align:center;font-family:'Poppins',system-ui,sans-serif;font-weight:700;
+    font-size:clamp(24px,3.3vw,44px);line-height:1.16;color:#fff;max-width:min(1080px,94vw);}
+
+  /* Full-bleed marquee — cards enter from the viewport edge.
+     overflow:visible so hover glow isn't clipped; edges use glass overlays (not mask). */
+  .agn-cases-marquee{position:relative;z-index:1;width:100%;margin-top:42px;padding:64px 0;box-sizing:border-box;overflow:visible;}
+  .agn-cases-track{display:flex;width:max-content;will-change:transform;animation:agn-cases-scroll 42s linear infinite;}
+  .agn-cases-marquee:hover .agn-cases-track,.agn-cases-marquee:focus-within .agn-cases-track{animation-play-state:paused;}
+  .agn-cases-group{display:flex;gap:20px;padding-right:20px;}
+  @keyframes agn-cases-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* Edge glass — wide soft fade; mask fades blur itself so there is no hard edge */
+  .agn-cases-edge{position:absolute;top:0;bottom:0;width:min(160px,16vw);z-index:3;pointer-events:none;
+    -webkit-backdrop-filter:blur(22px) saturate(1.2);backdrop-filter:blur(22px) saturate(1.2);}
+  .agn-cases-edge--left{left:0;
+    background:linear-gradient(90deg,
+      rgba(4,16,31,.72) 0%,
+      rgba(4,16,31,.42) 22%,
+      rgba(4,16,31,.18) 48%,
+      rgba(4,16,31,.06) 72%,
+      rgba(4,16,31,0) 100%);
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 12%,rgba(0,0,0,.55) 42%,rgba(0,0,0,.18) 72%,transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0%,#000 12%,rgba(0,0,0,.55) 42%,rgba(0,0,0,.18) 72%,transparent 100%);}
+  .agn-cases-edge--right{right:0;
+    background:linear-gradient(270deg,
+      rgba(4,16,31,.72) 0%,
+      rgba(4,16,31,.42) 22%,
+      rgba(4,16,31,.18) 48%,
+      rgba(4,16,31,.06) 72%,
+      rgba(4,16,31,0) 100%);
+    -webkit-mask-image:linear-gradient(270deg,#000 0%,#000 12%,rgba(0,0,0,.55) 42%,rgba(0,0,0,.18) 72%,transparent 100%);
+    mask-image:linear-gradient(270deg,#000 0%,#000 12%,rgba(0,0,0,.55) 42%,rgba(0,0,0,.18) 72%,transparent 100%);}
+
+  /* Card */
+  .cs-card{position:relative;z-index:0;flex:0 0 auto;width:clamp(260px,26vw,360px);height:clamp(150px,15vw,200px);
+    border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);overflow:visible;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .45s cubic-bezier(.16,1,.3,1),background .4s ease,border-color .4s ease,box-shadow .45s ease;}
+  .cs-card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:inherit;z-index:0;pointer-events:none;}
+  .cs-card::after{content:"";position:absolute;left:50%;top:58%;width:92%;height:78%;z-index:-1;pointer-events:none;opacity:0;
+    transform:translate(-50%,-50%);border-radius:42%;
+    background:radial-gradient(ellipse at center,rgba(27,254,209,.48) 0%,rgba(27,254,209,.16) 40%,transparent 72%);
+    filter:blur(18px);transition:opacity .45s ease;}
+  .cs-card:nth-child(even){background:rgba(27,254,209,.07);}
+  .cs-card > *{position:relative;z-index:1;}
+  .cs-card-logo{display:flex;align-items:center;justify-content:center;width:68%;height:54px;transition:transform .45s cubic-bezier(.16,1,.3,1);}
+  .cs-card-logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;pointer-events:none;-webkit-user-select:none;user-select:none;}
+  .cs-card:hover{transform:translateY(-6px);background:rgba(27,254,209,.12);border-color:rgba(27,254,209,.4);
+    box-shadow:0 18px 42px -18px rgba(27,254,209,.42),0 0 0 1px rgba(27,254,209,.14);}
+  .cs-card:hover::after{opacity:1;}
+  .cs-card:hover .cs-card-logo{transform:scale(1.06);}
+
+  /* Badge: collapsed "+" circle → expanded "Case Study ›" pill */
+  .cs-badge{position:absolute;top:11px;right:11px;height:22px;width:22px;border-radius:999px;background:#14bf9d;overflow:hidden;
+    box-shadow:0 4px 12px -4px rgba(20,191,157,.7);transition:width .44s cubic-bezier(.16,1,.3,1);}
+  .cs-badge__plus{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s ease;}
+  .cs-badge__full{position:absolute;top:0;left:0;right:0;height:22px;display:flex;align-items:center;gap:5px;padding:0 8px 0 11px;white-space:nowrap;opacity:0;transition:opacity .3s ease .06s;}
+  .cs-badge__label{font-family:'Poppins',system-ui,sans-serif;font-weight:600;font-size:12px;line-height:1;color:#fff;}
+  .cs-badge__plus svg,.cs-badge__full svg{display:block;flex:0 0 auto;}
+  .cs-card:hover .cs-badge{width:116px;}
+  .cs-card:hover .cs-badge__plus{opacity:0;}
+  .cs-card:hover .cs-badge__full{opacity:1;}
+
+  /* CTA uses shared .agn-btn from button.js */
+
+  /* Partner / certification logos */
+  .agn-cases-partners{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2vw,32px);flex-wrap:wrap;width:100%;}
+  .agn-cases-partner{display:flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:10px;background:rgba(255,255,255,.04);}
+  /* Natural proportions, uniform height so the logos read harmoniously together. */
+  .agn-cases-partner img{height:clamp(30px,3.1vw,44px);width:auto;display:block;opacity:.92;}
+
+  @media(max-width:720px){
+    .agn-cases-inner{gap:34px;padding:0 20px;}
+    .agn-cases-edge{width:min(110px,22vw);}
+    .cs-card{width:78vw;max-width:320px;height:172px;}
+    .agn-cases-partner{padding:10px 16px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .agn-cases-track{animation:none;}
+    .agn-cases-group[aria-hidden="true"]{display:none;}
+    .cs-card,.cs-card-logo,.cs-badge,.cs-badge__plus,.cs-badge__full,.agn-btn{transition:none;}
+  }
+
+  /* ===== 05 OUR TEAM · Sticky heading + glass-circle grid ===== */
+  .agn-team{position:relative;z-index:2;color:#fff;padding:clamp(72px,8vw,112px) 0 clamp(84px,9vw,132px);}
+  .agn-team-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(56% 50% at 22% 68%,rgba(24,64,120,.32) 0%,rgba(24,64,120,0) 64%),
+      linear-gradient(180deg,#081827 0%,#0c2135 55%,#0a1f30 100%);}
+  .agn-team-inner{position:relative;z-index:1;max-width:1296px;margin:0 auto;padding:0 40px;
+    display:flex;gap:clamp(24px,4vw,64px);align-items:flex-start;}
+
+  /* Left · heading + logo — sticks 24px below the fixed nav (nav top 18 + height 72). */
+  .agn-team-head{position:-webkit-sticky;position:sticky;top:calc(18px + 72px + 24px);
+    align-self:flex-start;flex:0 0 clamp(220px,30%,392px);height:fit-content;z-index:3;
+    display:flex;flex-direction:column;gap:22px;}
+  .agn-team-eyebrow{font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:24px;line-height:1;color:#e6ebf0;}
+  .agn-team-head .agn-hero-logo{width:min(340px,100%);}
+
+  /* Grid · 6 cols so 3-per-row (span 2) and 2-per-row (span 3) both fit;
+     cards fill the row width and keep a fixed 254px height. */
+  .agn-team-grid{flex:1;min-width:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+  .agn-team-card{position:relative;grid-column:span 2;height:254px;overflow:hidden;
+    background:rgba(75,204,146,.05);-webkit-backdrop-filter:blur(7px) saturate(1.3);backdrop-filter:blur(7px) saturate(1.3);
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow:inset 0 1px 1px rgba(255,255,255,.22),inset 0 0 0 1px rgba(255,255,255,.05),inset 0 -10px 26px rgba(255,255,255,.04),0 18px 40px -24px rgba(0,0,0,.6);
+    text-decoration:none;color:inherit;border-radius:999px;
+    transition:border-radius .5s cubic-bezier(.16,1,.3,1),opacity .4s ease,filter .4s ease,box-shadow .5s ease,transform .5s cubic-bezier(.16,1,.3,1);}
+  .agn-team-card.span-3{grid-column:span 3;}
+
+  /* Fixed teal "сечение" behind the photo (centred; does not follow the cursor). */
+  .agn-team-card::before{content:"";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+    width:90%;height:90%;border-radius:50%;z-index:0;pointer-events:none;
+    background:radial-gradient(circle,rgba(27,254,209,.36) 0%,rgba(27,254,209,0) 68%);
+    opacity:0;transition:opacity .45s ease;}
+
+  .agn-team-photo{position:absolute;inset:0;display:flex;justify-content:center;align-items:stretch;
+    overflow:hidden;border-radius:inherit;z-index:1;}
+  .agn-team-photo img{width:86%;height:100%;object-fit:cover;object-position:center top;
+    transition:transform .6s cubic-bezier(.16,1,.3,1);will-change:transform;}
+
+  /* Caption · hidden by default, appears on hover */
+  .agn-team-cap{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;align-items:flex-end;
+    justify-content:space-between;gap:10px;padding:30px 14px 15px;
+    background:linear-gradient(180deg,rgba(6,16,28,0) 0%,rgba(6,16,28,.82) 62%,rgba(6,16,28,.92) 100%);
+    opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .45s cubic-bezier(.16,1,.3,1);}
+  .agn-team-cap-txt{min-width:0;}
+  .agn-team-cap-name{font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:15px;line-height:1.2;color:#fff;}
+  .agn-team-cap-role{font-family:'Poppins',system-ui,sans-serif;font-weight:500;font-size:12px;line-height:1.28;color:rgba(255,255,255,.82);margin-top:3px;}
+  .agn-team-li{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:5px;background:#2867b2;transition:filter .3s ease,transform .3s ease;}
+  .agn-team-li:hover{filter:brightness(1.12);transform:translateY(-1px);}
+  .agn-team-li svg{width:18px;height:18px;display:block;}
+
+  /* Hover · corners shrink, photo zooms 10%, glow + caption in */
+  .agn-team-card:hover{border-radius:32px;transform:translateY(-2px);
+    box-shadow:inset 0 1px 1px rgba(255,255,255,.28),0 30px 60px -30px rgba(0,0,0,.7),inset 0 0 0 1px rgba(27,254,209,.3);}
+  .agn-team-card:hover .agn-team-photo img{transform:scale(1.1);}
+  .agn-team-card:hover::before{opacity:1;}
+  .agn-team-card:hover .agn-team-cap{opacity:1;transform:translateY(0);}
+  /* Dim the rest so focus lands on the hovered person */
+  .agn-team-grid:hover .agn-team-card:not(:hover){opacity:.4;filter:saturate(.7);}
+
+  /* Careers ("Maybe / This is your place?") card */
+  .agn-team-card--careers .agn-team-photo{align-items:center;padding:13%;}
+  .agn-team-card--careers .agn-team-photo img{width:100%;height:auto;max-height:100%;object-fit:contain;}
+  .agn-team-card--careers:hover .agn-team-photo img{transform:scale(1.05);}
+  .agn-team-li--arrow{background:rgba(255,255,255,.12);}
+
+  @media(max-width:900px){
+    .agn-team-inner{flex-direction:column;gap:30px;padding:0 20px;}
+    .agn-team-head{position:static;flex:none;width:100%;}
+    .agn-team-grid{grid-template-columns:repeat(2,1fr);width:100%;}
+    .agn-team-card,.agn-team-card.span-3{grid-column:auto;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .agn-team-card,.agn-team-photo img,.agn-team-cap,.agn-team-card::before{transition:none;}
+  }
+
+  /* ===== 06 BUSINESSES THAT TRUSTED · 3-row infinite logo marquee ===== */
+  .agn-trust{position:relative;z-index:2;overflow:hidden;color:#fff;padding:clamp(72px,8vw,112px) 0 clamp(60px,7vw,92px);
+    background:linear-gradient(180deg,#0a1f30 0%,#081226 100%);}
+  .agn-trust-bg{position:absolute;left:-3%;top:-8%;width:min(660px,58%);height:420px;z-index:0;pointer-events:none;filter:blur(28px);
+    background:radial-gradient(50% 50% at 50% 50%,rgba(27,201,160,.16) 0%,rgba(27,201,160,0) 70%);}
+  .agn-trust-inner{position:relative;z-index:1;width:100%;max-width:1600px;margin:0 auto;
+    display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vw,46px);}
+  .agn-trust-title{margin:0;padding:0 24px;text-align:center;font-family:'Poppins',system-ui,sans-serif;font-weight:700;
+    font-size:clamp(24px,3.2vw,40px);line-height:1.2;color:#fff;max-width:1120px;}
+  .agn-trust-title span{color:#1BFED1;}
+
+  .agn-trust-rows{width:100%;display:flex;flex-direction:column;gap:8px;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);}
+  .agn-trust-row{width:100%;overflow:hidden;}
+  .agn-trust-track{display:flex;width:max-content;will-change:transform;}
+  .agn-trust-seq{display:flex;gap:8px;margin:0;padding:0 8px 0 0;list-style:none;}
+  .agn-trust-card{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:150px;height:90px;border-radius:16px;
+    background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+    transition:background .35s ease,border-color .35s ease,box-shadow .45s ease;}
+  .agn-trust-card img{max-width:76%;max-height:52%;width:auto;height:auto;object-fit:contain;opacity:.82;
+    transition:opacity .35s ease;pointer-events:none;-webkit-user-select:none;user-select:none;}
+  /* very weak glow on hover */
+  .agn-trust-card:hover{background:rgba(27,254,209,.055);border-color:rgba(27,254,209,.16);
+    box-shadow:0 8px 22px -14px rgba(27,254,209,.3),inset 0 1px 0 rgba(255,255,255,.08);}
+  .agn-trust-card:hover img{opacity:1;}
+
+  .agn-trust-foot{display:inline-flex;align-items:center;gap:16px;padding:11px 22px;border-radius:999px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);}
+  .agn-trust-foot-txt{font-family:'Poppins',system-ui,sans-serif;font-size:15px;line-height:1;color:#c6d3e2;white-space:nowrap;}
+  .agn-trust-foot-txt b{color:#fff;font-weight:600;}
+  .agn-trust-sep{width:1px;height:22px;background:rgba(255,255,255,.14);}
+  .agn-trust-foot .agn-hero-logo{width:148px;}
+
+  @media(max-width:720px){
+    .agn-trust-card{width:120px;height:74px;border-radius:13px;}
+    .agn-trust-seq{gap:6px;}
+    .agn-trust-rows{gap:6px;}
+    .agn-trust-foot{flex-wrap:wrap;justify-content:center;gap:10px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .agn-trust-track{transform:none!important;}
+  }
 </style>
 </helmet>
-<div ref="{{ setRoot }}" style="--accent:#1FC9A0;background:linear-gradient(180deg,#1e1a47 0%,#181441 42%,#0e0b29 100%);background-attachment:fixed;color:#0B1B38;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;width:100%;">
+<div ref="{{ setRoot }}" style="--accent:#1FC9A0;background:linear-gradient(180deg,#1e1a47 0%,#181441 42%,#0e0b29 100%);background-attachment:fixed;color:#0B1B38;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased;position:relative;width:100%;">
 
   <!-- NAV — shared component built by ./nav.js (edit that file once, applies everywhere) -->
   <nav class="agn-nav" data-agn-nav aria-label="Primary"></nav>
 
-  <!-- HERO — Grid squares (team photos) · fixed pin + spacer (parallax cover-scroll) -->
+  <!-- HERO — Plasma bg + text · fixed pin + spacer (parallax cover-scroll) -->
   <div class="agn-hero-scroll" data-hero-scroll>
     <div class="agn-hero-spacer" aria-hidden="true"></div>
-    <header id="top" class="agn-about-hero" data-hero data-hero-pin>
-      <div class="agn-hero-grid-wrap" data-grid-wrap aria-hidden="true">
-        <div class="agn-hero-grid" data-grid></div>
-      </div>
+    <header id="top" class="agn-about-hero" data-hero data-hero-pin data-cursor-theme="dark">
+      <div class="agn-hero-plasma" data-plasma aria-hidden="true"></div>
       <div class="agn-hero-content" data-hero-content data-hero-layer>
-        <h1 class="agn-hero-title" data-hero-title><span class="agn-hero-accent">We Built This Agency to </span><span class="agn-hero-plain">Answer One Question:</span></h1>
-        <p class="agn-hero-sub" data-hero-sub>An AI-native, senior-led growth firm for PE-backed and venture-backed brands. We find what's holding marketing back and build the engine to fix it — founder-led since 2020.</p>
+        <div class="agn-hero-logo" aria-label="Azarian Growth Agency">
+          <div class="agn-hero-logo-mark"><img src="assets/about/logo-mark.svg" alt="" draggable="false"></div>
+          <div class="agn-hero-logo-word"><img src="assets/about/logo-wordmark.svg" alt="Azarian Growth Agency" draggable="false"></div>
+          <div class="agn-hero-logo-tag"><img src="assets/about/logo-tagline.svg" alt="" draggable="false"></div>
+        </div>
+        <div class="agn-hero-copy" data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s cubic-bezier(.16,.84,.44,1),translate .7s cubic-bezier(.16,.84,.44,1);">
+          <h1 class="agn-hero-title"
+            data-hero-proximity
+            data-prox-label="We Built This Agency to|Answer One Question:"
+            data-prox-accent="We Built This Agency to"
+            aria-label="We Built This Agency to Answer One Question:"></h1>
+          <p class="agn-hero-sub">An AI-native, senior-led growth firm for PE-backed and venture-backed brands. We find what's holding marketing back and build the engine to fix it — founder-led since 2020.</p>
+        </div>
       </div>
     </header>
   </div>
 
   <!-- 02 ABOUT HAMLET -->
-  <section id="story" class="agn-hamlet" data-hamlet>
+  <section id="story" class="agn-hamlet" data-hamlet data-cursor-theme="dark">
     <div class="agn-hamlet-glow" aria-hidden="true"></div>
     <div class="agn-hamlet-inner">
       <div class="agn-hamlet-photo" data-hamlet-photo>
@@ -123,116 +417,142 @@
     </div>
   </section>
 
-  <!-- HAMLET BIO -->
-  <section style="background:#F5F7FA;padding:130px 40px;">
-    <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:start;" data-grid-2>
-      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
-        <img src="assets/team/placeholder.svg" alt="Hamlet Azarian" style="width:100%;max-width:240px;border-radius:20px;border:3px solid #fff;box-shadow:0 20px 50px -20px rgba(11,27,56,.3);" />
-      </div>
-      <div>
-        <div data-reveal data-reveal-delay="60" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
-          <h2 style="margin:0 0 24px;font-weight:700;font-size:clamp(28px,3.5vw,42px);line-height:1.1;">The person you are hiring</h2>
-          <div style="font-size:17px;line-height:1.75;color:#5A6678;display:flex;flex-direction:column;gap:18px;">
-            <p style="margin:0;">I have been building growth engines for 20 years. Not as an observer. As the person accountable for the number.</p>
-            <p style="margin:0;">I was on the founding team &amp; VP of Growth and Marketing at Camino Financial, where I built the demand generation system from the ground up. I have served as Senior Growth Advisor to DISQO for five years and to CBDfx for six years. I am a Growth Advisor at Untapped Ventures and SmartGate VC, where I work with portfolio companies on the same growth challenges we solve at Azarian Growth Agency.</p>
-            <p style="margin:0;">I am a Techstars mentor, a guest lecturer on growth strategy at the USC Marshall School of Business, and the host of the [A] Growth Ventures Podcast.</p>
-            <p style="margin:0;color:#0B1B38;font-weight:500;">When you work with Azarian Growth Agency, I am personally involved. I lead every Strategic Growth Diagnostic. I am the senior strategist on every Fractional CMO engagement. The person who earns your trust is the person who does the work.</p>
-          </div>
+  <!-- 03 OUR VALUE · Orbital wheel (horizontal scroll) -->
+  <section id="values" class="agn-values" data-values data-cursor-theme="dark" aria-label="Our values"></section>
+
+  <!-- 04 CASE STUDY · Growth partners (marquee) + hover cards -->
+  <section id="case-studies" class="agn-cases" data-cursor-theme="dark" aria-label="Case studies">
+    <div class="agn-cases-glow" aria-hidden="true"></div>
+    <div class="agn-cases-inner">
+      <h2 class="agn-cases-title" data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">Be the next to experience what our<br>growth partners describe as — Refreshing</h2>
+    </div>
+
+    <div class="agn-cases-marquee" data-reveal data-reveal-delay="120" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+      <div class="agn-cases-track">
+        <div class="agn-cases-group">
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/goodhood.png" alt="Goodhood" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/spa-equipment.png" alt="Spa &amp; Equipment" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/orders.png" alt="orders.co" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/syntax.png" alt="Syntax Technologies" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/anzu.png" alt="ANZU GLOBAL" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
         </div>
-        <div data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" data-grid-3>
-          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;"><img src="assets/credentials/untapped.svg" alt="Untapped Ventures" style="height:28px;width:auto;" /><div style="font-size:12px;color:#94A3B8;margin-top:8px;">Growth Advisor</div></div>
-          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;"><img src="assets/credentials/techstars.svg" alt="Techstars" style="height:28px;width:auto;" /><div style="font-size:12px;color:#94A3B8;margin-top:8px;">Mentor</div></div>
-          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;"><img src="assets/credentials/usc.svg" alt="USC Marshall" style="height:28px;width:auto;" /><div style="font-size:12px;color:#94A3B8;margin-top:8px;">Guest Lecturer</div></div>
-          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;font-size:13px;font-weight:600;color:#0B1B38;">SmartGate VC<div style="font-size:12px;color:#94A3B8;margin-top:8px;font-weight:400;">Growth Advisor</div></div>
-          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;font-size:13px;font-weight:600;color:#0B1B38;">CBDfx<div style="font-size:12px;color:#94A3B8;margin-top:8px;font-weight:400;">Senior Growth Advisor · 6+ years</div></div>
-          <div style="background:#fff;border:1px solid #E3E8EF;border-radius:14px;padding:16px;font-size:13px;font-weight:600;color:#0B1B38;">[A] Growth Ventures<div style="font-size:12px;color:#94A3B8;margin-top:8px;font-weight:400;">Podcast Host</div></div>
+        <div class="agn-cases-group" aria-hidden="true">
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/goodhood.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/spa-equipment.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/orders.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/syntax.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card"><div class="cs-card-logo"><img src="assets/case-studies/anzu.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+        </div>
+      </div>
+      <div class="agn-cases-edge agn-cases-edge--left" aria-hidden="true"></div>
+      <div class="agn-cases-edge agn-cases-edge--right" aria-hidden="true"></div>
+    </div>
+
+    <div class="agn-cases-inner" style="margin-top:10px;">
+      <div data-reveal data-reveal-delay="160" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+        <a class="agn-btn" href="#" data-magnetic="true">View all case studies</a>
+      </div>
+
+      <div class="agn-cases-partners" data-reveal data-reveal-delay="200" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+        <div class="agn-cases-partner"><img src="assets/case-studies/partner-klaviyo.svg" alt="Klaviyo Partner" loading="lazy" style="aspect-ratio:147/62"></div>
+        <div class="agn-cases-partner"><img src="assets/case-studies/partner-designrush.svg" alt="DesignRush" loading="lazy" style="aspect-ratio:407.701/62.1555"></div>
+        <div class="agn-cases-partner"><img src="assets/case-studies/partner-semrush.svg" alt="SEMRUSH Certified Agency Partner" loading="lazy" style="aspect-ratio:132/62"></div>
+        <div class="agn-cases-partner"><img src="assets/case-studies/partner-google.svg" alt="Google Partner" loading="lazy" style="aspect-ratio:356/62"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 OUR TEAM · Sticky heading + glass-circle grid (hover: zoom, morph, caption, dim others) -->
+  <section id="our-team" class="agn-team" data-cursor-theme="dark" aria-label="Our team">
+    <div class="agn-team-bg" aria-hidden="true"></div>
+    <div class="agn-team-inner">
+      <aside class="agn-team-head">
+        <div class="agn-team-eyebrow">The Team</div>
+        <div class="agn-hero-logo" aria-label="Azarian Growth Agency">
+          <div class="agn-hero-logo-mark"><img src="assets/about/logo-mark.svg" alt="" draggable="false"></div>
+          <div class="agn-hero-logo-word"><img src="assets/about/logo-wordmark.svg" alt="Azarian Growth Agency" draggable="false"></div>
+          <div class="agn-hero-logo-tag"><img src="assets/about/logo-tagline.svg" alt="" draggable="false"></div>
+        </div>
+      </aside>
+
+      <div class="agn-team-grid">
+        <!-- Row 1 -->
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="assets/team/tm-hamlet.png" alt="Hamlet Azarian" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Hamlet Azarian</div><div class="agn-team-cap-role">Founder and CEO</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Hamlet Azarian on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="assets/team/tm-antika.png" alt="Antika Vardazaryan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Antika Vardazaryan</div><div class="agn-team-cap-role">Email Automation Lead</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Antika Vardazaryan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="assets/team/tm-maria-apoyan.png" alt="Maria Apoyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Maria Apoyan</div><div class="agn-team-cap-role">Email Marketing &amp; Outreach Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Maria Apoyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <!-- Row 2 -->
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="assets/team/tm-arevik.png" alt="Arevik Kyasinyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Arevik Kyasinyan</div><div class="agn-team-cap-role">Creative Content &amp; Social Media Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Arevik Kyasinyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="assets/team/tm-amile.png" alt="Amile Ghalajyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Amile Ghalajyan</div><div class="agn-team-cap-role">Design Team Lead</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Amile Ghalajyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="assets/team/tm-davit.png" alt="Davit Balayan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Davit Balayan</div><div class="agn-team-cap-role">UX/UI Designer</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Davit Balayan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <!-- Row 3 (two wide) -->
+        <div class="agn-team-card span-3"><span class="agn-team-photo"><img src="assets/team/tm-maria-makaryan.png" alt="Maria Makaryan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Maria Makaryan</div><div class="agn-team-cap-role">Email Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Maria Makaryan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-3"><span class="agn-team-photo"><img src="assets/team/tm-sara.png" alt="Sara Vardanyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Sara Vardanyan</div><div class="agn-team-cap-role">SEO Marketing Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Sara Vardanyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <!-- Row 4 -->
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="assets/team/tm-nane.png" alt="Nane Hayrapetyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Nane Hayrapetyan</div><div class="agn-team-cap-role">Marketing Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Nane Hayrapetyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="assets/team/tm-elen.png" alt="Elen Grigoryan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Elen Grigoryan</div><div class="agn-team-cap-role">Marketing Intern</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Elen Grigoryan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-2 agn-team-card--careers"><span class="agn-team-photo"><img src="assets/team/tm-careers.png" alt="Maybe — this is your place?" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Careers</div><div class="agn-team-cap-role">Join our team</div></div><a class="agn-team-li agn-team-li--arrow" href="#cta" aria-label="Join our team"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 BUSINESSES THAT TRUSTED · 3-row infinite logo marquee (top+bottom →, middle ←) -->
+  <section id="trusted" class="agn-trust" data-cursor-theme="dark" aria-label="Businesses that trusted us">
+    <div class="agn-trust-bg" aria-hidden="true"></div>
+    <div class="agn-trust-inner">
+      <h2 class="agn-trust-title">The Businesses <span>That Trusted Our Expertise and Scaled</span></h2>
+      <div class="agn-trust-rows">
+        <div class="agn-trust-row" data-dir="left" data-speed="50">
+          <div class="agn-trust-track"><ul class="agn-trust-seq">
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r1-2.png" alt="Goodhood" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r1-3.png" alt="orders.co" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r1-4.png" alt="mobiclocks" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r1-5.png" alt="ScribeUp" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r1-6.png" alt="mingo" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r1-7.png" alt="SwiftEngine" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r1-8.png" alt="Pyramid" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r1-9.png" alt="Spa &amp; Equipment" loading="lazy" draggable="false"></li>
+          </ul></div>
+        </div>
+        <div class="agn-trust-row" data-dir="right" data-speed="42">
+          <div class="agn-trust-track"><ul class="agn-trust-seq">
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r2-2.png" alt="WYOS" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r2-3.png" alt="Camino Financial" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r2-4.png" alt="Daily Harvest" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r2-5.png" alt="Client logo" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r2-6.png" alt="Zero Broker" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r2-9.png" alt="Smart Sender" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r2-10.png" alt="World News Monitors" loading="lazy" draggable="false"></li>
+          </ul></div>
+        </div>
+        <div class="agn-trust-row" data-dir="left" data-speed="56">
+          <div class="agn-trust-track"><ul class="agn-trust-seq">
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r3-2.png" alt="ANZU Global" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r3-3.png" alt="Discount Pool Mart" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r3-4.png" alt="eka" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r3-5.png" alt="Norvoch" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r3-6.png" alt="Peregrin" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r3-7.png" alt="Light Printing House" loading="lazy" draggable="false"></li>
+            <li class="agn-trust-card"><img src="assets/trusted/tl-r3-9.png" alt="Hireclout" loading="lazy" draggable="false"></li>
+          </ul></div>
+        </div>
+      </div>
+      <div class="agn-trust-foot">
+        <span class="agn-trust-foot-txt">Trusted by <b>50+ brands</b></span>
+        <span class="agn-trust-sep" aria-hidden="true"></span>
+        <div class="agn-hero-logo" aria-label="Azarian Growth Agency">
+          <div class="agn-hero-logo-mark"><img src="assets/about/logo-mark.svg" alt="" draggable="false"></div>
+          <div class="agn-hero-logo-word"><img src="assets/about/logo-wordmark.svg" alt="Azarian Growth Agency" draggable="false"></div>
+          <div class="agn-hero-logo-tag"><img src="assets/about/logo-tagline.svg" alt="" draggable="false"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VALUES -->
-  <section style="background:#ffffff;padding:130px 40px;">
-    <div style="max-width:1160px;margin:0 auto;">
-      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;display:flex;align-items:center;gap:12px;margin-bottom:22px;">
-        <span style="width:28px;height:3px;border-radius:2px;background:var(--accent);"></span>
-        <span style="font-size:13px;font-weight:600;letter-spacing:.14em;color:#0E9E80;text-transform:uppercase;">Values</span>
-      </div>
-      <h2 data-reveal data-reveal-delay="60" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 40px;font-weight:700;font-size:clamp(28px,3.5vw,40px);">What we believe, and how it shows up in the work</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" data-grid-3>
-        <div data-reveal data-reveal-delay="100" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#F5F7FA;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:#0B1B38;">Growth Mindset</strong><span style="font-size:15px;color:#5A6678;line-height:1.55;">Continuous improvement is how we stay ahead of market shifts.</span></div>
-        <div data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#F5F7FA;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:#0B1B38;">Innovation</strong><span style="font-size:15px;color:#5A6678;line-height:1.55;">We test boldly and measure rigorously.</span></div>
-        <div data-reveal data-reveal-delay="180" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#F5F7FA;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:#0B1B38;">Team</strong><span style="font-size:15px;color:#5A6678;line-height:1.55;">Senior people doing senior work — globally distributed, locally accountable.</span></div>
-        <div data-reveal data-reveal-delay="220" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#F5F7FA;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:#0B1B38;">Transparency</strong><span style="font-size:15px;color:#5A6678;line-height:1.55;">No hidden agendas. Findings belong to the client.</span></div>
-        <div data-reveal data-reveal-delay="260" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#0B1B38;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:var(--accent);">Diagnosis before prescription</strong><span style="font-size:15px;color:#AEB9CC;line-height:1.55;">We will never propose a solution before we have examined the problem. If we cannot find a problem worth solving, we will tell you.</span></div>
-        <div data-reveal data-reveal-delay="300" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;background:#0B1B38;border-radius:16px;padding:28px;"><strong style="display:block;margin-bottom:8px;color:var(--accent);">Financial language, not marketing language</strong><span style="font-size:15px;color:#AEB9CC;line-height:1.55;">We report in CAC, LTV, payback period, and contribution margin because those are the metrics that drive decisions.</span></div>
-      </div>
-    </div>
-  </section>
+  <!-- CTA / CONTACT — shared ./cta.js -->
+  <section id="cta" data-agn-cta data-cursor-theme="dark"></section>
 
-  <!-- TRACK RECORD -->
-  <section style="background:radial-gradient(120% 120% at 80% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);padding:110px 40px;color:#fff;">
-    <div style="max-width:1160px;margin:0 auto;">
-      <h2 data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 50px;font-weight:700;font-size:clamp(28px,3.5vw,40px);text-align:center;">Track record</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" data-grid-3>
-        <div data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;">$<span data-countup="300">0</span>M+</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">In client funding supported since 2020</div></div>
-        <div data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;">$<span data-countup="40">0</span>M+</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">In managed media spend optimized against CAC and LTV targets</div></div>
-        <div data-reveal data-reveal-delay="200" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;"><span data-countup="34">0</span>%</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">Average reduction in CAC within 90 days of diagnostic-led reallocation</div></div>
-        <div data-reveal data-reveal-delay="260" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;"><span data-countup="6">0</span>+</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">Years of senior-led engagements across SaaS, financial services, e-commerce, and PE-backed companies</div></div>
-        <div data-reveal data-reveal-delay="320" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;"><span data-countup="90">0</span> days</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">Average time from diagnostic findings to measurable growth impact</div></div>
-        <div data-reveal data-reveal-delay="380" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;border-left:2px solid rgba(31,201,160,.4);padding-left:20px;"><div style="font-size:clamp(32px,4vw,48px);font-weight:800;">$<span data-countup="420">0</span>K</div><div style="margin-top:10px;font-size:14px;color:#AEB9CC;">Annual value generated from a single $50K diagnostic engagement</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM -->
-  <section style="background:#ffffff;padding:130px 40px;">
-    <div style="max-width:1160px;margin:0 auto;">
-      <div data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;display:flex;align-items:center;gap:12px;margin-bottom:22px;">
-        <span style="width:28px;height:3px;border-radius:2px;background:var(--accent);"></span>
-        <span style="font-size:13px;font-weight:600;letter-spacing:.14em;color:#0E9E80;text-transform:uppercase;">Team</span>
-      </div>
-      <h2 data-reveal data-reveal-delay="60" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 16px;font-weight:700;font-size:clamp(28px,3.5vw,40px);">Senior people doing senior work</h2>
-      <p data-reveal data-reveal-delay="100" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 50px;font-size:18px;line-height:1.6;color:#5A6678;max-width:72ch;">Azarian Growth Agency is a team of approximately 25 specialists across three continents. Every client engagement is led by a senior strategist with direct experience in the client's growth stage and industry. We do not staff engagements with junior generalists who learn on your account.</p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;" data-team-grid>
-        <div data-reveal data-reveal-delay="120" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Hamlet Azarian</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Founder &amp; Principal Strategist</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">20+ years building growth engines across SaaS and financial services.</div></div>
-        <div data-reveal data-reveal-delay="160" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Head of Paid Media</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">12+ years managing $20M+ in annual paid spend against CAC targets.</div></div>
-        <div data-reveal data-reveal-delay="200" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Lead Growth Analyst</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">10+ years in attribution modeling and executive reporting.</div></div>
-        <div data-reveal data-reveal-delay="240" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Senior SEO Strategist</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">8+ years building organic pipelines for B2B and e-commerce brands.</div></div>
-        <div data-reveal data-reveal-delay="280" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Conversion Optimization Lead</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">9+ years running A/B programs tied to pipeline and revenue.</div></div>
-        <div data-reveal data-reveal-delay="320" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:center;"><img src="assets/team/placeholder.svg" alt="" style="width:100px;height:100px;margin:0 auto 14px;display:block;" /><div style="font-weight:700;font-size:16px;">Senior Strategist</div><div style="font-size:13px;color:var(--accent);margin:4px 0;">Lifecycle Marketing Lead</div><div style="font-size:13px;color:#5A6678;line-height:1.5;">7+ years in CRM, email, and retention for high-LTV brands.</div></div>
-      </div>
-      <div data-reveal data-reveal-delay="360" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin-top:60px;padding-top:40px;border-top:1px solid #E3E8EF;">
-        <h3 style="margin:0 0 20px;font-size:22px;font-weight:700;">Open positions</h3>
-        <p style="margin:0;font-size:16px;color:#5A6678;">Azarian Growth Agency is an A-player partner, based in LA and Yerevan. We are growing — reach out via the form below if you want to join the team.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section id="cta" style="background:radial-gradient(120% 130% at 50% 120%,#12315e 0%,#0B1B38 50%,#081226 100%);padding:140px 40px;color:#fff;">
-    <div style="max-width:720px;margin:0 auto;text-align:center;">
-      <h2 data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 0 16px;font-weight:800;font-size:clamp(28px,4vw,44px);">The next step is a conversation</h2>
-      <p data-reveal data-reveal-delay="80" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin:0 auto 40px;font-size:18px;line-height:1.6;color:#AEB9CC;max-width:62ch;">If you are a PE operating partner looking for a marketing partner who speaks the language of value creation, or a growth-stage company that needs marketing to start showing up on the P&amp;L, we should talk. The conversation is 30 minutes, there is no pitch, and you will leave with a clearer sense of whether we are the right fit.</p>
-      <form data-contact-form data-reveal data-reveal-delay="140" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;text-align:left;display:flex;flex-direction:column;gap:16px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" data-grid-2>
-          <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">First Name *</span><input type="text" name="firstName" required style="height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:0 16px;" /></label>
-          <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">Last Name *</span><input type="text" name="lastName" required style="height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:0 16px;" /></label>
-        </div>
-        <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">Email *</span><input type="email" name="email" required style="height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:0 16px;" /></label>
-        <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">Company Name *</span><input type="text" name="company" required style="height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:0 16px;" /></label>
-        <label style="display:flex;flex-direction:column;gap:6px;"><span style="font-size:13px;font-weight:600;color:#C6D0E0;">How can we help?</span><textarea name="message" rows="4" style="border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:15px;padding:14px 16px;resize:vertical;"></textarea></label>
-        <button type="submit" style="margin-top:8px;background:var(--accent);color:#0B1B38;font-weight:600;font-size:17px;padding:18px 36px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;">Start the Conversation</button>
-      </form>
-    </div>
-  </section>
-
-  <footer style="background:#081226;color:#AEB9CC;padding:60px 40px;">
-    <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;">
-      <a href="Azarian Home.dc.html" style="display:flex;align-items:center;gap:11px;text-decoration:none;"><img src="assets/logo.svg" alt="" style="height:34px;" /><span style="color:#fff;font-weight:600;">Azarian Growth Agency</span></a>
-      <div style="font-size:14px;color:#5A6678;"><a href="Azarian Home.dc.html" style="color:var(--accent);text-decoration:none;">Home</a> · © 2026 Azarian Growth Agency</div>
-    </div>
-  </footer>
+  <!-- FOOTER — shared ./footer.js -->
+  <footer class="ft" data-agn-footer data-cursor-theme="dark"></footer>
 
 </div>
 </x-dc>
@@ -241,9 +561,13 @@ class Component extends DCLogic {
   setRoot = (el) => { this.rootEl = el; };
 
   componentDidMount() {
-    this.setupHero();
+    this.setupPlasma();
+    this.setupHeroProximity();
     this.setupHeroCover();
     this.setupHamlet();
+    this.setupValues();
+    this.setupTeam();
+    this.setupTrusted();
     this.setupScrollFx();
     this.setupContactForm();
   }
@@ -251,11 +575,95 @@ class Component extends DCLogic {
   componentWillUnmount() {
     if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
     if (this._fxRaf) cancelAnimationFrame(this._fxRaf);
-    if (this._onHeroResize) window.removeEventListener('resize', this._onHeroResize);
-    if (this._heroResizeT) clearTimeout(this._heroResizeT);
-    (this._heroTimers || []).forEach((t) => clearTimeout(t));
+    if (this._heroProxCleanup) this._heroProxCleanup();
+    if (this._heroProxRaf) cancelAnimationFrame(this._heroProxRaf);
+    if (this._visIOs) this._visIOs.forEach((io) => io.disconnect());
     if (this._hamletIO) this._hamletIO.disconnect();
     if (this._heroCoverCleanup) this._heroCoverCleanup();
+    if (this._plasmaCleanup) this._plasmaCleanup();
+    if (this._valuesCleanup) this._valuesCleanup();
+    if (this._teamCleanups) this._teamCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
+    if (this._trustCleanups) this._trustCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
+  }
+
+  // ---- ABOUT HERO: reactbits Plasma (vanilla WebGL2 port) ----
+  setupPlasma() {
+    const root = this.rootEl;
+    if (!root || !window.AzarianPlasma) return;
+    const el = root.querySelector('[data-plasma]');
+    const hero = root.querySelector('[data-hero]');
+    if (!el) return;
+    this._plasmaCleanup = window.AzarianPlasma.mount(el, {
+      color: '#1BFED1',
+      speed: 0.2,
+      direction: 'reverse',
+      scale: 0.5,
+      opacity: 0.5,
+      mouseInteractive: false,
+      mouseTarget: hero || el,
+      maxDpr: 1,
+      maxDim: 640,
+      fps: 60,
+      steps: 24,
+    });
+  }
+
+  // ---- 03 OUR VALUE · orbital wheel (horizontal scroll) ----
+  setupValues() {
+    const root = this.rootEl;
+    if (!root || !window.AzarianOrbitalWheel) return;
+    const host = root.querySelector('[data-values]');
+    if (!host) return;
+    // Order + pairing per spec: each title maps to its own description and image.
+    const images = [
+      {
+        src: 'assets/values/financial.png',
+        label: 'Financial, not marketing language',
+        alt: 'Financial, not marketing language',
+        subtitle: 'We report in CAC, LTV, payback period, and contribution margin because those are the metrics that drive decisions. If we cannot connect our work to a financial outcome, we do not do the work.',
+      },
+      {
+        src: 'assets/values/diagnosis.png',
+        label: 'Diagnosis before prescription',
+        alt: 'Diagnosis before prescription',
+        subtitle: 'We will never propose a solution before we have examined the problem. If we cannot find a problem worth solving, we will tell you.',
+      },
+      {
+        src: 'assets/values/integrity.png',
+        label: 'Integrity in Action',
+        alt: 'Integrity in Action',
+        subtitle: 'We commit to honesty and transparency in all our endeavors, building trust through consistency.',
+      },
+      {
+        src: 'assets/values/customer.png',
+        label: 'Customer-Centric Mindset',
+        alt: 'Customer-Centric Mindset',
+        subtitle: "Every decision we make revolves around enhancing our customers' experience and satisfaction.",
+      },
+      {
+        src: 'assets/values/innovate.png',
+        label: 'Innovate Fearlessly',
+        alt: 'Innovate Fearlessly',
+        subtitle: 'We embrace creativity and experimentation, learning from failures to drive continuous improvement.',
+      },
+      {
+        src: 'assets/values/collaborative.png',
+        label: 'Collaborative Spirit',
+        alt: 'Collaborative Spirit',
+        subtitle: 'Teamwork fuels our success; we value diverse perspectives and open communication.',
+      },
+      {
+        src: 'assets/values/sustainable.png',
+        label: 'Sustainable Growth',
+        alt: 'Sustainable Growth',
+        subtitle: 'We strive for progress that benefits our community, environment, and long-term business health.',
+      },
+    ];
+    this._valuesCleanup = window.AzarianOrbitalWheel.mount(host, images, {
+      heading: 'What we believe, and how it shows up in the work',
+      turns: 1,
+      scrollPages: 3.6,
+    });
   }
 
   // ---- HERO parallax cover-scroll: pinned hero fades/scales as the next section rises over it ----
@@ -393,230 +801,203 @@ class Component extends DCLogic {
     this._hamletIO = io;
   }
 
-  // ---- ABOUT HERO: animated grid of team photos ----
-  setupHero() {
-    const root = this.rootEl;
-    if (!root) return;
-    const hero = root.querySelector('[data-hero]');
-    const wrap = root.querySelector('[data-grid-wrap]');
-    const grid = root.querySelector('[data-grid]');
-    const content = root.querySelector('[data-hero-content]');
-    const titleEl = root.querySelector('[data-hero-title]');
-    const subEl = root.querySelector('[data-hero-sub]');
-    if (!hero || !wrap || !grid || !content) return;
+  // VariableFontCursorProximity — same as Home (Originkit / Framer port).
+  // Letters morph `wght` by cursor proximity. `|` in data-prox-label = line break.
+  setupHeroProximity() {
+    const root = this.rootEl; if (!root) return;
+    const el = root.querySelector('[data-hero-proximity]');
+    if (!el) return;
 
-    const PHOTOS = [
-      // top row (5)
-      'assets/team/hero/Amile.png', 'assets/team/hero/Hamlet.png',
-      'assets/team/hero/Sara.png', 'assets/team/hero/Elen.png',
-      'assets/team/hero/Mari Makaryan.png',
-      // lower band (3)
-      'assets/team/hero/Davit.png', 'assets/team/hero/Naneh.png', 'assets/team/hero/Antika.png',
-      // bottom pair (2)
-      'assets/team/hero/Mari.png', 'assets/team/hero/Arevik.png',
-    ];
-    const EASE = 'cubic-bezier(.215,.61,.355,1)'; // power3.out
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    this._heroTimers = [];
-    const later = (fn, ms) => { const t = setTimeout(fn, ms); this._heroTimers.push(t); return t; };
-    const shuffle = (arr) => { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp; } return arr; };
+    const FROM = 500, TO = 900, STRENGTH = 70, MAX_REACH = 900, DURATION = 0.3;
+    const reach = Math.max(1, (Math.max(1, Math.min(100, STRENGTH)) / 100) * MAX_REACH);
+    const fromSettings = "'wght' " + FROM;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // --- Split heading + subtext into animatable spans (once) ---
-    const appendText = (parent, text, mode) => {
-      text.split(/(\s+)/).forEach((tok) => {
-        if (tok === '') return;
-        if (/^\s+$/.test(tok)) { parent.appendChild(document.createTextNode(tok)); return; }
-        const word = document.createElement('span');
-        word.className = 'agn-hero-word';
-        if (mode === 'chars') {
-          for (const chr of tok) { const s = document.createElement('span'); s.className = 'agn-hero-char'; s.textContent = chr; word.appendChild(s); }
-        } else {
-          const s = document.createElement('span'); s.className = 'agn-hero-char'; s.textContent = tok; word.appendChild(s);
-        }
-        parent.appendChild(word);
-      });
+    let letterEls = [];
+    const factors = [];
+    const centers = [];
+    const lastW = [];
+    const mouse = { x: -99999, y: -99999 };
+    let lastT = 0;
+    let dirty = true;
+    let animating = false;
+    let centersValid = false;
+    let titleRect = { left: 0, top: 0 };
+
+    const appendWord = (parent, word, accentStart, accentEnd, charIndexRef) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.setAttribute('data-prox-word', '');
+      wordSpan.setAttribute('aria-hidden', 'true');
+      for (let li = 0; li < word.length; li++) {
+        const span = document.createElement('span');
+        span.setAttribute('data-prox-letter', '');
+        span.textContent = word[li];
+        span.style.fontVariationSettings = fromSettings;
+        const ci = charIndexRef.i;
+        if (accentStart >= 0 && ci >= accentStart && ci < accentEnd) span.classList.add('is-accent');
+        wordSpan.appendChild(span);
+        letterEls.push(span);
+        factors.push(0);
+        centers.push({ x: 0, y: 0 });
+        lastW.push(FROM);
+        charIndexRef.i++;
+      }
+      parent.appendChild(wordSpan);
     };
-    const splitInto = (el, mode) => {
-      const kids = Array.from(el.childNodes);
+
+    const rebuild = () => {
+      const labelRaw = el.getAttribute('data-prox-label') || '';
+      const accent = el.getAttribute('data-prox-accent') || '';
+      // Flat label (no break markers) for accent index matching.
+      const labelFlat = labelRaw.replace(/\|/g, ' ').replace(/\s+/g, ' ').trim();
+      const accentStart = accent ? labelFlat.indexOf(accent) : -1;
+      const accentEnd = accentStart >= 0 ? accentStart + accent.length : -1;
       el.textContent = '';
-      kids.forEach((kid) => {
-        if (kid.nodeType === 3) { appendText(el, kid.textContent, mode); }
-        else if (kid.nodeType === 1) { const holder = kid.cloneNode(false); el.appendChild(holder); appendText(holder, kid.textContent, mode); }
-        else { el.appendChild(kid); }
-      });
-    };
-    if (titleEl) splitInto(titleEl, 'chars');
-    if (subEl) splitInto(subEl, 'words');
-    const allChars = () => (titleEl ? Array.from(titleEl.querySelectorAll('.agn-hero-char')) : [])
-      .concat(subEl ? Array.from(subEl.querySelectorAll('.agn-hero-char')) : []);
-    if (!reduce) allChars().forEach((c) => { c.style.opacity = '0'; });
+      letterEls = [];
+      factors.length = 0;
+      centers.length = 0;
+      lastW.length = 0;
+      centersValid = false;
 
-    // --- reveal text (SplitText style) ---
-    const revealText = () => {
-      if (this._heroTextDone) return;
-      this._heroTextDone = true;
-      if (reduce) { allChars().forEach((c) => { c.style.opacity = ''; }); return; }
-      const titleChars = titleEl ? Array.from(titleEl.querySelectorAll('.agn-hero-char')) : [];
-      titleChars.forEach((ch, i) => {
-        const a = ch.animate([{ opacity: 0, transform: 'translateY(40px)' }, { opacity: 1, transform: 'translateY(0)' }],
-          { duration: 800, delay: i * 30, easing: EASE, fill: 'both' });
-        a.onfinish = () => { ch.style.opacity = ''; ch.style.transform = ''; try { a.cancel(); } catch (e) {} };
-      });
-      const subStart = Math.min(titleChars.length, 22) * 50 + 180;
-      const subChars = subEl ? Array.from(subEl.querySelectorAll('.agn-hero-char')) : [];
-      subChars.forEach((w, i) => {
-        const a = w.animate([{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'translateY(0)' }],
-          { duration: 600, delay: subStart + i * 20, easing: EASE, fill: 'both' });
-        a.onfinish = () => { w.style.opacity = ''; w.style.transform = ''; try { a.cancel(); } catch (e) {} };
-      });
-    };
+      const sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = labelFlat;
+      sr.style.cssText = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
+      el.appendChild(sr);
 
-    // --- reveal photos (random order, blur-in) ---
-    const revealPhotos = (chosen, baseDelay) => {
-      const order = shuffle(chosen.slice());
-      order.forEach((cell, i) => {
-        const p = cell.querySelector('.agn-cell-photo');
-        if (!p) return;
-        if (reduce) { p.style.opacity = ''; p.style.filter = ''; return; }
-        p.style.opacity = '0';
-        const d = baseDelay + i * 65 + Math.random() * 180;
-        const a = p.animate([
-          { opacity: 0, filter: 'blur(14px)', transform: 'scale(1.06)' },
-          { opacity: 0.2, filter: 'blur(0px)', transform: 'scale(1)' },
-        ], { duration: 900, delay: d, easing: EASE, fill: 'both' });
-        a.onfinish = () => { p.style.opacity = ''; p.style.filter = ''; p.style.transform = ''; try { a.cancel(); } catch (e) {} };
-      });
-    };
-
-    // --- build the grid, optionally play the intro ---
-    // fixed photo layout mirroring Figma (node 22739-2677): a top band, a lower
-    // band and a bottom pair, all flanking the centred text. Columns are given as
-    // fractions of width; the rows are computed per screen so all 8 photos always
-    // sit fully on-screen (deterministic, never random placement).
-    const COL_TOP = [0.14, 0.32, 0.50, 0.68, 0.86];
-    const COL_LOW = [0.14, 0.52, 0.86];
-    const COL_BOT = [0.34, 0.66];
-
-    const buildGrid = (animate) => {
-      const gridW = wrap.clientWidth, gridH = wrap.clientHeight;
-
-      // measure the (grid-independent) centred text block first, so cells can be
-      // sized to leave a full row above it (under the nav) and two rows below it
-      const wRect = wrap.getBoundingClientRect();
-      const cRect = content.getBoundingClientRect();
-      const pad = 10;
-      const tTop = (cRect.top - wRect.top) - pad;
-      const tBot = (cRect.bottom - wRect.top) + pad;
-      const navClear = 112;                      // reserved for the overlaid nav
-      const botMargin = Math.max(32, gridH * 0.06);
-
-      // square cells that tile the width, capped by the vertical room so every one
-      // of the 8 photos stays fully visible on any screen size (the column count
-      // may differ per screen, the composition stays the same)
-      const baseCols = Math.max(8, Math.min(13, Math.round(gridW / 148)));
-      let cell = Math.min(
-        gridW / baseCols,
-        Math.max(64, tTop - navClear),
-        Math.max(64, (gridH - botMargin - tBot) / 2.1)
-      );
-      const cols = Math.max(baseCols, Math.round(gridW / cell));
-      cell = gridW / cols;                       // retile to fill the width exactly
-      // the grid bleeds a little past the top edge (so it fades in behind the nav
-      // instead of ending on a hard line) while still keeping a row boundary right
-      // at navClear for the top photo band
-      const gTop = (navClear % cell) - cell;
-      const rows = Math.max(6, Math.ceil((gridH - gTop) / cell) + 1);
-      grid.style.top = gTop + 'px';
-      grid.style.gridTemplateColumns = 'repeat(' + cols + ',' + cell + 'px)';
-      grid.style.gridTemplateRows = 'repeat(' + rows + ',' + cell + 'px)';
-      grid.style.width = (cols * cell) + 'px';
-      grid.style.height = (rows * cell) + 'px';
-      grid.innerHTML = '';
-
-      const cells = [];
-      const cellAt = {};
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const el = document.createElement('div');
-          el.className = 'agn-cell';
-          el.dataset.r = r; el.dataset.c = c;
-          grid.appendChild(el);
-          cells.push(el);
-          cellAt[r + '_' + c] = el;
+      const lines = labelRaw.split('|');
+      const charIndexRef = { i: 0 };
+      lines.forEach((line, lineIdx) => {
+        const words = line.trim().split(/\s+/).filter(Boolean);
+        words.forEach((word, wi) => {
+          appendWord(el, word, accentStart, accentEnd, charIndexRef);
+          if (wi < words.length - 1) {
+            const space = document.createElement('span');
+            space.setAttribute('aria-hidden', 'true');
+            space.style.display = 'inline-block';
+            space.innerHTML = '&nbsp;';
+            el.appendChild(space);
+            charIndexRef.i++;
+          }
+        });
+        if (lineIdx < lines.length - 1) {
+          el.appendChild(document.createElement('br'));
+          // Treat break as a space in the flat accent index space.
+          charIndexRef.i++;
         }
+      });
+      dirty = true;
+    };
+
+    const cacheCenters = () => {
+      const containerRect = el.getBoundingClientRect();
+      titleRect.left = containerRect.left;
+      titleRect.top = containerRect.top;
+      for (let i = 0; i < letterEls.length; i++) {
+        const letterEl = letterEls[i];
+        if (!letterEl) continue;
+        const rect = letterEl.getBoundingClientRect();
+        centers[i].x = rect.left + rect.width / 2 - containerRect.left;
+        centers[i].y = rect.top + rect.height / 2 - containerRect.top;
       }
+      centersValid = true;
+    };
 
-      // band rows (relative to the grid's offset top gTop): one full row above the
-      // text (below the nav) and two rows below it, all clamped inside the visible
-      // window so all 8 photos stay on-screen
-      const navBandRow = Math.round((navClear - gTop) / cell);      // row that starts at navClear
-      const bottomRowMax = Math.min(rows - 1, Math.floor((gridH - botMargin - gTop) / cell) - 1);
-      const firstAbove = Math.floor((tTop - gTop) / cell) - 1;      // last full row above text
-      const firstBelow = Math.ceil((tBot - gTop) / cell);           // first full row below text
-      const topRow = Math.max(navBandRow, firstAbove);
-      let lowerRow = firstBelow;
-      let bottomRow = firstBelow + 1;
-      if (bottomRow > bottomRowMax) { bottomRow = bottomRowMax; lowerRow = Math.max(firstBelow, bottomRow - 1); }
+    this._rebuildHeroProximity = rebuild;
+    rebuild();
 
-      const taken = new Set();
-      const chosen = [];
-      const place = (fracs, row, imgOffset) => {
-        fracs.forEach((fx, k) => {
-          const c = Math.max(0, Math.min(cols - 1, Math.round(fx * cols - 0.5)));
-          const r = Math.max(0, Math.min(rows - 1, row));
-          const key = r + '_' + c;
-          if (taken.has(key) || !cellAt[key]) return;
-          taken.add(key);
-          const el = cellAt[key];
-          el.classList.add('has-photo');
-          const ph = document.createElement('div'); ph.className = 'agn-cell-photo';
-          const im = document.createElement('img'); im.src = PHOTOS[(imgOffset + k) % PHOTOS.length]; im.alt = ''; im.loading = 'eager';
-          ph.appendChild(im); el.appendChild(ph);
-          chosen.push(el);
-        });
-      };
-      place(COL_TOP, topRow, 0);
-      place(COL_LOW, lowerRow, 5);
-      place(COL_BOT, bottomRow, 8);
+    if (reduce) return;
 
-      if (animate && !reduce) {
-        // 1) squares sweep in — left half bottom→up→right, right half (offset 20ms) top→down
-        const ROW_STEP = 70, COL_STEP = 14, CELL_DUR = 520, RIGHT_OFFSET = 20;
-        const half = cols / 2;
-        let maxEnd = 0;
-        cells.forEach((cell) => {
-          const r = +cell.dataset.r, c = +cell.dataset.c;
-          const delay = (c < half)
-            ? (rows - 1 - r) * ROW_STEP + c * COL_STEP
-            : RIGHT_OFFSET + r * ROW_STEP + (cols - 1 - c) * COL_STEP;
-          const p = cell.querySelector('.agn-cell-photo');
-          if (p) p.style.opacity = '0'; // hold photos until phase 3
-          cell.style.opacity = '0';
-          const a = cell.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'translateY(0)' }],
-            { duration: CELL_DUR, delay, easing: EASE, fill: 'both' });
-          a.onfinish = () => { cell.style.opacity = '1'; cell.style.transform = ''; try { a.cancel(); } catch (e) {} };
-          if (delay + CELL_DUR > maxEnd) maxEnd = delay + CELL_DUR;
-        });
-        // 2) after the full grid is in → text; 3) +20ms → photos blur in
-        later(() => { revealText(); revealPhotos(chosen, 20); }, maxEnd);
+    const onMove = (clientX, clientY) => {
+      // Prefer cached title origin — avoid layout thrash on every pointer event.
+      if (!centersValid) cacheCenters();
+      mouse.x = clientX - titleRect.left;
+      mouse.y = clientY - titleRect.top;
+      dirty = true;
+      if (!animating) {
+        animating = true;
+        lastT = 0;
+        this._heroProxRaf = requestAnimationFrame(tick);
+      }
+    };
+    const onMouseMove = (e) => onMove(e.clientX, e.clientY);
+    const onTouchMove = (e) => {
+      if (!e.touches.length) return;
+      onMove(e.touches[0].clientX, e.touches[0].clientY);
+    };
+    const pin = root.querySelector('[data-hero-pin]') || el;
+    pin.addEventListener('mousemove', onMouseMove, { passive: true });
+    pin.addEventListener('touchmove', onTouchMove, { passive: true });
+    const onResize = () => { centersValid = false; dirty = true; };
+    window.addEventListener('resize', onResize, { passive: true });
+    window.addEventListener('scroll', onResize, { passive: true });
+
+    const vis = this._vis(el, '120px');
+    const tick = (now) => {
+      if (document.hidden || !vis.v) {
+        animating = false;
+        this._heroProxRaf = 0;
+        return;
+      }
+      if (!centersValid) cacheCenters();
+
+      const prevT = lastT || now;
+      const dtSec = Math.min(0.1, Math.max(0, (now - prevT) / 1000));
+      lastT = now;
+      const a = 1 - Math.exp(-dtSec / Math.max(0.016, DURATION));
+      const mx = mouse.x, my = mouse.y;
+      let anyActive = dirty;
+
+      for (let i = 0; i < letterEls.length; i++) {
+        const letterEl = letterEls[i];
+        if (!letterEl) continue;
+        const c = centers[i];
+        const dx = mx - c.x, dy = my - c.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const target = Math.min(Math.max(1 - dist / reach, 0), 1);
+        const f = factors[i] + (target - factors[i]) * a;
+        factors[i] = f;
+        if (f > 0.002 || target > 0.002) anyActive = true;
+        if (f < 0.001) {
+          if (lastW[i] !== FROM) {
+            lastW[i] = FROM;
+            letterEl.style.fontVariationSettings = fromSettings;
+          }
+          continue;
+        }
+        // Quantize weight so we don't reshape the variable font every frame.
+        const w = Math.round((FROM + (TO - FROM) * f) / 25) * 25;
+        if (w === lastW[i]) continue;
+        lastW[i] = w;
+        letterEl.style.fontVariationSettings = "'wght' " + w;
+      }
+      dirty = false;
+
+      if (anyActive) {
+        this._heroProxRaf = requestAnimationFrame(tick);
       } else {
-        cells.forEach((cell) => { cell.style.opacity = '1'; });
-        if (this._heroTextDone) {
-          chosen.forEach((cell) => { const p = cell.querySelector('.agn-cell-photo'); if (p) p.style.opacity = ''; });
-        } else {
-          revealText(); revealPhotos(chosen, 0);
-        }
+        animating = false;
+        this._heroProxRaf = 0;
       }
     };
 
-    buildGrid(true);
-
-    // rebuild geometry on resize (no replay of the intro)
-    this._onHeroResize = () => {
-      if (this._heroResizeT) clearTimeout(this._heroResizeT);
-      this._heroResizeT = setTimeout(() => { buildGrid(false); }, 220);
+    this._heroProxCleanup = () => {
+      if (this._heroProxRaf) cancelAnimationFrame(this._heroProxRaf);
+      pin.removeEventListener('mousemove', onMouseMove);
+      pin.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('scroll', onResize);
     };
-    window.addEventListener('resize', this._onHeroResize);
+  }
+
+  _vis(el, margin) {
+    const s = { v: true };
+    if (el && ('IntersectionObserver' in window)) {
+      const io = new IntersectionObserver((es) => { s.v = es[0].isIntersecting; }, { rootMargin: (margin || '260px') + ' 0px' });
+      io.observe(el);
+      (this._visIOs || (this._visIOs = [])).push(io);
+    }
+    return s;
   }
 
   setupScrollFx() {
@@ -653,6 +1034,87 @@ class Component extends DCLogic {
       else el.textContent = to;
     };
     requestAnimationFrame(step);
+  }
+
+  // ---- 05 OUR TEAM · glass surface per card (glow is fixed in CSS) ----
+  setupTeam() {
+    const root = this.rootEl;
+    if (!root) return;
+    const cards = Array.from(root.querySelectorAll('.agn-team-card'));
+    if (!cards.length) return;
+    this._teamCleanups = [];
+
+    cards.forEach((card) => {
+      if (window.AzarianGlass) {
+        const glass = window.AzarianGlass.apply(card, {
+          borderRadius: 120, borderWidth: 0.07, brightness: 54, opacity: 0.5,
+          blur: 9, displace: 0.5, distortionScale: -120,
+          redOffset: 0, greenOffset: 8, blueOffset: 16, saturation: 1.35, mixBlendMode: 'screen',
+        });
+        if (glass && glass.dispose) this._teamCleanups.push(glass.dispose);
+      }
+    });
+  }
+
+  // ---- 06 BUSINESSES THAT TRUSTED · infinite logo marquee (ported LogoLoop) ----
+  setupTrusted() {
+    const root = this.rootEl;
+    if (!root) return;
+    const rows = Array.from(root.querySelectorAll('.agn-trust-row'));
+    if (!rows.length) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    this._trustCleanups = [];
+    const SMOOTH_TAU = 0.25;
+
+    rows.forEach((row) => {
+      const track = row.querySelector('.agn-trust-track');
+      const seq = row.querySelector('.agn-trust-seq');
+      if (!track || !seq) return;
+      // direction: "left" moves content left (+velocity); "right" moves it right (−).
+      const dir = row.getAttribute('data-dir') === 'right' ? -1 : 1;
+      const speed = parseFloat(row.getAttribute('data-speed')) || 50;
+
+      let seqWidth = 0;
+      let copies = 1;
+      const ensureCopies = () => {
+        seqWidth = seq.getBoundingClientRect().width;
+        if (seqWidth <= 0) return;
+        const want = Math.max(2, Math.ceil(row.clientWidth / seqWidth) + 2);
+        while (copies < want) { track.appendChild(seq.cloneNode(true)); copies += 1; }
+      };
+      ensureCopies();
+
+      let offset = 0, vel = 0, last = null, raf = null, hovered = false;
+      const target = () => (hovered ? speed * 0.3 : speed) * dir;
+      const step = (t) => {
+        if (last === null) last = t;
+        const dt = Math.max(0, t - last) / 1000; last = t;
+        const ease = 1 - Math.exp(-dt / SMOOTH_TAU);
+        vel += (target() - vel) * ease;
+        if (seqWidth > 0) {
+          offset = (((offset + vel * dt) % seqWidth) + seqWidth) % seqWidth;
+          track.style.transform = 'translate3d(' + (-offset).toFixed(2) + 'px,0,0)';
+        }
+        raf = requestAnimationFrame(step);
+      };
+      if (!reduce) raf = requestAnimationFrame(step);
+
+      const onEnter = () => { hovered = true; };
+      const onLeave = () => { hovered = false; };
+      row.addEventListener('pointerenter', onEnter);
+      row.addEventListener('pointerleave', onLeave);
+      let rz = null;
+      const onResize = () => { if (rz) cancelAnimationFrame(rz); rz = requestAnimationFrame(ensureCopies); };
+      window.addEventListener('resize', onResize);
+
+      this._trustCleanups.push(() => {
+        if (raf) cancelAnimationFrame(raf);
+        if (rz) cancelAnimationFrame(rz);
+        row.removeEventListener('pointerenter', onEnter);
+        row.removeEventListener('pointerleave', onLeave);
+        window.removeEventListener('resize', onResize);
+      });
+    });
   }
 
   setupContactForm() {

@@ -388,20 +388,16 @@
     ".agn-trigger.is-link{text-decoration:none;}",
     ".agn-caret{display:inline-flex;transition:transform .3s cubic-bezier(.22,1,.36,1);opacity:.75;}",
     ".agn-trigger.is-open .agn-caret{transform:rotate(180deg);}",
-    ".agn-cta{display:inline-flex;align-items:center;height:46px;background:var(--accent,#1BFED1);color:#0B1B38;",
-      "font-weight:600;font-size:15px;padding:0 24px;border-radius:100px;text-decoration:none;white-space:nowrap;flex-shrink:0;",
-      "transition:transform .3s cubic-bezier(.16,.84,.44,1),box-shadow .3s,opacity .35s ease;box-shadow:0 8px 24px -8px rgba(31,201,160,.55);}",
-    ".agn-cta:hover{box-shadow:0 14px 34px -8px rgba(31,201,160,.8);}",
-    /* Search mode — explode chrome only (not the mega panel). */
-    ".agn-nav > .agn-logo,.agn-nav > .agn-center,.agn-nav > [data-nav-search],.agn-nav > .agn-cta,.agn-nav > .agn-burger{",
+    /* CTA uses shared .agn-btn (button.js); nav chrome hooks [data-nav-cta] */
+    ".agn-nav > .agn-logo,.agn-nav > .agn-center,.agn-nav > [data-nav-search],.agn-nav > [data-nav-cta],.agn-nav > .agn-burger{",
       "transform-origin:50% 50%;",
       "transition:opacity .28s cubic-bezier(.15,.85,.25,1),transform .32s cubic-bezier(.12,.9,.2,1.05),filter .28s ease;}",
     ".agn-nav.is-searching > .agn-logo,.agn-nav.is-searching > .agn-center,.agn-nav.is-searching > [data-nav-search],",
-    ".agn-nav.is-searching > .agn-cta,.agn-nav.is-searching > .agn-burger{opacity:0;pointer-events:none;filter:blur(3px);}",
+    ".agn-nav.is-searching > [data-nav-cta],.agn-nav.is-searching > .agn-burger{opacity:0;pointer-events:none;filter:blur(3px);}",
     ".agn-nav.is-searching > .agn-logo{transform:scale(1.55) translateX(-18%);}",
     ".agn-nav.is-searching > .agn-center{transform:scale(1.85);}",
     ".agn-nav.is-searching > [data-nav-search]{transform:scale(2.1);}",
-    ".agn-nav.is-searching > .agn-cta{transform:scale(1.65) translateX(22%);}",
+    ".agn-nav.is-searching > [data-nav-cta]{transform:scale(1.65) translateX(22%);}",
     ".agn-nav.is-searching > .agn-burger{transform:scale(1.9) translateX(30%);}",
     // Mega is portaled to <body> (fixed) so backdrop-filter works — it cannot live
     // under .agn-nav's transform:translateX(-50%). Same blur/saturate as the bar.
@@ -512,9 +508,7 @@
         "-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}",
       ".agn-nav.theme-light > [data-nav-search]{background:rgba(11,27,56,0.05);}",
       ".agn-nav > [data-nav-search] svg{width:16px;height:16px;}",
-      ".agn-cta{display:inline-flex !important;height:auto;min-height:34px;padding:8px 12px;",
-        "font-size:13px;font-weight:600;line-height:1;border-radius:999px;",
-        "box-shadow:0 12px 34px -10px rgba(31,201,160,0.6);}",
+      ".agn-nav > [data-nav-cta]{display:inline-flex !important;}",
       ".agn-search{left:16px;right:16px;}",
       ".agn-search input{height:38px;font-size:15px;}",
       ".agn-drawer{display:block;position:fixed;top:94px;left:50%;transform:translateX(-50%);z-index:115;",
@@ -855,12 +849,25 @@
     searchBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>';
     nav.appendChild(searchBtn);
 
-    // CTA
-    var cta = el("a", "agn-cta");
-    cta.href = HOME + "#cta";
-    cta.setAttribute("data-nav-cta", "");
-    cta.textContent = "Start a Conversation";
+    // CTA — shared AzarianButton (primary + magnetic)
+    var cta;
+    if (window.AzarianButton) {
+      cta = window.AzarianButton.create({
+        href: HOME + "#cta",
+        label: "Start a Conversation",
+        size: "sm",
+        magnetic: true,
+        attrs: { "data-nav-cta": "" },
+      });
+    } else {
+      cta = el("a", "agn-btn agn-btn--sm");
+      cta.href = HOME + "#cta";
+      cta.setAttribute("data-nav-cta", "");
+      cta.setAttribute("data-magnetic", "true");
+      cta.textContent = "Start a Conversation";
+    }
     nav.appendChild(cta);
+    if (window.AzarianButton) window.AzarianButton.bindMagnetic(nav);
 
     // mobile burger
     var burger = el("button", "agn-icon agn-burger");
@@ -927,11 +934,23 @@
     if (state.drawer && state.drawer.parentNode) state.drawer.parentNode.removeChild(state.drawer);
     var drawer = el("div", "agn-drawer");
     NAV.forEach(function (raw) { drawer.appendChild(buildDrawerNode(norm(raw), 1)); });
-    var mcta = el("a", "agn-cta");
-    mcta.href = HOME + "#cta";
-    mcta.textContent = "Start a Conversation";
+    var mcta;
+    if (window.AzarianButton) {
+      mcta = window.AzarianButton.create({
+        href: HOME + "#cta",
+        label: "Start a Conversation",
+        magnetic: true,
+        className: "agn-drawer-cta",
+      });
+    } else {
+      mcta = el("a", "agn-btn agn-drawer-cta");
+      mcta.href = HOME + "#cta";
+      mcta.setAttribute("data-magnetic", "true");
+      mcta.textContent = "Start a Conversation";
+    }
     mcta.style.cssText += "width:calc(100% - 12px);justify-content:center;margin:12px 6px 6px;height:52px;";
     drawer.appendChild(mcta);
+    if (window.AzarianButton) window.AzarianButton.bindMagnetic(drawer);
     document.body.appendChild(drawer);
     state.drawer = drawer;
 
