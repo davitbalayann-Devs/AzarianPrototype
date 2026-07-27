@@ -109,10 +109,10 @@
         "</div>" +
         '<div class="ft-div"></div>' +
         '<div class="ft-bottom">' +
-          '<img class="ft-logo-m" src="assets/footer/logo-horizontal-on-dark.svg" alt="Azarian Growth Agency" width="337" height="58" draggable="false">' +
+          '<img class="ft-logo-m" src="../assets/footer/logo-horizontal-on-dark.svg" alt="Azarian Growth Agency" width="337" height="58" draggable="false">' +
           '<div class="ft-brand">' +
             '<div class="ft-brand-row">' +
-              '<img src="assets/logo.svg" alt="Azarian Growth Agency" draggable="false">' +
+              '<img src="../assets/logo.svg" alt="Azarian Growth Agency" draggable="false">' +
               '<span class="ft-brand-name">Azarian<em>Growth</em>Agency</span>' +
             "</div>" +
             '<span class="ft-brand-tag">data-driven | full-funnel</span>' +
@@ -121,11 +121,11 @@
             '<span class="ft-copy">© Copyright © 2026. Azarian Growth Agency. All rights reserved.</span>' +
             '<div class="ft-meta-foot">' +
               '<div class="ft-socials">' +
-                '<a href="#" aria-label="Instagram"><img class="ft-social-m" src="assets/footer/social-ig.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>' +
-                '<a href="#" aria-label="Facebook"><img class="ft-social-m" src="assets/footer/social-fb.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V9.8c0-.5.3-.8.8-.8z"></path></svg></a>' +
-                '<a href="#" aria-label="YouTube"><img class="ft-social-m" src="assets/footer/social-yt.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="3.5"></rect><path d="M10.5 9.2l4.2 2.8-4.2 2.8z" fill="currentColor" stroke="none"></path></svg></a>' +
-                '<a href="#" aria-label="LinkedIn"><img class="ft-social-m" src="assets/footer/social-li.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5V18H4V8.5zM5.25 4.5A1.5 1.5 0 1 1 5.24 7.5a1.5 1.5 0 0 1 .01-3zM9 8.5h2.4v1.3c.4-.7 1.4-1.5 2.8-1.5 2.3 0 3.3 1.4 3.3 3.9V18h-2.5v-4.9c0-1.3-.5-2-1.5-2s-1.6.7-1.6 2V18H9z"></path></svg></a>' +
-                '<a href="#" aria-label="X"><img class="ft-social-m" src="assets/footer/social-x.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-6.6 7.6L21.7 21h-5.9l-4.2-5.5L6.6 21H3.5l7-8.1L2.6 3h6l3.8 5z"></path></svg></a>' +
+                '<a href="#" aria-label="Instagram"><img class="ft-social-m" src="../assets/footer/social-ig.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>' +
+                '<a href="#" aria-label="Facebook"><img class="ft-social-m" src="../assets/footer/social-fb.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V9.8c0-.5.3-.8.8-.8z"></path></svg></a>' +
+                '<a href="#" aria-label="YouTube"><img class="ft-social-m" src="../assets/footer/social-yt.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="3.5"></rect><path d="M10.5 9.2l4.2 2.8-4.2 2.8z" fill="currentColor" stroke="none"></path></svg></a>' +
+                '<a href="#" aria-label="LinkedIn"><img class="ft-social-m" src="../assets/footer/social-li.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5V18H4V8.5zM5.25 4.5A1.5 1.5 0 1 1 5.24 7.5a1.5 1.5 0 0 1 .01-3zM9 8.5h2.4v1.3c.4-.7 1.4-1.5 2.8-1.5 2.3 0 3.3 1.4 3.3 3.9V18h-2.5v-4.9c0-1.3-.5-2-1.5-2s-1.6.7-1.6 2V18H9z"></path></svg></a>' +
+                '<a href="#" aria-label="X"><img class="ft-social-m" src="../assets/footer/social-x.svg" alt="" width="24" height="24" draggable="false"><svg class="ft-social-d" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-6.6 7.6L21.7 21h-5.9l-4.2-5.5L6.6 21H3.5l7-8.1L2.6 3h6l3.8 5z"></path></svg></a>' +
               "</div>" +
               '<div class="ft-legal"><a href="#">Privacy Policy</a><span class="ft-legal-sep" aria-hidden="true"></span><a href="#">Security Policy</a></div>' +
             "</div>" +

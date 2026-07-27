@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="./support.js"></script>
-<script src="./page-transition.js?v=20260722-6"></script>
-<script src="./lottie.min.js"></script>
-<script src="./button.js?v=20260723-2"></script>
-<script src="./cursor.js?v=20260723-2"></script>
-<script src="./cta.js?v=20260723-2" defer></script>
-<script src="./footer.js?v=20260723-1" defer></script>
-<script src="./nav.js?v=20260723-2" defer></script>
+<script src="../support.js"></script>
+<script src="../page-transition.js?v=20260722-6"></script>
+<script src="../lottie.min.js"></script>
+<script src="../button.js?v=20260723-2"></script>
+<script src="../cursor.js?v=20260723-2"></script>
+<script src="../cta.js?v=20260723-2" defer></script>
+<script src="../footer.js?v=20260727-1" defer></script>
+<script src="../nav.js?v=20260723-2" defer></script>
 </head>
 <body>
 <x-dc>
@@ -318,10 +318,14 @@
   .gos2-sub{margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:400;font-size:clamp(15px,1.35vw,18px);line-height:1.5;color:#F5F6F7;}
   .gos2-stats{width:min(350px,78%);display:flex;flex-direction:column;align-items:center;gap:14px;z-index:3;}
   .gos2-sup{font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:14px;color:#1BFED1;text-shadow:0 0 14px rgba(27,254,209,.5);}
-  .gos2-cards{display:flex;gap:15px;width:100%;}
-  .gos2-card{flex:1 1 0;min-width:0;background:rgba(255,255,255,.1);border-radius:16px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;backdrop-filter:blur(27px);-webkit-backdrop-filter:blur(27px);}
-  .gos2-card b{font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:32px;line-height:36px;color:#fff;}
-  .gos2-card span{font-family:'Poppins',system-ui,sans-serif;font-weight:400;font-size:14px;color:#FAFAFB;}
+  .gos2-cards{display:flex;gap:15px;width:100%;align-items:flex-end;}
+  .gos2-card{flex:1 1 0;min-width:0;background:rgba(255,255,255,.1);border-radius:16px;padding:14px 10px;box-sizing:border-box;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+  .gos2-card-val{margin:0;width:100%;font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-style:normal;
+    font-size:32px;line-height:36px;color:#fff;letter-spacing:0;}
+  .gos2-card-label{margin:0;width:100%;font-family:'Poppins',system-ui,sans-serif;font-weight:600;font-style:normal;
+    font-size:14px;line-height:normal;color:#FAFAFB;letter-spacing:0;overflow-wrap:break-word;}
   .gos2-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
   @media(prefers-reduced-motion:reduce){.gos-threads{display:none;}}
   /* ── GrowthOS Effect · Figma 08 / mobile 22664:4684 ── */
@@ -457,8 +461,8 @@
     #os .gos2-stats{position:static;transform:none;width:350px;max-width:100%;gap:8px;margin:0;}
     #os .gos2-cards{gap:8px;width:100%;}
     #os .gos2-card{padding:12px 10px;border-radius:12px;}
-    #os .gos2-card b{font-size:22px;line-height:16px;}
-    #os .gos2-card span{font-size:12px;}
+    #os .gos2-card-val{font-size:22px;line-height:26px;}
+    #os .gos2-card-label{font-size:12px;font-weight:600;}
     #os .gos2-btns{flex-direction:column;width:100%;gap:8px;}
     #os .gos2-btns .agn-btn{width:100%;justify-content:center;font-size:16px;padding:16px 24px;box-sizing:border-box;border-radius:999px;}
     #os .gos2-btns .agn-btn--ghost{border-color:rgba(255,255,255,.1);}
@@ -1030,7 +1034,7 @@
       <div class="track-record__footer" data-reveal data-reveal-delay="320" data-founder-row style="opacity:0;translate:0 28px;transition:opacity .7s cubic-bezier(.16,.84,.44,1),translate .7s cubic-bezier(.16,.84,.44,1);">
         <div class="glass-chip founder-chip">
           <span class="founder-chip__avatar">
-            <img src="assets/hamlet-azarian.png" alt="Hamlet Azarian"/>
+            <img src="../assets/hamlet-azarian.png" alt="Hamlet Azarian"/>
           </span>
           <span class="founder-chip__meta">
             <span class="founder-chip__name">Hamlet Azarian</span>
@@ -1038,9 +1042,9 @@
           </span>
         </div>
         <div class="track-record__partners" data-partner-row>
-          <div class="glass-chip partner-logo"><img src="assets/partner-google.png" alt="Google Partner"/></div>
-          <div class="glass-chip partner-logo"><img src="assets/partner-meta.png" alt="Meta Business Partner"/></div>
-          <div class="glass-chip partner-logo"><img src="assets/partner-hubspot.png" alt="HubSpot Certified Partner"/></div>
+          <div class="glass-chip partner-logo"><img src="../assets/partner-google.png" alt="Google Partner"/></div>
+          <div class="glass-chip partner-logo"><img src="../assets/partner-meta.png" alt="Meta Business Partner"/></div>
+          <div class="glass-chip partner-logo"><img src="../assets/partner-hubspot.png" alt="HubSpot Certified Partner"/></div>
         </div>
       </div>
     </div>
@@ -1059,7 +1063,7 @@
       <article class="chl-panel" data-scroll-stack-item style="--chl:#5ea9f4;--chl-label:#5ea9f4;">
         <div class="chl-panel-inner">
           <div class="chl-row">
-            <div class="chl-img"><img src="assets/challenges/challenge-01.png" alt="Meta and Google Ads" draggable="false" loading="lazy"></div>
+            <div class="chl-img"><img src="../assets/challenges/challenge-01.png" alt="Meta and Google Ads" draggable="false" loading="lazy"></div>
             <div class="chl-body">
               <div>
                 <p class="chl-title">CHALLENGE 01</p>
@@ -1087,7 +1091,7 @@
       <article class="chl-panel" data-scroll-stack-item style="--chl:#564bcc;--chl-label:#564bcc;">
         <div class="chl-panel-inner">
           <div class="chl-row">
-            <div class="chl-img"><img src="assets/challenges/challenge-02.png" alt="Growth chart" draggable="false" loading="lazy"></div>
+            <div class="chl-img"><img src="../assets/challenges/challenge-02.png" alt="Growth chart" draggable="false" loading="lazy"></div>
             <div class="chl-body">
               <div>
                 <p class="chl-title">CHALLENGE 02</p>
@@ -1115,7 +1119,7 @@
       <article class="chl-panel" data-scroll-stack-item style="--chl:#14bf9d;--chl-label:#14bf9d;">
         <div class="chl-panel-inner">
           <div class="chl-row">
-            <div class="chl-img"><img src="assets/challenges/challenge-03.png" alt="Summit flag" draggable="false" loading="lazy"></div>
+            <div class="chl-img"><img src="../assets/challenges/challenge-03.png" alt="Summit flag" draggable="false" loading="lazy"></div>
             <div class="chl-body">
               <div>
                 <p class="chl-title">CHALLENGE 03</p>
@@ -1159,7 +1163,7 @@
               <div data-services-stage aria-hidden="false">
                 <div data-services-cards>
                   <article data-deck-card data-deck-index="0">
-                    <div data-deck-img><img src="assets/capabilities/capability-01.png" alt="" loading="lazy"></div>
+                    <div data-deck-img><img src="../assets/capabilities/capability-01.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
                     <div data-deck-badge>01/06</div>
                     <div data-deck-text>
@@ -1168,7 +1172,7 @@
                     </div>
                   </article>
                   <article data-deck-card data-deck-index="1">
-                    <div data-deck-img><img src="assets/capabilities/capability-02.png" alt="" loading="lazy"></div>
+                    <div data-deck-img><img src="../assets/capabilities/capability-02.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
                     <div data-deck-badge>02/06</div>
                     <div data-deck-text>
@@ -1177,7 +1181,7 @@
                     </div>
                   </article>
                   <article data-deck-card data-deck-index="2">
-                    <div data-deck-img><img src="assets/capabilities/capability-03.png" alt="" loading="lazy"></div>
+                    <div data-deck-img><img src="../assets/capabilities/capability-03.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
                     <div data-deck-badge>03/06</div>
                     <div data-deck-text>
@@ -1186,7 +1190,7 @@
                     </div>
                   </article>
                   <article data-deck-card data-deck-index="3">
-                    <div data-deck-img><img src="assets/capabilities/capability-04.png" alt="" loading="lazy"></div>
+                    <div data-deck-img><img src="../assets/capabilities/capability-04.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
                     <div data-deck-badge>04/06</div>
                     <div data-deck-text>
@@ -1195,7 +1199,7 @@
                     </div>
                   </article>
                   <article data-deck-card data-deck-index="4">
-                    <div data-deck-img><img src="assets/capabilities/capability-05.png" alt="" loading="lazy"></div>
+                    <div data-deck-img><img src="../assets/capabilities/capability-05.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
                     <div data-deck-badge>05/06</div>
                     <div data-deck-text>
@@ -1204,7 +1208,7 @@
                     </div>
                   </article>
                   <article data-deck-card data-deck-index="5">
-                    <div data-deck-img><img src="assets/capabilities/capability-06.png" alt="" loading="lazy"></div>
+                    <div data-deck-img><img src="../assets/capabilities/capability-06.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
                     <div data-deck-badge>06/06</div>
                     <div data-deck-text>
@@ -1216,37 +1220,37 @@
               </div>
               <div data-services-static aria-label="Capabilities cards">
                 <article data-deck-card>
-                  <div data-deck-img><img src="assets/capabilities/capability-01.png" alt="" loading="lazy"></div>
+                  <div data-deck-img><img src="../assets/capabilities/capability-01.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
                   <div data-deck-badge>01/06</div>
                   <div data-deck-text><h3>Strategic Growth Diagnostic</h3><p>Where every engagement starts. A paid, system-deep review that produces board-ready findings and a prioritized 90-day action plan. Not a free audit.</p></div>
                 </article>
                 <article data-deck-card>
-                  <div data-deck-img><img src="assets/capabilities/capability-02.png" alt="" loading="lazy"></div>
+                  <div data-deck-img><img src="../assets/capabilities/capability-02.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
                   <div data-deck-badge>02/06</div>
                   <div data-deck-text><h3>Fractional CMO</h3><p>Senior marketing leadership embedded in your team. Owns the growth number, attends leadership meetings, reports in financial metrics your board can act on.</p></div>
                 </article>
                 <article data-deck-card>
-                  <div data-deck-img><img src="assets/capabilities/capability-03.png" alt="" loading="lazy"></div>
+                  <div data-deck-img><img src="../assets/capabilities/capability-03.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
                   <div data-deck-badge>03/06</div>
                   <div data-deck-text><h3>Paid Media &amp; Demand Generation</h3><p>Paid search, paid social, and programmatic managed against CAC and LTV targets, not click-through rates.</p></div>
                 </article>
                 <article data-deck-card>
-                  <div data-deck-img><img src="assets/capabilities/capability-04.png" alt="" loading="lazy"></div>
+                  <div data-deck-img><img src="../assets/capabilities/capability-04.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
                   <div data-deck-badge>04/06</div>
                   <div data-deck-text><h3>SEO &amp; Content</h3><p>Organic visibility built for the long game. GEO-optimized content that surfaces in AI search alongside traditional rankings.</p></div>
                 </article>
                 <article data-deck-card>
-                  <div data-deck-img><img src="assets/capabilities/capability-05.png" alt="" loading="lazy"></div>
+                  <div data-deck-img><img src="../assets/capabilities/capability-05.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
                   <div data-deck-badge>05/06</div>
                   <div data-deck-text><h3>Website &amp; Conversion Optimization</h3><p>A/B testing and UX analysis measured against pipeline and revenue, not just form fills.</p></div>
                 </article>
                 <article data-deck-card>
-                  <div data-deck-img><img src="assets/capabilities/capability-06.png" alt="" loading="lazy"></div>
+                  <div data-deck-img><img src="../assets/capabilities/capability-06.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
                   <div data-deck-badge>06/06</div>
                   <div data-deck-text><h3>Marketing Analytics &amp; Reporting</h3><p>Full-funnel attribution, CAC/LTV tracking, and dashboards built for executive review, not marketing meetings.</p></div>
@@ -1333,7 +1337,7 @@
       </div>
       <div class="who-list" data-who-list>
         <div class="who-item" data-who-item tabindex="0">
-          <img class="who-bg" src="assets/who/who-01.png" alt="" draggable="false" loading="lazy">
+          <img class="who-bg" src="../assets/who/who-01.png" alt="" draggable="false" loading="lazy">
           <div class="who-shade"></div>
           <div class="who-row">
             <span class="who-num">01</span>
@@ -1344,7 +1348,7 @@
           </div>
         </div>
         <div class="who-item" data-who-item tabindex="0">
-          <img class="who-bg" src="assets/who/who-02.png" alt="" draggable="false" loading="lazy">
+          <img class="who-bg" src="../assets/who/who-02.png" alt="" draggable="false" loading="lazy">
           <div class="who-shade"></div>
           <div class="who-row">
             <span class="who-num">02</span>
@@ -1355,7 +1359,7 @@
           </div>
         </div>
         <div class="who-item" data-who-item tabindex="0">
-          <img class="who-bg" src="assets/who/who-03.png" alt="" draggable="false" loading="lazy">
+          <img class="who-bg" src="../assets/who/who-03.png" alt="" draggable="false" loading="lazy">
           <div class="who-shade"></div>
           <div class="who-row">
             <span class="who-num">03</span>
@@ -1366,7 +1370,7 @@
           </div>
         </div>
         <div class="who-item" data-who-item tabindex="0">
-          <img class="who-bg" src="assets/who/who-04.png" alt="" draggable="false" loading="lazy">
+          <img class="who-bg" src="../assets/who/who-04.png" alt="" draggable="false" loading="lazy">
           <div class="who-shade"></div>
           <div class="who-row">
             <span class="who-num">04</span>
@@ -1377,7 +1381,7 @@
           </div>
         </div>
         <div class="who-item" data-who-item tabindex="0">
-          <img class="who-bg" src="assets/who/who-05.png" alt="" draggable="false" loading="lazy">
+          <img class="who-bg" src="../assets/who/who-05.png" alt="" draggable="false" loading="lazy">
           <div class="who-shade"></div>
           <div class="who-row">
             <span class="who-num">05</span>
@@ -1455,7 +1459,7 @@
         <div class="gos-node" data-gos-mem style="--c:#1FC9A0;" title="Memory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.6"></circle><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0"></path></svg></div>
 
         <!-- CENTER · GrowthOS -->
-        <div class="gos-net-core"><img src="assets/logo.svg" alt="GrowthOS" draggable="false"></div>
+        <div class="gos-net-core"><img src="../assets/logo.svg" alt="GrowthOS" draggable="false"></div>
 
         </div>
         </div>
@@ -1466,8 +1470,14 @@
         <div class="gos2-stats">
           <span class="gos2-sup">Under Supervision</span>
           <div class="gos2-cards">
-            <div class="gos2-card"><b>91</b><span>Agents</span></div>
-            <div class="gos2-card"><b>22</b><span>MCP connectors</span></div>
+            <div class="gos2-card">
+              <p class="gos2-card-val"><span data-countup="150" data-duration="1.8">0</span>+</p>
+              <p class="gos2-card-label">Agents</p>
+            </div>
+            <div class="gos2-card">
+              <p class="gos2-card-val"><span data-countup="60" data-duration="1.8">0</span>+</p>
+              <p class="gos2-card-label">MCP Connectors</p>
+            </div>
           </div>
         </div>
 
@@ -1483,7 +1493,7 @@
             <span class="gos-screen-pill">RESEARCH</span>
             <div class="gos-screen-msg" data-step="msg">
               <div class="gos-screen-bubble"><span data-blur>Pull the SEO performance for this client.</span></div>
-              <img class="gos-screen-avatar" src="assets/hamlet-azarian.png" alt="" draggable="false" />
+              <img class="gos-screen-avatar" src="../assets/hamlet-azarian.png" alt="" draggable="false" />
             </div>
             <div class="gos-bot" data-step="bot" aria-hidden="true">
               <div class="gos-bot-icon">
@@ -1522,7 +1532,7 @@
             <span class="gos-screen-pill">CRM &amp; Conversation</span>
             <div class="gos-screen-msg" data-step="msg">
               <div class="gos-screen-bubble"><span data-blur>What's the deal status for Century?</span></div>
-              <img class="gos-screen-avatar" src="assets/hamlet-azarian.png" alt="" draggable="false" />
+              <img class="gos-screen-avatar" src="../assets/hamlet-azarian.png" alt="" draggable="false" />
             </div>
             <div class="gos-bot" data-step="bot" aria-hidden="true">
               <div class="gos-bot-icon">
@@ -1534,7 +1544,7 @@
             <div class="gos-screen-card" data-step="card">
               <div class="gos-deal-head">
                 <div class="gos-deal-title">
-                  <img class="gos-deal-logo" src="assets/logo-magnito.png" alt="Magnito Group" width="20" height="20" draggable="false" />
+                  <img class="gos-deal-logo" src="../assets/logo-magnito.png" alt="Magnito Group" width="20" height="20" draggable="false" />
                   <span data-blur>Magnito Group</span>
                 </div>
                 <span class="gos-deal-badge" data-blur>Proposal Sent</span>
@@ -1570,7 +1580,7 @@
             <span class="gos-screen-pill">CONTENT</span>
             <div class="gos-screen-msg" data-step="msg">
               <div class="gos-screen-bubble"><span data-blur>Write a blog post about B2B lead generation.</span></div>
-              <img class="gos-screen-avatar" src="assets/hamlet-azarian.png" alt="" draggable="false" />
+              <img class="gos-screen-avatar" src="../assets/hamlet-azarian.png" alt="" draggable="false" />
             </div>
             <div class="gos-bot" data-step="bot" aria-hidden="true">
               <div class="gos-bot-icon">
@@ -1599,7 +1609,7 @@
             <span class="gos-screen-pill">INTELLIGENCE</span>
             <div class="gos-screen-msg" data-step="msg">
               <div class="gos-screen-bubble"><span data-blur>How does our competitor position themselves?</span></div>
-              <img class="gos-screen-avatar" src="assets/hamlet-azarian.png" alt="" draggable="false" />
+              <img class="gos-screen-avatar" src="../assets/hamlet-azarian.png" alt="" draggable="false" />
             </div>
             <div class="gos-bot" data-step="bot" aria-hidden="true">
               <div class="gos-bot-icon">
@@ -1639,7 +1649,7 @@
             <span class="gos-screen-pill">MEMORY</span>
             <div class="gos-screen-msg" data-step="msg">
               <div class="gos-screen-bubble"><span data-blur>Give me the details of my last call.</span></div>
-              <img class="gos-screen-avatar" src="assets/hamlet-azarian.png" alt="" draggable="false" />
+              <img class="gos-screen-avatar" src="../assets/hamlet-azarian.png" alt="" draggable="false" />
             </div>
             <div class="gos-bot" data-step="bot" aria-hidden="true">
               <div class="gos-bot-icon">
@@ -1651,13 +1661,13 @@
             <div class="gos-screen-card" data-step="card">
               <div class="gos-mem-label" data-blur>I Remembered</div>
               <div class="gos-mem-meta">
-                <span class="gos-mem-item"><img src="assets/alex-brown.png" alt="" />Alex Brown</span>
+                <span class="gos-mem-item"><img src="../assets/alex-brown.png" alt="" />Alex Brown</span>
                 <span class="gos-mem-sep" aria-hidden="true">·</span>
                 <span class="gos-mem-item">July 12, 2026</span>
                 <span class="gos-mem-sep" aria-hidden="true">·</span>
-                <span class="gos-mem-item"><img class="logo" src="assets/logo-magnito.png" alt="" />Magnito Group</span>
+                <span class="gos-mem-item"><img class="logo" src="../assets/logo-magnito.png" alt="" />Magnito Group</span>
                 <span class="gos-mem-sep" aria-hidden="true">·</span>
-                <img class="gos-mem-ff" src="assets/firefliesai_logo.svg" alt="fireflies.ai" width="84" height="18" />
+                <img class="gos-mem-ff" src="../assets/firefliesai_logo.svg" alt="fireflies.ai" width="84" height="18" />
               </div>
               <div class="gos-writer-title" data-blur>Discussion with the Client</div>
               <div class="gos-body-slot" data-body-slot>
@@ -1765,7 +1775,7 @@
           <span data-gos-on class="gos-fx-sw-lbl">After</span>
           <span class="gos-fx-sw-sep" aria-hidden="true"></span>
           <span class="gos-fx-sw-brand">
-            <img src="assets/logo.svg" alt="" draggable="false" />
+            <img src="../assets/logo.svg" alt="" draggable="false" />
             <span>GrowthOS</span>
           </span>
         </div>
@@ -1787,45 +1797,45 @@
             <!-- Card 1 · Syntax / 98% -->
             <div class="tcard tcard--syntax" style="width:494px;background:#14bf9d;">
               <div class="tcard-d">
-                <img src="assets/testimonials/green-swirl.svg" alt="" draggable="false" style="position:absolute;left:0;bottom:0;width:834px;height:428px;opacity:.2;object-fit:cover;pointer-events:none;" />
+                <img src="../assets/testimonials/green-swirl.svg" alt="" draggable="false" style="position:absolute;left:0;bottom:0;width:834px;height:428px;opacity:.2;object-fit:cover;pointer-events:none;" />
                 <div style="position:absolute;left:0;right:0;top:64px;text-align:center;">
                   <div style="font-size:128px;font-weight:700;line-height:1;">98%</div>
                   <div style="font-size:32px;font-weight:700;margin-top:-16px;">Page Speed Score</div>
                 </div>
-                <img src="assets/testimonials/syntax-full.png" alt="Syntax Technologies" draggable="false" style="position:absolute;left:89px;top:299px;width:316px;height:97px;object-fit:contain;pointer-events:none;" />
+                <img src="../assets/testimonials/syntax-full.png" alt="Syntax Technologies" draggable="false" style="position:absolute;left:89px;top:299px;width:316px;height:97px;object-fit:contain;pointer-events:none;" />
               </div>
               <div class="tcard-m">
-                <img class="tm-swirl" src="assets/testimonials/green-swirl.svg" alt="" draggable="false" />
+                <img class="tm-swirl" src="../assets/testimonials/green-swirl.svg" alt="" draggable="false" />
                 <div class="tm-stat"><b>98%</b><span>Page Speed Score</span></div>
-                <img class="tm-logo" src="assets/testimonials/syntax-full.png" alt="Syntax Technologies" draggable="false" />
+                <img class="tm-logo" src="../assets/testimonials/syntax-full.png" alt="Syntax Technologies" draggable="false" />
               </div>
             </div>
 
             <!-- Card 2 · Morgan Gardella / DISQO -->
             <div class="tcard tcard--quote" style="width:958px;background:#eff6fe;border:1px solid rgba(0,0,0,.06);">
               <div class="tcard-d">
-                <img src="assets/testimonials/quote-open.svg" alt="" draggable="false" style="position:absolute;left:41px;top:31px;width:75px;height:52px;pointer-events:none;" />
-                <img src="assets/testimonials/disqo.png" alt="DISQO" draggable="false" style="position:absolute;right:51px;top:49px;width:104px;height:35px;object-fit:contain;pointer-events:none;" />
+                <img src="../assets/testimonials/quote-open.svg" alt="" draggable="false" style="position:absolute;left:41px;top:31px;width:75px;height:52px;pointer-events:none;" />
+                <img src="../assets/testimonials/disqo.png" alt="DISQO" draggable="false" style="position:absolute;right:51px;top:49px;width:104px;height:35px;object-fit:contain;pointer-events:none;" />
                 <p style="position:absolute;left:50px;top:110px;width:636px;margin:0;font-size:20px;font-weight:600;line-height:1.35;color:#063b6d;">is a team of highly talented strategists, and I feel fortunate to have had the opportunity to work with and learn from their team. They consistently seek out innovative ways to improve processes and achieve results and have a unique ability to think outside the box</p>
                 <div style="position:absolute;left:50px;top:332px;width:365px;">
                   <div style="font-size:24px;font-weight:600;color:#14bf9d;">Morgan Gardella</div>
                   <div style="font-size:18px;font-weight:400;color:#063b6d;margin-top:6px;">Paid Media Marketing Manager at DISQO</div>
                 </div>
-                <img src="assets/testimonials/quote-close.svg" alt="" draggable="false" style="position:absolute;left:840px;top:343px;width:75px;height:52px;pointer-events:none;" />
+                <img src="../assets/testimonials/quote-close.svg" alt="" draggable="false" style="position:absolute;left:840px;top:343px;width:75px;height:52px;pointer-events:none;" />
               </div>
               <div class="tcard-m">
-                <img class="tm-qopen" src="assets/testimonials/quote-open.svg" alt="" draggable="false" />
-                <img class="tm-brand" src="assets/testimonials/disqo.png" alt="DISQO" draggable="false" />
+                <img class="tm-qopen" src="../assets/testimonials/quote-open.svg" alt="" draggable="false" />
+                <img class="tm-brand" src="../assets/testimonials/disqo.png" alt="DISQO" draggable="false" />
                 <p class="tm-body">is a team of highly talented strategists, and I feel fortunate to have had the opportunity to work with and learn from their team. They consistently seek out innovative ways to improve processes and achieve results and have a unique ability to think outside the box</p>
                 <div class="tm-who"><b>Morgan Gardella</b><span>Paid Media Marketing Manager at DISQO</span></div>
-                <img class="tm-qclose" src="assets/testimonials/quote-close.svg" alt="" draggable="false" />
+                <img class="tm-qclose" src="../assets/testimonials/quote-close.svg" alt="" draggable="false" />
               </div>
             </div>
 
             <!-- Card 3 · Goodhood / $3MM -->
             <div class="tcard tcard--goodhood" style="width:527px;background:#564bcc;">
               <div class="tcard-d">
-                <img src="assets/testimonials/goodhood-wordmark.svg" alt="Goodhood" draggable="false" style="position:absolute;left:50%;top:170px;width:496px;height:87px;transform:translateX(-50%);pointer-events:none;" />
+                <img src="../assets/testimonials/goodhood-wordmark.svg" alt="Goodhood" draggable="false" style="position:absolute;left:50%;top:170px;width:496px;height:87px;transform:translateX(-50%);pointer-events:none;" />
                 <div style="position:absolute;left:20px;top:32px;width:413px;">
                   <div style="font-size:24px;font-weight:700;color:#1bfed1;">$3MM Helped with Fundraising</div>
                   <div style="font-size:14px;font-weight:400;color:#fff;margin-top:6px;line-height:1.4;">Our strategic collaboration with the CEO to develop and present a Go-To-Market plan secured $3 million in funding.</div>
@@ -1834,13 +1844,13 @@
                   <div style="font-size:24px;font-weight:700;color:#1bfed1;">Prashant Salla</div>
                   <div style="font-size:14px;font-weight:400;color:#fff;margin-top:6px;">CEO at Goodhood</div>
                 </div>
-                <img src="assets/testimonials/goodhood-person.png" alt="" draggable="false" style="position:absolute;right:0;bottom:0;width:245px;height:245px;object-fit:cover;pointer-events:none;" />
+                <img src="../assets/testimonials/goodhood-person.png" alt="" draggable="false" style="position:absolute;right:0;bottom:0;width:245px;height:245px;object-fit:cover;pointer-events:none;" />
               </div>
               <div class="tcard-m">
                 <div class="tm-top"><b>$3MM Helped with Fundraising</b><p>Our strategic collaboration with the CEO to develop and present a Go-To-Market plan secured $3 million in funding.</p></div>
-                <img class="tm-word" src="assets/testimonials/goodhood-wordmark.svg" alt="Goodhood" draggable="false" />
+                <img class="tm-word" src="../assets/testimonials/goodhood-wordmark.svg" alt="Goodhood" draggable="false" />
                 <div class="tm-who"><b>Prashant Salla</b><span>CEO at Goodhood</span></div>
-                <img class="tm-person" src="assets/testimonials/goodhood-person.png" alt="" draggable="false" />
+                <img class="tm-person" src="../assets/testimonials/goodhood-person.png" alt="" draggable="false" />
               </div>
             </div>
 
@@ -1861,7 +1871,7 @@
             <!-- Card 5 · Results -->
             <div class="tcard tcard--results" style="width:958px;background:#6cb5fb;">
               <div class="tcard-d">
-                <img src="assets/testimonials/results-r2.png" alt="" draggable="false" style="position:absolute;left:519px;top:61px;width:375px;height:122px;object-fit:cover;object-position:bottom;pointer-events:none;" />
+                <img src="../assets/testimonials/results-r2.png" alt="" draggable="false" style="position:absolute;left:519px;top:61px;width:375px;height:122px;object-fit:cover;object-position:bottom;pointer-events:none;" />
                 <div style="position:absolute;left:40px;top:54px;width:340px;">
                   <div style="font-size:32px;font-weight:700;color:#063b6d;">Results</div>
                   <div style="font-size:18px;font-weight:400;color:#fff;margin-top:6px;line-height:1.35;">Remarkable Improvements in Cost-Effectiveness and Visibility</div>
@@ -1886,7 +1896,7 @@
               </div>
               <div class="tcard-m">
                 <div class="tm-head"><b>Results</b><p>Remarkable Improvements in Cost-Effectiveness and Visibility</p></div>
-                <img class="tm-art" src="assets/testimonials/results-r2.png" alt="" draggable="false" />
+                <img class="tm-art" src="../assets/testimonials/results-r2.png" alt="" draggable="false" />
                 <div class="tm-metrics">
                   <div><b>87%</b><strong>Signup Cost Reduction</strong><p>This substantial reduction highlights the effectiveness of our targeted ad strategies in reducing acquisition expenses.</p></div>
                   <div><b>3.5</b><strong>Month Payback Period</strong><p>The customer payback period was shortened to just 3.5 months, showing our marketing approach&rsquo;s increased efficiency and effectiveness.</p></div>
@@ -1904,7 +1914,7 @@
   <!-- PE ENTRY POINT · Spotlight mini-hero -->
   <section id="pe-entry" data-cursor-theme="light" style="padding:clamp(70px,9vw,110px) 40px;">
     <div class="pe-panel" data-pe-panel data-cursor-theme="dark" data-reveal style="opacity:0;translate:0 28px;transition:opacity .8s cubic-bezier(.16,.84,.44,1),translate .8s cubic-bezier(.16,.84,.44,1);">
-      <img class="pe-watermark" src="assets/logo.svg" alt="" aria-hidden="true" draggable="false">
+      <img class="pe-watermark" src="../assets/logo.svg" alt="" aria-hidden="true" draggable="false">
       <div class="pe-inner">
         <h2 class="pe-title" style="margin-top:0;">A senior marketing partner who answers to the P&amp;L, not the dashboard.</h2>
         <p class="pe-sub">We embed with operating partners and portfolio leadership through Strategic Growth Diagnostics and Fractional CMO engagements — owning the growth number and reporting in the metrics your investment committee already tracks.</p>
@@ -3589,8 +3599,8 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}`;
     if (bot && window.lottie) {
       const openEl = bot.querySelector('[data-bot-open]');
       const loadEl = bot.querySelector('[data-bot-load]');
-      if (openEl) openAnim = window.lottie.loadAnimation({ container: openEl, renderer: 'svg', loop: false, autoplay: false, path: 'assets/iris-logo-opening.json' });
-      if (loadEl) { loadAnim = window.lottie.loadAnimation({ container: loadEl, renderer: 'svg', loop: true, autoplay: false, path: 'assets/iris-logo-loading.json' }); loadAnim.setSpeed(LOAD_SPEED); }
+      if (openEl) openAnim = window.lottie.loadAnimation({ container: openEl, renderer: 'svg', loop: false, autoplay: false, path: '../assets/iris-logo-opening.json' });
+      if (loadEl) { loadAnim = window.lottie.loadAnimation({ container: loadEl, renderer: 'svg', loop: true, autoplay: false, path: '../assets/iris-logo-loading.json' }); loadAnim.setSpeed(LOAD_SPEED); }
     }
 
     let timers = [];
