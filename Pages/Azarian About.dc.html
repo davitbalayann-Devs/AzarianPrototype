@@ -144,98 +144,6 @@
   }
   @media(max-width:640px){.agn-hamlet{padding:70px 20px;}}
 
-  /* ===== 03 PE vs VC · card-stack panels (Figma 22862:1863) =====
-     Two columns of stacked cards: a lead card, then 4 method cards. Animated exactly like
-     Home's 05 Process — scroll position elects one active card per column, the rest sit at
-     20% with the accent drained out. Runs #05121e → #05121e at its edges so the 02 → 04
-     background chain stays seamless, with Figma's #021526 through the body. */
-  .agn-pevc{position:relative;z-index:2;overflow:hidden;color:#fff;
-    background:linear-gradient(180deg,#05121e 0%,#021526 22%,#021526 78%,#05121e 100%);
-    padding:clamp(56px,6.3vw,90px) clamp(20px,4.4vw,64px);}
-  .agn-pevc-inner{position:relative;z-index:1;width:100%;max-width:1312px;margin:0 auto;
-    display:flex;gap:24px;align-items:flex-start;}
-  .agn-pevc-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:18px;}
-  .agn-pevc-col--pe{--pv:27,254,209;--pv-line:6,59,109;--pv-line-a:.3;}
-  .agn-pevc-col--vc{--pv:139,92,246;--pv-line:255,255,255;--pv-line-a:.2;}
-
-  /* ---- Lead card · always fully lit, it frames the column ---- */
-  .agn-pevc-lead{position:relative;box-sizing:border-box;overflow:hidden;
-    display:flex;flex-direction:column;gap:16px;justify-content:center;
-    min-height:212px;padding:clamp(24px,2.8vw,40px);border-radius:24px;}
-  .agn-pevc-col--pe .agn-pevc-lead{border:1px solid rgba(255,255,255,.04);
-    background:linear-gradient(rgba(2,21,38,.7),rgba(2,21,38,.7)),
-      radial-gradient(135% 150% at 20% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);}
-  .agn-pevc-col--vc .agn-pevc-lead{border:1px solid rgba(255,255,255,.1);
-    background:linear-gradient(rgba(2,21,38,.7),rgba(2,21,38,.7)),
-      radial-gradient(135% 150% at 20% 0%,#8B5CF6 0%,#7243DD 27.5%,#592AC4 55%,#4A1BB5 77.5%,#3B0CA6 100%);}
-  /* Figma lets the VC headline take two lines — no nowrap here, unlike the old panel. */
-  .agn-pevc-lead-title{margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:700;
-    font-size:clamp(21px,2.35vw,32px);line-height:1.125;letter-spacing:-.01em;color:#fff;}
-  .agn-pevc-lead-sub{margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:400;
-    font-size:clamp(13.5px,1.15vw,16px);line-height:1.375;}
-  .agn-pevc-col--pe .agn-pevc-lead-sub{color:rgba(255,255,255,.5);}
-  .agn-pevc-col--vc .agn-pevc-lead-sub{color:rgba(255,255,255,.6);}
-
-  /* ---- Method card · container-type so the bleeding watermark scales with the card ---- */
-  .agn-pevc-card{position:relative;box-sizing:border-box;overflow:hidden;container-type:inline-size;
-    display:flex;flex-direction:column;gap:8px;justify-content:center;text-align:center;
-    min-height:145px;padding:clamp(26px,3.1vw,40px) clamp(16px,1.9vw,24px);border-radius:20px;
-    border:1px solid rgba(var(--pv-line),var(--pv-line-a));
-    box-shadow:0 22px 55px -30px rgba(0,0,0,.7);
-    opacity:0;will-change:transform,opacity,filter;}
-  .agn-pevc-col--pe .agn-pevc-card{
-    background:radial-gradient(135% 195% at 20% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);}
-  .agn-pevc-col--vc .agn-pevc-card{
-    background:radial-gradient(135% 195% at 20% 0%,#6334CE 0%,#4F20BA 27.5%,#3B0CA6 55%,#270A92 100%);}
-  /* Accent ring rides the same continuous --pv-a the JS writes, so it ramps rather than snaps.
-     inset:0 (not -1px) because the card clips its own children. */
-  .agn-pevc-card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-    border-radius:inherit;border:1px solid rgb(var(--pv));
-    opacity:calc(.55 * var(--pv-a,0));}
-  .agn-pevc-card-title{margin:0;position:relative;z-index:1;
-    font-family:'Poppins',system-ui,sans-serif;font-weight:700;
-    font-size:clamp(16px,1.75vw,24px);line-height:1.2;color:#fff;}
-  .agn-pevc-card-sub{margin:0;position:relative;z-index:1;
-    font-family:'Poppins',system-ui,sans-serif;font-weight:400;
-    font-size:clamp(11.5px,1.02vw,14px);line-height:1.35;}
-  .agn-pevc-col--pe .agn-pevc-card-sub{color:rgba(255,255,255,.5);}
-  .agn-pevc-col--vc .agn-pevc-card-sub{color:rgba(255,255,255,.6);}
-
-  /* ---- Watermarks · sized in cqi so Figma's px offsets hold at every card width ---- */
-  .agn-pevc-wm{position:absolute;z-index:0;pointer-events:none;opacity:.1;
-    transition:opacity .45s ease;}
-  .agn-pevc-wm img{display:block;width:100%;height:100%;}
-  .agn-pevc-card.is-active .agn-pevc-wm{opacity:.2;}
-  .agn-pevc-wm--search{right:-1px;top:-1px;width:26.4cqi;height:26.4cqi;}
-  .agn-pevc-wm--system{left:-1px;top:-12px;width:32.45cqi;height:32.45cqi;}
-  .agn-pevc-wm--plus{left:50%;top:50%;transform:translate(-50%,-50%);width:41.3cqi;height:41.3cqi;}
-  .agn-pevc-wm--team{left:-1px;top:-12px;width:34.2cqi;height:34.3cqi;}
-  .agn-pevc-wm--safe{right:-1px;top:9px;width:33.5cqi;height:33.5cqi;}
-  .agn-pevc-wm--growth{left:-1px;top:10px;width:32.45cqi;height:32.45cqi;}
-  .agn-pevc-wm--ai{left:-1px;top:-1px;width:28cqi;height:28cqi;}
-  /* "OS" badge — the one watermark that is type, not an icon (Figma 22873:4583) */
-  .agn-pevc-wm--os{right:-1px;top:29.7%;width:27.1cqi;height:19.05cqi;border-radius:24px;
-    display:flex;align-items:center;justify-content:center;overflow:hidden;
-    background:linear-gradient(90deg,#8a5cf0 0%,#0db5ab 100%);}
-  .agn-pevc-wm--os b{font-family:'Inter','Poppins',system-ui,sans-serif;font-weight:700;
-    font-size:11.68cqi;line-height:1;letter-spacing:.026em;color:#fff;}
-
-  @media(max-width:1024px){
-    /* Stacked: the whole PE column, then the whole VC column (PE first, per the brief). */
-    .agn-pevc-inner{flex-direction:column;gap:18px;}
-    .agn-pevc-lead{min-height:0;}
-  }
-  @media(max-width:640px){
-    .agn-pevc{padding:56px 16px;}
-    .agn-pevc-lead{border-radius:18px;}
-    .agn-pevc-card{border-radius:16px;min-height:124px;}
-  }
-  @media(prefers-reduced-motion:reduce){
-    /* setupPeVc() settles every card lit and never starts the rAF loop. */
-    .agn-pevc-card{opacity:1;}
-    .agn-pevc-wm{transition:none;}
-  }
-
   /* ===== 04 OUR VALUE · Orbital image wheel (horizontal scroll) ===== */
   .agn-values{position:relative;z-index:2;background:linear-gradient(180deg,#05121e 0%,#06141f 100%);color:#fff;}
   /* Soft bottom veil — blends carousel into the next section (no hard crop) */
@@ -697,69 +605,6 @@
     </div>
   </section>
 
-  <!-- 03 PE vs VC · card-stack panels (Figma 22862:1863) · Process-style scroll activation -->
-  <section id="pe-vc" class="agn-pevc" data-pevc data-cursor-theme="dark" aria-label="How we work with PE-backed and venture-backed companies">
-    <div class="agn-pevc-inner">
-
-      <div class="agn-pevc-col agn-pevc-col--pe" data-pevc-col aria-label="For PE-backed companies">
-        <div class="agn-pevc-lead" data-reveal style="opacity:0;translate:0 26px;transition:opacity .7s ease,translate .7s ease;">
-          <h3 class="agn-pevc-lead-title">We drive EBITDA &mdash; fast.</h3>
-          <p class="agn-pevc-lead-sub">We find what&rsquo;s dragging on margin and growth, then turn marketing, sales, and operations into one efficient engine.</p>
-        </div>
-
-        <article class="agn-pevc-card" data-pevc-card>
-          <span class="agn-pevc-wm agn-pevc-wm--search" aria-hidden="true"><img src="../assets/pe-vc/pe1-search.svg" alt="" draggable="false"></span>
-          <h4 class="agn-pevc-card-title">Diagnose the drag on margin and growth</h4>
-          <p class="agn-pevc-card-sub">Paid Strategic Growth Diagnostic &mdash; the truth before the spend</p>
-        </article>
-        <article class="agn-pevc-card" data-pevc-card>
-          <span class="agn-pevc-wm agn-pevc-wm--system" aria-hidden="true"><img src="../assets/pe-vc/pe2-system.svg" alt="" draggable="false"></span>
-          <h4 class="agn-pevc-card-title">Align marketing, sales &amp; ops into one system</h4>
-          <p class="agn-pevc-card-sub">One pipeline, one shared definition of a qualified lead</p>
-        </article>
-        <article class="agn-pevc-card" data-pevc-card>
-          <span class="agn-pevc-wm agn-pevc-wm--plus" aria-hidden="true"><img src="../assets/pe-vc/pe3-plus.svg" alt="" draggable="false"></span>
-          <h4 class="agn-pevc-card-title">Cut wasted spend, lift valuation-driving metrics</h4>
-          <p class="agn-pevc-card-sub">Channel-by-channel audit; retire what can&rsquo;t be attributed</p>
-        </article>
-        <article class="agn-pevc-card" data-pevc-card>
-          <span class="agn-pevc-wm agn-pevc-wm--team" aria-hidden="true"><img src="../assets/pe-vc/pe4-team.svg" alt="" draggable="false"></span>
-          <h4 class="agn-pevc-card-title">Senior-led &mdash; impact in quarters, not years</h4>
-          <p class="agn-pevc-card-sub">Operators in the room, not account managers</p>
-        </article>
-      </div>
-
-      <div class="agn-pevc-col agn-pevc-col--vc" data-pevc-col aria-label="For venture-backed companies">
-        <div class="agn-pevc-lead" data-reveal data-reveal-delay="120" style="opacity:0;translate:0 26px;transition:opacity .7s ease,translate .7s ease;">
-          <h3 class="agn-pevc-lead-title">We scale you &mdash; and make it repeatable.</h3>
-          <p class="agn-pevc-lead-sub">We build the growth infrastructure that turns early traction into a predictable, repeatable engine your team can run on.</p>
-        </div>
-
-        <article class="agn-pevc-card" data-pevc-card>
-          <span class="agn-pevc-wm agn-pevc-wm--safe" aria-hidden="true"><img src="../assets/pe-vc/vc1-safeflash.svg" alt="" draggable="false"></span>
-          <h4 class="agn-pevc-card-title">Build infrastructure to move fast, safely</h4>
-          <p class="agn-pevc-card-sub">Tracking, attribution and guardrails before spend scales</p>
-        </article>
-        <article class="agn-pevc-card" data-pevc-card>
-          <span class="agn-pevc-wm agn-pevc-wm--growth" aria-hidden="true"><img src="../assets/pe-vc/vc2-growth.svg" alt="" draggable="false"></span>
-          <h4 class="agn-pevc-card-title">Turn traction into predictable growth</h4>
-          <p class="agn-pevc-card-sub">Isolate the channel that repeats, then compound it</p>
-        </article>
-        <article class="agn-pevc-card" data-pevc-card>
-          <span class="agn-pevc-wm agn-pevc-wm--os" aria-hidden="true"><b>OS</b></span>
-          <h4 class="agn-pevc-card-title">Set up the systems, data &amp; playbooks</h4>
-          <p class="agn-pevc-card-sub">Growth OS &mdash; dashboards and playbooks your team owns</p>
-        </article>
-        <article class="agn-pevc-card" data-pevc-card>
-          <span class="agn-pevc-wm agn-pevc-wm--ai" aria-hidden="true"><img src="../assets/pe-vc/vc4-ai.svg" alt="" draggable="false"></span>
-          <h4 class="agn-pevc-card-title">AI-native, built for aggressive targets</h4>
-          <p class="agn-pevc-card-sub">AI inside the workflow: research, content, ops throughput</p>
-        </article>
-      </div>
-
-    </div>
-  </section>
-
   <!-- 04 OUR VALUE · Orbital wheel (horizontal scroll) -->
   <section id="values" class="agn-values" data-values data-cursor-theme="dark" aria-label="Our values"></section>
 
@@ -1134,7 +979,6 @@ class Component extends DCLogic {
     this.setupHeroQA();
     this.setupHeroCover();
     this.setupHamlet();
-    this.setupPeVc();
     this.setupValues();
     this.setupMedia();
     this.setupTeam();
@@ -1159,7 +1003,6 @@ class Component extends DCLogic {
     if (this._teamCleanups) this._teamCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
     if (this._trustCleanups) this._trustCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
     if (this._mediaCleanups) this._mediaCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
-    if (this._pevcRaf) cancelAnimationFrame(this._pevcRaf);
   }
 
   // ---- ABOUT HERO: reactbits Plasma (vanilla WebGL2 port) ----
@@ -1182,75 +1025,6 @@ class Component extends DCLogic {
       fps: 60,
       steps: 24,
     });
-  }
-
-  // ---- 03 PE vs VC · scroll-elected active card, ported from Home's setupProcess ----
-  // Same model as Home 05 Process: q is the fractional card index sitting under the viewport
-  // centre, the nearest card is active, and every other card falls to 20% with the accent
-  // drained out. Each column runs its own q so the two stacks light up independently.
-  setupPeVc() {
-    const root = this.rootEl;
-    if (!root) return;
-    const section = root.querySelector('[data-pevc]');
-    if (!section) return;
-    const cols = Array.from(section.querySelectorAll('[data-pevc-col]'))
-      .map((col) => ({
-        cards: Array.from(col.querySelectorAll('[data-pevc-card]')),
-        accent: (getComputedStyle(col).getPropertyValue('--pv') || '27,254,209').trim(),
-      }))
-      .filter((c) => c.cards.length >= 2);
-    if (!cols.length) return;
-
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    // No motion: settle every card lit and legible, and never start the loop.
-    if (reduce) {
-      cols.forEach(({ cards }) => cards.forEach((card) => {
-        card.style.opacity = '1';
-        card.style.setProperty('--pv-a', '0');
-      }));
-      return;
-    }
-
-    const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-    const lerp = (a, b, t) => a + (b - a) * t;
-    const smooth = (t) => t * t * (3 - 2 * t);
-
-    const vis = this._vis(section);
-    const tick = () => {
-      this._pevcRaf = requestAnimationFrame(tick);
-      if (document.hidden || !vis.v) return; // skip rect reads + style writes off-screen
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const vc = vh * 0.5;
-
-      cols.forEach(({ cards, accent }) => {
-        const n = cards.length;
-        const mids = cards.map((c) => { const r = c.getBoundingClientRect(); return r.top + r.height / 2; });
-        let q;
-        if (vc <= mids[0]) q = 0;
-        else if (vc >= mids[n - 1]) q = n - 1;
-        else { let i = 0; while (i < n - 1 && vc > mids[i + 1]) i++; q = i + (vc - mids[i]) / Math.max(1, mids[i + 1] - mids[i]); }
-        const activeIdx = Math.round(clamp(q, 0, n - 1));
-
-        cards.forEach((card, i) => {
-          const r = card.getBoundingClientRect();
-          // Reveal as the card rises into view.
-          const reveal = clamp((vh * 0.97 - r.top) / (vh * 0.19), 0, 1);
-          // Accent peaks at q === i, sharpened so the current card stays lit until the next
-          // one is nearly centred.
-          let a = clamp(1 - Math.abs(q - i), 0, 1);
-          a = Math.pow(a, 1.7);
-          const rv = smooth(reveal);
-          const blur = (1 - rv) * 7;
-          card.style.opacity = (rv * lerp(0.2, 1, a)).toFixed(3);
-          card.style.transform = 'translateY(' + ((1 - rv) * 30).toFixed(1) + 'px) scale(' + (1 + 0.02 * a).toFixed(4) + ')';
-          card.style.filter = blur > 0.06 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
-          card.style.boxShadow = '0 22px 55px -30px rgba(0,0,0,.7), 0 26px 70px -26px rgba(' + accent + ',' + (0.4 * a).toFixed(3) + ')';
-          card.style.setProperty('--pv-a', a.toFixed(3));
-          card.classList.toggle('is-active', i === activeIdx && rv > 0.5);
-        });
-      });
-    };
-    this._pevcRaf = requestAnimationFrame(tick);
   }
 
   // ---- 04 OUR VALUE · orbital wheel (horizontal scroll) ----
