@@ -44,7 +44,9 @@
   .agn-about-hero{position:fixed;top:0;left:0;right:0;height:100vh;height:100dvh;z-index:0;
     overflow:hidden;transform-origin:50% 42%;will-change:transform;box-sizing:border-box;
     display:flex;align-items:center;justify-content:center;text-align:center;
-    padding:130px 40px 90px;color:#fff;
+    /* bottom padding reserves the Question-and-Answer panel (+64px Figma gap) so the
+       centred logo/title never collide with it; --hero-qa-h is measured in setupHeroQA(). */
+    padding:130px 40px calc(var(--hero-qa-h,200px) + 64px);color:#fff;
     background:linear-gradient(180deg,#1e1a47 0%,#181441 42%,#0e0b29 100%);}
   .agn-about-hero::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:#04101f;opacity:var(--hero-veil,0);}
   .agn-hero-plasma{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
@@ -67,9 +69,47 @@
   .agn-hero-title [data-prox-letter]{display:inline-block;font-variation-settings:"wght" 700;color:#e8fffa;
     contain:layout style;}
   .agn-hero-title [data-prox-letter].is-accent{color:#1BFED1;}
-  .agn-hero-sub{margin:0;max-width:932px;font-family:Poppins,system-ui,sans-serif;font-size:16px;line-height:1.5;color:#b2c2d2;font-weight:500;}
+  /* Question and Answer · pinned flush to the hero's bottom edge (Figma 22828:4572).
+     Two 643px panels side by side in a 1296px row, 10px gap, 24px top radius, each with a
+     top-lit gradient fill + matching 1px gradient stroke that fades out toward the bottom. */
+  .agn-hero-qa{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:0 clamp(20px,5vw,72px);}
+  .agn-hero-qa-inner{max-width:1296px;margin:0 auto;display:flex;align-items:stretch;gap:10px;
+    will-change:opacity,filter,transform;}
+  .agn-hero-qa-card{position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:10px;text-align:center;
+    min-height:clamp(132px,13.9vw,200px);padding:clamp(16px,1.7vw,24px);overflow:hidden;
+    border-radius:24px 24px 0 0;}
+  /* 1px gradient stroke. The fill is translucent (the plasma shows through), so the
+     padding-box/border-box trick would bleed the stroke across the whole card — mask a
+     1px ring out of a pseudo-element instead. */
+  .agn-hero-qa-card::before{content:"";position:absolute;inset:0;border-radius:inherit;
+    padding:1px;pointer-events:none;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    mask-composite:exclude;}
+  .agn-hero-qa-card--blue{background:linear-gradient(180deg,rgba(108,181,251,.10) 0%,rgba(108,181,251,0) 100%);}
+  .agn-hero-qa-card--blue::before{background:linear-gradient(180deg,rgba(108,181,251,.45) 0%,rgba(108,181,251,0) 100%);}
+  .agn-hero-qa-card--teal{background:linear-gradient(180deg,rgba(0,194,149,.10) 0%,rgba(0,194,149,0) 100%);}
+  .agn-hero-qa-card--teal::before{background:linear-gradient(180deg,rgba(0,194,149,.45) 0%,rgba(0,194,149,0) 100%);}
+  .agn-hero-qa p{margin:0;font-family:Poppins,system-ui,sans-serif;}
+  .agn-hero-qa-eyebrow{font-size:clamp(13px,1.24vw,16px);line-height:1.5;font-weight:500;color:#d1e8fe;}
+  .agn-hero-qa-title{font-size:clamp(19px,2.47vw,32px);line-height:1.125;font-weight:700;color:#6cb5fb;}
+  .agn-hero-qa-title--teal{color:#1bfed1;}
+  .agn-hero-qa-sub{font-size:clamp(12px,1.08vw,14px);line-height:1.5;font-weight:400;color:#e8fffa;}
+  /* Narrow screens: two 643px columns would leave ~170px each, so stack them instead. */
+  @media(max-width:720px){
+    .agn-hero-qa-inner{flex-direction:column;gap:8px;}
+    /* flex:1 1 0 sizes the COLUMNS above; stacked, that same basis would zero out each
+       card's height and spill the text, so hand height back to the content. */
+    .agn-hero-qa-card{flex:0 0 auto;min-height:0;padding:14px 16px;gap:6px;}
+    .agn-hero-qa-card--blue{border-radius:20px 20px 0 0;}
+    .agn-hero-qa-card--teal{border-radius:20px 20px 0 0;}
+    .agn-hero-qa-eyebrow{font-size:13px;}
+    .agn-hero-qa-title{font-size:clamp(17px,4.6vw,20px);}
+    .agn-hero-qa-sub{font-size:12px;}
+  }
   @media(max-width:640px){
-    .agn-about-hero{padding:110px 20px 70px;}
+    .agn-about-hero{padding:110px 20px calc(var(--hero-qa-h,200px) + 40px);}
     .agn-hero-content{gap:18px;}
     .agn-hero-title{font-size:clamp(28px,7.2vw,36px);line-height:1.2;}
   }
@@ -79,6 +119,8 @@
     .agn-about-hero{position:relative;transform:none !important;opacity:1 !important;filter:none !important;visibility:visible !important;}
     .agn-about-hero::after{opacity:0 !important;}
     .agn-hero-plasma{display:none !important;}
+    .agn-hero-qa,.agn-hero-qa-inner{opacity:1 !important;visibility:visible !important;
+      filter:none !important;transform:none !important;}
   }
 
   /* ===== 02 ABOUT HAMLET ===== */
@@ -102,7 +144,99 @@
   }
   @media(max-width:640px){.agn-hamlet{padding:70px 20px;}}
 
-  /* ===== 03 OUR VALUE · Orbital image wheel (horizontal scroll) ===== */
+  /* ===== 03 PE vs VC · card-stack panels (Figma 22862:1863) =====
+     Two columns of stacked cards: a lead card, then 4 method cards. Animated exactly like
+     Home's 05 Process — scroll position elects one active card per column, the rest sit at
+     20% with the accent drained out. Runs #05121e → #05121e at its edges so the 02 → 04
+     background chain stays seamless, with Figma's #021526 through the body. */
+  .agn-pevc{position:relative;z-index:2;overflow:hidden;color:#fff;
+    background:linear-gradient(180deg,#05121e 0%,#021526 22%,#021526 78%,#05121e 100%);
+    padding:clamp(56px,6.3vw,90px) clamp(20px,4.4vw,64px);}
+  .agn-pevc-inner{position:relative;z-index:1;width:100%;max-width:1312px;margin:0 auto;
+    display:flex;gap:24px;align-items:flex-start;}
+  .agn-pevc-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:18px;}
+  .agn-pevc-col--pe{--pv:27,254,209;--pv-line:6,59,109;--pv-line-a:.3;}
+  .agn-pevc-col--vc{--pv:139,92,246;--pv-line:255,255,255;--pv-line-a:.2;}
+
+  /* ---- Lead card · always fully lit, it frames the column ---- */
+  .agn-pevc-lead{position:relative;box-sizing:border-box;overflow:hidden;
+    display:flex;flex-direction:column;gap:16px;justify-content:center;
+    min-height:212px;padding:clamp(24px,2.8vw,40px);border-radius:24px;}
+  .agn-pevc-col--pe .agn-pevc-lead{border:1px solid rgba(255,255,255,.04);
+    background:linear-gradient(rgba(2,21,38,.7),rgba(2,21,38,.7)),
+      radial-gradient(135% 150% at 20% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);}
+  .agn-pevc-col--vc .agn-pevc-lead{border:1px solid rgba(255,255,255,.1);
+    background:linear-gradient(rgba(2,21,38,.7),rgba(2,21,38,.7)),
+      radial-gradient(135% 150% at 20% 0%,#8B5CF6 0%,#7243DD 27.5%,#592AC4 55%,#4A1BB5 77.5%,#3B0CA6 100%);}
+  /* Figma lets the VC headline take two lines — no nowrap here, unlike the old panel. */
+  .agn-pevc-lead-title{margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:700;
+    font-size:clamp(21px,2.35vw,32px);line-height:1.125;letter-spacing:-.01em;color:#fff;}
+  .agn-pevc-lead-sub{margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:400;
+    font-size:clamp(13.5px,1.15vw,16px);line-height:1.375;}
+  .agn-pevc-col--pe .agn-pevc-lead-sub{color:rgba(255,255,255,.5);}
+  .agn-pevc-col--vc .agn-pevc-lead-sub{color:rgba(255,255,255,.6);}
+
+  /* ---- Method card · container-type so the bleeding watermark scales with the card ---- */
+  .agn-pevc-card{position:relative;box-sizing:border-box;overflow:hidden;container-type:inline-size;
+    display:flex;flex-direction:column;gap:8px;justify-content:center;text-align:center;
+    min-height:145px;padding:clamp(26px,3.1vw,40px) clamp(16px,1.9vw,24px);border-radius:20px;
+    border:1px solid rgba(var(--pv-line),var(--pv-line-a));
+    box-shadow:0 22px 55px -30px rgba(0,0,0,.7);
+    opacity:0;will-change:transform,opacity,filter;}
+  .agn-pevc-col--pe .agn-pevc-card{
+    background:radial-gradient(135% 195% at 20% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);}
+  .agn-pevc-col--vc .agn-pevc-card{
+    background:radial-gradient(135% 195% at 20% 0%,#6334CE 0%,#4F20BA 27.5%,#3B0CA6 55%,#270A92 100%);}
+  /* Accent ring rides the same continuous --pv-a the JS writes, so it ramps rather than snaps.
+     inset:0 (not -1px) because the card clips its own children. */
+  .agn-pevc-card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    border-radius:inherit;border:1px solid rgb(var(--pv));
+    opacity:calc(.55 * var(--pv-a,0));}
+  .agn-pevc-card-title{margin:0;position:relative;z-index:1;
+    font-family:'Poppins',system-ui,sans-serif;font-weight:700;
+    font-size:clamp(16px,1.75vw,24px);line-height:1.2;color:#fff;}
+  .agn-pevc-card-sub{margin:0;position:relative;z-index:1;
+    font-family:'Poppins',system-ui,sans-serif;font-weight:400;
+    font-size:clamp(11.5px,1.02vw,14px);line-height:1.35;}
+  .agn-pevc-col--pe .agn-pevc-card-sub{color:rgba(255,255,255,.5);}
+  .agn-pevc-col--vc .agn-pevc-card-sub{color:rgba(255,255,255,.6);}
+
+  /* ---- Watermarks · sized in cqi so Figma's px offsets hold at every card width ---- */
+  .agn-pevc-wm{position:absolute;z-index:0;pointer-events:none;opacity:.1;
+    transition:opacity .45s ease;}
+  .agn-pevc-wm img{display:block;width:100%;height:100%;}
+  .agn-pevc-card.is-active .agn-pevc-wm{opacity:.2;}
+  .agn-pevc-wm--search{right:-1px;top:-1px;width:26.4cqi;height:26.4cqi;}
+  .agn-pevc-wm--system{left:-1px;top:-12px;width:32.45cqi;height:32.45cqi;}
+  .agn-pevc-wm--plus{left:50%;top:50%;transform:translate(-50%,-50%);width:41.3cqi;height:41.3cqi;}
+  .agn-pevc-wm--team{left:-1px;top:-12px;width:34.2cqi;height:34.3cqi;}
+  .agn-pevc-wm--safe{right:-1px;top:9px;width:33.5cqi;height:33.5cqi;}
+  .agn-pevc-wm--growth{left:-1px;top:10px;width:32.45cqi;height:32.45cqi;}
+  .agn-pevc-wm--ai{left:-1px;top:-1px;width:28cqi;height:28cqi;}
+  /* "OS" badge — the one watermark that is type, not an icon (Figma 22873:4583) */
+  .agn-pevc-wm--os{right:-1px;top:29.7%;width:27.1cqi;height:19.05cqi;border-radius:24px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    background:linear-gradient(90deg,#8a5cf0 0%,#0db5ab 100%);}
+  .agn-pevc-wm--os b{font-family:'Inter','Poppins',system-ui,sans-serif;font-weight:700;
+    font-size:11.68cqi;line-height:1;letter-spacing:.026em;color:#fff;}
+
+  @media(max-width:1024px){
+    /* Stacked: the whole PE column, then the whole VC column (PE first, per the brief). */
+    .agn-pevc-inner{flex-direction:column;gap:18px;}
+    .agn-pevc-lead{min-height:0;}
+  }
+  @media(max-width:640px){
+    .agn-pevc{padding:56px 16px;}
+    .agn-pevc-lead{border-radius:18px;}
+    .agn-pevc-card{border-radius:16px;min-height:124px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    /* setupPeVc() settles every card lit and never starts the rAF loop. */
+    .agn-pevc-card{opacity:1;}
+    .agn-pevc-wm{transition:none;}
+  }
+
+  /* ===== 04 OUR VALUE · Orbital image wheel (horizontal scroll) ===== */
   .agn-values{position:relative;z-index:2;background:linear-gradient(180deg,#05121e 0%,#06141f 100%);color:#fff;}
   /* Soft bottom veil — blends carousel into the next section (no hard crop) */
   .agn-values::after{content:"";position:absolute;left:0;right:0;bottom:0;z-index:5;pointer-events:none;
@@ -124,7 +258,7 @@
   .oiw-heading{margin:0;position:relative;z-index:5;text-align:center;font-family:'Poppins',system-ui,sans-serif;
     font-weight:700;font-size:clamp(26px,4vw,48px);line-height:1.08;color:#fff;max-width:min(900px,92vw);}
   .oiw-viewport{position:absolute;inset:0;pointer-events:none;z-index:1;}
-  /* Dissolve the wheel scene into the section's bottom colour so 03→04 is seamless. */
+  /* Dissolve the wheel scene into the section's bottom colour so 04→05 is seamless. */
   .oiw-viewport::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(150px,26vh,280px);
     background:linear-gradient(180deg,rgba(6,20,31,0) 0%,#06141f 90%);pointer-events:none;z-index:110;}
   .oiw-wheel{position:absolute;left:50%;transform:translateX(-50%);will-change:transform;}
@@ -161,7 +295,7 @@
     .oiw-pills-track{transition:none;}
   }
 
-  /* ===== 04 CASE STUDY · Growth partners (marquee) + hover cards ===== */
+  /* ===== 05 CASE STUDY · Growth partners (marquee) + hover cards ===== */
   .agn-cases{position:relative;z-index:2;overflow-x:clip;overflow-y:visible;background:linear-gradient(180deg,#06141f 0%,#081827 100%);color:#fff;padding:clamp(80px,10vw,120px) 0;}
   .agn-cases-glow{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:min(1100px,130vw);height:640px;
     pointer-events:none;z-index:0;filter:blur(18px);
@@ -201,27 +335,49 @@
     -webkit-mask-image:linear-gradient(270deg,#000 0%,#000 12%,rgba(0,0,0,.55) 42%,rgba(0,0,0,.18) 72%,transparent 100%);
     mask-image:linear-gradient(270deg,#000 0%,#000 12%,rgba(0,0,0,.55) 42%,rgba(0,0,0,.18) 72%,transparent 100%);}
 
-  /* Card */
-  .cs-card{position:relative;z-index:0;flex:0 0 auto;width:clamp(260px,26vw,360px);height:clamp(150px,15vw,200px);
-    border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);overflow:visible;
-    display:flex;align-items:center;justify-content:center;
+  /* Card · fixed size default = hover (no width expand) */
+  .cs-card{position:relative;z-index:0;flex:0 0 auto;width:clamp(260px,26vw,375px);height:200px;
+    border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);overflow:hidden;
+    display:block;
     transition:transform .45s cubic-bezier(.16,1,.3,1),background .4s ease,border-color .4s ease,box-shadow .45s ease;}
   .cs-card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:inherit;z-index:0;pointer-events:none;}
   .cs-card::after{content:"";position:absolute;left:50%;top:58%;width:92%;height:78%;z-index:-1;pointer-events:none;opacity:0;
     transform:translate(-50%,-50%);border-radius:42%;
-    background:radial-gradient(ellipse at center,rgba(27,254,209,.48) 0%,rgba(27,254,209,.16) 40%,transparent 72%);
+    background:radial-gradient(ellipse at center,rgba(27,254,209,.22) 0%,rgba(27,254,209,.08) 40%,transparent 72%);
     filter:blur(18px);transition:opacity .45s ease;}
   .cs-card:nth-child(even){background:rgba(27,254,209,.07);}
-  .cs-card > *{position:relative;z-index:1;}
-  .cs-card-logo{display:flex;align-items:center;justify-content:center;width:68%;height:54px;transition:transform .45s cubic-bezier(.16,1,.3,1);}
+  .cs-card-logo,.cs-metrics,.cs-badge{position:absolute;z-index:1;}
+
+  /* Logo · centered default → shifts up on hover for metrics */
+  .cs-card-logo{left:50%;top:50%;transform:translate(-50%,-50%);
+    display:flex;align-items:center;justify-content:center;width:68%;max-width:250px;height:54px;
+    transition:top .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1);}
   .cs-card-logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;pointer-events:none;-webkit-user-select:none;user-select:none;}
-  .cs-card:hover{transform:translateY(-6px);background:rgba(27,254,209,.12);border-color:rgba(27,254,209,.4);
-    box-shadow:0 18px 42px -18px rgba(27,254,209,.42),0 0 0 1px rgba(27,254,209,.14);}
+
+  /* Metrics · rise from below into place, then carousel starts */
+  .cs-metrics{left:12px;right:12px;top:104px;height:73px;opacity:0;visibility:hidden;
+    transform:translateY(calc(100% + 20px));pointer-events:none;
+    transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s ease,visibility .5s;}
+  .cs-metrics-viewport{width:100%;height:100%;overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
+  .cs-metrics-track{display:flex;width:max-content;height:100%;will-change:transform;animation:none;}
+  .cs-metrics-seq{display:flex;gap:8px;padding-right:8px;height:100%;}
+  .cs-metric{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;
+    min-width:107px;height:73px;padding:8px 12px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.1);}
+  .cs-metric-val{font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:32px;line-height:36px;color:#1BFED1;white-space:nowrap;}
+  .cs-metric-label{font-family:'Poppins',system-ui,sans-serif;font-weight:400;font-size:12px;line-height:17px;color:rgba(255,255,255,.8);white-space:nowrap;}
+  @keyframes cs-metrics-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  .cs-card:hover{transform:translateY(-6px);background:rgba(27,254,209,.06);border-color:rgba(27,254,209,.22);
+    box-shadow:0 18px 42px -18px rgba(27,254,209,.22),0 0 0 1px rgba(27,254,209,.08);}
   .cs-card:hover::after{opacity:1;}
-  .cs-card:hover .cs-card-logo{transform:scale(1.06);}
+  .cs-card:hover .cs-card-logo{top:57px;transform:translate(-50%,-50%);}
+  .cs-card:hover .cs-metrics{opacity:1;visibility:visible;transform:translateY(0);}
+  .cs-card:hover .cs-metrics-track{animation:cs-metrics-scroll 14s linear infinite;animation-delay:.45s;}
 
   /* Badge: collapsed "+" circle → expanded "Case Study ›" pill */
-  .cs-badge{position:absolute;top:11px;right:11px;height:22px;width:22px;border-radius:999px;background:#14bf9d;overflow:hidden;
+  .cs-badge{top:11px;right:11px;height:22px;width:22px;border-radius:999px;background:#14bf9d;overflow:hidden;
     box-shadow:0 4px 12px -4px rgba(20,191,157,.7);transition:width .44s cubic-bezier(.16,1,.3,1);}
   .cs-badge__plus{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s ease;}
   .cs-badge__full{position:absolute;top:0;left:0;right:0;height:22px;display:flex;align-items:center;gap:5px;padding:0 8px 0 11px;white-space:nowrap;opacity:0;transition:opacity .3s ease .06s;}
@@ -233,25 +389,131 @@
 
   /* CTA uses shared .agn-btn from button.js */
 
-  /* Partner / certification logos */
-  .agn-cases-partners{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2vw,32px);flex-wrap:wrap;width:100%;}
-  .agn-cases-partner{display:flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:10px;background:rgba(255,255,255,.04);}
-  /* Natural proportions, uniform height so the logos read harmoniously together. */
-  .agn-cases-partner img{height:clamp(30px,3.1vw,44px);width:auto;display:block;opacity:.92;}
+  /* Partner / certification logos · exact Figma 22447:8079 sizes (logo H=62, pad 12/24, gap 24) */
+  .agn-cases-partners{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
+    position:relative;overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);}
+  .agn-cases-partners-row{width:100%;overflow:hidden;}
+  .agn-cases-partners-track{display:flex;width:max-content;will-change:transform;}
+  .agn-cases-partners-seq{display:flex;align-items:center;gap:24px;margin:0;padding:0 24px 0 0;list-style:none;}
+  .agn-cases-partner{flex:0 0 auto;box-sizing:border-box;height:86px;
+    display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:10px;background:rgba(255,255,255,.04);}
+  .agn-cases-partner img{display:block;flex:0 0 auto;width:var(--logo-w);height:var(--logo-h,62px);
+    object-fit:contain;opacity:.92;pointer-events:none;-webkit-user-select:none;user-select:none;}
+  /* Meta in Figma is 60% opacity — baked into partner-meta.png export */
 
   @media(max-width:720px){
     .agn-cases-inner{gap:34px;padding:0 20px;}
     .agn-cases-edge{width:min(110px,22vw);}
-    .cs-card{width:78vw;max-width:320px;height:172px;}
-    .agn-cases-partner{padding:10px 16px;}
+    .cs-card{width:78vw;max-width:320px;height:200px;}
+    .cs-metric-val{font-size:26px;line-height:30px;}
+    .cs-metrics{left:10px;right:10px;}
+    .cs-metric{min-width:96px;}
+    .agn-cases-partners-seq{gap:14px;padding-right:14px;}
+    .agn-cases-partner{height:68px;padding:10px 16px;}
+    .agn-cases-partner img{height:48px;width:auto;}
   }
   @media(prefers-reduced-motion:reduce){
     .agn-cases-track{animation:none;}
     .agn-cases-group[aria-hidden="true"]{display:none;}
-    .cs-card,.cs-card-logo,.cs-badge,.cs-badge__plus,.cs-badge__full,.agn-btn{transition:none;}
+    .cs-card,.cs-card-logo,.cs-badge,.cs-badge__plus,.cs-badge__full,.cs-metrics,.agn-btn{transition:none;}
+    .cs-card:hover .cs-metrics{transform:none;}
+    .cs-card:hover .cs-metrics-track{animation:none;}
+    .agn-cases-partners-track{transform:none!important;}
   }
 
-  /* ===== 05 OUR TEAM · Sticky heading + glass-circle grid ===== */
+  /* ===== 06 PODCASTS AND WEBINARS · two halves, vertical infinite carousels (Figma 22823:1900) =====
+     Each half owns 2 lanes that scroll in opposite vertical directions; soft blur veils top/bottom
+     keep the transition into 04 / 06 from reading as a hard cut. */
+  .agn-media{--media-h:min(709px,49.2vw);--media-veil:120px;
+    position:relative;z-index:2;overflow:hidden;color:#fff;
+    background:linear-gradient(180deg,#081827 0%,#061a2d 46%,#081827 100%);}
+  /* No z-index here on purpose: the inner must NOT open a stacking context, otherwise the
+     per-half CTA (z-index 4) cannot paint above the sibling blur veils (z-index 3). */
+  .agn-media-inner{position:relative;width:100%;max-width:1440px;margin:0 auto;
+    padding:24px 64px;box-sizing:border-box;display:flex;align-items:stretch;gap:24px;}
+
+  /* Half (Podcasts / Webinars) — its own lanes and its own always-centred CTA */
+  .agn-media-col{position:relative;flex:1 1 0;min-width:0;}
+  .agn-media-col--podcasts{--media-line:rgba(27,254,209,.3);--media-accent:27,254,209;}
+  .agn-media-col--webinars{--media-line:rgba(94,169,244,.2);--media-accent:94,169,244;}
+
+  .agn-media-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:100%;
+    gap:8px;height:var(--media-h);overflow:hidden;}
+  .agn-media-lane{position:relative;height:100%;min-height:0;overflow:hidden;}
+  .agn-media-track{display:flex;flex-direction:column;will-change:transform;}
+  /* Trailing padding equals the gap so cloned sequences tile with no seam. */
+  .agn-media-seq{display:flex;flex-direction:column;gap:8px;margin:0;padding:0 0 8px;list-style:none;}
+
+  .agn-media-card{position:relative;flex:0 0 auto;box-sizing:border-box;
+    display:flex;flex-direction:column;gap:8px;padding:4px 4px 8px;border-radius:16px;
+    text-decoration:none;color:inherit;background:rgba(255,255,255,.05);
+    border:1px solid var(--media-line,rgba(255,255,255,.14));
+    transition:opacity .4s ease,background .4s ease,border-color .4s ease,box-shadow .45s ease;}
+  .agn-media-cover{position:relative;width:100%;aspect-ratio:310 / 190;border-radius:12px;overflow:hidden;}
+  .agn-media-cover img{display:block;width:100%;height:100%;object-fit:cover;
+    -webkit-user-select:none;user-select:none;transition:transform .55s cubic-bezier(.16,1,.3,1);}
+  .agn-media-name{padding:0 8px;font-family:'Poppins',system-ui,sans-serif;font-weight:500;
+    font-size:14px;line-height:21px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+  /* Hover · lift the card, drop every sibling in the same half to 20% so focus is unambiguous.
+     No transform on the card itself — the lane clips, so the accent lives in border/shadow. */
+  .agn-media-card:hover,.agn-media-card:focus-visible{z-index:2;outline:none;
+    background:rgba(var(--media-accent),.1);border-color:rgba(var(--media-accent),.75);
+    box-shadow:0 0 0 1px rgba(var(--media-accent),.22),0 18px 40px -20px rgba(var(--media-accent),.5);}
+  .agn-media-card:hover .agn-media-cover img,
+  .agn-media-card:focus-visible .agn-media-cover img{transform:scale(1.05);}
+  .agn-media-col.is-focus .agn-media-card{opacity:.2;}
+  .agn-media-col.is-focus .agn-media-card:hover,
+  .agn-media-col.is-focus .agn-media-card:focus-visible{opacity:1;}
+
+  .agn-media-div{flex:0 0 auto;width:1px;align-self:stretch;background:rgba(175,111,255,.5);}
+
+  /* Blur veils · mask fades the blur itself so neither edge shows a hard line */
+  .agn-media-veil{position:absolute;left:0;right:0;height:var(--media-veil);z-index:3;pointer-events:none;}
+  .agn-media-veil--top{top:0;
+    background:linear-gradient(180deg,#081827 0%,rgba(8,24,39,.78) 34%,rgba(8,24,39,.34) 66%,rgba(8,24,39,0) 100%);
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 34%,rgba(0,0,0,.5) 70%,transparent 100%);
+    mask-image:linear-gradient(180deg,#000 0%,#000 34%,rgba(0,0,0,.5) 70%,transparent 100%);}
+  .agn-media-veil--bottom{bottom:0;
+    background:linear-gradient(0deg,#081827 0%,rgba(8,24,39,.78) 34%,rgba(8,24,39,.34) 66%,rgba(8,24,39,0) 100%);
+    -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+    -webkit-mask-image:linear-gradient(0deg,#000 0%,#000 34%,rgba(0,0,0,.5) 70%,transparent 100%);
+    mask-image:linear-gradient(0deg,#000 0%,#000 34%,rgba(0,0,0,.5) 70%,transparent 100%);}
+
+  /* CTA · wrapper does the centring so [data-magnetic] stays free to write style.transform */
+  .agn-media-cta{position:absolute;left:0;right:0;bottom:21px;z-index:4;
+    display:flex;justify-content:center;pointer-events:none;}
+  .agn-media-cta>.agn-btn{pointer-events:auto;}
+
+  @media(max-width:900px){
+    /* Stack the halves; the divider becomes the rule between them. */
+    /* --media-h stays at or below one lane cycle (3 cards + gaps) so the loop seam never
+       shows more than a hairline of the repeat. */
+    .agn-media{--media-h:min(540px,120vw);--media-veil:96px;}
+    .agn-media-inner{flex-direction:column;padding:20px;gap:20px;}
+    .agn-media-div{width:auto;height:1px;align-self:stretch;}
+    .agn-media-name{font-size:13px;line-height:19px;}
+    /* Stacked halves get their own soft top/bottom fade — the section veils only cover the
+       outer edges, so without this the divider would cut a card off hard. */
+    .agn-media-grid{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 87%,transparent 100%);
+      mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 87%,transparent 100%);}
+  }
+  @media(max-width:520px){
+    .agn-media{--media-h:min(440px,108vw);}
+    .agn-media-card{border-radius:13px;padding:3px 3px 6px;}
+    .agn-media-cover{border-radius:10px;}
+    .agn-media-name{padding:0 5px;font-size:11px;line-height:17px;}
+    .agn-media-cta{bottom:14px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .agn-media-track{transform:none!important;}
+    .agn-media-card,.agn-media-cover img{transition:none;}
+  }
+
+  /* ===== 07 OUR TEAM · Sticky heading + glass-circle grid ===== */
   .agn-team{position:relative;z-index:2;color:#fff;padding:clamp(72px,8vw,112px) 0 clamp(84px,9vw,132px);}
   .agn-team-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
     background:radial-gradient(56% 50% at 22% 68%,rgba(24,64,120,.32) 0%,rgba(24,64,120,0) 64%),
@@ -266,8 +528,7 @@
   .agn-team-eyebrow{font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:24px;line-height:1;color:#e6ebf0;}
   .agn-team-head .agn-hero-logo{width:min(340px,100%);}
 
-  /* Grid · 6 cols so 3-per-row (span 2) and 2-per-row (span 3) both fit;
-     cards fill the row width and keep a fixed 254px height. */
+  /* Grid · 6 cols — 3 equal cards/row (span 2); last row Nane (span 2) + Careers (span 4). */
   .agn-team-grid{flex:1;min-width:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
   .agn-team-card{position:relative;grid-column:span 2;height:254px;overflow:hidden;
     background:rgba(75,204,146,.05);-webkit-backdrop-filter:blur(7px) saturate(1.3);backdrop-filter:blur(7px) saturate(1.3);
@@ -275,7 +536,7 @@
     box-shadow:inset 0 1px 1px rgba(255,255,255,.22),inset 0 0 0 1px rgba(255,255,255,.05),inset 0 -10px 26px rgba(255,255,255,.04),0 18px 40px -24px rgba(0,0,0,.6);
     text-decoration:none;color:inherit;border-radius:999px;
     transition:border-radius .5s cubic-bezier(.16,1,.3,1),opacity .4s ease,filter .4s ease,box-shadow .5s ease,transform .5s cubic-bezier(.16,1,.3,1);}
-  .agn-team-card.span-3{grid-column:span 3;}
+  .agn-team-card.span-4{grid-column:span 4;}
 
   /* Fixed teal "сечение" behind the photo (centred; does not follow the cursor). */
   .agn-team-card::before{content:"";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
@@ -283,6 +544,7 @@
     background:radial-gradient(circle,rgba(27,254,209,.36) 0%,rgba(27,254,209,0) 68%);
     opacity:0;transition:opacity .45s ease;}
 
+  /* Photo · Figma Fill: frame centered (~259/303), image covers frame edge-to-edge. */
   .agn-team-photo{position:absolute;inset:0;display:flex;justify-content:center;align-items:stretch;
     overflow:hidden;border-radius:inherit;z-index:1;}
   .agn-team-photo img{width:86%;height:100%;object-fit:cover;object-position:center top;
@@ -309,9 +571,10 @@
   /* Dim the rest so focus lands on the hovered person */
   .agn-team-grid:hover .agn-team-card:not(:hover){opacity:.4;filter:saturate(.7);}
 
-  /* Careers ("Maybe / This is your place?") card */
-  .agn-team-card--careers .agn-team-photo{align-items:center;padding:13%;}
-  .agn-team-card--careers .agn-team-photo img{width:100%;height:auto;max-height:100%;object-fit:contain;}
+  /* Careers · graphic Fit inside the pill (contain, centred). */
+  .agn-team-card--careers .agn-team-photo{align-items:center;justify-content:center;padding:0;}
+  .agn-team-card--careers .agn-team-photo img{width:100%;height:100%;max-width:100%;max-height:100%;
+    object-fit:contain;object-position:center;}
   .agn-team-card--careers:hover .agn-team-photo img{transform:scale(1.05);}
   .agn-team-li--arrow{background:rgba(255,255,255,.12);}
 
@@ -319,13 +582,14 @@
     .agn-team-inner{flex-direction:column;gap:30px;padding:0 20px;}
     .agn-team-head{position:static;flex:none;width:100%;}
     .agn-team-grid{grid-template-columns:repeat(2,1fr);width:100%;}
-    .agn-team-card,.agn-team-card.span-3{grid-column:auto;}
+    .agn-team-card,.agn-team-card.span-4{grid-column:auto;}
+    .agn-team-card--careers{grid-column:1 / -1;}
   }
   @media(prefers-reduced-motion:reduce){
     .agn-team-card,.agn-team-photo img,.agn-team-cap,.agn-team-card::before{transition:none;}
   }
 
-  /* ===== 06 BUSINESSES THAT TRUSTED · 3-row infinite logo marquee ===== */
+  /* ===== 08 BUSINESSES THAT TRUSTED · 3-row infinite logo marquee ===== */
   .agn-trust{position:relative;z-index:2;overflow:hidden;color:#fff;padding:clamp(72px,8vw,112px) 0 clamp(60px,7vw,92px);
     background:linear-gradient(180deg,#0a1f30 0%,#081226 100%);}
   .agn-trust-bg{position:absolute;left:-3%;top:-8%;width:min(660px,58%);height:420px;z-index:0;pointer-events:none;filter:blur(28px);
@@ -393,7 +657,23 @@
             data-prox-label="We Built This Agency to|Answer One Question:"
             data-prox-accent="We Built This Agency to"
             aria-label="We Built This Agency to Answer One Question:"></h1>
-          <p class="agn-hero-sub">An AI-native, senior-led growth firm for PE-backed and venture-backed brands. We find what's holding marketing back and build the engine to fix it — founder-led since 2020.</p>
+        </div>
+      </div>
+
+      <!-- QUESTION AND ANSWER — pinned to the hero's bottom edge.
+           Reveal is a vanilla port of reactbits FadeContent (blur, 1000ms, power2.out,
+           initialOpacity 0, threshold .1) plus a bottom→top rise. See setupHeroQA(). -->
+      <div class="agn-hero-qa" data-hero-qa>
+        <div class="agn-hero-qa-inner" data-fade-content
+          style="opacity:0;visibility:hidden;filter:blur(10px);transform:translate3d(0,48px,0);">
+          <div class="agn-hero-qa-card agn-hero-qa-card--blue">
+            <p class="agn-hero-qa-eyebrow">Why Do Great Companies Stall Out On Growth</p>
+            <p class="agn-hero-qa-title">And How Do We Fix It?</p>
+          </div>
+          <div class="agn-hero-qa-card agn-hero-qa-card--teal">
+            <p class="agn-hero-qa-title agn-hero-qa-title--teal">Why Do Great Companies Stall Out On Growth - And How Do We Fix It?</p>
+            <p class="agn-hero-qa-sub">We're an AI-native, senior-led growth firm helping PE- and venture-backed brands unlock growth across marketing, sales, and operations. Founder-led since 2020.</p>
+          </div>
         </div>
       </div>
     </header>
@@ -417,10 +697,73 @@
     </div>
   </section>
 
-  <!-- 03 OUR VALUE · Orbital wheel (horizontal scroll) -->
+  <!-- 03 PE vs VC · card-stack panels (Figma 22862:1863) · Process-style scroll activation -->
+  <section id="pe-vc" class="agn-pevc" data-pevc data-cursor-theme="dark" aria-label="How we work with PE-backed and venture-backed companies">
+    <div class="agn-pevc-inner">
+
+      <div class="agn-pevc-col agn-pevc-col--pe" data-pevc-col aria-label="For PE-backed companies">
+        <div class="agn-pevc-lead" data-reveal style="opacity:0;translate:0 26px;transition:opacity .7s ease,translate .7s ease;">
+          <h3 class="agn-pevc-lead-title">We drive EBITDA &mdash; fast.</h3>
+          <p class="agn-pevc-lead-sub">We find what&rsquo;s dragging on margin and growth, then turn marketing, sales, and operations into one efficient engine.</p>
+        </div>
+
+        <article class="agn-pevc-card" data-pevc-card>
+          <span class="agn-pevc-wm agn-pevc-wm--search" aria-hidden="true"><img src="../assets/pe-vc/pe1-search.svg" alt="" draggable="false"></span>
+          <h4 class="agn-pevc-card-title">Diagnose the drag on margin and growth</h4>
+          <p class="agn-pevc-card-sub">Paid Strategic Growth Diagnostic &mdash; the truth before the spend</p>
+        </article>
+        <article class="agn-pevc-card" data-pevc-card>
+          <span class="agn-pevc-wm agn-pevc-wm--system" aria-hidden="true"><img src="../assets/pe-vc/pe2-system.svg" alt="" draggable="false"></span>
+          <h4 class="agn-pevc-card-title">Align marketing, sales &amp; ops into one system</h4>
+          <p class="agn-pevc-card-sub">One pipeline, one shared definition of a qualified lead</p>
+        </article>
+        <article class="agn-pevc-card" data-pevc-card>
+          <span class="agn-pevc-wm agn-pevc-wm--plus" aria-hidden="true"><img src="../assets/pe-vc/pe3-plus.svg" alt="" draggable="false"></span>
+          <h4 class="agn-pevc-card-title">Cut wasted spend, lift valuation-driving metrics</h4>
+          <p class="agn-pevc-card-sub">Channel-by-channel audit; retire what can&rsquo;t be attributed</p>
+        </article>
+        <article class="agn-pevc-card" data-pevc-card>
+          <span class="agn-pevc-wm agn-pevc-wm--team" aria-hidden="true"><img src="../assets/pe-vc/pe4-team.svg" alt="" draggable="false"></span>
+          <h4 class="agn-pevc-card-title">Senior-led &mdash; impact in quarters, not years</h4>
+          <p class="agn-pevc-card-sub">Operators in the room, not account managers</p>
+        </article>
+      </div>
+
+      <div class="agn-pevc-col agn-pevc-col--vc" data-pevc-col aria-label="For venture-backed companies">
+        <div class="agn-pevc-lead" data-reveal data-reveal-delay="120" style="opacity:0;translate:0 26px;transition:opacity .7s ease,translate .7s ease;">
+          <h3 class="agn-pevc-lead-title">We scale you &mdash; and make it repeatable.</h3>
+          <p class="agn-pevc-lead-sub">We build the growth infrastructure that turns early traction into a predictable, repeatable engine your team can run on.</p>
+        </div>
+
+        <article class="agn-pevc-card" data-pevc-card>
+          <span class="agn-pevc-wm agn-pevc-wm--safe" aria-hidden="true"><img src="../assets/pe-vc/vc1-safeflash.svg" alt="" draggable="false"></span>
+          <h4 class="agn-pevc-card-title">Build infrastructure to move fast, safely</h4>
+          <p class="agn-pevc-card-sub">Tracking, attribution and guardrails before spend scales</p>
+        </article>
+        <article class="agn-pevc-card" data-pevc-card>
+          <span class="agn-pevc-wm agn-pevc-wm--growth" aria-hidden="true"><img src="../assets/pe-vc/vc2-growth.svg" alt="" draggable="false"></span>
+          <h4 class="agn-pevc-card-title">Turn traction into predictable growth</h4>
+          <p class="agn-pevc-card-sub">Isolate the channel that repeats, then compound it</p>
+        </article>
+        <article class="agn-pevc-card" data-pevc-card>
+          <span class="agn-pevc-wm agn-pevc-wm--os" aria-hidden="true"><b>OS</b></span>
+          <h4 class="agn-pevc-card-title">Set up the systems, data &amp; playbooks</h4>
+          <p class="agn-pevc-card-sub">Growth OS &mdash; dashboards and playbooks your team owns</p>
+        </article>
+        <article class="agn-pevc-card" data-pevc-card>
+          <span class="agn-pevc-wm agn-pevc-wm--ai" aria-hidden="true"><img src="../assets/pe-vc/vc4-ai.svg" alt="" draggable="false"></span>
+          <h4 class="agn-pevc-card-title">AI-native, built for aggressive targets</h4>
+          <p class="agn-pevc-card-sub">AI inside the workflow: research, content, ops throughput</p>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 04 OUR VALUE · Orbital wheel (horizontal scroll) -->
   <section id="values" class="agn-values" data-values data-cursor-theme="dark" aria-label="Our values"></section>
 
-  <!-- 04 CASE STUDY · Growth partners (marquee) + hover cards -->
+  <!-- 05 CASE STUDY · Growth partners (marquee) + hover cards -->
   <section id="case-studies" class="agn-cases" data-cursor-theme="dark" aria-label="Case studies">
     <div class="agn-cases-glow" aria-hidden="true"></div>
     <div class="agn-cases-inner">
@@ -430,18 +773,168 @@
     <div class="agn-cases-marquee" data-reveal data-reveal-delay="120" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
       <div class="agn-cases-track">
         <div class="agn-cases-group">
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/goodhood.png" alt="Goodhood" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/spa-equipment.png" alt="Spa &amp; Equipment" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/orders.png" alt="orders.co" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/syntax.png" alt="Syntax Technologies" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/anzu.png" alt="ANZU GLOBAL" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/goodhood.png" alt="Goodhood" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">$3MM</span><span class="cs-metric-label">Helped with Fundraising</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">46%</span><span class="cs-metric-label">Organic Clicks Growth</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">40%</span><span class="cs-metric-label">Reduced Acquisition Cost</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">$3MM</span><span class="cs-metric-label">Helped with Fundraising</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">46%</span><span class="cs-metric-label">Organic Clicks Growth</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">40%</span><span class="cs-metric-label">Reduced Acquisition Cost</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/spa-equipment.png" alt="Spa &amp; Equipment" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">89%</span><span class="cs-metric-label">Local SEO Success</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">130%</span><span class="cs-metric-label">Amazon Sales Growth</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">41.2%</span><span class="cs-metric-label">Google Ads ROI</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">89%</span><span class="cs-metric-label">Local SEO Success</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">130%</span><span class="cs-metric-label">Amazon Sales Growth</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">41.2%</span><span class="cs-metric-label">Google Ads ROI</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/orders.png" alt="orders.co" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">3.5</span><span class="cs-metric-label">Month Payback Period</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">87%</span><span class="cs-metric-label">Signup Cost Reduction</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">5.5x</span><span class="cs-metric-label">LTV over CAC</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">3.5</span><span class="cs-metric-label">Month Payback Period</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">87%</span><span class="cs-metric-label">Signup Cost Reduction</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">5.5x</span><span class="cs-metric-label">LTV over CAC</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/syntax.png" alt="Syntax Technologies" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">36–50%</span><span class="cs-metric-label">Email Open Rate</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">98%</span><span class="cs-metric-label">Page Speed Score</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Improved</span><span class="cs-metric-label">Sales &amp; Marketing Insights</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">36–50%</span><span class="cs-metric-label">Email Open Rate</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">98%</span><span class="cs-metric-label">Page Speed Score</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Improved</span><span class="cs-metric-label">Sales &amp; Marketing Insights</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/anzu.png" alt="ANZU GLOBAL" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">95</span><span class="cs-metric-label">Page Speed Score</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Stronger</span><span class="cs-metric-label">Client Engagement</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Solid</span><span class="cs-metric-label">Foundation for Growth</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">95</span><span class="cs-metric-label">Page Speed Score</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Stronger</span><span class="cs-metric-label">Client Engagement</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Solid</span><span class="cs-metric-label">Foundation for Growth</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
         </div>
         <div class="agn-cases-group" aria-hidden="true">
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/goodhood.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/spa-equipment.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/orders.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/syntax.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
-          <article class="cs-card"><div class="cs-card-logo"><img src="../assets/case-studies/anzu.png" alt="" loading="lazy" draggable="false"></div><span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/goodhood.png" alt="" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">$3MM</span><span class="cs-metric-label">Helped with Fundraising</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">46%</span><span class="cs-metric-label">Organic Clicks Growth</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">40%</span><span class="cs-metric-label">Reduced Acquisition Cost</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">$3MM</span><span class="cs-metric-label">Helped with Fundraising</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">46%</span><span class="cs-metric-label">Organic Clicks Growth</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">40%</span><span class="cs-metric-label">Reduced Acquisition Cost</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/spa-equipment.png" alt="" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">89%</span><span class="cs-metric-label">Local SEO Success</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">130%</span><span class="cs-metric-label">Amazon Sales Growth</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">41.2%</span><span class="cs-metric-label">Google Ads ROI</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">89%</span><span class="cs-metric-label">Local SEO Success</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">130%</span><span class="cs-metric-label">Amazon Sales Growth</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">41.2%</span><span class="cs-metric-label">Google Ads ROI</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/orders.png" alt="" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">3.5</span><span class="cs-metric-label">Month Payback Period</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">87%</span><span class="cs-metric-label">Signup Cost Reduction</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">5.5x</span><span class="cs-metric-label">LTV over CAC</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">3.5</span><span class="cs-metric-label">Month Payback Period</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">87%</span><span class="cs-metric-label">Signup Cost Reduction</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">5.5x</span><span class="cs-metric-label">LTV over CAC</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/syntax.png" alt="" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">36–50%</span><span class="cs-metric-label">Email Open Rate</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">98%</span><span class="cs-metric-label">Page Speed Score</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Improved</span><span class="cs-metric-label">Sales &amp; Marketing Insights</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">36–50%</span><span class="cs-metric-label">Email Open Rate</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">98%</span><span class="cs-metric-label">Page Speed Score</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Improved</span><span class="cs-metric-label">Sales &amp; Marketing Insights</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
+          <article class="cs-card">
+            <div class="cs-card-logo"><img src="../assets/case-studies/anzu.png" alt="" loading="lazy" draggable="false"></div>
+            <div class="cs-metrics" aria-hidden="true"><div class="cs-metrics-viewport"><div class="cs-metrics-track">
+              <div class="cs-metrics-seq">
+                <div class="cs-metric"><span class="cs-metric-val">95</span><span class="cs-metric-label">Page Speed Score</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Stronger</span><span class="cs-metric-label">Client Engagement</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Solid</span><span class="cs-metric-label">Foundation for Growth</span></div>
+              </div>
+              <div class="cs-metrics-seq" aria-hidden="true">
+                <div class="cs-metric"><span class="cs-metric-val">95</span><span class="cs-metric-label">Page Speed Score</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Stronger</span><span class="cs-metric-label">Client Engagement</span></div>
+                <div class="cs-metric"><span class="cs-metric-val">Solid</span><span class="cs-metric-label">Foundation for Growth</span></div>
+              </div>
+            </div></div></div>
+            <span class="cs-badge" aria-hidden="true"><span class="cs-badge__plus"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1.6v8.8M1.6 6h8.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="cs-badge__full"><span class="cs-badge__label">Case Study</span><svg width="7" height="11" viewBox="0 0 8 12" fill="none"><path d="m1.7 1.5 4.5 4.5-4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          </article>
         </div>
       </div>
       <div class="agn-cases-edge agn-cases-edge--left" aria-hidden="true"></div>
@@ -452,17 +945,92 @@
       <div data-reveal data-reveal-delay="160" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
         <a class="agn-btn" href="#" data-magnetic="true">View all case studies</a>
       </div>
+    </div>
 
-      <div class="agn-cases-partners" data-reveal data-reveal-delay="200" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
-        <div class="agn-cases-partner"><img src="../assets/case-studies/partner-klaviyo.svg" alt="Klaviyo Partner" loading="lazy" style="aspect-ratio:147/62"></div>
-        <div class="agn-cases-partner"><img src="../assets/case-studies/partner-designrush.svg" alt="DesignRush" loading="lazy" style="aspect-ratio:407.701/62.1555"></div>
-        <div class="agn-cases-partner"><img src="../assets/case-studies/partner-semrush.svg" alt="SEMRUSH Certified Agency Partner" loading="lazy" style="aspect-ratio:132/62"></div>
-        <div class="agn-cases-partner"><img src="../assets/case-studies/partner-google.svg" alt="Google Partner" loading="lazy" style="aspect-ratio:356/62"></div>
+    <!-- Partner logos · Figma 22447:8079 — order Google → Meta → HubSpot → Semrush → Klaviyo → DesignRush -->
+    <div class="agn-cases-partners" data-reveal data-reveal-delay="200" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;margin-top:28px;">
+      <div class="agn-cases-partners-row" data-logo-loop data-dir="left" data-speed="42">
+        <div class="agn-cases-partners-track">
+          <ul class="agn-cases-partners-seq">
+            <li class="agn-cases-partner" style="--logo-w:356px"><img src="../assets/case-studies/partner-google.svg" alt="Google Partner" width="356" height="62" loading="lazy" draggable="false"></li>
+            <li class="agn-cases-partner" style="--logo-w:107px"><img src="../assets/case-studies/partner-meta.png" alt="Meta Business Partner" width="107" height="62" loading="lazy" draggable="false"></li>
+            <li class="agn-cases-partner" style="--logo-w:214px"><img src="../assets/case-studies/partner-hubspot.svg" alt="HubSpot" width="214" height="62" loading="lazy" draggable="false"></li>
+            <li class="agn-cases-partner" style="--logo-w:132px"><img src="../assets/case-studies/partner-semrush.svg" alt="SEMRUSH Certified Agency Partner" width="132" height="62" loading="lazy" draggable="false"></li>
+            <li class="agn-cases-partner" style="--logo-w:147px"><img src="../assets/case-studies/partner-klaviyo.svg" alt="Klaviyo Partner" width="147" height="62" loading="lazy" draggable="false"></li>
+            <li class="agn-cases-partner" style="--logo-w:407.7px"><img src="../assets/case-studies/partner-designrush.svg" alt="DesignRush" width="408" height="62" loading="lazy" draggable="false"></li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 05 OUR TEAM · Sticky heading + glass-circle grid (hover: zoom, morph, caption, dim others) -->
+  <!-- 06 PODCASTS AND WEBINARS · two halves, each with 2 vertical infinite lanes running opposite ways -->
+  <section id="podcasts-webinars" class="agn-media" data-cursor-theme="dark" aria-label="Podcasts and webinars">
+    <div class="agn-media-inner">
+
+      <!-- data-reveal goes on the grid / CTA, never on the column: it leaves a persistent
+           `translate`, and that stacking context would trap the CTA under the blur veil. -->
+      <div class="agn-media-col agn-media-col--podcasts" data-media-col aria-label="Podcasts">
+        <div class="agn-media-grid" data-reveal
+             style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+          <!-- Figma's column split (col-1 / col-2) kept intact so the two lanes never hold the same
+               episode — a lane cycle is one screen tall, so no card is ever on screen twice.
+               Lane 1 travels up, lane 2 down. -->
+          <div class="agn-media-lane" data-media-lane data-dir="up" data-speed="34">
+            <div class="agn-media-track">
+              <div class="agn-media-seq">
+                <a class="agn-media-card" href="#" title="Investor&rsquo;s Insight on Building and Scaling Startup Ecosystems"><span class="agn-media-cover"><img src="../assets/podcasts/pc-investors-insight.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">Investor&rsquo;s Insight on Building and Scaling Startup Ecosystems</span></a>
+                <a class="agn-media-card" href="#" title="Quantum Computing and Beyond"><span class="agn-media-cover"><img src="../assets/podcasts/pc-quantum-computing.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">Quantum Computing and Beyond</span></a>
+                <a class="agn-media-card" href="#" title="Educational Frontiers at Age of Learning"><span class="agn-media-cover"><img src="../assets/podcasts/pc-educational-frontiers.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">Educational Frontiers at Age of Learning</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="agn-media-lane" data-media-lane data-dir="down" data-speed="30">
+            <div class="agn-media-track">
+              <div class="agn-media-seq">
+                <a class="agn-media-card" href="#" title="How to Achieve Success in the Growth Industry"><span class="agn-media-cover"><img src="../assets/podcasts/pc-growth-industry-success.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">How to Achieve Success in the Growth Industry</span></a>
+                <a class="agn-media-card" href="#" title="Building Successful Leadership Models for Tech Startups"><span class="agn-media-cover"><img src="../assets/podcasts/pc-leadership-models.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">Building Successful Leadership Models for Tech Startups</span></a>
+                <a class="agn-media-card" href="#" title="Building Kapwing and Shaping the Future of Content Creation"><span class="agn-media-cover"><img src="../assets/podcasts/pc-building-kapwing.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">Building Kapwing and Shaping the Future of Content Creation</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="agn-media-cta" data-reveal data-reveal-delay="240" style="opacity:0;"><a class="agn-btn" href="#" data-magnetic="true">See All Podcasts</a></div>
+      </div>
+
+      <div class="agn-media-div" aria-hidden="true"></div>
+
+      <div class="agn-media-col agn-media-col--webinars" data-media-col aria-label="Webinars">
+        <div class="agn-media-grid" data-reveal data-reveal-delay="120"
+             style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+          <div class="agn-media-lane" data-media-lane data-dir="down" data-speed="32">
+            <div class="agn-media-track">
+              <div class="agn-media-seq">
+                <a class="agn-media-card" href="#" title="Autonomous Agents, Real Pipeline: A Live Demo for B2B Founders and Revenue Leaders, #BOSTechWeek"><span class="agn-media-cover"><img src="../assets/webinars/wb-autonomous-agents.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">Autonomous Agents, Real Pipeline: A Live Demo for B2B Founders and Revenue Leaders, #BOSTechWeek</span></a>
+                <a class="agn-media-card" href="#" title="Building a Self-Publishing Content Engine: Claude API + MCP Servers + WordPress Automation"><span class="agn-media-cover"><img src="../assets/webinars/wb-self-publishing-engine.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">Building a Self-Publishing Content Engine: Claude API + MCP Servers + WordPress Automation</span></a>
+                <a class="agn-media-card" href="#" title="Vibe Marketing in the Age of Claude Code"><span class="agn-media-cover"><img src="../assets/webinars/wb-vibe-marketing.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">Vibe Marketing in the Age of Claude Code</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="agn-media-lane" data-media-lane data-dir="up" data-speed="36">
+            <div class="agn-media-track">
+              <div class="agn-media-seq">
+                <a class="agn-media-card" href="#" title="How Growth-Stage Companies Are Scaling Marketing Without Hiring #NYTechWeek"><span class="agn-media-cover"><img src="../assets/webinars/wb-growth-stage-scaling.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">How Growth-Stage Companies Are Scaling Marketing Without Hiring #NYTechWeek</span></a>
+                <a class="agn-media-card" href="#" title="GEO is the New SEO: What You Need to Rank in AI Answers"><span class="agn-media-cover"><img src="../assets/webinars/wb-geo-new-seo.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">GEO is the New SEO: What You Need to Rank in AI Answers</span></a>
+                <a class="agn-media-card" href="#" title="New York Tech Week Webinar | Agentic AI in Action: How We&rsquo;re Building Smarter Marketing Systems"><span class="agn-media-cover"><img src="../assets/webinars/wb-agentic-ai-action.jpg" alt="" loading="lazy" draggable="false"></span><span class="agn-media-name">New York Tech Week Webinar | Agentic AI in Action: How We&rsquo;re Building Smarter Marketing Systems</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="agn-media-cta" data-reveal data-reveal-delay="360" style="opacity:0;"><a class="agn-btn" href="#" data-magnetic="true">See All Webinars</a></div>
+      </div>
+
+    </div>
+    <div class="agn-media-veil agn-media-veil--top" aria-hidden="true"></div>
+    <div class="agn-media-veil agn-media-veil--bottom" aria-hidden="true"></div>
+  </section>
+
+  <!-- 07 OUR TEAM · Sticky heading + glass-circle grid (hover: zoom, morph, caption, dim others) -->
   <section id="our-team" class="agn-team" data-cursor-theme="dark" aria-label="Our team">
     <div class="agn-team-bg" aria-hidden="true"></div>
     <div class="agn-team-inner">
@@ -484,18 +1052,18 @@
         <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="../assets/team/tm-arevik.png" alt="Arevik Kyasinyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Arevik Kyasinyan</div><div class="agn-team-cap-role">Creative Content &amp; Social Media Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Arevik Kyasinyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
         <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="../assets/team/tm-amile.png" alt="Amile Ghalajyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Amile Ghalajyan</div><div class="agn-team-cap-role">Design Team Lead</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Amile Ghalajyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
         <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="../assets/team/tm-davit.png" alt="Davit Balayan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Davit Balayan</div><div class="agn-team-cap-role">UX/UI Designer</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Davit Balayan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
-        <!-- Row 3 (two wide) -->
-        <div class="agn-team-card span-3"><span class="agn-team-photo"><img src="../assets/team/tm-maria-makaryan.png" alt="Maria Makaryan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Maria Makaryan</div><div class="agn-team-cap-role">Email Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Maria Makaryan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
-        <div class="agn-team-card span-3"><span class="agn-team-photo"><img src="../assets/team/tm-sara.png" alt="Sara Vardanyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Sara Vardanyan</div><div class="agn-team-cap-role">SEO Marketing Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Sara Vardanyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
-        <!-- Row 4 -->
-        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="../assets/team/tm-nane.png" alt="Nane Hayrapetyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Nane Hayrapetyan</div><div class="agn-team-cap-role">Marketing Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Nane Hayrapetyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <!-- Row 3 · Maria · Sara · Elen (3 equal, same as Figma) -->
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="../assets/team/tm-maria-makaryan.png" alt="Maria Makaryan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Maria Makaryan</div><div class="agn-team-cap-role">Email Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Maria Makaryan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="../assets/team/tm-sara.png" alt="Sara Vardanyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Sara Vardanyan</div><div class="agn-team-cap-role">SEO Marketing Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Sara Vardanyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
         <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="../assets/team/tm-elen.png" alt="Elen Grigoryan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Elen Grigoryan</div><div class="agn-team-cap-role">Marketing Intern</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Elen Grigoryan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
-        <div class="agn-team-card span-2 agn-team-card--careers"><span class="agn-team-photo"><img src="../assets/team/tm-careers.png" alt="Maybe — this is your place?" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Careers</div><div class="agn-team-cap-role">Join our team</div></div><a class="agn-team-li agn-team-li--arrow" href="#cta" aria-label="Join our team"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div></div>
+        <!-- Row 4 · Nane (1 col) + Careers (2 cols) -->
+        <div class="agn-team-card span-2"><span class="agn-team-photo"><img src="../assets/team/tm-nane.png" alt="Nane Hayrapetyan" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Nane Hayrapetyan</div><div class="agn-team-cap-role">Marketing Specialist</div></div><a class="agn-team-li" href="#" target="_blank" rel="noopener" aria-label="Nane Hayrapetyan on LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 112.48 6 2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3zm6.5 0h3.84v1.64h.05a4.2 4.2 0 013.79-2.08c4.05 0 4.8 2.67 4.8 6.14v6.3h-4v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.69h-4z"/></svg></a></div></div>
+        <div class="agn-team-card span-4 agn-team-card--careers"><span class="agn-team-photo"><img src="../assets/team/tm-careers.png" alt="Maybe — this is your place?" loading="lazy" draggable="false"></span><div class="agn-team-cap"><div class="agn-team-cap-txt"><div class="agn-team-cap-name">Careers</div><div class="agn-team-cap-role">Join our team</div></div><a class="agn-team-li agn-team-li--arrow" href="#cta" aria-label="Join our team"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div></div>
       </div>
     </div>
   </section>
 
-  <!-- 06 BUSINESSES THAT TRUSTED · 3-row infinite logo marquee (top+bottom →, middle ←) -->
+  <!-- 08 BUSINESSES THAT TRUSTED · 3-row infinite logo marquee (top+bottom →, middle ←) -->
   <section id="trusted" class="agn-trust" data-cursor-theme="dark" aria-label="Businesses that trusted us">
     <div class="agn-trust-bg" aria-hidden="true"></div>
     <div class="agn-trust-inner">
@@ -563,9 +1131,12 @@ class Component extends DCLogic {
   componentDidMount() {
     this.setupPlasma();
     this.setupHeroProximity();
+    this.setupHeroQA();
     this.setupHeroCover();
     this.setupHamlet();
+    this.setupPeVc();
     this.setupValues();
+    this.setupMedia();
     this.setupTeam();
     this.setupTrusted();
     this.setupScrollFx();
@@ -577,6 +1148,9 @@ class Component extends DCLogic {
     if (this._fxRaf) cancelAnimationFrame(this._fxRaf);
     if (this._heroProxCleanup) this._heroProxCleanup();
     if (this._heroProxRaf) cancelAnimationFrame(this._heroProxRaf);
+    if (this._qaIO) this._qaIO.disconnect();
+    if (this._qaRO) this._qaRO.disconnect();
+    if (this._qaMeasure) window.removeEventListener('resize', this._qaMeasure);
     if (this._visIOs) this._visIOs.forEach((io) => io.disconnect());
     if (this._hamletIO) this._hamletIO.disconnect();
     if (this._heroCoverCleanup) this._heroCoverCleanup();
@@ -584,6 +1158,8 @@ class Component extends DCLogic {
     if (this._valuesCleanup) this._valuesCleanup();
     if (this._teamCleanups) this._teamCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
     if (this._trustCleanups) this._trustCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
+    if (this._mediaCleanups) this._mediaCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
+    if (this._pevcRaf) cancelAnimationFrame(this._pevcRaf);
   }
 
   // ---- ABOUT HERO: reactbits Plasma (vanilla WebGL2 port) ----
@@ -608,7 +1184,76 @@ class Component extends DCLogic {
     });
   }
 
-  // ---- 03 OUR VALUE · orbital wheel (horizontal scroll) ----
+  // ---- 03 PE vs VC · scroll-elected active card, ported from Home's setupProcess ----
+  // Same model as Home 05 Process: q is the fractional card index sitting under the viewport
+  // centre, the nearest card is active, and every other card falls to 20% with the accent
+  // drained out. Each column runs its own q so the two stacks light up independently.
+  setupPeVc() {
+    const root = this.rootEl;
+    if (!root) return;
+    const section = root.querySelector('[data-pevc]');
+    if (!section) return;
+    const cols = Array.from(section.querySelectorAll('[data-pevc-col]'))
+      .map((col) => ({
+        cards: Array.from(col.querySelectorAll('[data-pevc-card]')),
+        accent: (getComputedStyle(col).getPropertyValue('--pv') || '27,254,209').trim(),
+      }))
+      .filter((c) => c.cards.length >= 2);
+    if (!cols.length) return;
+
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    // No motion: settle every card lit and legible, and never start the loop.
+    if (reduce) {
+      cols.forEach(({ cards }) => cards.forEach((card) => {
+        card.style.opacity = '1';
+        card.style.setProperty('--pv-a', '0');
+      }));
+      return;
+    }
+
+    const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const smooth = (t) => t * t * (3 - 2 * t);
+
+    const vis = this._vis(section);
+    const tick = () => {
+      this._pevcRaf = requestAnimationFrame(tick);
+      if (document.hidden || !vis.v) return; // skip rect reads + style writes off-screen
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const vc = vh * 0.5;
+
+      cols.forEach(({ cards, accent }) => {
+        const n = cards.length;
+        const mids = cards.map((c) => { const r = c.getBoundingClientRect(); return r.top + r.height / 2; });
+        let q;
+        if (vc <= mids[0]) q = 0;
+        else if (vc >= mids[n - 1]) q = n - 1;
+        else { let i = 0; while (i < n - 1 && vc > mids[i + 1]) i++; q = i + (vc - mids[i]) / Math.max(1, mids[i + 1] - mids[i]); }
+        const activeIdx = Math.round(clamp(q, 0, n - 1));
+
+        cards.forEach((card, i) => {
+          const r = card.getBoundingClientRect();
+          // Reveal as the card rises into view.
+          const reveal = clamp((vh * 0.97 - r.top) / (vh * 0.19), 0, 1);
+          // Accent peaks at q === i, sharpened so the current card stays lit until the next
+          // one is nearly centred.
+          let a = clamp(1 - Math.abs(q - i), 0, 1);
+          a = Math.pow(a, 1.7);
+          const rv = smooth(reveal);
+          const blur = (1 - rv) * 7;
+          card.style.opacity = (rv * lerp(0.2, 1, a)).toFixed(3);
+          card.style.transform = 'translateY(' + ((1 - rv) * 30).toFixed(1) + 'px) scale(' + (1 + 0.02 * a).toFixed(4) + ')';
+          card.style.filter = blur > 0.06 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
+          card.style.boxShadow = '0 22px 55px -30px rgba(0,0,0,.7), 0 26px 70px -26px rgba(' + accent + ',' + (0.4 * a).toFixed(3) + ')';
+          card.style.setProperty('--pv-a', a.toFixed(3));
+          card.classList.toggle('is-active', i === activeIdx && rv > 0.5);
+        });
+      });
+    };
+    this._pevcRaf = requestAnimationFrame(tick);
+  }
+
+  // ---- 04 OUR VALUE · orbital wheel (horizontal scroll) ----
   setupValues() {
     const root = this.rootEl;
     if (!root || !window.AzarianOrbitalWheel) return;
@@ -666,6 +1311,59 @@ class Component extends DCLogic {
     });
   }
 
+  // ---- ABOUT HERO · Question and Answer panel (Figma 22828:4572) ----
+  // reactbits FadeContent, ported to vanilla WAAPI: blur(10px) → 0, autoAlpha 0 → 1,
+  // 1000ms, power2.out (= easeOutCubic), fired once at threshold .1 — which, since the
+  // panel sits in the first viewport, is the page-open reveal. On top of FadeContent the
+  // panel also rises bottom → top (translateY 48px → 0).
+  setupHeroQA() {
+    const root = this.rootEl; if (!root) return;
+    const wrap = root.querySelector('[data-hero-qa]');
+    const el = wrap && wrap.querySelector('[data-fade-content]');
+    if (!wrap || !el) return;
+    const hero = root.querySelector('[data-hero]') || wrap;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    // Feed the measured panel height back into the hero's bottom padding so the centred
+    // logo + title always clear it, at any viewport size or wrap count.
+    const measure = () => {
+      const h = Math.round(wrap.getBoundingClientRect().height);
+      if (h > 0) hero.style.setProperty('--hero-qa-h', h + 'px');
+    };
+    measure();
+    if ('ResizeObserver' in window) {
+      this._qaRO = new ResizeObserver(measure);
+      this._qaRO.observe(wrap);
+    } else {
+      this._qaMeasure = measure;
+      window.addEventListener('resize', measure, { passive: true });
+    }
+
+    const clearInline = () => {
+      el.style.opacity = ''; el.style.visibility = ''; el.style.filter = ''; el.style.transform = '';
+    };
+    if (reduce) { clearInline(); return; }
+
+    const DUR = 1000, DELAY = 240, EASE = 'cubic-bezier(.22,.61,.36,1)'; // power2.out
+    const run = () => {
+      if (this._qaDone) return;
+      this._qaDone = true;
+      el.style.visibility = 'visible'; // gsap autoAlpha: un-hide before fading in
+      const a = el.animate([
+        { opacity: 0, filter: 'blur(10px)', transform: 'translate3d(0,48px,0)' },
+        { opacity: 1, filter: 'blur(0px)', transform: 'translate3d(0,0,0)' },
+      ], { duration: DUR, delay: DELAY, easing: EASE, fill: 'both' });
+      a.onfinish = () => { clearInline(); try { a.cancel(); } catch (e) {} };
+    };
+
+    if (!('IntersectionObserver' in window)) { run(); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { run(); io.disconnect(); } });
+    }, { threshold: 0.1 });
+    io.observe(wrap);
+    this._qaIO = io;
+  }
+
   // ---- HERO parallax cover-scroll: pinned hero fades/scales as the next section rises over it ----
   setupHeroCover() {
     const root = this.rootEl;
@@ -673,6 +1371,9 @@ class Component extends DCLogic {
     const wrap = root.querySelector('[data-hero-scroll]');
     const pin = root.querySelector('[data-hero-pin]');
     const layer = root.querySelector('[data-hero-layer]');
+    // Bottom-pinned Q&A panel — driven on the OUTER wrapper, so the FadeContent reveal
+    // (which owns the inner [data-fade-content]) is never fought over.
+    const qa = root.querySelector('[data-hero-qa]');
     if (!wrap || !pin) return;
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     if (reduce) return;
@@ -705,6 +1406,10 @@ class Component extends DCLogic {
       if (layer) {
         layer.style.transform = 'translate3d(0,' + (p * 14).toFixed(2) + 'px,0)';
         layer.style.opacity = Math.max(0, 1 - p * 1.15).toFixed(3);
+      }
+      if (qa) {
+        qa.style.transform = 'translate3d(0,' + (p * 26).toFixed(2) + 'px,0)';
+        qa.style.opacity = Math.max(0, 1 - p * 1.15).toFixed(3);
       }
       return raw;
     };
@@ -1036,7 +1741,7 @@ class Component extends DCLogic {
     requestAnimationFrame(step);
   }
 
-  // ---- 05 OUR TEAM · glass surface per card (glow is fixed in CSS) ----
+  // ---- 07 OUR TEAM · glass surface per card (glow is fixed in CSS) ----
   setupTeam() {
     const root = this.rootEl;
     if (!root) return;
@@ -1056,19 +1761,22 @@ class Component extends DCLogic {
     });
   }
 
-  // ---- 06 BUSINESSES THAT TRUSTED · infinite logo marquee (ported LogoLoop) ----
+  // ---- Infinite logo marquees · Trusted rows + Case Study partners ----
   setupTrusted() {
     const root = this.rootEl;
     if (!root) return;
-    const rows = Array.from(root.querySelectorAll('.agn-trust-row'));
+    const rows = [
+      ...Array.from(root.querySelectorAll('.agn-trust-row')),
+      ...Array.from(root.querySelectorAll('[data-logo-loop]')),
+    ];
     if (!rows.length) return;
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     this._trustCleanups = [];
     const SMOOTH_TAU = 0.25;
 
     rows.forEach((row) => {
-      const track = row.querySelector('.agn-trust-track');
-      const seq = row.querySelector('.agn-trust-seq');
+      const track = row.querySelector('.agn-trust-track, .agn-cases-partners-track');
+      const seq = row.querySelector('.agn-trust-seq, .agn-cases-partners-seq');
       if (!track || !seq) return;
       // direction: "left" moves content left (+velocity); "right" moves it right (−).
       const dir = row.getAttribute('data-dir') === 'right' ? -1 : 1;
@@ -1113,6 +1821,121 @@ class Component extends DCLogic {
         row.removeEventListener('pointerenter', onEnter);
         row.removeEventListener('pointerleave', onLeave);
         window.removeEventListener('resize', onResize);
+      });
+    });
+  }
+
+  // ---- 06 Podcasts & Webinars · vertical infinite lanes (pair per half, opposite directions) ----
+  // Same rAF/velocity model as setupTrusted(), rotated 90°: hovering a card eases both lanes of
+  // that half to a full stop and flags the half so the other cards drop to 20%.
+  setupMedia() {
+    const root = this.rootEl;
+    if (!root) return;
+    const halves = Array.from(root.querySelectorAll('[data-media-col]'));
+    if (!halves.length) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    this._mediaCleanups = [];
+    const SMOOTH_TAU = 0.3;
+
+    halves.forEach((half) => {
+      const lanes = Array.from(half.querySelectorAll('[data-media-lane]'));
+      if (!lanes.length) return;
+      const focus = { hovered: 0 };
+
+      lanes.forEach((lane) => {
+        const track = lane.querySelector('.agn-media-track');
+        const seq = lane.querySelector('.agn-media-seq');
+        if (!track || !seq) return;
+        // direction: "up" moves content upward (+velocity); "down" moves it downward (−).
+        const dir = lane.getAttribute('data-dir') === 'down' ? -1 : 1;
+        const speed = parseFloat(lane.getAttribute('data-speed')) || 34;
+
+        let seqH = 0;
+        let copies = 1;
+        const ensureCopies = () => {
+          seqH = seq.getBoundingClientRect().height;
+          if (seqH <= 0) return;
+          const want = Math.max(2, Math.ceil(lane.clientHeight / seqH) + 2);
+          while (copies < want) {
+            const clone = seq.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            clone.querySelectorAll('a').forEach((a) => { a.setAttribute('tabindex', '-1'); });
+            track.appendChild(clone);
+            copies += 1;
+          }
+        };
+        ensureCopies();
+
+        let offset = 0, vel = 0, last = null, raf = null;
+        const target = () => (focus.hovered ? 0 : speed * dir);
+        const step = (t) => {
+          if (last === null) last = t;
+          const dt = Math.max(0, t - last) / 1000; last = t;
+          const ease = 1 - Math.exp(-dt / SMOOTH_TAU);
+          vel += (target() - vel) * ease;
+          if (seqH > 0) {
+            offset = (((offset + vel * dt) % seqH) + seqH) % seqH;
+            track.style.transform = 'translate3d(0,' + (-offset).toFixed(2) + 'px,0)';
+          }
+          raf = requestAnimationFrame(step);
+        };
+        if (!reduce) raf = requestAnimationFrame(step);
+
+        let rz = null;
+        const onResize = () => { if (rz) cancelAnimationFrame(rz); rz = requestAnimationFrame(ensureCopies); };
+        window.addEventListener('resize', onResize);
+        window.addEventListener('load', onResize);
+        // Tabbing to a card makes the browser scroll this clipped lane, which would desync the
+        // transform-driven loop for good. Snap it back — the pause below handles the reveal.
+        const onScroll = () => { if (lane.scrollTop) lane.scrollTop = 0; };
+        lane.addEventListener('scroll', onScroll);
+
+        this._mediaCleanups.push(() => {
+          if (raf) cancelAnimationFrame(raf);
+          if (rz) cancelAnimationFrame(rz);
+          window.removeEventListener('resize', onResize);
+          window.removeEventListener('load', onResize);
+          lane.removeEventListener('scroll', onScroll);
+        });
+      });
+
+      // One delegated pair of listeners per half — survives the cloned cards.
+      const onOver = (e) => {
+        if (!e.target.closest || !e.target.closest('.agn-media-card')) return;
+        focus.hovered = 1;
+        half.classList.add('is-focus');
+      };
+      const onOut = (e) => {
+        const to = e.relatedTarget;
+        if (to && to.closest && to.closest('.agn-media-card')) return;
+        if (!e.target.closest || !e.target.closest('.agn-media-card')) return;
+        focus.hovered = 0;
+        half.classList.remove('is-focus');
+      };
+      const onLeaveHalf = () => { focus.hovered = 0; half.classList.remove('is-focus'); };
+      // Keyboard parity: focusing a card stops the lanes the same way hovering does.
+      const onFocusIn = (e) => {
+        if (!e.target.closest || !e.target.closest('.agn-media-card')) return;
+        focus.hovered = 1;
+        half.classList.add('is-focus');
+      };
+      const onFocusOut = (e) => {
+        if (!e.target.closest || !e.target.closest('.agn-media-card')) return;
+        if (half.querySelector('.agn-media-card:hover')) return;
+        onLeaveHalf();
+      };
+      half.addEventListener('pointerover', onOver);
+      half.addEventListener('pointerout', onOut);
+      half.addEventListener('pointerleave', onLeaveHalf);
+      half.addEventListener('focusin', onFocusIn);
+      half.addEventListener('focusout', onFocusOut);
+
+      this._mediaCleanups.push(() => {
+        half.removeEventListener('pointerover', onOver);
+        half.removeEventListener('pointerout', onOut);
+        half.removeEventListener('pointerleave', onLeaveHalf);
+        half.removeEventListener('focusin', onFocusIn);
+        half.removeEventListener('focusout', onFocusOut);
       });
     });
   }
