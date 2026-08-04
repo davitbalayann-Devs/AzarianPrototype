@@ -170,6 +170,66 @@
     .agn-hamlet-lead{font-size:18px;line-height:24px;font-weight:600;}
   }
 
+  /* ===== 03 PE vs VC · two accent cards + reactbits Tilted Card (Figma 22917:6728) =====
+     Runs #05121e → #021526 → #05121e so the 02 → 04 background chain stays seamless.
+     Outer `.agn-pevc-tilt` owns perspective; the card is the spring-tilted inner (rotateX/Y +
+     scaleOnHover), ported from reactbits TiltedCard (damping 30 / stiffness 100 / mass 2). */
+  .agn-pevc{position:relative;z-index:2;overflow:visible;color:#fff;
+    background:linear-gradient(180deg,#05121e 0%,#021526 20%,#021526 80%,#05121e 100%);
+    padding:clamp(56px,6.3vw,90px) clamp(20px,4.4vw,64px);}
+  .agn-pevc-inner{position:relative;z-index:1;width:100%;max-width:1312px;margin:0 auto;
+    display:flex;gap:24px;align-items:stretch;justify-content:center;}
+
+  /* Tilted-card figure · perspective shell (reactbits .tilted-card-figure) */
+  .agn-pevc-tilt{position:relative;flex:1 1 0;min-width:0;perspective:800px;
+    display:flex;align-items:stretch;}
+
+  .agn-pevc-card{position:relative;flex:1 1 auto;width:100%;min-width:0;box-sizing:border-box;overflow:hidden;
+    display:flex;flex-direction:column;gap:32px;padding:clamp(24px,2.8vw,40px);
+    border-radius:24px;border:1px solid var(--pv-edge);transform-style:preserve-3d;will-change:transform;
+    background:linear-gradient(90deg,#0b1d33 0%,#021526 100%);
+    box-shadow:0 18px 40px -12px rgba(0,0,0,.4),0 0 24px 0 rgba(var(--pv),.2);
+    transition:box-shadow .85s cubic-bezier(.22,.61,.36,1),border-color .85s cubic-bezier(.22,.61,.36,1);}
+  .agn-pevc-card--pe{--pv:27,254,209;--pv-edge:#1bfed1;}
+  .agn-pevc-card--vc{--pv:108,181,251;--pv-edge:#6cb5fb;}
+  .agn-pevc-tilt.is-tilting .agn-pevc-card{border-color:rgba(var(--pv),.9);
+    box-shadow:0 28px 64px -18px rgba(0,0,0,.5),0 0 42px 0 rgba(var(--pv),.32);}
+
+  /* Animated sheen · a slow diagonal accent light sweeping across the card */
+  .agn-pevc-card::before{content:"";position:absolute;top:-50%;left:-70%;width:45%;height:200%;z-index:0;
+    pointer-events:none;transform:rotate(18deg);
+    background:linear-gradient(90deg,rgba(var(--pv),0) 0%,rgba(var(--pv),.10) 50%,rgba(var(--pv),0) 100%);
+    animation:agn-pevc-sheen 7.5s ease-in-out infinite;}
+  .agn-pevc-card--vc::before{animation-delay:1.8s;}
+  @keyframes agn-pevc-sheen{0%{left:-70%;opacity:0;}12%{opacity:1;}40%{left:140%;opacity:0;}100%{left:140%;opacity:0;}}
+
+  .agn-pevc-top{position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;transform:translateZ(24px);}
+  .agn-pevc-title{margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:700;
+    font-size:clamp(22px,2.35vw,32px);line-height:1.125;color:#fff;text-shadow:0 0 18px rgba(var(--pv),.27);
+    transition:text-shadow .85s cubic-bezier(.22,.61,.36,1);}
+  .agn-pevc-tilt.is-tilting .agn-pevc-title{text-shadow:0 0 26px rgba(var(--pv),.45);}
+  .agn-pevc-sub{margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:400;
+    font-size:clamp(14px,1.15vw,16px);line-height:1.375;color:rgba(255,255,255,.8);}
+
+  .agn-pevc-bullets{position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;transform:translateZ(18px);}
+  .agn-pevc-bullet{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+  .agn-pevc-ic{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:20px;height:20px;
+    border-radius:10px;background:rgba(var(--pv),.1);border:1px solid rgba(var(--pv),.27);
+    box-shadow:0 0 10px 0 rgba(var(--pv),.27);color:var(--pv-edge);}
+  .agn-pevc-ic svg{display:block;width:14px;height:14px;}
+  .agn-pevc-btext{flex:1 1 0;min-width:0;font-family:'Poppins',system-ui,sans-serif;font-weight:400;
+    font-size:clamp(14px,1.15vw,16px);line-height:1.375;color:#fff;}
+
+  @media(max-width:900px){
+    .agn-pevc-inner{flex-direction:column;gap:20px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .agn-pevc-card::before{display:none;}
+    .agn-pevc-card,.agn-pevc-title{transition:none;}
+    .agn-pevc-card{transform:none!important;}
+  }
+
   /* ===== 04 OUR VALUE · horizontal snap-carousel
      Desktop Figma 22447:8029 (507×314, gap 32). Mobile Figma 22901:1897 (322×200, gap 12).
      Built by setupValues() → mountValuesCarousel(). */
@@ -651,6 +711,67 @@
     </div>
   </section>
 
+  <!-- 03 PE vs VC · reactbits Tilted Card port + Figma 22917:6728 -->
+  <section id="pe-vc" class="agn-pevc" data-cursor-theme="dark" aria-label="How we work with PE-backed and venture-backed companies">
+    <div class="agn-pevc-inner">
+
+      <div class="agn-pevc-tilt" data-pevc-tilt data-reveal style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+      <div class="agn-pevc-card agn-pevc-card--pe">
+        <div class="agn-pevc-top">
+          <h3 class="agn-pevc-title">We Drive EBITDA &mdash; Fast.</h3>
+          <p class="agn-pevc-sub">We find what&rsquo;s dragging on margin and growth, then turn marketing, sales, and operations into one efficient engine.</p>
+        </div>
+        <div class="agn-pevc-bullets">
+          <div class="agn-pevc-bullet" data-reveal data-reveal-delay="160" style="opacity:0;translate:0 20px;transition:opacity .6s ease,translate .6s ease;">
+            <span class="agn-pevc-ic" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6662 3.5L5.25017 9.9162L2.3338 6.99975" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <p class="agn-pevc-btext">Diagnose the drag on margin and growth</p>
+          </div>
+          <div class="agn-pevc-bullet" data-reveal data-reveal-delay="220" style="opacity:0;translate:0 20px;transition:opacity .6s ease,translate .6s ease;">
+            <span class="agn-pevc-ic" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6662 3.5L5.25017 9.9162L2.3338 6.99975" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <p class="agn-pevc-btext">Align marketing, sales &amp; ops into one system</p>
+          </div>
+          <div class="agn-pevc-bullet" data-reveal data-reveal-delay="280" style="opacity:0;translate:0 20px;transition:opacity .6s ease,translate .6s ease;">
+            <span class="agn-pevc-ic" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6662 3.5L5.25017 9.9162L2.3338 6.99975" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <p class="agn-pevc-btext">Cut wasted spend, lift valuation-driving metrics</p>
+          </div>
+          <div class="agn-pevc-bullet" data-reveal data-reveal-delay="340" style="opacity:0;translate:0 20px;transition:opacity .6s ease,translate .6s ease;">
+            <span class="agn-pevc-ic" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6662 3.5L5.25017 9.9162L2.3338 6.99975" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <p class="agn-pevc-btext">Senior-led &mdash; impact in quarters, not years</p>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="agn-pevc-tilt" data-pevc-tilt data-reveal data-reveal-delay="120" style="opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease;">
+      <div class="agn-pevc-card agn-pevc-card--vc">
+        <div class="agn-pevc-top">
+          <h3 class="agn-pevc-title">We Scale You &mdash; And Make it Repeatable.</h3>
+          <p class="agn-pevc-sub">We build the growth infrastructure that turns early traction into a predictable, repeatable engine your team can run on.</p>
+        </div>
+        <div class="agn-pevc-bullets">
+          <div class="agn-pevc-bullet" data-reveal data-reveal-delay="280" style="opacity:0;translate:0 20px;transition:opacity .6s ease,translate .6s ease;">
+            <span class="agn-pevc-ic" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6662 3.5L5.25017 9.9162L2.3338 6.99975" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <p class="agn-pevc-btext">Build infrastructure to move fast, safely</p>
+          </div>
+          <div class="agn-pevc-bullet" data-reveal data-reveal-delay="340" style="opacity:0;translate:0 20px;transition:opacity .6s ease,translate .6s ease;">
+            <span class="agn-pevc-ic" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6662 3.5L5.25017 9.9162L2.3338 6.99975" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <p class="agn-pevc-btext">Turn traction into predictable growth</p>
+          </div>
+          <div class="agn-pevc-bullet" data-reveal data-reveal-delay="400" style="opacity:0;translate:0 20px;transition:opacity .6s ease,translate .6s ease;">
+            <span class="agn-pevc-ic" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6662 3.5L5.25017 9.9162L2.3338 6.99975" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <p class="agn-pevc-btext">Set up the systems, data &amp; playbooks</p>
+          </div>
+          <div class="agn-pevc-bullet" data-reveal data-reveal-delay="460" style="opacity:0;translate:0 20px;transition:opacity .6s ease,translate .6s ease;">
+            <span class="agn-pevc-ic" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6662 3.5L5.25017 9.9162L2.3338 6.99975" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <p class="agn-pevc-btext">AI-native, built for aggressive targets</p>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- 04 OUR VALUE · horizontal snap-carousel -->
   <section id="values" class="agn-values" data-values data-cursor-theme="dark" aria-label="Our values"></section>
 
@@ -1031,6 +1152,7 @@ class Component extends DCLogic {
     this.setupHeroQA();
     this.setupHeroCover();
     this.setupHamlet();
+    this.setupPeVcTilt();
     this.setupValues();
     this.setupCasesActive();
     this.setupMedia();
@@ -1059,6 +1181,7 @@ class Component extends DCLogic {
     if (this._teamCleanups) this._teamCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
     if (this._trustCleanups) this._trustCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
     if (this._mediaCleanups) this._mediaCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
+    if (this._pevcTiltCleanups) this._pevcTiltCleanups.forEach((fn) => { try { fn(); } catch (e) {} });
   }
 
   // Stable full-bleed height: large viewport, frozen on width change only so
@@ -1136,6 +1259,109 @@ class Component extends DCLogic {
       maxDim: 640,
       fps: 60,
       steps: 24,
+    });
+  }
+
+  // ---- 03 PE vs VC · reactbits Tilted Card (vanilla spring port) ----
+  // Same model as https://reactbits.dev/components/tilted-card:
+  // figure owns perspective; inner card springs rotateX/Y toward the pointer and scales on hover.
+  // Spring defaults match motion/react: damping 30, stiffness 100, mass 2.
+  setupPeVcTilt() {
+    const root = this.rootEl;
+    if (!root) return;
+    const shells = Array.from(root.querySelectorAll('[data-pevc-tilt]'));
+    if (!shells.length) return;
+
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const fine = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    if (reduce || !fine) return;
+
+    const ROTATE_AMPLITUDE = 12; // slightly softer than reactbits' 14 — large content cards
+    const SCALE_ON_HOVER = 1.04; // reactbits default 1.1 is too much for text-heavy cards
+    const SPRING = { stiffness: 100, damping: 30, mass: 2 };
+
+    const stepSpring = (s, target, dt) => {
+      // x'' = (−k(x − target) − c·v) / m
+      const accel = (-SPRING.stiffness * (s.value - target) - SPRING.damping * s.vel) / SPRING.mass;
+      s.vel += accel * dt;
+      s.value += s.vel * dt;
+      // Settle when nearly at rest to avoid endless micro-jitter.
+      if (Math.abs(s.value - target) < 0.001 && Math.abs(s.vel) < 0.001) {
+        s.value = target;
+        s.vel = 0;
+      }
+    };
+
+    this._pevcTiltCleanups = this._pevcTiltCleanups || [];
+
+    shells.forEach((shell) => {
+      const card = shell.querySelector('.agn-pevc-card');
+      if (!card) return;
+
+      const rx = { value: 0, vel: 0 };
+      const ry = { value: 0, vel: 0 };
+      const sc = { value: 1, vel: 0 };
+      let txRx = 0, txRy = 0, txSc = 1;
+      let raf = 0;
+      let last = 0;
+      let active = false;
+
+      const apply = () => {
+        card.style.transform =
+          'rotateX(' + rx.value.toFixed(3) + 'deg) rotateY(' + ry.value.toFixed(3) + 'deg) scale(' + sc.value.toFixed(4) + ')';
+      };
+
+      const tick = (t) => {
+        if (!last) last = t;
+        const dt = Math.min(0.032, Math.max(0.001, (t - last) / 1000));
+        last = t;
+        stepSpring(rx, txRx, dt);
+        stepSpring(ry, txRy, dt);
+        stepSpring(sc, txSc, dt);
+        apply();
+        const settling =
+          rx.value === txRx && ry.value === txRy && sc.value === txSc &&
+          rx.vel === 0 && ry.vel === 0 && sc.vel === 0;
+        if (!active && settling) { raf = 0; last = 0; return; }
+        raf = requestAnimationFrame(tick);
+      };
+      const kick = () => { if (!raf) { last = 0; raf = requestAnimationFrame(tick); } };
+
+      const onMove = (e) => {
+        const r = shell.getBoundingClientRect();
+        const ox = e.clientX - r.left - r.width / 2;
+        const oy = e.clientY - r.top - r.height / 2;
+        txRx = (oy / (r.height / 2)) * -ROTATE_AMPLITUDE;
+        txRy = (ox / (r.width / 2)) * ROTATE_AMPLITUDE;
+        kick();
+      };
+      const onEnter = () => {
+        active = true;
+        shell.classList.add('is-tilting');
+        txSc = SCALE_ON_HOVER;
+        kick();
+      };
+      const onLeave = () => {
+        active = false;
+        shell.classList.remove('is-tilting');
+        txRx = 0;
+        txRy = 0;
+        txSc = 1;
+        kick();
+      };
+
+      shell.addEventListener('mousemove', onMove);
+      shell.addEventListener('mouseenter', onEnter);
+      shell.addEventListener('mouseleave', onLeave);
+
+      this._pevcTiltCleanups.push(() => {
+        if (raf) cancelAnimationFrame(raf);
+        shell.removeEventListener('mousemove', onMove);
+        shell.removeEventListener('mouseenter', onEnter);
+        shell.removeEventListener('mouseleave', onLeave);
+        shell.classList.remove('is-tilting');
+        card.style.transform = '';
+      });
     });
   }
 
@@ -1820,7 +2046,17 @@ class Component extends DCLogic {
       reveals = reveals.filter((el) => {
         if (el.getBoundingClientRect().top < vh * 0.9) {
           const delay = parseInt(el.getAttribute('data-reveal-delay') || '0', 10);
-          el.animate([{ opacity: 0, translate: '0 28px' }, { opacity: 1, translate: '0 0' }], { duration: 720, delay, easing: 'cubic-bezier(.16,.84,.44,1)', fill: 'forwards' });
+          // Commit final styles when done so fill:forwards doesn't lock `translate`/`opacity`
+          // and block later CSS hover lifts (PE/VC cards + bullets use `top`).
+          const anim = el.animate(
+            [{ opacity: 0, translate: '0 28px' }, { opacity: 1, translate: '0 0' }],
+            { duration: 720, delay, easing: 'cubic-bezier(.16,.84,.44,1)', fill: 'forwards' }
+          );
+          anim.finished.then(() => {
+            el.style.opacity = '1';
+            el.style.translate = '0 0';
+            try { anim.cancel(); } catch (e) {}
+          }).catch(() => {});
           return false;
         }
         return true;
