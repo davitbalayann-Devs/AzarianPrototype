@@ -2,20 +2,20 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../support.js"></script>
-<script src="../page-transition.js?v=20260722-6"></script>
+<script src="../page-transition.js?v=20260804-6"></script>
 <script src="../lottie.min.js"></script>
-<script src="../button.js?v=20260723-2"></script>
+<script src="../button.js?v=20260804-3"></script>
 <script src="../cursor.js?v=20260723-2"></script>
 <script src="../cta.js?v=20260723-2" defer></script>
-<script src="../footer.js?v=20260727-1" defer></script>
-<script src="../nav.js?v=20260723-2" defer></script>
+<script src="../footer.js?v=20260803-1" defer></script>
+<script src="../nav.js?v=20260804-9" defer></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -29,22 +29,14 @@
     font-display:swap;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth;background:#081226;--vh-stable:1vh;--vh:1vh;--chrome-top:0px;--chrome-bottom:0px;}
-  body{margin:0;background:#081226;}
-  @media(max-width:960px){
-    html,body{background:transparent !important;}
-    .safari-chrome-frost{position:fixed;left:0;right:0;z-index:108;pointer-events:none;
-      backdrop-filter:blur(28px) saturate(1.4);-webkit-backdrop-filter:blur(28px) saturate(1.4);
-      transition:background .4s ease,height .2s ease;}
-    .safari-chrome-frost--top{top:0;height:var(--chrome-top,0px);background:rgba(8,18,38,.28);}
-    .safari-chrome-frost--bottom{bottom:0;height:var(--chrome-bottom,0px);background:rgba(245,247,250,.32);}
-    .safari-chrome-frost--bottom.is-dark{background:rgba(8,18,38,.28);}
-    .safari-chrome-frost--top.is-light{background:rgba(245,247,250,.32);}
-  }
-  /* Hero · fixed pin + spacer so next sections cover it on the first scroll */
-  .hero-scroll{position:relative;z-index:0;height:100vh;height:100dvh;}
-  .hero-spacer{height:100vh;height:100dvh;pointer-events:none;}
-  .hero-shell{position:fixed;top:0;left:0;right:0;height:100vh;height:100dvh;min-height:100vh;min-height:100dvh;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:clamp(160px,22vh,240px) clamp(24px,4.4vw,64px) clamp(80px,12vh,120px);overflow:hidden;background:radial-gradient(ellipse 120% 110% at 80% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);z-index:0;transform-origin:50% 42%;will-change:transform;box-sizing:border-box;}
+  /* --vh-stable freezes large-viewport height on width change only so toolbar
+     show/hide mid-scroll does not resize pins (no layout jerk). */
+  html{scroll-behavior:smooth;background:#081226;--vh-stable:1vh;--vh:1vh;height:100%;height:-webkit-fill-available;}
+  body{margin:0;background:#081226;min-height:100%;min-height:100vh;min-height:100dvh;min-height:-webkit-fill-available;}
+  /* Hero · full-bleed fixed pin + spacer (cover-scroll). */
+  .hero-scroll{position:relative;z-index:0;height:100vh;height:100lvh;}
+  .hero-spacer{height:100vh;height:100lvh;pointer-events:none;}
+  .hero-shell{position:fixed;inset:0;width:100%;height:100%;min-height:100vh;min-height:100dvh;min-height:100lvh;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:clamp(160px,22vh,240px) clamp(24px,4.4vw,64px) clamp(80px,12vh,120px);overflow:hidden;background:radial-gradient(ellipse 120% 110% at 80% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);z-index:0;transform-origin:50% 42%;will-change:transform;box-sizing:border-box;}
   .hero-shell::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:#04101f;opacity:var(--hero-veil,0);}
   .hero-inner{position:relative;z-index:2;width:100%;max-width:1160px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:40px;text-align:center;transform-origin:50% 50%;}
   .hero-copy{display:flex;flex-direction:column;align-items:center;gap:18px;width:100%;}
@@ -59,10 +51,18 @@
      Type bumped above raw Figma 20/12 so it reads at real phone size (Figma frame
      under-represents physical pt). Still fits one viewport via setupHeroFit. */
   @media(max-width:960px){
-    .hero-scroll,.hero-spacer{height:calc(var(--vh-stable,1vh)*100);}
-    .hero-shell{height:calc(var(--vh-stable,1vh)*100);min-height:calc(var(--vh-stable,1vh)*100);}
-    [data-services-pin]{height:calc(var(--vh-stable,1vh)*100) !important;max-height:calc(var(--vh-stable,1vh)*100) !important;}
-    [data-stack-pin]{height:calc(var(--vh-stable,1vh)*100) !important;}
+    /* Spacer/scroll distance: prefer large viewport; min-height covers browsers
+       without lvh so the first screen never opens short. */
+    .hero-scroll,.hero-spacer{
+      height:100vh;height:100dvh;height:100lvh;
+      min-height:100vh;min-height:100dvh;min-height:-webkit-fill-available;
+    }
+    /* Fixed shell: stretch edge-to-edge (inset) — full phone height in all browsers. */
+    .hero-shell{
+      inset:0;width:100%;height:auto;min-height:100%;
+      min-height:100vh;min-height:100dvh;min-height:-webkit-fill-available;
+    }
+    [data-services-pin],[data-stack-pin],[data-hscroll-pin]{height:100svh !important;max-height:100svh !important;}
     /* Testimonials mobile: content height (Figma 22664:4769), not forced 100vh */
     .hero-shell{padding:max(96px,calc(env(safe-area-inset-top,0px) + 76px)) 16px max(36px,calc(env(safe-area-inset-bottom,0px) + 24px));}
     .hero-inner{gap:22px;max-width:100%;}
@@ -93,7 +93,8 @@
   [data-services-scroll]{position:relative;}
   /* Top pad clears the fixed nav (18px + 72px) so the big "6" never sits under it.
      --services-pad-top is refined by JS from the live nav bottom when available. */
-  [data-services-pin]{--services-pad-top:120px;position:sticky;top:0;height:100dvh;max-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--services-pad-top) clamp(20px,4vw,56px) clamp(28px,5dvh,56px);box-sizing:border-box;overflow:hidden;}
+  /* Sticky pin height uses svh; scroll distance still uses --vh-stable/lvh. */
+  [data-services-pin]{--services-pad-top:120px;position:sticky;top:0;height:100svh;max-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--services-pad-top) clamp(20px,4vw,56px) clamp(28px,5dvh,56px);box-sizing:border-box;overflow:hidden;}
   /* Authored at the exact Figma sizes; --deck-scale (set by JS) shrinks/grows
      the whole block uniformly so it always fits the viewport at any height.
      We use `zoom` (not transform:scale) so the child 3D card scene keeps its
@@ -191,11 +192,10 @@
   /* ── Challenges · Full-screen stacking scroll (Figma 05 / mobile 22664:4477) ───── */
   #challenges{background:#fff;}
   [data-scroll-stack]{position:relative;}
-  /* Sticky pin: heading + gap + stacking cards in the remaining height. */
-  [data-stack-pin]{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:#fff;display:flex;flex-direction:column;justify-content:flex-start;box-sizing:border-box;padding:max(110px,calc(18px + 72px + 16px)) 40px 40px;}
-  .chl-head{width:100%;max-width:1180px;margin:0 auto 60px;padding:0;text-align:center;flex:0 0 auto;box-sizing:border-box;}
+  [data-stack-pin]{position:sticky;top:0;height:100svh;max-height:100svh;overflow:hidden;background:#fff;display:flex;flex-direction:column;justify-content:flex-start;box-sizing:border-box;padding:max(110px,calc(18px + 72px + 16px)) 40px 40px;}
+  .chl-head{position:relative;z-index:1;width:100%;max-width:1180px;margin:0 auto 60px;padding:0;text-align:center;flex:0 0 auto;box-sizing:border-box;}
   .chl-heading{display:block;width:100%;margin:0;font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:clamp(28px,4.2vw,48px);line-height:1.1;letter-spacing:-.01em;color:#041d34;}
-  .chl-stack-stage{position:relative;flex:1 1 auto;min-height:0;width:100%;max-width:1180px;margin:0 auto;}
+  .chl-stack-stage{position:relative;z-index:1;flex:1 1 auto;min-height:0;width:100%;max-width:1180px;margin:0 auto;}
   .chl-panel{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding:0;box-sizing:border-box;background:transparent;pointer-events:none;}
   .chl-panel-inner{width:100%;max-width:1180px;margin:0 auto;background:#fff;border:1px solid rgba(196,196,196,.4);border-radius:52px;box-shadow:0 14px 17px rgba(0,0,0,.12);padding:32px;transform-origin:50% 46%;will-change:transform,opacity;pointer-events:auto;box-sizing:border-box;overflow:hidden;}
   .chl-row{display:flex;gap:32px;align-items:stretch;}
@@ -330,7 +330,7 @@
   @media(prefers-reduced-motion:reduce){.gos-threads{display:none;}}
   /* ── GrowthOS Effect · Figma 08 / mobile 22664:4684 ── */
   .gos-fx{
-    position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:center;
+    position:relative;min-height:100vh;min-height:100lvh;display:flex;align-items:center;
     background:#27225c;padding:clamp(96px,12vh,130px) 40px clamp(40px,6vh,70px);color:#fff;overflow:hidden;
     transition:background 1.4s cubic-bezier(.22,.61,.36,1);box-sizing:border-box;
   }
@@ -781,7 +781,7 @@
   }
   /* ── Testimonials · Horizontal pinned scroll ───────────────── */
   [data-hscroll]{position:relative;}
-  [data-hscroll-pin]{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;justify-content:center;gap:36px;overflow:hidden;}
+  [data-hscroll-pin]{position:sticky;top:0;height:100svh;max-height:100svh;display:flex;flex-direction:column;justify-content:center;gap:36px;overflow:hidden;}
   [data-hscroll-viewport]{width:100%;overflow:hidden;}
   [data-hscroll-track]{display:flex;gap:20px;align-items:center;padding:0 clamp(24px,5vw,72px);will-change:transform;}
   .testi-head{padding:0 clamp(24px,5vw,72px);}
@@ -1958,12 +1958,30 @@ class Component extends DCLogic {
   setAurora = (el) => { this.auroraEl = el; };
   setDotField = (el) => { this.dotFieldEl = el; };
 
-  // Mobile browser chrome (address bar) toggles visualViewport height on scroll.
-  // Lock layout height to a stable value; smooth only scroll-driven math.
+  // Stable full-bleed height: large viewport, frozen on width change only so
+  // collapsing browser chrome mid-scroll does not resize pins / jerk layout.
   _initViewport() {
     const root = document.documentElement;
+    const measureUnit = (cssH) => {
+      const probe = document.createElement('div');
+      probe.setAttribute('aria-hidden', 'true');
+      probe.style.cssText = 'position:absolute;left:0;top:0;height:' + cssH + ';width:0;pointer-events:none;visibility:hidden;';
+      (document.body || document.documentElement).appendChild(probe);
+      const h = probe.offsetHeight || 0;
+      probe.remove();
+      return h;
+    };
     const setStable = () => {
-      const h = (window.visualViewport && window.visualViewport.height) || window.innerHeight || 1;
+      const vv = window.visualViewport && window.visualViewport.height;
+      const h = Math.max(
+        measureUnit('100lvh'),
+        measureUnit('100dvh'),
+        measureUnit('100vh'),
+        measureUnit('-webkit-fill-available'),
+        window.innerHeight || 0,
+        document.documentElement.clientHeight || 0,
+        vv || 0
+      ) || 1;
       const unit = h * 0.01;
       root.style.setProperty('--vh-stable', unit + 'px');
       root.style.setProperty('--vh', unit + 'px');
@@ -1983,64 +2001,10 @@ class Component extends DCLogic {
     window.addEventListener('orientationchange', this._onOrient);
     window.addEventListener('resize', onLayout, { passive: true });
     this._layoutResizeFns = [];
-    const mkChrome = (cls) => {
-      const el = document.createElement('div');
-      el.className = 'safari-chrome-frost ' + cls;
-      el.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(el);
-      return el;
-    };
-    this._chromeTop = mkChrome('safari-chrome-frost--top');
-    this._chromeBottom = mkChrome('safari-chrome-frost--bottom');
-
-    const themeAt = (x, y) => {
-      const hit = document.elementFromPoint(x, y);
-      const sec = hit && hit.closest && hit.closest('[data-cursor-theme]');
-      return sec && sec.getAttribute('data-cursor-theme') === 'light' ? 'light' : 'dark';
-    };
-
-    const updateChrome = () => {
-      if (window.innerWidth > 960) {
-        root.style.setProperty('--chrome-top', '0px');
-        root.style.setProperty('--chrome-bottom', '0px');
-        if (this._chromeTop) this._chromeTop.style.height = '0';
-        if (this._chromeBottom) this._chromeBottom.style.height = '0';
-        return;
-      }
-      const vv = window.visualViewport;
-      const top = vv ? Math.max(0, Math.round(vv.offsetTop)) : 0;
-      const bottom = vv ? Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop)) : 0;
-      root.style.setProperty('--chrome-top', top + 'px');
-      root.style.setProperty('--chrome-bottom', bottom + 'px');
-      if (this._chromeTop) {
-        this._chromeTop.style.height = top + 'px';
-        this._chromeTop.classList.toggle('is-light', top > 0 && themeAt(window.innerWidth * 0.5, top + 4) === 'light');
-      }
-      if (this._chromeBottom) {
-        this._chromeBottom.style.height = bottom + 'px';
-        const sampleY = vv ? vv.offsetTop + vv.height - 6 : window.innerHeight - 6;
-        this._chromeBottom.classList.toggle('is-dark', themeAt(window.innerWidth * 0.5, sampleY) === 'dark');
-      }
-    };
-
-    updateChrome();
-    this._updateChrome = updateChrome;
-    window.addEventListener('scroll', updateChrome, { passive: true });
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updateChrome, { passive: true });
-      window.visualViewport.addEventListener('scroll', updateChrome, { passive: true });
-    }
 
     this._viewportCleanup = () => {
       window.removeEventListener('resize', onLayout);
       window.removeEventListener('orientationchange', this._onOrient);
-      window.removeEventListener('scroll', updateChrome);
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', updateChrome);
-        window.visualViewport.removeEventListener('scroll', updateChrome);
-      }
-      if (this._chromeTop && this._chromeTop.parentNode) this._chromeTop.parentNode.removeChild(this._chromeTop);
-      if (this._chromeBottom && this._chromeBottom.parentNode) this._chromeBottom.parentNode.removeChild(this._chromeBottom);
     };
   }
 
@@ -2373,31 +2337,32 @@ class Component extends DCLogic {
       const scale = 1 + p * 0.22;
       const y = p * 28;
       const veil = p * 0.55;
-      // Progressive blur as the next section covers the hero (0 → ~16px).
       const blur = p < 0.01 ? 0 : p * 16;
 
-      pin.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
+      // Keep the fixed shell still — motion lives on the inner layer (no scroll jerk).
+      pin.style.transform = 'none';
+      pin.style.filter = 'none';
+      pin.style.opacity = '1';
       pin.style.setProperty('--hero-veil', veil.toFixed(3));
-      // Blur only while covering — clear to none at rest so the compositor drops the filter layer.
-      pin.style.filter = blur < 0.05 ? 'none' : 'blur(' + blur.toFixed(2) + 'px)';
-      pin.style.opacity = Math.max(0, 1 - p * 0.35).toFixed(3);
-      pin.style.visibility = raw >= 0.999 ? 'hidden' : 'visible';
+      pin.style.display = raw >= 0.999 ? 'none' : '';
+      pin.style.visibility = '';
       pin.style.pointerEvents = raw > 0.2 ? 'none' : '';
-      // Pause the dense canvas while covering; resume cleanly when back at top.
       const freeze = raw > 0.02;
       if (freeze !== covering) {
         covering = freeze;
         if (freeze) {
           this._dotFieldPause && this._dotFieldPause();
-          pin.style.willChange = 'transform, filter, opacity';
+          pin.style.willChange = 'auto';
         } else {
           this._dotFieldResume && this._dotFieldResume();
-          pin.style.willChange = 'transform';
+          pin.style.willChange = 'auto';
         }
       }
       if (layer) {
-        layer.style.transform = 'translate3d(0,' + (p * 14).toFixed(2) + 'px,0)';
-        layer.style.opacity = Math.max(0, 1 - p * 1.15).toFixed(3);
+        layer.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
+        layer.style.filter = blur < 0.05 ? 'none' : 'blur(' + blur.toFixed(2) + 'px)';
+        layer.style.opacity = Math.max(0, 1 - p * 0.35).toFixed(3);
+        layer.style.willChange = freeze ? 'transform, filter, opacity' : 'auto';
       }
       return raw;
     };
@@ -3970,19 +3935,31 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}`;
       window.AzarianButton.bindMagnetic(this.rootEl);
       return;
     }
+    // Fallback: same gate as button.js — no magnetic pull on phones/tablets.
+    const ok = () => {
+      try {
+        return window.matchMedia('(hover: hover) and (pointer: fine)').matches && !window.matchMedia('(max-width: 960px)').matches;
+      } catch (e) { return window.innerWidth > 960; }
+    };
+    if (!ok()) return;
     const els = this.rootEl.querySelectorAll('[data-magnetic]');
     els.forEach((el) => {
       if (el.__agnMagneticBound) return;
       el.__agnMagneticBound = true;
       const move = (ev) => {
+        if (!ok() || (ev.pointerType && ev.pointerType !== 'mouse')) {
+          el.style.transform = '';
+          return;
+        }
         const r = el.getBoundingClientRect();
         const dx = (ev.clientX - (r.left + r.width / 2)) * 0.28;
         const dy = (ev.clientY - (r.top + r.height / 2)) * 0.28;
         el.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
       };
       const reset = () => { el.style.transform = 'translate(0,0)'; };
-      el.addEventListener('mousemove', move);
-      el.addEventListener('mouseleave', reset);
+      el.addEventListener('pointermove', move);
+      el.addEventListener('pointerleave', reset);
+      el.addEventListener('pointerup', reset);
     });
   }
 

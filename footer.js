@@ -14,7 +14,7 @@
   function injectStyles() {
     if (document.getElementById(STYLE_ID)) return;
     var css = [
-      ".ft{background:radial-gradient(120% 130% at 50% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);color:#AEB9CC;padding:clamp(56px,6vw,72px) 40px 40px;}",
+      ".ft{background:radial-gradient(120% 130% at 50% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);color:#AEB9CC;padding:clamp(56px,6vw,72px) 40px max(40px,env(safe-area-inset-bottom,0px));}",
       ".ft-inner{max-width:1160px;margin:0 auto;}",
       ".ft-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;}",
       ".ft-col h4{margin:0 0 20px;font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:18px;color:#fff;}",
@@ -43,7 +43,7 @@
       ".ft-social-d{display:block;}",
       ".ft-meta-foot{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}",
       "@media(max-width:960px){",
-        ".ft{padding:24px 16px;color:#fff;}",
+        ".ft{padding:24px 16px max(24px,calc(16px + env(safe-area-inset-bottom,0px)));color:#fff;}",
         ".ft-inner{max-width:none;}",
         ".ft-cols{grid-template-columns:1fr;gap:32px;}",
         ".ft-col h4{margin:0 0 16px;font-size:20px;line-height:24px;font-weight:700;color:#eff6fe;}",

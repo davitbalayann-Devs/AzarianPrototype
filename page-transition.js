@@ -19,6 +19,7 @@
    ========================================================================== */
 (function () {
   'use strict';
+
   if (window.__agnPageTransition) return;
   window.__agnPageTransition = true;
 
@@ -46,8 +47,9 @@
   // ---- styles ----
   var style = document.createElement('style');
   style.textContent =
-    '.agn-pt{position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden;}' +
-    '.agn-pt.is-active{pointer-events:auto;}' +
+    '.agn-pt{display:none;position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden;' +
+      'background:transparent;background-color:transparent;}' +
+    '.agn-pt.is-active{display:block;pointer-events:auto;}' +
     '.agn-pt__panel{position:absolute;inset:0;transform:translateX(101%);opacity:0;' +
       'backdrop-filter:blur(22px) saturate(1.2);-webkit-backdrop-filter:blur(22px) saturate(1.2);' +
       'will-change:transform,opacity;}';
@@ -80,6 +82,7 @@
     panels.forEach(function (p) { p.style.transform = COVER; p.style.opacity = '1'; });
   }
   mount();
+  park();
 
   // ---- cover: frosted panels sweep in from the right, then `done` ----
   function cover(done) {

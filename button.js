@@ -13,7 +13,7 @@
   Or via API:
     AzarianButton.create({ href:'#cta', label:'Start a Conversation', variant:'primary' })
     AzarianButton.create({ href:'#x', label:'Ghost', variant:'ghost', html:'…' })
-    AzarianButton.bindMagnetic(root)  // wires [data-magnetic] hover tilt
+    AzarianButton.bindMagnetic(root)  // wires [data-magnetic] pull — desktop hover only
 */
 (function () {
   "use strict";
@@ -106,7 +106,20 @@
     return el;
   }
 
+  function isMagneticEnabled() {
+    // Desktop with a fine pointer + hover only. Phones/tablets: no pull-to-cursor.
+    try {
+      return (
+        window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+        !window.matchMedia("(max-width: 960px)").matches
+      );
+    } catch (e) {
+      return window.innerWidth > 960;
+    }
+  }
+
   function bindMagnetic(root) {
+    if (!isMagneticEnabled()) return;
     var scope = root || document;
     var els = scope.querySelectorAll
       ? scope.querySelectorAll("[data-magnetic]")
@@ -115,14 +128,22 @@
       if (el.__agnMagneticBound) return;
       el.__agnMagneticBound = true;
       var move = function (ev) {
+        if (!isMagneticEnabled()) {
+          el.style.transform = "";
+          return;
+        }
+        // Ignore touch-emulated mouse events
+        if (ev.pointerType && ev.pointerType !== "mouse") return;
         var r = el.getBoundingClientRect();
         var dx = (ev.clientX - (r.left + r.width / 2)) * 0.28;
         var dy = (ev.clientY - (r.top + r.height / 2)) * 0.28;
         el.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px)";
       };
       var reset = function () { el.style.transform = "translate(0,0)"; };
-      el.addEventListener("mousemove", move);
-      el.addEventListener("mouseleave", reset);
+      el.addEventListener("pointermove", move);
+      el.addEventListener("pointerleave", reset);
+      el.addEventListener("pointercancel", reset);
+      el.addEventListener("pointerup", reset);
     });
   }
 

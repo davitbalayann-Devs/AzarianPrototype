@@ -27,6 +27,7 @@
 */
 (function () {
   "use strict";
+
   if (window.AzarianNav) return;
 
   // NAV TREE — the single source of truth (desktop cascade + mobile drawer).
@@ -352,13 +353,17 @@
       "--agn-tile-bg:rgba(255,255,255,0.05);--agn-tile-border:rgba(255,255,255,0.10);--agn-tile-hover:rgba(255,255,255,0.22);",
       "--agn-accent:#1BFED1;--agn-tile-active-bg:rgba(27,254,209,0.10);--agn-divider:rgba(255,255,255,0.12);",
       "--agn-link-hover-bg:rgba(255,255,255,0.08);--agn-ico:#9FB0C8;",
+      "--agn-bar-shadow:0 8px 40px -12px rgba(8,18,38,.5),inset 0 1px 0 rgba(255,255,255,.16);",
       "width:min(1296px,calc(100% - 36px));height:72px;box-sizing:border-box;display:flex;align-items:center;gap:14px;",
       "padding:0 14px 0 24px;border-radius:100px;border:1px solid var(--agn-bar-border);",
       "background:var(--agn-bar-bg);",
       "backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);",
-      "box-shadow:0 8px 40px -12px rgba(8,18,38,.5),inset 0 1px 0 rgba(255,255,255,.16);",
+      "box-shadow:var(--agn-bar-shadow);",
       "transition:background .4s ease,border-color .4s ease,box-shadow .4s ease;",
       "font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}",
+    /* Keep search as position:absolute — forcing relative on all children hid the search UI. */
+    ".agn-nav > .agn-logo,.agn-nav > .agn-center,.agn-nav > [data-nav-search],.agn-nav > [data-nav-cta],.agn-nav > .agn-burger{position:relative;z-index:1;}",
+    ".agn-nav > .agn-search{z-index:2;}",
     ".agn-nav.theme-light{--agn-txt:#39465A;--agn-txt-strong:#0B1B38;--agn-bar-bg:rgba(255,255,255,0.66);--agn-bar-border:rgba(11,27,56,0.10);",
       "--agn-icon-bg:rgba(11,27,56,0.05);--agn-icon-border:rgba(11,27,56,0.12);--agn-icon-fg:#0B1B38;",
       "--agn-icon-hbg:rgba(11,27,56,0.10);--agn-icon-hborder:rgba(11,27,56,0.24);--agn-hl:rgba(11,27,56,0.06);--agn-logo-fg:#0B1B38;",
@@ -367,7 +372,7 @@
       "--agn-tile-bg:rgba(11,27,56,0.04);--agn-tile-border:rgba(11,27,56,0.10);--agn-tile-hover:rgba(11,27,56,0.20);",
       "--agn-accent:#11d5ae;--agn-tile-active-bg:rgba(17,213,174,0.14);--agn-divider:rgba(11,27,56,0.10);",
       "--agn-link-hover-bg:rgba(11,27,56,0.06);--agn-ico:#5A6B80;",
-      "box-shadow:0 16px 44px -18px rgba(20,40,80,.30),inset 0 1px 0 rgba(255,255,255,.55);}",
+      "--agn-bar-shadow:0 16px 44px -18px rgba(20,40,80,.30),inset 0 1px 0 rgba(255,255,255,.55);}",
     ".agn-logo{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0;transition:opacity .3s ease;}",
     ".agn-logo img{height:34px;width:auto;display:block;}",
     ".agn-logo svg{height:38px;width:auto;display:block;}",
@@ -401,7 +406,7 @@
     ".agn-nav.is-searching > .agn-burger{transform:scale(1.9) translateX(30%);}",
     // Mega is portaled to <body> (fixed) so backdrop-filter works — it cannot live
     // under .agn-nav's transform:translateX(-50%). Same blur/saturate as the bar.
-    ".agn-mega{position:fixed;left:0;top:0;width:0;z-index:119;pointer-events:none;box-sizing:border-box;padding-top:14px;",
+    ".agn-mega{display:none;position:fixed;left:0;top:0;width:0;z-index:119;pointer-events:none;box-sizing:border-box;padding-top:14px;",
       "font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;",
       "--agn-txt:#C6D0E0;--agn-txt-strong:#fff;--agn-drop-bg:rgba(11,27,56,0.66);--agn-drop-border:rgba(255,255,255,0.14);",
       "--agn-drop-shadow:0 34px 80px -26px rgba(3,10,26,.55),inset 0 1px 0 rgba(255,255,255,.16);",
@@ -413,7 +418,7 @@
       "--agn-tile-bg:rgba(11,27,56,0.04);--agn-tile-border:rgba(11,27,56,0.10);--agn-tile-hover:rgba(11,27,56,0.20);",
       "--agn-accent:#11d5ae;--agn-tile-active-bg:rgba(17,213,174,0.14);--agn-divider:rgba(11,27,56,0.10);",
       "--agn-link-hover-bg:rgba(11,27,56,0.06);--agn-ico:#5A6B80;}",
-    ".agn-mega.is-open{pointer-events:auto;}",
+    ".agn-mega.is-open{display:block;pointer-events:auto;}",
     ".agn-mega-pos{position:relative;width:100%;}",
     ".agn-box{position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--agn-drop-border);",
       "background:var(--agn-drop-bg);",
@@ -511,13 +516,14 @@
       ".agn-nav > [data-nav-cta]{display:inline-flex !important;}",
       ".agn-search{left:16px;right:16px;}",
       ".agn-search input{height:38px;font-size:15px;}",
-      ".agn-drawer{display:block;position:fixed;top:94px;left:50%;transform:translateX(-50%);z-index:115;",
+      /* Closed drawer is display:none (not just opacity:0). */
+      ".agn-drawer{display:none;position:fixed;top:94px;left:50%;transform:translateX(-50%);z-index:115;",
         "width:calc(100% - 16px);max-height:calc(var(--vh-stable,1vh)*100 - 110px);overflow-y:auto;box-sizing:border-box;",
         "border-radius:24px;border:1px solid var(--agn-drop-border);background:var(--agn-drop-bg);color:var(--agn-txt);",
         "-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);padding:12px;",
-        "box-shadow:var(--agn-drop-shadow);",
-        "opacity:0;pointer-events:none;translate:0 -10px;transition:opacity .3s ease,translate .3s ease,background .4s ease,border-color .4s ease;}",
-      ".agn-drawer.is-open{opacity:1;pointer-events:auto;translate:0 0;}",
+        "box-shadow:var(--agn-drop-shadow);pointer-events:none;opacity:0;translate:0 -10px;",
+        "transition:opacity .3s ease,translate .3s ease,background .4s ease,border-color .4s ease;}",
+      ".agn-drawer.is-open{display:block;pointer-events:auto;opacity:1;translate:0 0;}",
       ".agn-macc{border-bottom:1px solid var(--agn-divider);}",
       ".agn-macc:last-child{border-bottom:0;}",
       ".agn-msum{display:flex;align-items:center;gap:10px;width:100%;padding:14px 12px;",
