@@ -94,7 +94,7 @@
   /* Top pad clears the fixed nav (18px + 72px) so the big "6" never sits under it.
      --services-pad-top is refined by JS from the live nav bottom when available. */
   /* Sticky pin height uses svh; scroll distance still uses --vh-stable/lvh. */
-  [data-services-pin]{--services-pad-top:120px;position:sticky;top:0;height:100svh;max-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--services-pad-top) clamp(20px,4vw,56px) clamp(28px,5dvh,56px);box-sizing:border-box;overflow:hidden;}
+  [data-services-pin]{--services-pad-top:120px;position:relative;height:100svh;max-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:var(--services-pad-top) clamp(20px,4vw,56px) clamp(28px,5dvh,56px);box-sizing:border-box;overflow:hidden;}
   /* Authored at the exact Figma sizes; --deck-scale (set by JS) shrinks/grows
      the whole block uniformly so it always fits the viewport at any height.
      We use `zoom` (not transform:scale) so the child 3D card scene keeps its
@@ -109,7 +109,7 @@
   [data-services-sub]{margin:16px 0 0;font-size:24px;font-weight:400;line-height:1.3;color:#C0C7CC;}
   /* Cards authored ~25% smaller than the original 560×540 so they sit in
      balance with the left copy block instead of dominating the row. */
-  [data-services-stage-wrap]{flex:0 0 auto;width:420px;position:relative;}
+  [data-services-stage-wrap]{flex:0 0 auto;width:420px;position:relative;touch-action:none;}
   [data-services-stage-wrap]::after{content:"";position:absolute;left:8%;right:8%;bottom:-24px;height:72px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.42),rgba(0,0,0,0) 70%);pointer-events:none;filter:blur(8px);opacity:.65;}
   [data-services-stage]{position:relative;width:420px;height:405px;perspective:1400px;perspective-origin:50% 36%;overflow:visible;transform-style:preserve-3d;}
   [data-services-cards]{position:absolute;inset:0;transform-style:preserve-3d;overflow:visible;transform:translateZ(0);}
@@ -147,7 +147,7 @@
     [data-services-title]{font-size:20px;line-height:24px;letter-spacing:0;text-align:center;text-transform:lowercase;width:100%;}
     [data-services-title] br{display:none;}
     [data-services-sub]{margin:0;font-size:12px;line-height:17px;text-align:center;width:100%;}
-    [data-services-stage-wrap]{width:100%;max-width:none;margin:0;flex:0 0 auto;position:relative;z-index:1;overflow:hidden;isolation:isolate;}
+    [data-services-stage-wrap]{width:100%;max-width:none;margin:0;flex:0 0 auto;position:relative;z-index:1;overflow:hidden;isolation:isolate;touch-action:none;}
     [data-services-stage-wrap]::after{left:10%;right:10%;bottom:-16px;height:48px;}
     [data-services-stage]{display:block;width:100%;height:var(--services-stage-h,336px);perspective:1200px;perspective-origin:50% 42%;overflow:hidden;}
     [data-services-cards]{overflow:hidden;}
@@ -2041,6 +2041,7 @@ class Component extends DCLogic {
     this.setupContactForm();
     this.setupMagicBento();
     this.setupServicesDeck();
+    this.setupServiceLinks();
     this.setupGapDiagram();
     this.setupScrollStack();
     this.setupProcess();
@@ -2082,6 +2083,7 @@ class Component extends DCLogic {
     if (this._fxRaf) cancelAnimationFrame(this._fxRaf);
     if (this._stackRaf) cancelAnimationFrame(this._stackRaf);
     if (this._deckRaf) cancelAnimationFrame(this._deckRaf);
+    if (this._deckCleanup) this._deckCleanup();
     if (this._deckResize) {
       window.removeEventListener('resize', this._deckResize);
     }
@@ -2905,9 +2907,47 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}`;
     this._stackRaf = requestAnimationFrame(tick);
   }
 
-  // Services · scroll-driven 3D card deck (Figma layout). Cards fan flat at the
-  // back, rise to an upright crest, then fold forward and cascade down with a
-  // smooth opacity fade — never clipped by overflow.
+  // 04 Capabilities · make each service card open its dedicated service page.
+  // Card order matches the six service pages; front (active) card navigates on
+  // click, and hovering any card shows the link affordance.
+  setupServiceLinks() {
+    const root = this.rootEl; if (!root) return;
+    const SLUGS = [
+      'service-strategic-growth-diagnostic.dc.html',
+      'service-fractional-cmo.dc.html',
+      'service-paid-media-demand-generation.dc.html',
+      'service-seo-content.dc.html',
+      'service-website-conversion-optimization.dc.html',
+      'service-marketing-analytics-reporting.dc.html',
+    ];
+    const go = (href) => {
+      if (window.__agnPageGo) window.__agnPageGo(href);
+      else window.location.href = href;
+    };
+    // 3D deck cards carry data-deck-index; static (mobile) cards fall back to order.
+    const deck = Array.from(root.querySelectorAll('[data-services-cards] [data-deck-card]'));
+    deck.forEach((card, i) => {
+      const idx = parseInt(card.getAttribute('data-deck-index'), 10);
+      const href = SLUGS[isNaN(idx) ? i : idx];
+      if (!href) return;
+      card.setAttribute('role', 'link');
+      card.setAttribute('tabindex', '0');
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => go(href));
+      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(href); } });
+    });
+    const statics = Array.from(root.querySelectorAll('[data-services-static] [data-deck-card]'));
+    statics.forEach((card, i) => {
+      const href = SLUGS[i];
+      if (!href) return;
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => go(href));
+    });
+  }
+
+  // Services · hover-driven 3D card deck (Figma layout). Page scroll is free;
+  // wheel/drag on the cards themselves flips the stack. Cards fan flat at the
+  // back, rise to an upright crest, then fold forward and cascade down.
   setupServicesDeck() {
     const root = this.rootEl; if (!root) return;
     const wrap = root.querySelector('[data-services-scroll]');
@@ -3106,10 +3146,25 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}`;
       return '0 ' + y.toFixed(1) + 'px ' + blur.toFixed(1) + 'px ' + spread.toFixed(1) + 'px rgba(0,0,0,' + alpha.toFixed(3) + ')';
     };
 
-    const mapProgress = (raw) => {
-      const hold = 0.07;
-      if (raw <= hold) return 0;
-      return clamp((raw - hold) / (1 - hold), 0, 1);
+    const applyDeck = (idx) => {
+      const p = (clamp(idx, 0, n - 1) + 0.42) / n;
+      cards.forEach((card, i) => {
+        const s = cardState(i, p);
+        card.style.zIndex = String(s.zIndex);
+        card.style.opacity = s.opacity.toFixed(3);
+        card.style.boxShadow = deckShadow(s.tz, s.opacity) + ', inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(0,0,0,.22)';
+        card.style.transform = 'translate3d(-50%,-50%,0) translate3d(0,' + s.ty.toFixed(2) + 'px,' + s.tz.toFixed(2) + 'px) rotateX(' + s.rotX.toFixed(2) + 'deg) rotateY(' + s.rotY.toFixed(2) + 'deg) scale(' + s.scale.toFixed(4) + ')';
+      });
+      const frac = clamp(idx, 0, n - 1);
+      const pct = n > 1 ? (frac / (n - 1)) * 100 : 0;
+      const reached = clamp(Math.round(frac), 0, n - 1);
+      if (stepEl) stepEl.textContent = String(reached + 1).padStart(2, '0');
+      if (barFill) barFill.style.width = pct.toFixed(2) + '%';
+      if (barKnob) barKnob.style.left = pct.toFixed(2) + '%';
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i <= reached);
+        dot.classList.toggle('is-current', i === reached);
+      });
     };
 
     const measure = () => {
@@ -3122,10 +3177,8 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}`;
         cards.forEach((card) => { card.style.transform = ''; card.style.opacity = ''; card.style.zIndex = ''; card.style.boxShadow = ''; });
         return;
       }
+      wrap.style.height = '';
       fitDeckLayout();
-      const vh = vhNow();
-      const cardScroll = Math.max(vh * (isMobile() ? 0.95 : 1.05), isMobile() ? 560 : 720);
-      wrap.style.height = (vh + n * cardScroll) + 'px';
     };
 
     measure();
@@ -3135,52 +3188,109 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}`;
     window.addEventListener('resize', this._deckResize);
     this._onLayoutResize(this._deckResize);
 
-    // Damped follow: the rendered progress eases toward the scroll target every
-    // frame rather than snapping to it. Lower EASE = slower, silkier motion with
-    // no abrupt movement, even when the user scrolls quickly.
-    const EASE = 0.06;
-    let smoothP = null;
+    const EASE = 0.12;
+    let targetIdx = 0;
+    let smoothIdx = 0;
+    let hovering = false;
+    let dragging = false;
+    let moved = false;
+    let dragStartY = 0;
+    let dragStartIdx = 0;
+    const cardsEl = root.querySelector('[data-services-cards]');
+    const stageWrap = root.querySelector('[data-services-stage-wrap]');
     const vis = this._vis(wrap);
+
+    const onDeck = (x, y) => {
+      const el = document.elementFromPoint(x, y);
+      if (!el || !el.closest) return false;
+      const card = el.closest('[data-deck-card]');
+      return !!(card && cardsEl && cardsEl.contains(card));
+    };
+
     const tick = () => {
       this._deckRaf = requestAnimationFrame(tick);
-      if (!disabled() && !document.hidden && vis.v) {
-        const vh = vhNow();
-        const scrollable = wrap.offsetHeight - vh;
-        const scrolled = -wrap.getBoundingClientRect().top;
-        const eff = clamp(scrolled, 0, scrollable);
-        const rawP = scrollable > 0 ? eff / scrollable : 0;
-        const target = mapProgress(rawP);
-        if (smoothP === null) smoothP = target;
-        else {
-          smoothP += (target - smoothP) * EASE;
-          if (Math.abs(target - smoothP) < 0.00025) smoothP = target;
-        }
-        const p = smoothP;
-
-        cards.forEach((card, i) => {
-          const s = cardState(i, p);
-          card.style.zIndex = String(s.zIndex);
-          card.style.opacity = s.opacity.toFixed(3);
-          card.style.boxShadow = deckShadow(s.tz, s.opacity) + ', inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(0,0,0,.22)';
-          card.style.transform = 'translate3d(-50%,-50%,0) translate3d(0,' + s.ty.toFixed(2) + 'px,' + s.tz.toFixed(2) + 'px) rotateX(' + s.rotX.toFixed(2) + 'deg) rotateY(' + s.rotY.toFixed(2) + 'deg) scale(' + s.scale.toFixed(4) + ')';
-        });
-
-        // Line + dots share the same continuous frac. A dot lights only once the
-        // fill has reached it (floor) — Math.round used to activate early while
-        // the line was still halfway between dots.
-        const frac = clamp(p, 0, 1) * (n - 1);
-        const pct = n > 1 ? (frac / (n - 1)) * 100 : 0;
-        const reached = clamp(Math.floor(frac + 1e-4), 0, n - 1);
-        if (stepEl) stepEl.textContent = String(reached + 1).padStart(2, '0');
-        if (barFill) barFill.style.width = pct.toFixed(2) + '%';
-        if (barKnob) barKnob.style.left = pct.toFixed(2) + '%';
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('is-active', i <= reached);
-          dot.classList.toggle('is-current', i === reached);
-        });
-      }
+      if (disabled() || document.hidden || !vis.v) return;
+      smoothIdx += (targetIdx - smoothIdx) * EASE;
+      if (Math.abs(targetIdx - smoothIdx) < 0.0004) smoothIdx = targetIdx;
+      applyDeck(smoothIdx);
     };
+    applyDeck(0);
     this._deckRaf = requestAnimationFrame(tick);
+
+    const onWheel = (e) => {
+      if (disabled() || dragging) return;
+      if (!onDeck(e.clientX, e.clientY) && !hovering) return;
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!delta) return;
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 16 : (e.deltaMode === 2 ? 400 : 1);
+      targetIdx = clamp(targetIdx + (delta * unit) / 340, 0, n - 1);
+    };
+
+    const onPointerEnter = () => { hovering = true; };
+    const onPointerLeave = () => { if (!dragging) hovering = false; };
+
+    const onDown = (e) => {
+      if (disabled()) return;
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (!onDeck(e.clientX, e.clientY)) return;
+      dragging = false;
+      moved = false;
+      hovering = true;
+      dragStartY = e.clientY;
+      dragStartIdx = targetIdx;
+      this._deckPressing = true;
+    };
+    const onMove = (e) => {
+      if (!this._deckPressing) return;
+      const dy = e.clientY - dragStartY;
+      if (!dragging) {
+        if (Math.abs(dy) <= 6) return;
+        dragging = true;
+        moved = true;
+        try { stageWrap.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      targetIdx = clamp(dragStartIdx - dy / 210, 0, n - 1);
+    };
+    const onUp = (e) => {
+      this._deckPressing = false;
+      if (dragging) {
+        dragging = false;
+        try { stageWrap.releasePointerCapture(e.pointerId); } catch (err) {}
+      }
+      hovering = onDeck(e.clientX, e.clientY);
+      setTimeout(() => { moved = false; }, 0);
+    };
+
+    const onClickCapture = (e) => {
+      if (!moved) return;
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false, capture: true });
+    if (stageWrap) {
+      stageWrap.addEventListener('pointerenter', onPointerEnter);
+      stageWrap.addEventListener('pointerleave', onPointerLeave);
+      stageWrap.addEventListener('pointerdown', onDown);
+      stageWrap.addEventListener('pointermove', onMove);
+      stageWrap.addEventListener('pointerup', onUp);
+      stageWrap.addEventListener('pointercancel', onUp);
+    }
+    if (cardsEl) cardsEl.addEventListener('click', onClickCapture, true);
+
+    this._deckCleanup = () => {
+      window.removeEventListener('wheel', onWheel, { capture: true });
+      if (stageWrap) {
+        stageWrap.removeEventListener('pointerenter', onPointerEnter);
+        stageWrap.removeEventListener('pointerleave', onPointerLeave);
+        stageWrap.removeEventListener('pointerdown', onDown);
+        stageWrap.removeEventListener('pointermove', onMove);
+        stageWrap.removeEventListener('pointerup', onUp);
+        stageWrap.removeEventListener('pointercancel', onUp);
+      }
+      if (cardsEl) cardsEl.removeEventListener('click', onClickCapture, true);
+    };
   }
 
   // Reactbits-style Border Glow for the Growth OS glass card. A conic mask keyed
