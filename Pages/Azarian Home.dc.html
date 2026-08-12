@@ -119,9 +119,8 @@
   [data-deck-img]{position:absolute;inset:8px 8px 6px;border-radius:18px;overflow:hidden;transform:translateZ(0.5px);background:#0B1B38;}
   [data-deck-img] img{width:100%;height:100%;object-fit:cover;display:block;}
   [data-deck-shade]{position:absolute;left:8px;right:8px;bottom:6px;height:136px;border-radius:0 0 18px 18px;background:linear-gradient(to bottom,rgba(11,27,56,0),#0B1B38);pointer-events:none;transform:translateZ(1px);}
-  [data-deck-badge]{position:relative;z-index:4;display:inline-flex;align-items:center;justify-content:center;padding:6px 18px;border-radius:99px;background:rgba(8,18,38,.82);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(47px);-webkit-backdrop-filter:blur(47px);font-size:14px;color:#FAFAFB;font-weight:400;width:fit-content;}
-  [data-deck-badge], [data-deck-text]{transform:translateZ(2px);}
-  [data-deck-text]{position:relative;z-index:4;display:flex;flex-direction:column;gap:10px;}
+  [data-deck-text]{transform:translateZ(2px);}
+  [data-deck-text]{position:relative;z-index:4;display:flex;flex-direction:column;gap:10px;margin-top:auto;}
   [data-deck-text] h3{margin:0;font-size:24px;font-weight:700;line-height:28px;color:#fff;}
   [data-deck-text] p{margin:0;font-size:14px;font-weight:400;line-height:20px;color:#C0C7CC;}
   [data-services-indicator]{display:flex;align-items:center;gap:12px;width:100%;}
@@ -155,7 +154,6 @@
     [data-deck-card]{width:100%;height:var(--services-stage-h,336px);border-radius:32px;padding:20px;}
     [data-deck-img]{inset:7px;border-radius:24px;}
     [data-deck-shade]{left:7px;right:7px;bottom:7px;height:34%;border-radius:0 0 24px 24px;}
-    [data-deck-badge]{padding:5px 12px;font-size:11px;}
     [data-deck-text]{gap:7px;}
     [data-deck-text] h3{font-size:20px;line-height:22px;}
     [data-deck-text] p{font-size:10px;line-height:14px;}
@@ -1165,7 +1163,6 @@
                   <article data-deck-card data-deck-index="0">
                     <div data-deck-img><img src="../assets/capabilities/capability-01.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
-                    <div data-deck-badge>01/06</div>
                     <div data-deck-text>
                       <h3>Strategic Growth Diagnostic</h3>
                       <p>Where every engagement starts. A paid, system-deep review that produces board-ready findings and a prioritized 90-day action plan. Not a free audit.</p>
@@ -1174,7 +1171,6 @@
                   <article data-deck-card data-deck-index="1">
                     <div data-deck-img><img src="../assets/capabilities/capability-02.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
-                    <div data-deck-badge>02/06</div>
                     <div data-deck-text>
                       <h3>Fractional CMO</h3>
                       <p>Senior marketing leadership embedded in your team. Owns the growth number, attends leadership meetings, reports in financial metrics your board can act on.</p>
@@ -1183,7 +1179,6 @@
                   <article data-deck-card data-deck-index="2">
                     <div data-deck-img><img src="../assets/capabilities/capability-03.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
-                    <div data-deck-badge>03/06</div>
                     <div data-deck-text>
                       <h3>Paid Media &amp; Demand Generation</h3>
                       <p>Paid search, paid social, and programmatic managed against CAC and LTV targets, not click-through rates.</p>
@@ -1192,7 +1187,6 @@
                   <article data-deck-card data-deck-index="3">
                     <div data-deck-img><img src="../assets/capabilities/capability-04.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
-                    <div data-deck-badge>04/06</div>
                     <div data-deck-text>
                       <h3>SEO &amp; Content</h3>
                       <p>Organic visibility built for the long game. GEO-optimized content that surfaces in AI search alongside traditional rankings.</p>
@@ -1201,7 +1195,6 @@
                   <article data-deck-card data-deck-index="4">
                     <div data-deck-img><img src="../assets/capabilities/capability-05.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
-                    <div data-deck-badge>05/06</div>
                     <div data-deck-text>
                       <h3>Website &amp; Conversion Optimization</h3>
                       <p>A/B testing and UX analysis measured against pipeline and revenue, not just form fills.</p>
@@ -1210,7 +1203,6 @@
                   <article data-deck-card data-deck-index="5">
                     <div data-deck-img><img src="../assets/capabilities/capability-06.png" alt="" loading="lazy"></div>
                     <div data-deck-shade></div>
-                    <div data-deck-badge>06/06</div>
                     <div data-deck-text>
                       <h3>Marketing Analytics &amp; Reporting</h3>
                       <p>Full-funnel attribution, CAC/LTV tracking, and dashboards built for executive review, not marketing meetings.</p>
@@ -1222,37 +1214,31 @@
                 <article data-deck-card>
                   <div data-deck-img><img src="../assets/capabilities/capability-01.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
-                  <div data-deck-badge>01/06</div>
                   <div data-deck-text><h3>Strategic Growth Diagnostic</h3><p>Where every engagement starts. A paid, system-deep review that produces board-ready findings and a prioritized 90-day action plan. Not a free audit.</p></div>
                 </article>
                 <article data-deck-card>
                   <div data-deck-img><img src="../assets/capabilities/capability-02.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
-                  <div data-deck-badge>02/06</div>
                   <div data-deck-text><h3>Fractional CMO</h3><p>Senior marketing leadership embedded in your team. Owns the growth number, attends leadership meetings, reports in financial metrics your board can act on.</p></div>
                 </article>
                 <article data-deck-card>
                   <div data-deck-img><img src="../assets/capabilities/capability-03.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
-                  <div data-deck-badge>03/06</div>
                   <div data-deck-text><h3>Paid Media &amp; Demand Generation</h3><p>Paid search, paid social, and programmatic managed against CAC and LTV targets, not click-through rates.</p></div>
                 </article>
                 <article data-deck-card>
                   <div data-deck-img><img src="../assets/capabilities/capability-04.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
-                  <div data-deck-badge>04/06</div>
                   <div data-deck-text><h3>SEO &amp; Content</h3><p>Organic visibility built for the long game. GEO-optimized content that surfaces in AI search alongside traditional rankings.</p></div>
                 </article>
                 <article data-deck-card>
                   <div data-deck-img><img src="../assets/capabilities/capability-05.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
-                  <div data-deck-badge>05/06</div>
                   <div data-deck-text><h3>Website &amp; Conversion Optimization</h3><p>A/B testing and UX analysis measured against pipeline and revenue, not just form fills.</p></div>
                 </article>
                 <article data-deck-card>
                   <div data-deck-img><img src="../assets/capabilities/capability-06.png" alt="" loading="lazy"></div>
                   <div data-deck-shade></div>
-                  <div data-deck-badge>06/06</div>
                   <div data-deck-text><h3>Marketing Analytics &amp; Reporting</h3><p>Full-funnel attribution, CAC/LTV tracking, and dashboards built for executive review, not marketing meetings.</p></div>
                 </article>
               </div>

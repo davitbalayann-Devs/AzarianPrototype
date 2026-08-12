@@ -632,8 +632,7 @@
       ".svc-explore-img{position:absolute;inset:5px 6px 5px;border-radius:24px;overflow:hidden;background:#0B1B38;}",
       ".svc-explore-img img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}",
       ".svc-explore-shade{position:absolute;left:6px;right:6px;bottom:5px;height:106px;border-radius:0 0 15px 15px;background:linear-gradient(180deg,rgba(11,27,56,0),#0B1B38);pointer-events:none;}",
-      ".svc-explore-badge{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;padding:5px 14px;border-radius:99px;background:rgba(0,0,0,.1);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);font-size:11px;color:#FAFAFB;font-weight:400;width:fit-content;}",
-      ".svc-explore-text{position:relative;z-index:2;display:flex;flex-direction:column;gap:7px;}",
+      ".svc-explore-text{position:relative;z-index:2;display:flex;flex-direction:column;gap:7px;margin-top:auto;}",
       ".svc-explore-text h3{margin:0;font-size:19px;font-weight:700;line-height:21px;color:#fff;}",
       ".svc-explore-text p{margin:0;font-size:13px;line-height:1.38;color:#C0C7CC;}",
       "@media(prefers-reduced-motion:reduce){.svc-explore-track{transform:none !important;}}",
@@ -686,7 +685,6 @@
         ".svc-explore-card{width:min(280px,78vw);height:272px;padding:16px;border-radius:24px;}",
         ".svc-explore-img{inset:4px 5px;border-radius:20px;}",
         ".svc-explore-shade{left:5px;right:5px;bottom:4px;height:34%;border-radius:0 0 16px 16px;}",
-        ".svc-explore-badge{padding:4px 12px;font-size:10px;}",
         ".svc-explore-text h3{font-size:17px;line-height:20px;}",
         ".svc-explore-text p{font-size:12px;line-height:1.4;}",
         ".svc-reasons-col{gap:14px;}",
@@ -918,7 +916,6 @@
     return '<a class="svc-explore-card" href="' + href + '" data-svc-slug="' + esc(slug) + '" aria-label="' + esc(s.title) + '" draggable="false">' +
       '<div class="svc-explore-img"><img src="../assets/capabilities/' + esc(cap.img || "capability-01.png") + '" alt="" loading="lazy" draggable="false"></div>' +
       '<div class="svc-explore-shade" aria-hidden="true"></div>' +
-      '<span class="svc-explore-badge">' + esc(s.num) + '/06</span>' +
       '<div class="svc-explore-text">' +
         '<h3>' + esc(s.title) + '</h3>' +
         '<p>' + esc(cap.blurb || "") + '</p>' +
