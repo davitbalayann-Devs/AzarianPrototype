@@ -3,9 +3,8 @@
 
   ONE template, SIX services. Each service .dc.html file is identical except its
   filename; the slug is derived from the filename (service-<slug>.dc.html) and the
-  matching content is pulled from AGA_SERVICES below. Structure and block count are
-  the same across all six pages, but accent color, hero tint, copy and imagery
-  change per service so switching between them never feels like the same page.
+  matching content is pulled from SERVICES below. Pages share hero · flexible sections
+  (list · prose · steps) · explore · final CTA; accent color and copy change per service.
 
   Usage on a service page:
     <div ref="{{ setRoot }}" data-svc-page> ... <main data-service-mount></main> ... </div>
@@ -20,56 +19,62 @@
   var A = "#1BFED1"; // brand teal
 
   // ---- Content ------------------------------------------------------------
-  // Each service keeps the same shell: hero · why · how · what · final CTA.
+  // PE-forward copy. Each page: hero + flexible sections (list · prose · steps) · explore · final CTA.
   var SERVICES = {
     "strategic-growth-diagnostic": {
       num: "01",
       tag: "Diagnostic",
       accent: "#1BFED1",
       grain: ["#0C4E56", "#0A2E49", "#081226"],
-      title: "Strategic Growth Diagnostic",
-      lead: "A six-week, board-ready commercial assessment that maps every marketing dollar to closed revenue. Most businesses that grew through founder relationships hit a point where nobody inside can explain why the spend is not turning into growth. The diagnostic answers that question with numbers, not opinions. Our growth-diagnostic-conductor agent runs the analysis in parallel across your full stack. Our senior team interprets it and presents it. You get 150 to 200 prioritized findings, the revenue impact of each, and a 30-60-90 day roadmap your board can underwrite.",
-      cta: "Book the Strategic Growth Diagnostic",
+      title: "Portfolio Growth Diagnostic™",
+      heroHeadline: "Know what's driving revenue — before you invest.",
+      lead: "A board-ready commercial assessment: what's working, what's leaking, and what to fix first.",
+      cta: "Book the Diagnostic",
       stats: [
-        { k: "150–200", v: "prioritized findings" },
-        { k: "6 wks", v: "to a board-ready deliverable" },
-        { k: "30-60-90", v: "day roadmap" }
+        { k: "Board-ready", v: "findings your leadership can act on" },
+        { k: "30-60-90", v: "day prioritized execution roadmap" },
+        { k: "Full-funnel", v: "paid, SEO, email, CRM, analytics" },
+        { k: "PE-grade", v: "commercial due diligence, not a pitch" }
       ],
-      whyTitle: "Why Operators Choose the Diagnostic",
-      why: [
-        { t: "We lead with findings, not a pitch", b: "Most agencies open with what they want to sell you. We open with what your data actually says. Every diagnostic starts with raw analysis of your ad accounts, analytics, CRM, and email systems, pulled live from your connected platforms. We show you exactly where revenue is leaking before we say a word about what to do next. Paid means independent. You are not sitting through an audit designed to end in a retainer." },
-        { t: "Every claim comes with a specific number", b: "We do not tell you your email 'needs improvement.' We document that a share of your paid leads never received a single automation email because a CRM field was set wrong, and we put a dollar figure on the gap. We do not say your ad account 'could be better.' We show you what percentage of your spend is going to keywords that will never convert. Specificity is the difference between a diagnostic and a surface-level audit." },
-        { t: "Full funnel, because that is where leads disappear", b: "Your Google Ads account does not exist in isolation, and neither does your SEO, your email, your CRM, or your landing pages. We trace the entire path from first impression to closed revenue, including the handoffs between systems where most leads vanish. When a large share of your paid leads never make it from your marketing platform into your sales CRM, fixing one channel solves nothing." },
-        { t: "Built for operators, not marketers", b: "If you are a CEO, CFO, COO, or operating partner, you do not need someone to explain what an impression is. You need someone to tell you your real cost to acquire a customer, why it is higher than your target, and what it would take to close the gap. We frame everything in revenue, unit economics, and contribution margin, because those are the numbers driving your decisions and the numbers your board expects to see." },
-        { t: "We find what your current team cannot see", b: "When you are in day-to-day operations, systemic problems are invisible. Your marketing team reports on the metrics they own. Your agencies report on the channels they run. Nobody connects the two. That gap is where the money leaks. The diagnostic surfaces the mismatches between systems, the attribution gaps across platforms, and the process failures that quietly kill leads between the click and the close." },
-        { t: "The diagnostic becomes your roadmap", b: "The deliverable is not a slide deck of general advice. It is a prioritized, implementation-ready document: specific findings, quantified impact, clear next steps, organized by timeline. Immediate actions, 90-day initiatives, and 6 to 12 month priorities. You can hand it to your internal team, your current agencies, or ours, and start executing the same week." },
-        { t: "Transparent methodology", b: "Every finding lists its data source, date range, and method. You can verify anything we report. We document our assumptions and cite our sources. This is trust through proof, not trust through promises." }
+      story: "You're inheriting a marketing org built on founder instinct and agency relationships — not systems. Before you invest in growth, you need to know exactly what's broken and what it will cost to fix it. The Portfolio Growth Diagnostic maps every channel, dollar, and handoff to closed revenue — so your board gets a clear answer, not another pitch.",
+      pillarsTitle: "Commercial due diligence your board can underwrite.",
+      pillars: [
+        { label: "01 / The audit", t: "Full-funnel commercial assessment", b: "We map paid, SEO, email, CRM, and analytics end to end — every channel, dollar, and handoff to closed revenue. Not a marketing audit. A commercial read.", anim: "funnel" },
+        { label: "02 / The gaps", t: "Quantified revenue impact", b: "Every finding carries a dollar figure. You see exactly what each leak costs the portfolio company — and which fixes move EBITDA first.", anim: "num" },
+        { label: "03 / The roadmap", t: "30-60-90 day execution plan", b: "Prioritized actions your operators can run immediately. Immediate wins, 90-day initiatives, and hold-period priorities — board-ready.", anim: "road" },
+        { label: "04 / The delivery", t: "A deck leadership can act on", b: "Works as pre-acquisition diligence, post-close baseline, or carve-out assessment. Written in investment-thesis language, not vanity metrics.", anim: "dash" }
       ],
-      whyAnim: ["find", "num", "funnel", "dash", "mag", "road", "check"],
-      howTitle: "How the Diagnostic Works",
-      howIntro: "The diagnostic runs in ten steps over four to eight weeks. We never make changes to your live accounts during this phase.",
-      steps: [
-        { t: "Discovery and scope", b: "A working session on your business model, revenue goals, and the specific pressure your leadership is under. A departed CMO, underperforming agencies, a board asking questions nobody can answer. We identify the trigger and scope the work around it. You leave with a clear document defining what we cover, what access we need, and when you get the deliverable." },
-        { t: "Platform access and data collection", b: "We request read access to your ad platforms, analytics, CRM, email platform, tag manager, and any system that touches your funnel. We also ask for internal reports and financial context so we can work in your unit economics, not generic benchmarks." },
-        { t: "Paid media deep dive", b: "A system-deep audit of your paid accounts: campaign structure, quality score distribution, bid strategy, geographic and device performance, competitor activity, and creative. We calculate cost per lead by campaign, by keyword tier, and over time, and we flag exactly where spend is being wasted." },
-        { t: "Analytics and conversion path", b: "We map the full conversion path from first session to form fill or call, find the drop-off points, and measure conversion at each stage. We check your form flow, trust signals, and the handoff from conversion to sales. If your tracking is not firing correctly, that surfaces here." },
-        { t: "CRM and data flow audit", b: "This is where the biggest surprises live. We trace a lead from form submission to customer or to drop-off. We check whether your CRM receives every marketing lead, whether source attribution is accurate, whether lifecycle stages are set correctly, and whether sales is actually working the leads marketing generates. A single misconfigured field can quietly block a large share of your leads from ever entering a nurture sequence." },
-        { t: "Email and lifecycle assessment", b: "We audit your automation flows, deliverability health, list hygiene, and engagement. We check whether leads are entering nurture, whether automation rules are filtering out qualified prospects, and whether the system was ever properly connected. Companies told their email 'does not work' usually have a plumbing problem, not a content problem." },
-        { t: "Competitive and SEO assessment", b: "We benchmark your organic performance, domain authority, backlink profile, and content coverage against your top competitors. We find keyword gaps, content types you are missing, and technical issues holding you back. For regulated industries like financial services, insurance, and healthcare, we factor in the compliance constraints that shape content strategy." },
-        { t: "Tracking infrastructure review", b: "We audit your tag manager, conversion tracking, cross-domain setup, and data layer. We check whether enhanced conversions and server-side tracking are live and configured correctly. When ad blockers and browser changes can cause meaningful underreporting, unreliable data makes every downstream decision suspect." },
-        { t: "Findings and impact quantification", b: "We compile everything into a structured deliverable. Each finding carries the data point, the business impact in dollars or percentage terms, the root cause, and the recommended fix. We prioritize by revenue impact and organize into immediate, 90-day, and 6 to 12 month timelines. The result is a 150 to 200 item roadmap your leadership and board use to decide where to invest and whether your current vendors are earning their fees." },
-        { t: "Executive presentation", b: "We present to your leadership in a focused session: the most critical findings, their financial impact, and the path forward. This is a strategic discussion, not a sales pitch. The deliverable is board-ready, with executive summaries, unit economics, and competitive analysis that meet investor-grade standards." }
+      sections: [
+        {
+          type: "prose",
+          title: "Why PE firms run this first",
+          paragraphs: [
+            "You're inheriting a marketing org built on founder instinct and agency relationships — not systems. Before you invest in growth, you need to know exactly what's broken and what it will cost to fix it. That's what this diagnostic answers.",
+            "Works as pre-acquisition commercial due diligence, post-close baseline, or platform carve-out assessment."
+          ]
+        },
+        {
+          type: "steps",
+          title: "How it works",
+          items: [
+            { t: "Kickoff", b: "We scope around your hold period, revenue targets, and the specific gaps your team is asking about." },
+            { t: "Data pull", b: "Read access to ad platforms, CRM, analytics, email, and tag manager." },
+            { t: "AI analysis", b: "Our Growth OS agents run parallel analysis across every connected system." },
+            { t: "Senior review", b: "Our team interprets the data and builds the findings report." },
+            { t: "Delivery", b: "Prioritized findings, revenue impact, and an execution roadmap. Presented to your leadership team." }
+          ]
+        }
       ],
-      whatTitle: "What You Get",
-      what: [
-        { t: "Revenue leak identification", b: "The specific dollars your marketing is leaving on the table, from automation failures to CRM sync gaps to misattributed conversions, with a monthly cost attached to each leak." },
-        { t: "Channel performance benchmarking", b: "Every active channel measured against benchmarks and against your own history. Which channels deliver, which underperform, and which are taking credit for results they did not produce. Corrected tracking sometimes reveals a channel written off as dead is actually your cheapest source." },
-        { t: "True customer acquisition cost", b: "Most companies undercount CAC by a wide margin. We calculate your real cost to acquire a paying customer, tie it to lifetime value and payback period, and give you the full unit economics picture instead of a channel-level vanity number." },
-        { t: "Conversion funnel analysis", b: "Every step from first touch to closed revenue, the exact points where prospects drop off, and the revenue cost of each drop. Conversion rates can vary many times over across segments when targeting is aimed at the wrong tier, and we find where that is happening." },
-        { t: "Competitive gap assessment", b: "Your organic visibility, paid investment, domain authority, content coverage, and referral network against your direct competitors. Where you lead, where you trail, and what it takes to close each gap. For PE-backed companies this feeds directly into valuation and exit-readiness discussions." }
-      ],
-      finalTitle: "Six weeks to a roadmap your board can underwrite",
-      finalBody: "Six weeks. A board-ready deliverable. A 150 to 200 item prioritized roadmap. The same diagnostic methodology we have run for portfolio companies that could not explain why a large, healthy-looking business was not converting spend into growth. If that sounds like your business, this is where it starts."
+      finalTitle: "Commercial due diligence your board can act on",
+      finalBody: "A board-ready assessment of what's working, what's leaking, and what to fix first — written in the language of your investment thesis, not marketing metrics.",
+      getsTitle: "What You Get",
+      gets: [
+        { t: "Full-funnel commercial audit", b: "Paid, SEO, email, CRM, and analytics mapped end to end — every channel and handoff traced to closed revenue.", img: "svc-get/diag-01.png" },
+        { t: "Quantified revenue gaps", b: "Each finding carries a dollar impact. You see what is leaking, what it costs, and what to fix first.", img: "svc-get/diag-02.png" },
+        { t: "30-60-90 day roadmap", b: "A prioritized execution plan your operators can run immediately — board-ready and hold-period aware.", img: "svc-get/diag-03.png" },
+        { t: "Leadership presentation", b: "A deck written for PE operating partners and portfolio leadership — investment language, not marketing jargon.", img: "svc-get/diag-04.png" },
+        { t: "Diligence-ready deliverable", b: "Usable as pre-acquisition commercial DD, post-close baseline, or platform carve-out assessment.", img: "svc-get/diag-05.png" }
+      ]
     },
 
     "fractional-cmo": {
@@ -78,44 +83,52 @@
       accent: "#4F8CFF",
       grain: ["#123C7A", "#0B3358", "#081226"],
       title: "Fractional CMO",
-      lead: "Senior marketing leadership in seat from day one, reporting at board level on pipeline contribution, CAC trajectory, and EBITDA impact. When a private equity firm builds a business by combining several smaller ones, the result usually has revenue and no digital infrastructure to scale it. That is the gap a Fractional CMO fills. You get a senior operator running the marketing function, backed by Growth OS handling the execution layer, without the cost, the timeline, or the wrong-hire risk of a full-time CMO search. Thirty-day exit clause. No severance exposure.",
-      cta: "Book the Strategic Growth Diagnostic",
+      heroHeadline: "Growth Unlocked: Your Fractional CMO from Day One",
+      lead: "Empower your business with expert marketing leadership — without the full-time cost or the 6-month search.",
+      cta: "Talk to Us",
       stats: [
         { k: "Day 1", v: "senior leadership in seat" },
         { k: "90-day", v: "milestones for the PE clock" },
+        { k: "Team", v: "Senior operators only" },
         { k: "30-day", v: "exit clause, no severance" }
       ],
-      whyTitle: "Why Portfolio Companies Choose This Model",
-      why: [
-        { t: "Faster than a hire, more useful than a consultant", b: "A full-time CMO takes six to twelve months to recruit and onboard, carries real wrong-hire risk, and draws full salary from day one regardless of output. A consultant hands you a deck and leaves. Our Fractional CMO embeds in the business, builds the infrastructure, runs the engine, and reports to the board at the cadence your sponsor expects." },
-        { t: "The team that ran your diagnostic runs the retainer", b: "Every engagement starts with the Strategic Growth Diagnostic, and the same senior operators who ran it execute the roadmap. No handoff to junior account managers. No relearning your business. Everything the diagnostic uncovered carries straight into the work." },
-        { t: "Growth OS underneath", b: "Our Fractional CMO does not work alone. They supervise Growth OS: specialized agents handling paid media analysis, content production, email lifecycle, attribution reporting, and lead qualification, the work that used to eat 30 to 40 hours of analyst time a week. The senior layer makes the calls. The agent layer does the volume. Your business gets both." },
-        { t: "Board reporting on operator metrics", b: "We do not report on impressions or reach. We report on pipeline contribution, CAC trajectory, LTV-to-CAC ratio, payback period, contribution margin, and EBITDA impact, on the cadence and to the standard your sponsor expects. The numbers that drive business decisions, not the ones that fill a dashboard." },
-        { t: "Vendor and agency oversight", b: "Most portfolio companies run several agencies with no strategic layer connecting their work to revenue. Our Fractional CMO manages those vendors, holds them to business outcomes, and either rationalizes the spend or replaces the agencies. You stop paying for execution that is not tied to results. We handle this directly so you do not have to manage the transition yourself." },
-        { t: "Built for the PE timeline", b: "Designed for compressed hold periods, with measurable milestones at 90-day intervals. We do not run multi-quarter discovery before producing anything. The roadmap already exists. The work starts in week one." },
-        { t: "Thirty-day exit clause", b: "If we are not delivering, you exit in 30 days with no severance and no lock-in. A full-time hire carries months of severance risk plus the cost of finding a replacement. We carry the risk that our work produces outcomes, on the timeline you need it." }
+      story: "PE-backed companies rarely have time for a six-month CMO search — or the wrong-hire risk that comes with it. We embed a senior growth leader in weeks: a working operator who owns strategy, manages your team and agencies, and reports at board level, with Growth OS amplifying every function they run.",
+      pillarsTitle: "The most impactful growth strategy of the last ten years.",
+      pillars: [
+        { label: "01 / The scope", t: "Strategy tied to the hold period", b: "Marketing strategy locked to your investment thesis, EBITDA targets, and exit criteria — not a generic playbook dropped on day one.", anim: "target" },
+        { label: "02 / The seat", t: "Operator, not advisor", b: "A senior AGA practitioner embeds as acting CMO. They own the team, the agencies, and the board reporting layer from week one.", anim: "speed" },
+        { label: "03 / The leverage", t: "Growth OS underneath", b: "AI agents handle research, reporting, content, and competitive intel — so your Fractional CMO runs at multiples of a standalone hire.", anim: "agents" },
+        { label: "04 / The fit", t: "Built for PE timelines", b: "Post-close coverage, mid-search bridge, or consistent leadership across multiple portfolio companies — without a six-month search.", anim: "shield" }
       ],
-      whyAnim: ["speed", "check", "agents", "dash", "net", "road", "shield"],
-      howTitle: "How the Engagement Runs",
-      howIntro: "",
-      steps: [
-        { t: "Diagnostic first, always", b: "Every Fractional CMO engagement begins with the Strategic Growth Diagnostic. Six weeks, board-ready, 150 to 200 findings. The diagnostic tells us whether your business needs a Fractional CMO at all, and if so, what the first 90 days should be. We do not take a retainer without it. It is how we know what we are signing up for, and how you know we are working in your interest." },
-        { t: "Engagement scoping", b: "After the diagnostic we scope the retainer to the findings. The default is a full Fractional CMO who runs the marketing function. Two lighter options exist for businesses that need less: strategic advisory, where we guide and your team executes, and strategy plus execution, where we own strategy and oversight while your team handles channel work. Most portfolio companies land on the full model." },
-        { t: "First 30 days, stabilize and quick wins", b: "We execute the immediate wins the diagnostic surfaced. Pricing and segmentation adjustments, channel corrections, CRM fixes, attribution repairs. The no-regret moves that produce visible results fast and build trust with the board." },
-        { t: "Days 30 to 90, infrastructure build", b: "We rebuild whatever the diagnostic flagged as broken. CRM architecture, attribution chains, lead routing, marketing automation, server-side tracking, and a board reporting cadence. The agents we deploy depend on the findings. Senior team supervises every layer." },
-        { t: "Months 3 to 12, operate and optimize", b: "The engine runs. Monthly cross-channel reporting on a fixed cadence. A daily intelligence brief to your team on their own data. Senior team handles strategy, board presentations, vendor management, and the judgment calls agents cannot make. Marketing operates as a revenue lever, not a cost center." },
-        { t: "Quarterly board reviews", b: "Every quarter we present at board level on pipeline contribution, CAC trajectory, LTV-to-CAC, payback period, and EBITDA impact. Investor-grade reporting tied to the value creation plan. Your sponsor sees the marketing section of the plan being delivered." }
+      sections: [
+        {
+          type: "prose",
+          title: "What this is",
+          paragraphs: [
+            "A Fractional CMO from AGA is a working operator, not an advisor. They own your marketing strategy, manage your team and agencies, build the reporting layer your board expects, and drive toward the revenue targets in your model."
+          ]
+        },
+        {
+          type: "list",
+          title: "Who this is for",
+          items: [
+            { b: "Portfolio companies that need a marketing leader post-close before a full-time hire" },
+            { b: "Companies mid-search that can't afford to wait" },
+            { b: "Operators who want a senior pair of hands while they evaluate the permanent hire" },
+            { b: "PE firms that want consistent marketing leadership quality across multiple portfolio companies" }
+          ]
+        }
       ],
-      whatTitle: "What You Get",
-      what: [
-        { t: "Senior strategic leadership", b: "A CMO-level operator in seat, in board meetings, challenging agencies, managing vendors, and directing your team. The person who built your diagnostic runs the retainer." },
-        { t: "Growth OS deployed in your business", b: "The agents the diagnostic identified, installed and running against your data. Configured for your business, not a generic template." },
-        { t: "Board-ready monthly reporting", b: "Pipeline contribution, CAC by channel, LTV-to-CAC, contribution margin, and revenue attribution. Investor-grade, on the cadence your sponsor expects." },
-        { t: "Vendor and agency oversight", b: "We manage your existing agencies, hold them to outcomes, and rationalize or replace the spend. You stop paying for execution disconnected from results." },
-        { t: "Quarterly strategy refresh", b: "Every quarter the roadmap is refreshed against actual performance. What works scales. What does not gets cut. The strategy stays tied to the value creation plan." }
-      ],
-      finalTitle: "Senior marketing leadership, in seat from day one",
-      finalBody: "Senior marketing leadership in seat from day one. Growth OS running underneath. Board-ready reporting on the metrics your sponsor tracks. The diagnostic comes first. The Fractional CMO retainer is what the findings make the case for."
+      finalTitle: "Full-time CMO capability at fractional cost",
+      finalBody: "A leadership layer with an AI operating system underneath — institutional growth frameworks baked in, aligned to your hold timeline and EBITDA targets.",
+      getsTitle: "What You Get",
+      gets: [
+        { t: "Senior strategic leadership", b: "A CMO-level operator in seat, in board meetings, challenging agencies, managing vendors, and directing your team. The person who built your diagnostic runs the retainer.", img: "svc-get/cmo-01.png" },
+        { t: "Growth OS deployed in your business", b: "The agents the diagnostic identified, installed and running against your data. Configured for your business, not a generic template.", img: "svc-get/cmo-02.png" },
+        { t: "Board-ready monthly reporting", b: "Pipeline contribution, CAC by channel, LTV-to-CAC, contribution margin, and revenue attribution. Investor-grade, on the cadence your sponsor expects.", img: "svc-get/cmo-03.png" },
+        { t: "Vendor and agency oversight", b: "We manage your existing agencies, hold them to outcomes, and rationalize or replace the spend. You stop paying for execution disconnected from results.", img: "svc-get/cmo-04.png" },
+        { t: "Quarterly strategy refresh", b: "Every quarter the roadmap is refreshed against actual performance. What works scales. What does not gets cut. The strategy stays tied to the value creation plan.", img: "svc-get/cmo-05.png" }
+      ]
     },
 
     "paid-media-demand-generation": {
@@ -124,45 +137,43 @@
       accent: "#F7B733",
       grain: ["#5D3F12", "#4A2414", "#1D184B"],
       title: "Paid Media & Demand Generation",
-      lead: "Paid media that reports to revenue, not impressions, and outbound that lands because the timing is right. The platforms have absorbed the campaign-management layer most agencies sold as their core service. Google AI Max, Meta Advantage+, and Amazon's own AI surfaces now run the mechanics. The edge that remains is the strategic layer: budget allocation across channels, creative and signal quality, attribution you can trust, and connecting every dollar to a closed customer. Our paid-media-buyer agent runs the platform work. Our senior team makes the calls the automation cannot. Our outreach agents watch for the moment a prospect actually needs you.",
-      cta: "Book the Strategic Growth Diagnostic",
+      heroHeadline: "Every paid dollar tracked to pipeline.",
+      lead: "Campaigns built around your CAC targets and unit economics — not vanity metrics.",
+      cta: "Get a Paid Media Assessment",
       stats: [
-        { k: "CAC · LTV", v: "not ROAS vanity" },
-        { k: "5+", v: "channels, budget follows results" },
-        { k: "Daily", v: "signal-based outbound" }
+        { k: "CAC · LTV", v: "tied to your operating model" },
+        { k: "P&L", v: "weekly reporting your CFO can read" },
+        { k: "AI watch", v: "real-time anomaly detection" },
+        { k: "Full-funnel", v: "first click to closed deal" }
       ],
-      whyTitle: "Why Our Paid Media and Demand Gen Is Different",
-      why: [
-        { t: "Attribution first, spend second", b: "Before we manage a dollar, we audit your tracking: tag manager, enhanced conversions, server-side tracking, cross-domain setup, and CRM source attribution. Ad blockers and browser protections cause meaningful conversion underreporting, so server-side tracking is not optional. If the data is unreliable, every decision built on it is suspect. We fix this first." },
-        { t: "Tied to CAC and LTV, not ROAS", b: "Most agencies report ROAS because the platforms make it easy to surface. We report CAC, LTV, payback period, and contribution margin, because those decide whether the marketing is actually profitable. ROAS without attribution is a vanity number." },
-        { t: "We work with the platform automation, not against it", b: "AI Max, Advantage+, and Amazon's automated surfaces are not going away, and the agencies fighting them are losing. We design campaigns to feed the automation the conversion signals and creative variety it needs to optimize, then intervene at the strategic layer where it makes the wrong call. When targeting collapses to the machine, creative becomes the lever, and senior copywriters own that." },
-        { t: "Channel-agnostic budget allocation", b: "We have no stake in spending your budget on any one platform. The agent tracks performance across Google, Meta, LinkedIn, TikTok, and Amazon. The senior team moves money to what is working. If one channel outperforms another for your business, the budget follows the result, not our preference." },
-        { t: "Account health monitored continuously", b: "Wasted spend hides in quality score distribution, audience saturation, frequency, and branded-search cannibalization. The agent tracks these continuously, surfaces problems, and prioritizes fixes by financial impact rather than by whichever metric is easiest to move." },
-        { t: "Signal-based outreach, not spray and pray", b: "Generic cold outreach gets almost no reply. Outreach timed to a real event in the prospect's business does far better. Our deal-flow-monitor agent watches PE acquisitions, funding rounds, executive changes, and named-account triggers every morning and posts the angle. For a PE operating partner, that means we can reach out the moment a platform is being built or a new tuck-in closes, with a message that shows we understand their thesis, not a generic pitch of someone else's problem." },
-        { t: "Every external call briefed before it starts", b: "Our pre-call-research agent reads the calendar, spots external meetings in the next hour, and posts a research brief on the company and the person. You walk into every conversation already knowing the account, the platform strategy, and the angle." }
+      story: "Most paid media relationships produce dashboards full of impressions. We produce revenue. Every campaign is built around your CAC target, conversion economics, and the unit economics in your operating model — tracked from first click to closed deal, with AI monitoring so nothing breaks quietly.",
+      pillarsTitle: "Every paid dollar accountable to the operating model.",
+      pillars: [
+        { label: "01 / The channels", t: "Full-funnel paid coverage", b: "Google Search, Performance Max, YouTube, Meta, LinkedIn, and programmatic — structured around CAC targets, not platform defaults.", anim: "attn" },
+        { label: "02 / The model", t: "Built on unit economics", b: "CAC by channel. LTV by cohort. Contribution margin by campaign. Reported in language your CFO can read at the QBR.", anim: "scale" },
+        { label: "03 / The watch", t: "AI anomaly detection", b: "Growth OS monitors accounts in real time — catching budget waste, creative fatigue, and conversion drops before they compound.", anim: "pulse" },
+        { label: "04 / The close", t: "Attribution to revenue", b: "Full path from first click to closed deal. Weekly P&L reporting: pipeline, cost per acquisition, and revenue per channel.", anim: "budget" }
       ],
-      whyAnim: ["attn", "scale", "agents", "budget", "pulse", "radar", "cal"],
-      howTitle: "How the Program Runs",
-      howIntro: "",
-      steps: [
-        { t: "Attribution and tracking audit", b: "We audit the tracking infrastructure before touching a campaign. Tag manager, enhanced conversions, server-side tracking, cross-domain, CRM sync. We fix what is broken and document what needs a rebuild. Everything that follows depends on this foundation." },
-        { t: "Account and channel audit", b: "The paid-media-buyer agent audits every active account across search, social, and marketplace: structure, quality scores, bid strategy, audience saturation, creative, and competitor activity. Output is a prioritized fix list ranked by financial impact." },
-        { t: "Strategic restructure", b: "We rebuild campaign structure on the findings: account architecture, conversion goal hierarchy, audience signals, bid strategy, and budget allocation across channels. The agent executes. Senior media buyers validate every move." },
-        { t: "Creative and signal system", b: "Senior copywriters supply the creative and the variants. The agent rotates them and tests against conversion, not engagement. Hypothesis-driven testing, where only the variable under test changes between versions, so you learn something from every result." },
-        { t: "Signal-based outbound", b: "Senior strategists define the segments and the trigger events worth acting on. The deal-flow-monitor and account-intelligence agents watch for them and enrich every prospect. Sequences match the signal, so a fresh acquisition gets a different opener than a missed quarter. Replies route to a person, never to a bot pretending to be one." },
-        { t: "Daily monitoring, weekly optimization, monthly reporting", b: "The agent monitors account health daily and flags issues to Slack. The senior team optimizes weekly: budget reallocation, audience expansion, creative refresh, outbound tuning. The performance-reporter agent generates monthly cross-channel reports tied to pipeline contribution and CAC." }
+      sections: [
+        {
+          type: "prose",
+          title: "What makes it different",
+          paragraphs: [
+            "We build campaigns around your financial model, not platform defaults. CAC by channel. LTV by cohort. Contribution margin by campaign. All tracked, all reported in terms your CFO can read.",
+            "Our Growth OS agents run real-time monitoring and anomaly detection across your accounts — so nothing breaks quietly."
+          ]
+        }
       ],
-      whatTitle: "What You Get",
-      what: [
-        { t: "Tracking infrastructure that works", b: "Attribution audit and rebuild across tag manager, enhanced conversions, server-side tracking, cross-domain, and CRM source attribution." },
-        { t: "Account audit and restructure", b: "Complete audit across search, paid social, and marketplace, with a strategic restructure executed by the agent under senior supervision." },
-        { t: "Creative testing system", b: "Hypothesis-driven testing run continuously. Senior copywriters supply variants. Winners scale, losers archive. No random shuffling." },
-        { t: "Cross-channel budget allocation", b: "Channel-agnostic management. Money moves to what works and away from what does not. The agent tracks, the senior team decides." },
-        { t: "Signal-based outbound engine", b: "Daily deal-flow monitoring, enriched target lists, signal-matched sequences, and pre-call briefs on every external meeting." },
-        { t: "Monthly reporting tied to pipeline", b: "Pipeline contribution by channel, CAC trajectory, LTV-to-CAC, and contribution margin. The metrics your board cares about." }
-      ],
-      finalTitle: "Paid media that reports to revenue",
-      finalBody: "Paid media that reports to revenue and outbound that lands because the timing and the angle are right. Run by agents at the platform layer, supervised by senior operators at the strategy layer. The diagnostic tells you whether your current paid media is actually working before we touch a campaign."
+      finalTitle: "Every dollar accountable to the operating model",
+      finalBody: "Campaigns built around your financial model, not platform defaults — with an AI layer that means nothing breaks quietly.",
+      getsTitle: "What You Get",
+      gets: [
+        { t: "Campaigns built to CAC targets", b: "Search, social, and programmatic structured around your unit economics — not platform vanity defaults.", img: "svc-get/paid-01.png" },
+        { t: "P&L weekly reporting", b: "Revenue, pipeline, and cost per acquisition in language your CFO can read — every week.", img: "svc-get/paid-02.png" },
+        { t: "AI performance monitoring", b: "Growth OS watches accounts in real time for budget waste, creative fatigue, and conversion drops.", img: "svc-get/paid-03.png" },
+        { t: "Full-funnel ownership", b: "From creative to landing page to CRM handoff — senior practitioners managing the whole path.", img: "svc-get/paid-04.png" },
+        { t: "Attribution to closed revenue", b: "First click to closed deal. Every paid dollar accountable to the operating model.", img: "svc-get/paid-05.png" }
+      ]
     },
 
     "seo-content": {
@@ -171,46 +182,42 @@
       accent: "#34E0A1",
       grain: ["#0D5842", "#0A3F4D", "#081226"],
       title: "SEO & Content",
-      lead: "Content built to rank on Google, get cited inside ChatGPT and Claude, and move pipeline. Buyers no longer type a query into Google and click ten blue links. They ask an AI assistant, get a synthesized answer, and decide on what the model says. If your brand is not in that answer, you do not exist for that buyer. We work both engines at once: traditional SEO for the queries that still go through Google, and generative engine optimization for the ones moving to AI. Our agents handle the volume of research, production, and tracking. Our senior editors and strategists carry the substance.",
-      cta: "Book the Strategic Growth Diagnostic",
+      heroHeadline: "Organic traffic that compounds — and converts.",
+      lead: "Durable demand for a multi-year hold: SEO, topical authority, and AI answer engines.",
+      cta: "Get an SEO Assessment",
       stats: [
-        { k: "SEO + GEO", v: "both engines at once" },
-        { k: "8–12", v: "assets from every pillar" },
-        { k: "Quarterly", v: "AI citation tracking" }
+        { k: "SEO + GEO", v: "Google and AI answer engines" },
+        { k: "Compounding", v: "less dependence on paid spend" },
+        { k: "Revenue", v: "pipeline attributed to organic" },
+        { k: "Hold ROI", v: "highest-ROI bet in year one" }
       ],
-      whyTitle: "Why Our SEO and Content Is Different",
-      why: [
-        { t: "SEO and GEO together, because search split in two", b: "The queries that still go through Google get real technical and on-page SEO. The queries moving to ChatGPT, Claude, Perplexity, and Gemini get generative engine optimization. Getting cited by a model takes different work than ranking a page: long-form authoritative content, structured data, original research, and clear entity definitions the model can quote. The content that wins in one engine often wins in the other, so we build for both from the start." },
-        { t: "Content tied to your ICP, not your category", b: "Your buyer is an operator. A PE operating partner thinks in hold periods, platforms, tuck-ins, and the digital infrastructure gap that appears when several businesses merge. A portfolio CEO thinks in CAC, LTV, and payback period. We write at that level, in the language they actually use, not at the level of a generic agency blog chasing top-of-funnel awareness. Content that speaks to the wrong problem tells an operator you do not understand their business, and they move on." },
-        { t: "Thought leadership built on a model we run ourselves", b: "Our own leadership has run a publishing program for years across LinkedIn, a webinar series, and a podcast. We did not learn this from a textbook. We learned it by running it and watching what produced pipeline versus what produced empty engagement. We apply the same model to your executives: the agents handle research and drafts, senior editors and the executive's actual voice carry the rest." },
-        { t: "Full technical layer, not just on-page", b: "Most SEO stops at keywords. We audit tag manager, conversion tracking, schema, structured data, internal linking, crawl budget, and Core Web Vitals. The technical layer is where SEO usually fails, and it is the part most agencies skip because the client cannot see it." },
-        { t: "Link-building through real relationships", b: "The link industry has been corrupted by guest-post farms and paid networks that destroy authority faster than they build it. We do none of that. We identify publications, podcasts, and operator-audience platforms where a mention actually moves authority, then earn the placement. Ten high-authority links move rankings. A hundred low-authority links do not." },
-        { t: "Local where the business has a service area", b: "For businesses with physical service areas, local is its own discipline: Google Business Profile, the local pack, review velocity, and citation consistency. We run it as a continuous program and report on calls and form submissions, not just rankings." },
-        { t: "Tied to pipeline, not traffic", b: "We report on what content actually moves: which pages drive demo bookings, which pieces get cited by sales in live deals, which assets convert. Ranking third for a keyword that drives no qualified traffic is not a win. Traffic is the means. Pipeline is the end." }
+      story: "Paid media stops the moment you stop paying. SEO builds durable demand. For PE-backed companies with a multi-year hold, organic search is one of the highest-ROI investments you can make in the first twelve months — compounding traffic, authority, and pipeline that reduce paid dependence over time.",
+      pillarsTitle: "Organic demand that compounds across the hold.",
+      pillars: [
+        { label: "01 / The foundation", t: "Technical SEO that holds", b: "Crawlability, Core Web Vitals, and site architecture fixed first — so content has a surface that can actually rank and convert.", anim: "stack" },
+        { label: "02 / The authority", t: "Topical content mapped to buyers", b: "Content built around how your buyers search — not category fluff. Depth that earns rankings and shortens sales cycles.", anim: "cast" },
+        { label: "03 / The engines", t: "Google and AI answer engines", b: "Optimized for traditional search and GEO — Perplexity, ChatGPT, Gemini — so you show up where buyers now decide.", anim: "engines" },
+        { label: "04 / The proof", t: "Pipeline attributed to organic", b: "Rankings, traffic, conversion rate, AI citation rate, and revenue from organic — reported against the operating model.", anim: "target" }
       ],
-      whyAnim: ["engines", "target", "cast", "stack", "net", "pin", "funnel"],
-      howTitle: "How the SEO and Content Program Runs",
-      howIntro: "",
-      steps: [
-        { t: "Technical and citation audit", b: "The seo-specialist agent runs a full technical audit: speed, Core Web Vitals, schema, crawl, indexation, internal linking. The geo-specialist agent queries the major AI assistants against your categories and competitors to see how they describe your space, who they cite, and where your brand sits. Two baselines, one picture." },
-        { t: "Competitive and keyword gap analysis", b: "We benchmark your organic visibility against your top competitors. Keyword gaps where they rank and you do not. Content types they publish that you are missing. The citation sources the AI assistants pull from in your space. This becomes the blueprint." },
-        { t: "Content roadmap", b: "The content-strategist agent turns the analysis into a prioritized roadmap: topics, depth, data to publish, and entity definitions to anchor. Prioritized by the queries where you can realistically rank or become a cited source in the next 90 days. Checked against your existing calendar so there is zero overlap." },
-        { t: "Production", b: "The content-writer agent produces drafts at the depth the brief demands. Senior editors refine voice, sharpen the argument, and add the perspective an agent cannot. Subject matter experts review for accuracy. Structured data and schema get added. Every piece is built to be both rankable on Google and quotable by a model." },
-        { t: "Distribution and repurposing", b: "Each pillar piece publishes on your site and generates derivative assets: LinkedIn posts and carousels, email sequences, and sales enablement. One pillar becomes eight to twelve assets without rebriefing each one. For executive thought leadership, the pillar runs under the executive's name in their voice." },
-        { t: "Link-building and authority", b: "The outreach and account-intelligence agents identify publications and podcasts worth pursuing in your category. Senior outreach handles the relationships. Toxic links in your existing profile get flagged for disavow. We report on the rankings that improve, not the link count." },
-        { t: "Tracking and iteration", b: "The geo-specialist agent re-runs the baseline queries quarterly to track citation share over time. The performance-reporter agent ties organic performance to pipeline. The strategy adjusts based on what is getting cited and what is converting." }
+      sections: [
+        {
+          type: "prose",
+          title: "What it produces",
+          paragraphs: [
+            "Compounding organic traffic that reduces dependence on paid spend over time. Industry authority that shortens sales cycles. Content assets that work across every other channel — paid, email, sales."
+          ]
+        }
       ],
-      whatTitle: "What You Get",
-      what: [
-        { t: "Technical audit and fix plan", b: "Full technical SEO audit with a prioritized fix list, plus an AI citation baseline showing how the major assistants describe your category today." },
-        { t: "Content roadmap for two engines", b: "A prioritized calendar tied to both Google rankings and AI citation potential, built for your specific ICP, with no overlap with your existing content." },
-        { t: "Pillar content and derivative pipeline", b: "Long-form authoritative content produced by the agents, refined by senior editors, with each pillar generating eight to twelve derivative assets." },
-        { t: "Executive thought leadership", b: "Voice-calibrated publishing under your executives' names, built on the model we run for ourselves, tied to inbound demos and named-account warming." },
-        { t: "Link-building and local", b: "Signal-based outreach to real publications, and, where relevant, a local search program tied to calls and forms." },
-        { t: "Reporting tied to pipeline", b: "Organic performance and citation share reported against pipeline contribution, CAC, and conversion, not just rankings." }
-      ],
-      finalTitle: "Built to rank on Google and get cited by AI",
-      finalBody: "Content built to rank on Google, get cited inside AI assistants, and move pipeline. Produced at the volume the agents enable, refined to the quality the senior team requires, tied to the metrics your board cares about. The diagnostic shows you where the gaps are before we write a word."
+      finalTitle: "A compounding organic asset for your hold period",
+      finalBody: "Organic infrastructure that reduces paid dependence over time and increases enterprise value at exit through demonstrated demand generation.",
+      getsTitle: "What You Get",
+      gets: [
+        { t: "Technical SEO foundation", b: "Crawlability, Core Web Vitals, and architecture fixed so content has a surface that can rank and convert.", img: "svc-get/seo-01.png" },
+        { t: "Topical authority content", b: "Buyer-mapped content that compounds rankings, shortens sales cycles, and feeds every other channel.", img: "svc-get/seo-02.png" },
+        { t: "GEO for AI answer engines", b: "Built for Google and Perplexity, ChatGPT, Gemini — so you show up where buyers now decide.", img: "svc-get/seo-03.png" },
+        { t: "Conversion architecture", b: "Internal linking and page structure designed to turn organic traffic into pipeline, not just sessions.", img: "svc-get/seo-04.png" },
+        { t: "Organic revenue reporting", b: "Rankings, traffic, conversion, AI citation rate, and pipeline attributed to organic search.", img: "svc-get/seo-05.png" }
+      ]
     },
 
     "website-conversion-optimization": {
@@ -219,44 +226,42 @@
       accent: "#C08BFF",
       grain: ["#4B2F72", "#243B73", "#4D1E53"],
       title: "Website & Conversion Optimization",
-      lead: "A website is conversion infrastructure, not a brochure. For a business built through founder relationships, or several of them merged together, the site is often the first place the missing digital infrastructure shows. We build for what converts in production, not what looks good in a deck: fast pages, a clear conversion path, SEO and AI-search readiness from day one, the analytics to measure whether any of it works, and the brand and messaging to carry it. Our agents run the production layer. Senior designers, developers, and CRO strategists make the calls that determine whether the page actually performs.",
-      cta: "Book the Strategic Growth Diagnostic",
+      heroHeadline: "Traffic without conversion is just cost.",
+      lead: "Fix conversion architecture fast — without a full rebuild.",
+      cta: "Get a CRO Audit",
       stats: [
-        { k: "Single-goal", v: "conversion-first pages" },
-        { k: "Day 1", v: "analytics + AI-search ready" },
-        { k: "Full-funnel", v: "hypothesis-driven CRO" }
+        { k: "30 days", v: "quick wins on forms and CTAs" },
+        { k: "CRO audit", v: "pages, forms, messaging hierarchy" },
+        { k: "A/B tests", v: "built on real traffic data" },
+        { k: "Revenue", v: "influenced by CRO changes" }
       ],
-      whyTitle: "Why Our Web and CRO Work Is Different",
-      why: [
-        { t: "Attribution first, testing second", b: "Most CRO programs fail because the attribution underneath is broken. A test 'wins' on platform-reported conversions but does not move pipeline. We audit tracking before we test anything. If the data is unreliable, every result is suspect." },
-        { t: "Conversion-first information architecture", b: "Every page is designed around a single conversion goal. The architecture follows the buyer's actual decision path, not the agency's preferred page categories. Multi-goal pages dilute conversion, so we do not build them. Senior CRO strategists own the structure." },
-        { t: "Hypothesis-driven testing, not random", b: "Every test starts with a hypothesis grounded in real user behavior: where users drop off, which friction points cost the most pipeline, which trust signals are missing. We test the highest-impact hypotheses first. No random button-color tests, and no multi-month windows that produce results obsolete by the time they ship." },
-        { t: "Built for two search engines from day one", b: "Pages are structured to rank on Google and earn citations from AI assistants. The seo-specialist and geo-specialist agents review every page before launch. Structured data, schema, and entity clarity are built in from the start, not bolted on later." },
-        { t: "Analytics infrastructure at launch", b: "Tag manager, enhanced conversions, server-side tracking, cross-domain, and CRM source attribution are implemented and tested before launch, not three months later when the reporting falls apart. This is exactly the infrastructure that is missing when a portfolio company has grown without it." },
-        { t: "Brand tied to pipeline, not awards", b: "Brand work that wins design awards but does not move pipeline is work your board will not pay for. We lead with positioning, not visual identity: how the operator audience recognizes you, messaging that survives translation into ads and sales decks, and assets your team can actually use without us in the room. For a PE-backed buy-and-build, brand sequencing matters, because premature rebranding destroys equity and late rebranding compounds confusion. We have run that playbook." },
-        { t: "Full funnel, not just the landing page", b: "Landing pages get the attention because they are visible, but the biggest wins are often deeper: form flow, checkout abandonment, sales handoff friction, and follow-up speed. We test where the revenue actually lives, and we track every result through to pipeline, not platform conversions." }
+      story: "For most PE-backed companies, the website was built to look credible — not to convert. Traffic without conversion is just cost. We fix conversion architecture without a full rebuild: quick wins in the first thirty days, then tests that compound on top of real traffic and revenue impact.",
+      pillarsTitle: "Fix conversion architecture — without a rebuild.",
+      pillars: [
+        { label: "01 / The audit", t: "CRO across pages and forms", b: "Pages, forms, CTAs, and messaging hierarchy reviewed against buyer intent — not aesthetic preference.", anim: "page" },
+        { label: "02 / The tests", t: "A/B on real traffic", b: "Hypothesis-driven experiments grounded in behavior data. Highest-impact friction fixed first; longer tests compound on top.", anim: "ab" },
+        { label: "03 / The pages", t: "Landing builds for paid", b: "Conversion paths for paid campaigns that match the offer, the audience, and the unit economics behind the spend.", anim: "attn" },
+        { label: "04 / The signal", t: "Revenue-tied reporting", b: "Conversion by page and source, revenue influenced by CRO, and test results with statistical significance.", anim: "data" }
       ],
-      whyAnim: ["attn", "page", "ab", "engines", "data", "target", "funnel"],
-      howTitle: "How the Web and CRO Engagement Works",
-      howIntro: "",
-      steps: [
-        { t: "Discovery and audit", b: "We audit your current site if one exists: performance, conversion paths, analytics integrity, SEO health, and brand consistency. Discovery covers the business model, conversion goals, ICP, and technical requirements for where the site needs to go." },
-        { t: "Positioning and information architecture", b: "Senior strategists lock positioning and messaging before design starts. Senior CRO strategists design the architecture around the buyer's decision path. Every page maps to a goal, and every conversion path is mapped before anyone opens a design tool." },
-        { t: "Design, copy, and build", b: "Senior designers create the visual system that expresses the positioning. The content-writer and landing-page-specialist agents produce page-level work under senior copy and design direction. Senior developers handle the build, with page speed and Core Web Vitals as launch criteria, not afterthoughts." },
-        { t: "Analytics and tracking implementation", b: "Tag manager, enhanced conversions, server-side tracking, cross-domain, and CRM source attribution implemented and tested before launch. The reporting is only as reliable as this foundation." },
-        { t: "QA and launch", b: "Full QA against speed, Core Web Vitals, conversion tracking, mobile, and accessibility. The CMS and template structure are built for iteration, so the testing program can run from day one rather than waiting for a redesign." },
-        { t: "Continuous conversion optimization", b: "We map the funnel from first touch to closed revenue and quantify each drop-off in revenue terms. Senior strategists turn the findings into testable hypotheses. The landing-page-specialist agent builds variants and runs the cycles. Winners scale to related pages. Losers archive with documented learnings. The senior team makes the scale decision on pipeline impact, not platform conversion lift." }
+      sections: [
+        {
+          type: "prose",
+          title: "What to expect",
+          paragraphs: [
+            "In most cases we find quick wins within the first 30 days — form fields that kill conversions, CTAs in the wrong place, messaging that speaks to the wrong buyer. We fix those first. Longer-term tests compound on top."
+          ]
+        }
       ],
-      whatTitle: "What You Get",
-      what: [
-        { t: "Positioning and messaging framework", b: "Audience definition, differentiation, and voice locked before design, so the visual work expresses substance rather than replacing it." },
-        { t: "Conversion-first website and pages", b: "Custom build, no template shortcuts, structured around the buyer's decision path and ready to rank on Google and in AI search from day one." },
-        { t: "Analytics and tracking infrastructure", b: "The full tracking stack implemented before launch, the same infrastructure that is usually missing when a business has scaled without it." },
-        { t: "Hypothesis-driven CRO program", b: "Full-funnel testing grounded in user behavior, run at the agent layer, interpreted by senior strategists against pipeline." },
-        { t: "Usable brand system", b: "Positioning, visual identity, and guidelines your in-house team can actually maintain, sequenced correctly for consolidation contexts." }
-      ],
-      finalTitle: "A website built as conversion infrastructure",
-      finalBody: "Websites built as conversion infrastructure, brand tied to pipeline, and CRO that moves the business rather than the platform conversion rate. Senior direction above the agent layer, built for iteration from launch. The diagnostic identifies where the biggest conversion wins are hiding before we build or test a thing."
+      finalTitle: "Fix the conversion problem — fast",
+      finalBody: "We start with the data, identify the highest-impact changes, and move fast. PE-backed companies don't have 6 months for a rebrand.",
+      getsTitle: "What You Get",
+      gets: [
+        { t: "Full CRO audit", b: "Pages, forms, CTAs, and messaging hierarchy reviewed against buyer intent — not aesthetic preference.", img: "svc-get/cro-01.png" },
+        { t: "Quick wins in 30 days", b: "Form friction, misplaced CTAs, and wrong-buyer messaging fixed first — visible impact fast.", img: "svc-get/cro-02.png" },
+        { t: "A/B testing program", b: "Hypothesis-driven tests on real traffic. Highest-impact changes first; longer tests compound on top.", img: "svc-get/cro-03.png" },
+        { t: "Paid landing pages", b: "Conversion paths built for paid campaigns that match the offer, audience, and unit economics.", img: "svc-get/cro-04.png" },
+        { t: "Revenue-tied CRO reporting", b: "Conversion by page and source, revenue influenced by changes, and statistically significant test results.", img: "svc-get/cro-05.png" }
+      ]
     },
 
     "marketing-analytics-reporting": {
@@ -265,44 +270,42 @@
       accent: "#38BDF8",
       grain: ["#0E4F6A", "#123C7A", "#0A2D47"],
       title: "Marketing Analytics & Reporting",
-      lead: "One source of truth for marketing performance, tied to pipeline, board-ready every month. When a business is big but nobody inside can explain how the marketing actually works, the problem is almost always the numbers. GA4 says one thing, the CRM says another, the ad platforms say a third, and no one trusts any of it. We reconcile the data into one set of numbers your board can stand behind. Our performance-reporter agent pulls live from your connected systems in parallel and generates the operational layer. Our senior team handles the strategic synthesis the agent cannot: what the numbers mean and what to do next.",
-      cta: "Book the Strategic Growth Diagnostic",
+      heroHeadline: "If you can't measure it, you can't manage it.",
+      lead: "Board-ready reporting that ties marketing spend to revenue — so you always know what's working.",
+      cta: "Talk to Us About Reporting",
       stats: [
-        { k: "1", v: "reconciled source of truth" },
-        { k: "Monthly", v: "board-ready, days after close" },
-        { k: "Daily", v: "intelligence brief" }
+        { k: "One truth", v: "ads, CRM, and revenue connected" },
+        { k: "Board-ready", v: "KPIs for your operating model" },
+        { k: "Attribution", v: "first, last, and multi-touch" },
+        { k: "Growth OS", v: "real-time anomaly monitoring" }
       ],
-      whyTitle: "Why Our Reporting Is Different",
-      why: [
-        { t: "One source of truth", b: "GA4, your CRM, and your ad platforms each report a different number. We reconcile them, identify the discrepancies, and produce one set of figures your board can trust. Attribution gaps closed, cross-channel double-counting eliminated, server-side tracking where data integrity demands it." },
-        { t: "Tied to pipeline and unit economics", b: "We do not report impressions, clicks, or engagement rate. We report CAC, LTV, payback period, LTV-to-CAC, contribution margin, pipeline velocity, and revenue attribution by channel. The metrics that decide whether the marketing is profitable, and the ones your board and your sponsor actually read." },
-        { t: "The reporting layer AI is absorbing, done right", b: "Anything that looks like a recurring dashboard or a weekly PDF is being absorbed by automation. What used to take an analyst 30 to 40 hours a week now runs autonomously. The defensible deliverable is the synthesis layer connecting metrics to decisions, and that is where our senior team sits, above the agent." },
-        { t: "Board-ready every month", b: "Executive summary, channel-level performance, unit economics movement, competitive benchmarking, and forward-looking recommendations, in the investor-grade format your sponsor expects at the quarterly board meeting. Delivered within days of month-end, not weeks." },
-        { t: "Daily intelligence on top of monthly reporting", b: "The briefer agent generates a daily brief to your team: pipeline movement, account activity, anomalies in the data, and the top opportunities. Your team starts each morning with the operational picture. The monthly report handles the strategic one." },
-        { t: "Tracking infrastructure handled", b: "Most reporting fails because the tracking underneath is broken. Before we generate a single report, we audit tag manager, enhanced conversions, server-side tracking, cross-domain, and CRM sync. The reporting is only as good as the data beneath it." },
-        { t: "The platform underneath, explained plainly", b: "Growth OS is our proprietary agent platform: specialized agents wired into the systems your team already uses, with a memory layer that retains every finding, meeting, and account interaction so the agents get smarter about your business every week. We did not add AI to an agency. We built the platform and run the agency on it. The reporting is where you see it working first." }
+      story: "Most portfolio companies have data. Almost none have clean, connected, board-ready reporting. We build the analytics layer that ties marketing spend to revenue — so you always know what's working, why it works, and what your board should see before the next QBR.",
+      pillarsTitle: "One source of truth your board can trust.",
+      pillars: [
+        { label: "01 / The layer", t: "Unified revenue dashboard", b: "Ad platforms, CRM, and revenue data connected into one reporting layer built around your operating model.", anim: "merge" },
+        { label: "02 / The path", t: "Multi-touch attribution", b: "First touch, last touch, and multi-touch models — so credit stops ending at the click and starts reaching the close.", anim: "funnel" },
+        { label: "03 / The board", t: "KPI packs for QBRs", b: "Custom reporting your CFO can act on: CAC, LTV, payback, channel ROAS — delivered on the cadence the board expects.", anim: "dash" },
+        { label: "04 / The OS", t: "Real-time Growth OS watch", b: "AI agents flag anomalies and inform spend decisions. You stop flying blind and run marketing like an operating function.", anim: "radar" }
       ],
-      whyAnim: ["merge", "scale", "agents", "dash", "cal", "attn", "net"],
-      howTitle: "How the Reporting Engagement Runs",
-      howIntro: "",
-      steps: [
-        { t: "Tracking audit", b: "Before we report on anything, we audit your tag manager, conversion tracking, enhanced conversions, server-side tracking, cross-domain setup, and CRM source attribution. We fix what is broken and document what needs a rebuild. Everything that follows depends on this." },
-        { t: "Source system integration", b: "We connect Growth OS to your ad platforms, analytics, CRM, and email platform. The performance-reporter agent reads from every source in parallel rather than one report at a time." },
-        { t: "Reporting framework design", b: "Senior strategists design the framework around your business model: which metrics matter, at what cadence, and which comparisons actually drive decisions. This becomes the monthly template." },
-        { t: "Monthly production", b: "The performance-reporter agent generates the monthly report on a fixed cadence. Senior strategists review it, add the strategic synthesis, sharpen the recommendations, and deliver. The report ships within a few business days of month-end." },
-        { t: "Daily intelligence briefs", b: "The briefer agent posts a daily brief to your team: pipeline movement, account activity, anomalies, and opportunities. The operational picture, every morning, without anyone asking for it." },
-        { t: "Quarterly strategy refresh", b: "Every quarter the framework is reviewed against business needs. New metrics added where the strategy demands them, old ones retired where they no longer drive decisions. The system stays tied to what actually matters for your business." }
+      sections: [
+        {
+          type: "prose",
+          title: "Powered by Growth OS",
+          paragraphs: [
+            "Our AI agents monitor your data in real time. Anomalies get flagged. Spend decisions get informed. You stop flying blind and start running marketing like an operating function."
+          ]
+        }
       ],
-      whatTitle: "What You Get",
-      what: [
-        { t: "Tracking audit and fix plan", b: "A complete audit of your tracking infrastructure with a prioritized fix list. The foundation that determines whether the reporting is reliable." },
-        { t: "Monthly board-ready reports", b: "Cross-channel reports generated by the agent, synthesized by senior strategists, in investor-grade format, delivered within days of month-end." },
-        { t: "Daily intelligence briefs", b: "Daily briefs from the briefer agent: pipeline movement, account activity, anomalies, opportunities. The operational picture every morning." },
-        { t: "One reconciled source of truth", b: "GA4, CRM, and ad platform data reconciled into one set of numbers, with the discrepancies identified and the double-counting removed." },
-        { t: "Quarterly strategy refresh", b: "The reporting framework reviewed quarterly, with metrics added, removed, or refined based on what is actually driving decisions." }
-      ],
-      finalTitle: "One source of truth, board-ready every month",
-      finalBody: "One source of truth for marketing performance, pulled live from your connected systems, synthesized by the senior team, board-ready every month. The reporting that decides whether your sponsor sees marketing as a revenue lever or a cost center. The diagnostic is where you see it in action for the first time."
+      finalTitle: "Board-ready revenue intelligence",
+      finalBody: "Turn scattered platform data into board-ready revenue intelligence — and maintain it so it never goes dark.",
+      getsTitle: "What You Get",
+      gets: [
+        { t: "Unified revenue dashboard", b: "Ad platforms, CRM, and revenue connected into one reporting layer built around your operating model.", img: "svc-get/ana-01.png" },
+        { t: "Multi-touch attribution", b: "First, last, and multi-touch models — so credit reaches the close, not just the click.", img: "svc-get/ana-02.png" },
+        { t: "Board KPI packages", b: "CAC, LTV, payback, and channel ROAS delivered on the cadence your board expects.", img: "svc-get/ana-03.png" },
+        { t: "Automated reporting cadence", b: "Weekly and monthly packages that stop eating analyst time — and never go dark.", img: "svc-get/ana-04.png" },
+        { t: "Growth OS monitoring", b: "AI agents flag anomalies and inform spend decisions so marketing runs like an operating function.", img: "svc-get/ana-05.png" }
+      ]
     }
   };
 
@@ -317,31 +320,70 @@
   ];
   var FILE = function (slug) { return "service-" + slug + ".dc.html"; };
 
+  // Shared blog strip (Figma 23008:3410) — same cards on every service page.
+  var BLOGS = [
+    {
+      t: "Investor's Insight on Building and Scaling Startup Ecosystems",
+      date: "Apr 23, 2026",
+      read: "9 min read",
+      img: "svc-blog/blog-01.png",
+      href: "#"
+    },
+    {
+      t: "The Board Member's Guide to Asking the Right Marketing Questions",
+      date: "Apr 23, 2026",
+      read: "9 min read",
+      img: "svc-blog/blog-02.png",
+      href: "#"
+    },
+    {
+      t: "Agencies Report Activity. Your Board Needs Outcomes. How to Close the Reporting Gap.",
+      date: "May 15, 2026",
+      read: "7 min read",
+      img: "svc-blog/blog-03.png",
+      href: "#"
+    },
+    {
+      t: "Marketing Reports Impressions. Finance Needs Unit Economics. Here Is How to Bridge the Gap.",
+      date: "June 10, 2026",
+      read: "12 min read",
+      img: "svc-blog/blog-04.png",
+      href: "#"
+    },
+    {
+      t: "The Rise of Autonomous AI Agents: A Growth Marketer's Guide to OpenClaw, Agent Zero, and What's Next",
+      date: "July 5, 2026",
+      read: "8 min read",
+      img: "svc-blog/blog-05.png",
+      href: "#"
+    }
+  ];
+
   // Capability deck copy + imagery (matches Home 04 Capabilities cards).
   var CAPABILITIES = {
     "strategic-growth-diagnostic": {
       img: "capability-01.png",
-      blurb: "Where every engagement starts. A paid, system-deep review that produces board-ready findings and a prioritized 90-day action plan. Not a free audit."
+      blurb: "A structured, AI-powered commercial assessment — board-ready findings and a 30-60-90 day roadmap your operators can execute."
     },
     "fractional-cmo": {
       img: "capability-02.png",
-      blurb: "Senior marketing leadership embedded in your team. Owns the growth number, attends leadership meetings, reports in financial metrics your board can act on."
+      blurb: "A working operator who owns strategy, manages your team and agencies, and reports at board level — with Growth OS underneath."
     },
     "paid-media-demand-generation": {
       img: "capability-03.png",
-      blurb: "Paid search, paid social, and programmatic managed against CAC and LTV targets, not click-through rates."
+      blurb: "Every paid dollar tracked to pipeline. Campaigns built around CAC targets and unit economics, not platform vanity metrics."
     },
     "seo-content": {
       img: "capability-04.png",
-      blurb: "Organic visibility built for the long game. GEO-optimized content that surfaces in AI search alongside traditional rankings."
+      blurb: "Compounding organic traffic for a multi-year hold — technical SEO, topical authority, and AI answer engine optimization."
     },
     "website-conversion-optimization": {
       img: "capability-05.png",
-      blurb: "A/B testing and UX analysis measured against pipeline and revenue, not just form fills."
+      blurb: "Fix conversion architecture without a full rebuild — CRO audits, testing, and landing pages tied to revenue metrics."
     },
     "marketing-analytics-reporting": {
       img: "capability-06.png",
-      blurb: "Full-funnel attribution, CAC/LTV tracking, and dashboards built for executive review, not marketing meetings."
+      blurb: "Unified dashboards and board-ready reporting that ties marketing spend to revenue — built for your operating model."
     }
   };
 
@@ -447,35 +489,194 @@
     "  fragColor=o;",
     "}"
   ].join("\n");
+
+  // React Bits Specular Button — rim shader (vanilla WebGL2 port).
+  var SPECULAR_PAD = 20;
+  var SPECULAR_VERT = [
+    "#version 300 es",
+    "in vec2 position;",
+    "void main(){",
+    "  gl_Position=vec4(position,0.0,1.0);",
+    "}"
+  ].join("\n");
+  var SPECULAR_FRAG = [
+    "#version 300 es",
+    "precision highp float;",
+    "uniform vec2 uCenter;",
+    "uniform vec2 uHalfSize;",
+    "uniform float uRadius;",
+    "uniform float uAngle;",
+    "uniform float uPx;",
+    "uniform vec3 uLineColor;",
+    "uniform vec3 uBaseColor;",
+    "uniform float uIntensity;",
+    "uniform float uShineSize;",
+    "uniform float uShineFade;",
+    "uniform float uThickness;",
+    "uniform float uBaseWidth;",
+    "out vec4 fragColor;",
+    "float sdRoundedRect(vec2 p,vec2 b,float r){",
+    "  vec2 q=abs(p)-b+r;",
+    "  return length(max(q,0.0))+min(max(q.x,q.y),0.0)-r;",
+    "}",
+    "float shapeSDF(vec2 p){return sdRoundedRect(p,uHalfSize,uRadius);}",
+    "float gaussianLine(float d,float sigma){",
+    "  float x=d/(sigma+1e-6);",
+    "  float k=mix(1.0,1.6,smoothstep(0.0,1.5,x));",
+    "  return exp(-k*x*x);",
+    "}",
+    "void main(){",
+    "  vec2 p=gl_FragCoord.xy-uCenter;",
+    "  float d=shapeSDF(p);",
+    "  vec2 L=vec2(cos(uAngle),sin(uAngle));",
+    "  float base=(1.0-smoothstep(0.0,uBaseWidth,abs(d)))*0.45;",
+    "  vec2 nEll=normalize(p/(uHalfSize*uHalfSize)+1e-6);",
+    "  float phi=acos(clamp(abs(dot(nEll,L)),0.0,1.0));",
+    "  float rim=1.0-smoothstep(uShineSize-uShineFade,uShineSize+uShineFade+1e-4,phi);",
+    "  float line=gaussianLine(d,uThickness);",
+    "  float edgeClamp=1.0-smoothstep(0.5*uPx,3.0*uPx,abs(d));",
+    "  float hi=line*rim*edgeClamp*uIntensity;",
+    "  vec3 col=uBaseColor*base+uLineColor*hi;",
+    "  float a=clamp(base+hi,0.0,1.0);",
+    "  fragColor=vec4(col,a);",
+    "}"
+  ].join("\n");
+
   // ---- one-time CSS -------------------------------------------------------
   var STYLE_ID = "agn-svc-styles";
   function injectStyles() {
     if (document.getElementById(STYLE_ID)) return;
     var css = [
-      "[data-svc-page]{--svc:" + A + ";background:#081226;color:#fff;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;position:relative;width:100%;overflow-x:clip;}",
+      "[data-svc-page]{--svc:" + A + ";background:transparent !important;color:#fff;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;position:relative;width:100%;overflow-x:clip;}",
       ".svc-wrap{max-width:1160px;margin:0 auto;padding:0 40px;box-sizing:border-box;position:relative;z-index:1;}",
       "[data-reveal]{opacity:0;translate:0 28px;transition:opacity .7s cubic-bezier(.16,.84,.44,1),translate .7s cubic-bezier(.16,.84,.44,1);}",
 
-      /* ---- HERO ---- */
+      /* ---- HERO (Figma 23003:3081) ---- */
       ".svc-hero-scroll{position:relative;z-index:0;height:100vh;height:100lvh;}",
       ".svc-hero-spacer{height:100vh;height:100lvh;pointer-events:none;}",
       ".svc-hero-scroll ~ *{position:relative;z-index:2;}",
-      ".svc-hero{position:fixed;inset:0;width:100%;height:100%;min-height:100vh;min-height:100dvh;min-height:100lvh;overflow:hidden;display:flex;align-items:center;box-sizing:border-box;isolation:isolate;transform-origin:50% 42%;will-change:transform;}",
+      ".svc-hero{position:fixed;inset:0;width:100%;height:100%;min-height:100vh;min-height:100dvh;min-height:100lvh;overflow:hidden;display:flex;align-items:stretch;box-sizing:border-box;isolation:isolate;transform-origin:50% 42%;will-change:transform;z-index:0;}",
       ".svc-hero::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:#04101f;opacity:var(--hero-veil,0);}",
-      ".svc-hero-layer{position:relative;width:100%;padding:211px 0 120px;min-height:100vh;min-height:100svh;min-height:100dvh;display:flex;align-items:center;box-sizing:border-box;transform-origin:50% 50%;will-change:transform,filter,opacity;}",
+      ".svc-hero-layer{position:relative;width:100%;padding:120px 64px 80px;min-height:100vh;min-height:100svh;min-height:100dvh;display:flex;align-items:flex-end;box-sizing:border-box;transform-origin:50% 42%;will-change:transform,filter,opacity;}",
       ".svc-hero-glow{position:absolute;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(90% 80% at 12% -12%,color-mix(in srgb,var(--svc) 26%,transparent) 0%,transparent 58%),radial-gradient(70% 90% at 50% 0%,rgba(255,255,255,.045),transparent 62%),linear-gradient(180deg,rgba(8,18,38,.10) 0%,rgba(8,18,38,.22) 100%);}",
       ".svc-grainient{position:absolute;inset:0;z-index:-3;pointer-events:none;overflow:hidden;}",
       ".svc-grainient canvas{display:block;width:100%;height:100%;opacity:.92;mix-blend-mode:screen;}",
       ".svc-hero-grid{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(90% 70% at 50% 20%,#000,transparent 78%);-webkit-mask-image:radial-gradient(90% 70% at 50% 20%,#000,transparent 78%);}",
-      ".svc-hero-copy{max-width:1138px;margin:0 auto;text-align:center;}",
-      ".svc-title{margin:0;font-size:clamp(44px,5.1vw,72px);font-weight:700;line-height:1.19;letter-spacing:-.02em;color:#fff;}",
-      ".svc-lead{margin:12px auto 0;font-size:16px;line-height:1.375;color:#C0C7CC;max-width:1138px;}",
-      ".svc-hero-cta{display:flex;justify-content:center;gap:14px;margin-top:32px;}",
-      ".svc-hero-cta .agn-btn{min-width:285px;justify-content:center;box-shadow:0 12px 34px -10px color-mix(in srgb,var(--svc) 52%,transparent);}",
-      ".svc-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:30px;}",
-      ".svc-stat{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:33px 21px;background:rgba(255,255,255,.03);text-align:center;min-height:127px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box;}",
-      ".svc-stat b{display:block;font-size:32px;font-weight:700;line-height:1.125;color:#fff;letter-spacing:-.01em;}",
-      ".svc-stat span{display:block;margin-top:4px;font-size:14px;line-height:1.5;color:#8FA0B5;max-width:100%;}",
+      ".svc-hero-mark{position:absolute;left:50%;top:102px;z-index:0;width:100%;max-width:100%;margin:0;padding:0 16px;box-sizing:border-box;transform:translateX(-50%);transform-origin:center top;font-size:181px;font-weight:700;line-height:1;letter-spacing:-.02em;text-align:center;white-space:nowrap;color:rgba(255,255,255,.1);pointer-events:none;user-select:none;}",
+      ".svc-hero-mark.fold-text{display:block;color:rgba(255,255,255,.1);white-space:nowrap;line-height:1;letter-spacing:-.02em;}",
+      ".svc-hero-mark .fold-text-segment{vertical-align:baseline;}",
+      ".svc-hero-mark .fold-text-piece::after{mix-blend-mode:normal;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(255,255,255,.12) 100%);}",
+      ".svc-hero-inner{position:relative;z-index:1;width:100%;max-width:1312px;margin:0 auto;display:flex;flex-direction:column;gap:72px;}",
+      ".svc-hero-copy{width:100%;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;}",
+      ".svc-hero-text{width:100%;display:flex;flex-direction:column;gap:10px;overflow:visible;}",
+      ".svc-title{margin:0;font-size:clamp(32px,3.4vw,48px);font-weight:700;line-height:1.083;letter-spacing:-.02em;color:#fff;}",
+      ".svc-title.fold-text{display:block;color:#fff;line-height:1.083;letter-spacing:-.02em;}",
+      ".svc-lead{margin:0 auto;font-size:18px;line-height:1.35;color:#C0C7CC;max-width:920px;}",
+      ".svc-lead.fold-text{display:block;color:#C0C7CC;line-height:1.35;letter-spacing:0;overflow:visible;}",
+      ".svc-hero-cta{display:flex;justify-content:center;gap:14px;margin:0;}",
+      ".svc-hero-cta .agn-btn{min-width:0;justify-content:center;box-shadow:0 12px 34px -10px color-mix(in srgb,var(--svc) 52%,transparent);}",
+      ".svc-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;width:100%;overflow:visible;}",
+      ".svc-stat{position:relative;border:1px solid rgba(255,255,255,.1);border-radius:16.867px;padding:33px 21px;background:rgba(255,255,255,.03);text-align:center;min-height:127px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box;overflow:visible;isolation:isolate;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);}",
+      ".svc-stat-fx{position:absolute;inset:-20px;pointer-events:none;z-index:1;}",
+      ".svc-stat-fx canvas{display:block;width:100%;height:100%;}",
+      ".svc-stat-label{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;gap:4px;}",
+      ".svc-stat-k{display:block;font-size:32px;font-weight:700;line-height:36px;color:#fff;letter-spacing:-.01em;}",
+      ".svc-stat-v{display:block;margin-top:0;font-size:14px;font-weight:400;line-height:1.35;color:#8FA0B5;max-width:100%;}",
+      ".svc-stat[data-animated-content]{visibility:hidden;will-change:transform,opacity;}",
+      ".svc-stat[data-animated-content].is-ac-ready{visibility:visible;}",
+      "@media(prefers-reduced-motion:reduce){.svc-stat-fx{display:none;}.svc-stat[data-animated-content]{visibility:visible !important;transform:none !important;opacity:1 !important;}}",
+
+      /* ---- FoldText (React Bits) ---- */
+      "@property --fold-crease{syntax:'<number>';inherits:true;initial-value:0;}",
+      ".fold-text{display:inline-block;color:var(--fold-text-color,currentColor);font-size:var(--fold-text-font-size,inherit);font-weight:var(--fold-text-font-weight,inherit);line-height:inherit;letter-spacing:inherit;}",
+      ".fold-text-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}",
+      ".fold-text-visual{display:inline;}",
+      ".fold-text-whitespace{display:inline;}",
+      ".fold-text-segment{display:inline-block;line-height:inherit;perspective:var(--fold-perspective,700px);transform-style:preserve-3d;vertical-align:baseline;}",
+      ".fold-text-piece{position:relative;display:inline-block;color:inherit;line-height:inherit;transform-style:preserve-3d;backface-visibility:hidden;will-change:transform,opacity;opacity:0;transform:rotateX(-92deg);transform-origin:50% 0%;--fold-crease:.55;}",
+      ".fold-text-piece.is-folded-in{opacity:1;transform:rotateX(0) rotateY(0);--fold-crease:0;transition:opacity .65s cubic-bezier(.215,.61,.355,1),transform .65s cubic-bezier(.215,.61,.355,1),--fold-crease .65s cubic-bezier(.215,.61,.355,1);}",
+      ".fold-text-piece::after{content:'';position:absolute;inset:-.08em -.02em;pointer-events:none;opacity:var(--fold-crease,0);mix-blend-mode:multiply;border-radius:.08em;background:linear-gradient(180deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.22) 42%,rgba(255,255,255,.26) 100%);}",
+      ".fold-text-piece[data-fold-hinge='bottom']::after{background:linear-gradient(0deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.22) 42%,rgba(255,255,255,.26) 100%);}",
+      ".fold-text-piece[data-fold-hinge='left']{transform:rotateY(92deg);transform-origin:0% 50%;}",
+      ".fold-text-piece[data-fold-hinge='left']::after{background:linear-gradient(90deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.22) 42%,rgba(255,255,255,.26) 100%);}",
+      ".fold-text-piece[data-fold-hinge='right']{transform:rotateY(-92deg);transform-origin:100% 50%;}",
+      ".fold-text-piece[data-fold-hinge='right']::after{background:linear-gradient(270deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.22) 42%,rgba(255,255,255,.26) 100%);}",
+      "@media(prefers-reduced-motion:reduce){.fold-text-piece{opacity:1 !important;transform:none !important;--fold-crease:0 !important;transition:none !important;}.fold-text-piece::after{opacity:0 !important;}}",
+
+      /* ---- STORY / 02 Reasons (Figma 23003:3103) ---- */
+      ".svc-story{position:relative;padding:120px 64px;box-sizing:border-box;overflow:hidden;background:transparent;}",
+      ".svc-story-inner{position:relative;z-index:1;max-width:1312px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:98px;}",
+      ".svc-story-text{flex:1 1 0;min-width:0;margin:0;font-size:clamp(22px,2.3vw,32px);line-height:1.5;letter-spacing:-.01em;color:rgba(255,255,255,.2);}",
+      ".svc-hl-word{position:relative;display:inline-block;white-space:nowrap;margin-right:.28em;}",
+      ".svc-hl-word:last-child{margin-right:0;}",
+      ".svc-hl-dim{position:relative;display:inline-block;font-weight:400;color:rgba(255,255,255,.2);will-change:opacity;}",
+      ".svc-hl-lit{position:absolute;left:0;top:0;display:inline-block;font-weight:700;color:#fff;opacity:0;pointer-events:none;will-change:opacity;}",
+      ".svc-story-mark{flex:0 0 auto;width:min(280px,22vw);aspect-ratio:280/346;opacity:0;transform:translateY(36px) scale(.94);filter:blur(8px);will-change:transform,opacity,filter;transition:none;}",
+      ".svc-story-mark.is-in{opacity:.2;transform:translateY(0) scale(1);filter:blur(0);transition:opacity 1.05s cubic-bezier(.16,.84,.44,1),transform 1.05s cubic-bezier(.16,.84,.44,1),filter .9s ease;}",
+      ".svc-story-mark img,.svc-story-mark svg{display:block;width:100%;height:100%;object-fit:contain;}",
+      "@media(prefers-reduced-motion:reduce){.svc-hl-lit{opacity:1 !important;}.svc-hl-dim{opacity:0 !important;}.svc-story-mark{opacity:.2 !important;transform:none !important;filter:none !important;transition:none !important;}}",
+
+      /* Content scrolls above the fixed blurred hero — no solid section fills */
+      ".svc-story ~ .svc-pillars,.svc-story ~ .svc-gets,.svc-story ~ .svc-blogs,.svc-story ~ .svc-content-sec,.svc-story ~ .svc-explore,.svc-story ~ .svc-why,.svc-story ~ .svc-what,.svc-story ~ .svc-how,.svc-story ~ .svc-final{position:relative;z-index:2;background:transparent;}",
+      "[data-svc-page] #cta.agn-cta,[data-svc-page] [data-agn-cta].agn-cta{background:transparent !important;}",
+      "[data-svc-page] .agn-cta-glow{opacity:0 !important;}",
+      "[data-svc-page] .ft,[data-svc-page] [data-agn-footer]{position:relative;z-index:2;}",
+
+      /* ---- GETS / 04 What You Get (Figma 23003:3213 + TiltCard) ---- */
+      ".svc-gets{position:relative;padding:120px 64px;box-sizing:border-box;background:transparent;}",
+      ".svc-gets-title{margin:0 0 42px;text-align:center;font-size:clamp(32px,3.4vw,48px);font-weight:700;line-height:1.083;color:#fff;}",
+      ".svc-gets-grid{display:flex;flex-direction:column;gap:12px;width:100%;max-width:1312px;margin:0 auto;}",
+      ".svc-gets-row{display:flex;gap:12px;width:100%;align-items:stretch;}",
+      ".svc-get-card{position:relative;flex:1 1 0;min-width:0;height:280px;padding:25px 1px;border-radius:14px;border:1px solid rgba(255,255,255,.1);box-sizing:border-box;overflow:hidden;background:transparent;backdrop-filter:blur(20px) saturate(1.1);-webkit-backdrop-filter:blur(20px) saturate(1.1);transform-style:preserve-3d;will-change:transform;cursor:default;isolation:isolate;--mx:50%;--my:50%;}",
+      ".svc-get-card--wide{flex:1 1 100%;width:100%;}",
+      ".svc-get-media{position:absolute;inset:-1px;z-index:0;border-radius:14px;overflow:hidden;pointer-events:none;}",
+      ".svc-get-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}",
+      ".svc-get-img--base{opacity:.2;filter:blur(16px);transform:scale(1.1);}",
+      ".svc-get-reveal{position:absolute;inset:-1px;z-index:1;border-radius:14px;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .4s cubic-bezier(.19,1,.22,1);-webkit-mask-image:radial-gradient(circle 420px at var(--mx) var(--my),#000 0%,#000 22%,rgba(0,0,0,.55) 48%,transparent 72%);mask-image:radial-gradient(circle 420px at var(--mx) var(--my),#000 0%,#000 22%,rgba(0,0,0,.55) 48%,transparent 72%);}",
+      ".svc-get-card.is-tilting .svc-get-reveal{opacity:1;}",
+      ".svc-get-img--clear{opacity:.2;filter:none;transform:none;}",
+      ".svc-get-copy{position:relative;z-index:2;display:flex;flex-direction:column;gap:12px;padding:0 24px;box-sizing:border-box;width:100%;}",
+      ".svc-get-copy h3{margin:0;font-size:24px;font-weight:600;line-height:1.2;color:#fff;text-shadow:0 1px 18px rgba(8,18,38,.45);}",
+      ".svc-get-copy p{margin:0;font-size:14px;font-weight:400;line-height:1.5;color:#AEB9CC;max-width:62ch;text-shadow:0 1px 14px rgba(8,18,38,.4);}",
+      ".svc-get-card--wide .svc-get-copy p{max-width:72ch;}",
+      "@media(prefers-reduced-motion:reduce){.svc-get-reveal{opacity:1 !important;-webkit-mask-image:none !important;mask-image:none !important;}.svc-get-img--base{opacity:.28;filter:blur(8px);}}",
+
+      /* ---- BLOGS / 05 Expertise (Figma 23008:3410) — LTR marquee ---- */
+      ".svc-blogs{position:relative;padding:80px 0;box-sizing:border-box;background:transparent;overflow:visible;}",
+      ".svc-blogs-title{margin:0 0 42px;padding:0 40px;text-align:center;font-size:clamp(28px,3.2vw,42px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff;box-sizing:border-box;}",
+      ".svc-blogs-marquee{position:relative;overflow:visible;padding:0;}",
+      ".svc-blogs-edge{position:absolute;top:0;bottom:0;width:min(120px,12vw);z-index:3;pointer-events:none;}",
+      ".svc-blogs-edge--left{left:0;background:linear-gradient(90deg,#021526 0%,rgba(2,21,38,0) 100%);}",
+      ".svc-blogs-edge--right{right:0;background:linear-gradient(270deg,#021526 0%,rgba(2,21,38,0) 100%);}",
+      ".svc-blogs-viewport{width:100%;overflow-x:hidden;overflow-y:visible;cursor:grab;padding:0 clamp(24px,4vw,64px);box-sizing:border-box;}",
+      ".svc-blogs-viewport.is-dragging{cursor:grabbing;user-select:none;}",
+      ".svc-blogs-viewport:focus-visible{outline:2px solid color-mix(in srgb,var(--svc) 70%,transparent);outline-offset:4px;border-radius:12px;}",
+      ".svc-blogs-track{display:flex;width:max-content;will-change:transform;padding:8px 0 16px;}",
+      ".svc-blogs-group{display:flex;gap:24px;padding-right:24px;align-items:stretch;}",
+      ".svc-blog-card{position:relative;flex:0 0 auto;display:flex;flex-direction:column;gap:8px;width:424px;padding:4px 4px 14px;border-radius:16px;box-sizing:border-box;text-decoration:none;color:inherit;background:rgba(255,255,255,.05);border:1px solid rgba(94,169,244,.2);overflow:hidden;cursor:pointer;-webkit-user-drag:none;user-select:none;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .35s ease,border-color .35s ease,box-shadow .45s ease;}",
+      ".svc-blogs-marquee.is-dim .svc-blog-card{opacity:.42;transform:scale(.98);}",
+      ".svc-blogs-marquee.is-dim .svc-blog-card.is-focus,.svc-blog-card:hover,.svc-blog-card:focus-visible{opacity:1;transform:translateY(-6px) scale(1.02);border-color:rgba(94,169,244,.42);box-shadow:0 20px 50px -24px rgba(0,0,0,.75);outline:none;}",
+      ".svc-blog-cover{position:relative;width:100%;height:190px;border-radius:12px;overflow:hidden;background:#0B1B38;flex:0 0 auto;}",
+      ".svc-blog-cover img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}",
+      ".svc-blog-body{display:flex;flex-direction:column;gap:12px;padding:0 8px;box-sizing:border-box;width:100%;}",
+      ".svc-blog-body h3{margin:0;min-height:92px;max-height:92px;font-size:20px;font-weight:600;line-height:1.2;color:#fff;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;}",
+      ".svc-blog-meta{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:400;line-height:1.2;color:#1BFED1;}",
+      ".svc-blog-meta-sep{width:1px;align-self:stretch;background:rgba(255,255,255,.3);flex:0 0 auto;}",
+      ".svc-blogs-cta{display:flex;justify-content:center;margin-top:42px;padding:0 40px;box-sizing:border-box;}",
+      ".svc-blogs-cta .agn-btn{box-shadow:0 12px 34px -10px rgba(31,201,160,.6);}",
+      "@media(prefers-reduced-motion:reduce){.svc-blogs-track{transform:none !important;}}",
+
+      /* ---- PILLARS / 03 How Works (Figma 23003:3165) ---- */
+      ".svc-pillars{position:relative;padding:130px 40px;box-sizing:border-box;background:transparent;}",
+      ".svc-pillars-title{margin:0 auto 60px;max-width:920px;text-align:center;font-size:clamp(24px,2.4vw,32px);font-weight:700;line-height:1.125;color:#fff;}",
+      ".svc-pillars-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:1360px;margin:0 auto;border-top:1px solid rgba(255,255,255,.1);border-left:1px solid rgba(255,255,255,.1);}",
+      ".svc-pillar{display:flex;flex-direction:column;gap:8px;min-height:350px;height:100%;padding:32px 35px;box-sizing:border-box;border-right:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);background:transparent;overflow:hidden;}",
+      ".svc-pillar-label{margin:0;font-size:14px;font-weight:400;line-height:1.2;color:rgba(255,255,255,.4);white-space:nowrap;}",
+      ".svc-pillar-stage{position:relative;flex:1 1 auto;min-height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:8px 12px;box-sizing:border-box;color:var(--svc);}",
+      ".svc-pillar-stage .svc-reason-stage-anim{position:relative;inset:auto;width:100%;height:100%;max-height:150px;display:flex;align-items:center;justify-content:center;}",
+      ".svc-pillar-copy{display:flex;flex-direction:column;gap:8px;width:100%;flex:0 0 auto;}",
+      ".svc-pillar-copy h3{margin:0;font-size:20px;font-weight:500;line-height:1.25;color:var(--svc);}",
+      ".svc-pillar-copy p{margin:0;font-size:14px;font-weight:400;line-height:1.5;color:#EBEDEF;}",
 
       /* ---- generic section head ---- */
       ".svc-sec{position:relative;padding:96px 0;}",
@@ -485,6 +686,24 @@
       ".svc-kicker::before{content:'';width:26px;height:1px;background:var(--svc);opacity:.7;}",
       ".svc-h2{margin:16px 0 0;font-size:clamp(28px,3.6vw,44px);font-weight:700;line-height:1.1;letter-spacing:-.02em;color:#fff;}",
       ".svc-sub{margin:16px 0 0;font-size:16px;line-height:1.6;color:#AEB9CC;}",
+
+      /* ---- flexible content sections (list · prose · steps) ---- */
+      ".svc-content-sec{position:relative;padding:96px 0;}",
+      ".svc-content-sec + .svc-content-sec{padding-top:0;}",
+      ".svc-list-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:48px;}",
+      ".svc-list-card{display:flex;gap:16px;align-items:flex-start;padding:24px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));transition:border-color .35s ease,transform .35s ease;}",
+      ".svc-list-card:hover{border-color:color-mix(in srgb,var(--svc) 32%,rgba(255,255,255,.1));transform:translateY(-2px);}",
+      ".svc-list-mark{flex-shrink:0;width:28px;height:28px;border-radius:999px;background:color-mix(in srgb,var(--svc) 18%,transparent);color:var(--svc);display:grid;place-items:center;margin-top:2px;}",
+      ".svc-list-mark svg{width:14px;height:14px;}",
+      ".svc-list-card h3{margin:0 0 8px;font-size:18px;font-weight:600;line-height:1.3;color:#fff;}",
+      ".svc-list-card p{margin:0;font-size:15px;line-height:1.65;color:#AEB9CC;}",
+      ".svc-list-card--titled{flex-direction:column;gap:0;}",
+      ".svc-prose-sec{padding:100px 0;}",
+      ".svc-prose-sec--alt{background:transparent;}",
+      ".svc-prose-block{max-width:720px;margin-top:40px;}",
+      ".svc-prose-block p{margin:0 0 20px;font-size:17px;line-height:1.75;color:#AEB9CC;}",
+      ".svc-prose-block p:last-child{margin-bottom:0;}",
+      ".svc-eyebrow{margin:0 0 14px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--svc);}",
 
       /* ---- 02 Reasons ---- */
       ".svc-why{padding:120px 0;}",
@@ -577,8 +796,9 @@
       ".svc-reason-copy p{margin:12px 0 0;font-size:14px;line-height:1.5;color:#AEB9CC;}",
 
       /* ---- HOW / Process snake ---- */
-      ".svc-how{position:relative;padding:130px 0;background:radial-gradient(120% 110% at 72% 42%,color-mix(in srgb,var(--svc) 18%,#12315e) 0%,#0B1B38 54%,#081226 100%);overflow:hidden;}",
-      ".svc-how::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(65% 55% at 74% 36%,color-mix(in srgb,var(--svc) 18%,transparent),transparent 70%);opacity:.9;}",
+      ".svc-how{position:relative;padding:130px 0;background:transparent;overflow:hidden;}",
+      ".svc-how--inline{margin-top:0;}",
+      ".svc-how::before{display:none;}",
       ".svc-how .svc-wrap{position:relative;z-index:1;}",
       ".svc-how-head{max-width:1160px;margin:0 auto 80px;}",
       ".svc-how-head .svc-h2{text-align:center;font-size:clamp(46px,5.4vw,78px);line-height:1.05;}",
@@ -613,8 +833,8 @@
       ".svc-what-card h3{margin:0;font-size:18px;font-weight:700;line-height:1.16;color:#fff;}",
       ".svc-what-card p{margin:12px 0 0;font-size:14px;line-height:1.5;color:#AEB9CC;}",
       ".svc-what-edge{position:absolute;top:0;bottom:0;width:min(120px,12vw);z-index:2;pointer-events:none;-webkit-backdrop-filter:blur(16px) saturate(1.15);backdrop-filter:blur(16px) saturate(1.15);}",
-      ".svc-what-edge--left{left:0;background:linear-gradient(90deg,rgba(8,18,38,.82),rgba(8,18,38,0));-webkit-mask-image:linear-gradient(90deg,#000 0%,transparent 100%);mask-image:linear-gradient(90deg,#000 0%,transparent 100%);}",
-      ".svc-what-edge--right{right:0;background:linear-gradient(270deg,rgba(8,18,38,.82),rgba(8,18,38,0));-webkit-mask-image:linear-gradient(270deg,#000 0%,transparent 100%);mask-image:linear-gradient(270deg,#000 0%,transparent 100%);}",
+      ".svc-what-edge--left{left:0;background:linear-gradient(90deg,rgba(8,18,38,0),rgba(8,18,38,0));-webkit-mask-image:linear-gradient(90deg,#000 0%,transparent 100%);mask-image:linear-gradient(90deg,#000 0%,transparent 100%);}",
+      ".svc-what-edge--right{right:0;background:linear-gradient(270deg,rgba(8,18,38,0),rgba(8,18,38,0));-webkit-mask-image:linear-gradient(270deg,#000 0%,transparent 100%);mask-image:linear-gradient(270deg,#000 0%,transparent 100%);}",
       "@media(prefers-reduced-motion:reduce){.svc-what-track{transform:none !important;}}",
 
       /* ---- Explore other services (capability cards) ---- */
@@ -653,14 +873,43 @@
         ".svc-hero-spacer{display:none;}",
         ".svc-hero{position:relative;left:auto;right:auto;height:auto;min-height:0;transform:none !important;opacity:1 !important;filter:none !important;visibility:visible !important;}",
         ".svc-hero::after{opacity:0 !important;}",
-        ".svc-hero-layer{padding:136px 0 56px;min-height:100vh;min-height:100svh;min-height:100dvh;transform:none !important;filter:none !important;opacity:1 !important;}",
-        ".svc-title{font-size:42px;line-height:1.12;}",
-        ".svc-lead{max-width:100%;font-size:15px;line-height:1.6;}",
-        ".svc-hero-cta{margin-top:24px;}",
+        ".svc-hero-layer{padding:112px 16px 56px;min-height:100vh;min-height:100svh;min-height:100dvh;align-items:flex-end;transform:none !important;filter:none !important;opacity:1 !important;}",
+        ".svc-hero-mark{padding:0 12px;}",
+        ".svc-hero-inner{gap:40px;}",
+        ".svc-hero-copy{gap:20px;}",
+        ".svc-title{font-size:32px;line-height:1.15;}",
+        ".svc-lead{max-width:100%;font-size:16px;line-height:1.4;}",
+        ".svc-hero-cta{margin:0;width:100%;}",
         ".svc-hero-cta .agn-btn{min-width:0;width:100%;}",
-        ".svc-stats{grid-template-columns:1fr;gap:12px;margin-top:22px;}",
-        ".svc-stat{min-height:0;padding:24px 18px;}",
-        ".svc-stat b{font-size:28px;}",
+        ".svc-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}",
+        ".svc-stat{min-height:0;padding:24px 16px;}",
+        ".svc-stat-k{font-size:24px;line-height:1.2;}",
+        ".svc-story{padding:72px 16px;}",
+        ".svc-story-inner{flex-direction:column;gap:40px;align-items:flex-start;}",
+        ".svc-story-text{font-size:22px;line-height:1.45;}",
+        ".svc-story-mark{width:min(180px,46vw);align-self:center;}",
+        ".svc-pillars{padding:72px 16px;}",
+        ".svc-pillars-title{margin-bottom:32px;font-size:24px;text-align:left;}",
+        ".svc-pillars-grid{grid-template-columns:1fr;}",
+        ".svc-pillar{min-height:0;padding:24px 20px;}",
+        ".svc-pillar-stage{min-height:110px;}",
+        ".svc-gets{padding:72px 16px;}",
+        ".svc-gets-title{margin-bottom:28px;font-size:32px;text-align:left;}",
+        ".svc-gets-row{flex-direction:column;}",
+        ".svc-get-card{height:auto;min-height:220px;padding:22px 1px;}",
+        ".svc-get-copy h3{font-size:20px;}",
+        ".svc-blogs{padding:56px 0;}",
+        ".svc-blogs-title{margin-bottom:28px;padding:0 16px;font-size:28px;text-align:left;}",
+        ".svc-blogs-edge{display:none;}",
+        ".svc-blogs-viewport{overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 16px;cursor:auto;}",
+        ".svc-blogs-viewport::-webkit-scrollbar{display:none;}",
+        ".svc-blogs-track{transform:none !important;width:auto;padding:8px 0;}",
+        ".svc-blogs-group[aria-hidden='true']{display:none;}",
+        ".svc-blogs-group{padding-right:16px;}",
+        ".svc-blog-card{width:min(320px,82vw);}",
+        ".svc-blog-cover{height:160px;}",
+        ".svc-blog-body h3{min-height:76px;max-height:76px;font-size:17px;-webkit-line-clamp:3;}",
+        ".svc-blogs-cta{margin-top:28px;padding:0 16px;}",
         ".svc-sec{padding:56px 0;}",
         ".svc-why{padding:56px 0;}",
         ".svc-reasons-layout,.svc-why-grid{grid-template-columns:1fr;gap:14px;}",
@@ -707,6 +956,9 @@
         ".svc-final-copy h2{font-size:3.214cqi;line-height:1.12;letter-spacing:-0.064cqi;}",
         ".svc-final-copy p{font-size:1.286cqi;line-height:1.65;}",
         ".svc-final-mark{left:50.11%;top:-62.35%;width:46.32%;}",
+        ".svc-list-grid{grid-template-columns:1fr;gap:16px;margin-top:32px;}",
+        ".svc-content-sec{padding:64px 0;}",
+        ".svc-prose-sec{padding:72px 0;}",
       "}"
     ].join("");
     var s = document.createElement("style");
@@ -716,11 +968,93 @@
   }
 
   // ---- HTML builders ------------------------------------------------------
+  function foldSegmentsHTML(text, splitBy) {
+    var raw = String(text == null ? "" : text);
+    var parts = [];
+    var pushSeg = function (content) {
+      parts.push(
+        '<span class="fold-text-segment" data-fold-split="' + esc(splitBy) + '" style="--fold-perspective:700px">' +
+          '<span class="fold-text-piece" data-fold-hinge="top">' + esc(content || "\u00A0") + "</span>" +
+        "</span>"
+      );
+    };
+    if (splitBy === "word") {
+      raw.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          parts.push('<span class="fold-text-whitespace">' + esc(part.replace(/ /g, "\u00A0")) + "</span>");
+        } else {
+          pushSeg(part);
+        }
+      });
+    } else {
+      Array.from(raw).forEach(function (ch) {
+        if (ch === "\n") {
+          parts.push("<br>");
+          return;
+        }
+        pushSeg(ch === " " ? "\u00A0" : ch);
+      });
+    }
+    return parts.join("");
+  }
+
+  function foldTextHTML(text, opts) {
+    var o = opts || {};
+    var splitBy = o.splitBy || "char";
+    var color = o.color || "#fff";
+    var weight = o.weight || "700";
+    var cls = o.className || "";
+    var tag = o.tag || "span";
+    var attrs = o.attrs || "";
+    var safe = String(text == null ? "" : text);
+    return "<" + tag + ' class="fold-text ' + esc(cls) + '" data-fold-text data-fold-split="' + esc(splitBy) + '" style="--fold-text-color:' + esc(color) + ';--fold-text-font-weight:' + esc(String(weight)) + '"' + (attrs ? " " + attrs : "") + ">" +
+      '<span class="fold-text-sr-only">' + esc(safe) + "</span>" +
+      '<span class="fold-text-visual" aria-hidden="true">' + foldSegmentsHTML(safe, splitBy) + "</span>" +
+    "</" + tag + ">";
+  }
+
   function heroHTML(d) {
-    var stats = d.stats.map(function (s) {
-      return '<div class="svc-stat"><b>' + esc(s.k) + '</b><span>' + esc(s.v) + '</span></div>';
+    var titleRaw = String(d.title || "");
+    var headlineRaw = String(d.heroHeadline || d.title || "");
+    var leadRaw = d.lead ? String(d.lead).replace(/\n+/g, " ").trim() : "";
+    var stats = (d.stats || []).map(function (s) {
+      return '<div class="svc-stat" data-specular data-animated-content>' +
+        '<span class="svc-stat-fx" aria-hidden="true"></span>' +
+        '<div class="svc-stat-label">' +
+          '<b class="svc-stat-k">' + esc(s.k) + "</b>" +
+          '<span class="svc-stat-v">' + esc(s.v) + "</span>" +
+        "</div>" +
+      "</div>";
     }).join("");
-    return '' +
+    var statsHTML = stats
+      ? '<div class="svc-stats">' + stats + "</div>"
+      : "";
+    var markHTML = foldTextHTML(titleRaw, {
+      tag: "p",
+      splitBy: "char",
+      color: "rgba(255,255,255,.1)",
+      weight: "700",
+      className: "svc-hero-mark",
+      attrs: 'data-hero-mark data-fold-card data-fold-delay="0" aria-hidden="true"'
+    });
+    var titleHTML = foldTextHTML(headlineRaw, {
+      tag: "h1",
+      splitBy: "word",
+      color: "#fff",
+      weight: "700",
+      className: "svc-title"
+    });
+    var leadHTML = leadRaw
+      ? foldTextHTML(leadRaw, {
+          tag: "p",
+          splitBy: "word",
+          color: "#C0C7CC",
+          weight: "400",
+          className: "svc-lead"
+        })
+      : "";
+    return "" +
       '<div class="svc-hero-scroll" data-hero-scroll>' +
         '<div class="svc-hero-spacer" data-hero-spacer aria-hidden="true"></div>' +
         '<header class="svc-hero" data-hero-pin>' +
@@ -728,19 +1062,185 @@
             '<div class="svc-grainient" aria-hidden="true" data-grainient data-colors="' + esc((d.grain || []).join("|")) + '"><canvas></canvas></div>' +
             '<div class="svc-hero-glow" aria-hidden="true"></div>' +
             '<div class="svc-hero-grid" aria-hidden="true"></div>' +
-            '<div class="svc-wrap">' +
-              '<div class="svc-hero-copy" data-reveal>' +
-                '<h1 class="svc-title">' + esc(d.title) + '</h1>' +
-                '<p class="svc-lead">' + esc(d.lead) + '</p>' +
-                '<div class="svc-hero-cta">' +
-                  '<a class="agn-btn" href="#cta" data-magnetic="true">' + esc(d.cta) + '</a>' +
-                '</div>' +
-                '<div class="svc-stats">' + stats + '</div>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-        '</header>' +
-      '</div>';
+            markHTML +
+            '<div class="svc-hero-inner">' +
+              statsHTML +
+              '<div class="svc-hero-copy">' +
+                '<div class="svc-hero-text" data-fold-card data-fold-delay="480">' +
+                  titleHTML +
+                  leadHTML +
+                "</div>" +
+                '<div class="svc-hero-cta" data-reveal data-reveal-delay="120">' +
+                  '<a class="agn-btn" href="#cta" data-magnetic="true">' + esc(d.cta) + "</a>" +
+                "</div>" +
+              "</div>" +
+            "</div>" +
+          "</div>" +
+        "</header>" +
+      "</div>";
+  }
+
+  function storyWordsHTML(text) {
+    var words = String(text || "").trim().split(/\s+/).filter(Boolean);
+    return words.map(function (w) {
+      var safe = esc(w);
+      return '<span class="svc-hl-word" aria-hidden="true">' +
+        '<span class="svc-hl-dim">' + safe + "</span>" +
+        '<span class="svc-hl-lit">' + safe + "</span>" +
+      "</span>";
+    }).join("");
+  }
+
+  function storyHTML(d) {
+    if (!d.story) return "";
+    return '<section class="svc-story" id="story" data-svc-story>' +
+      '<div class="svc-story-inner">' +
+        '<p class="svc-story-text" data-story-text aria-label="' + esc(d.story) + '">' + storyWordsHTML(d.story) + "</p>" +
+        '<div class="svc-story-mark" data-story-mark aria-hidden="true">' +
+          '<img src="../assets/svc-story-mark.svg" alt="" loading="lazy" draggable="false">' +
+        "</div>" +
+      "</div>" +
+    "</section>";
+  }
+
+  function getsCardHTML(item, i, wide) {
+    var src = "../assets/" + String(item.img || "").replace(/^\/+/, "");
+    return '<article class="svc-get-card' + (wide ? " svc-get-card--wide" : "") + '" data-tilt data-get-card data-reveal data-reveal-delay="' + (50 + i * 40) + '">' +
+      '<div class="svc-get-media" aria-hidden="true">' +
+        '<img class="svc-get-img svc-get-img--base" src="' + esc(src) + '" alt="" loading="lazy" draggable="false">' +
+      "</div>" +
+      '<div class="svc-get-reveal" data-get-reveal aria-hidden="true">' +
+        '<img class="svc-get-img svc-get-img--clear" src="' + esc(src) + '" alt="" loading="lazy" draggable="false">' +
+      "</div>" +
+      '<div class="svc-get-copy">' +
+        "<h3>" + esc(item.t) + "</h3>" +
+        "<p>" + esc(item.b) + "</p>" +
+      "</div>" +
+    "</article>";
+  }
+
+  function getsHTML(d) {
+    var items = d.gets || [];
+    if (!items.length) return "";
+    var top = items.slice(0, 2).map(function (it, i) { return getsCardHTML(it, i, false); }).join("");
+    var mid = items.slice(2, 4).map(function (it, i) { return getsCardHTML(it, i + 2, false); }).join("");
+    var bottom = items[4] ? getsCardHTML(items[4], 4, true) : "";
+    return '<section class="svc-gets" id="gets" data-svc-gets>' +
+      '<h2 class="svc-gets-title" data-reveal>' + esc(d.getsTitle || "What You Get") + "</h2>" +
+      '<div class="svc-gets-grid">' +
+        (top ? '<div class="svc-gets-row">' + top + "</div>" : "") +
+        (mid ? '<div class="svc-gets-row">' + mid + "</div>" : "") +
+        (bottom ? '<div class="svc-gets-row">' + bottom + "</div>" : "") +
+      "</div>" +
+    "</section>";
+  }
+
+  function blogCardHTML(item) {
+    var src = "../assets/" + String(item.img || "").replace(/^\/+/, "");
+    var href = item.href || "#";
+    return '<a class="svc-blog-card" href="' + esc(href) + '" aria-label="' + esc(item.t) + '" draggable="false">' +
+      '<div class="svc-blog-cover"><img src="' + esc(src) + '" alt="" loading="lazy" draggable="false"></div>' +
+      '<div class="svc-blog-body">' +
+        "<h3>" + esc(item.t) + "</h3>" +
+        '<div class="svc-blog-meta">' +
+          "<span>" + esc(item.date) + "</span>" +
+          '<span class="svc-blog-meta-sep" aria-hidden="true"></span>' +
+          "<span>" + esc(item.read) + "</span>" +
+        "</div>" +
+      "</div>" +
+    "</a>";
+  }
+
+  function blogsHTML() {
+    var cards = BLOGS.map(blogCardHTML).join("");
+    return '<section class="svc-blogs" id="blogs" aria-label="Blog articles">' +
+      '<h2 class="svc-blogs-title" data-reveal>We put our best expertise forward through</h2>' +
+      '<div class="svc-blogs-marquee" data-blogs-marquee>' +
+        '<div class="svc-blogs-edge svc-blogs-edge--left" aria-hidden="true"></div>' +
+        '<div class="svc-blogs-edge svc-blogs-edge--right" aria-hidden="true"></div>' +
+        '<div class="svc-blogs-viewport" data-blogs-viewport tabindex="0" role="region" aria-label="Blog articles">' +
+          '<div class="svc-blogs-track" data-blogs-track>' +
+            '<div class="svc-blogs-group" data-blogs-group>' + cards + "</div>" +
+          "</div>" +
+        "</div>" +
+      "</div>" +
+      '<div class="svc-blogs-cta" data-reveal data-reveal-delay="120">' +
+        '<a class="agn-btn" href="#" data-magnetic="true">Read More Articles</a>' +
+      "</div>" +
+    "</section>";
+  }
+
+  function pillarsHTML(d) {
+    var items = d.pillars || [];
+    if (!items.length) return "";
+    var cells = items.map(function (p, i) {
+      return '<article class="svc-pillar" data-reveal data-reveal-delay="' + (60 + i * 50) + '">' +
+        '<p class="svc-pillar-label">' + esc(p.label || ((i + 1 < 10 ? "0" : "") + (i + 1) + " / Scope")) + "</p>" +
+        '<div class="svc-pillar-stage" aria-hidden="true">' + stageAnim(p.anim, i) + "</div>" +
+        '<div class="svc-pillar-copy">' +
+          "<h3>" + esc(p.t) + "</h3>" +
+          "<p>" + esc(p.b) + "</p>" +
+        "</div>" +
+      "</article>";
+    }).join("");
+    return '<section class="svc-pillars" id="pillars" data-svc-pillars>' +
+      '<h2 class="svc-pillars-title" data-reveal>' + esc(d.pillarsTitle || "") + "</h2>" +
+      '<div class="svc-pillars-grid">' + cells + "</div>" +
+    "</section>";
+  }
+
+  function listSectionHTML(sec, idx) {
+    var baseDelay = 40 + idx * 20;
+    var cards = (sec.items || []).map(function (w, i) {
+      var text = esc(w.b || w);
+      var titled = w.t ? " svc-list-card--titled" : "";
+      var title = w.t ? "<h3>" + esc(w.t) + "</h3>" : '<div class="svc-list-mark" aria-hidden="true">' + CHECK + "</div>";
+      return '<article class="svc-list-card' + titled + '" data-reveal data-reveal-delay="' + (baseDelay + i * 35) + '">' +
+        title + "<p>" + text + "</p></article>";
+    }).join("");
+    var sub = sec.sub ? '<p class="svc-sub">' + esc(sec.sub) + "</p>" : "";
+    var idAttr = sec.id ? ' id="' + esc(sec.id) + '"' : "";
+    return '<section class="svc-content-sec svc-list-sec"' + idAttr + ">" +
+      '<div class="svc-wrap">' +
+        '<div class="svc-sechead" data-reveal>' +
+          '<h2 class="svc-h2">' + esc(sec.title) + "</h2>" + sub +
+        "</div>" +
+        '<div class="svc-list-grid">' + cards + "</div>" +
+      "</div></section>";
+  }
+
+  function proseSectionHTML(sec, idx) {
+    var alt = idx % 2 === 1 ? " svc-prose-sec--alt" : "";
+    var baseDelay = 50 + idx * 20;
+    var paras = (sec.paragraphs || []).map(function (p, i) {
+      return '<p data-reveal data-reveal-delay="' + (baseDelay + i * 40) + '">' + esc(p) + "</p>";
+    }).join("");
+    var idAttr = sec.id ? ' id="' + esc(sec.id) + '"' : "";
+    return '<section class="svc-content-sec svc-prose-sec' + alt + '"' + idAttr + ">" +
+      '<div class="svc-wrap">' +
+        '<div class="svc-sechead" data-reveal><h2 class="svc-h2">' + esc(sec.title) + "</h2></div>" +
+        '<div class="svc-prose-block">' + paras + "</div>" +
+      "</div></section>";
+  }
+
+  function sectionsHTML(d) {
+    var sections = d.sections || [];
+    return sections.map(function (sec, idx) {
+      if (sec.type === "list") return listSectionHTML(sec, idx);
+      if (sec.type === "prose") return proseSectionHTML(sec, idx);
+      if (sec.type === "steps") return stepsSectionHTML(sec, d, idx);
+      return "";
+    }).join("");
+  }
+
+  function stepsSectionHTML(sec, d, idx) {
+    var steps = sec.items || [];
+    var fake = { howTitle: sec.title, howIntro: sec.sub || "", steps: steps };
+    var html = howHTML(fake, d);
+    if (idx > 0) {
+      html = html.replace('class="svc-how"', 'class="svc-how svc-how--inline"');
+    }
+    return html;
   }
 
   // Detailed micro-animation scenes. Each key is a concept; markup fills the stage.
@@ -810,7 +1310,10 @@
       '</div></section>';
   }
 
-  function howHTML(d) {
+  function howHTML(d, svc) {
+    var accent = (svc && svc.accent) || "#1BFED1";
+    var steps = d.steps || [];
+    if (!steps.length) return "";
     var leftX = 0;
     var rightX = 581;
     var cardW = 567;
@@ -868,8 +1371,8 @@
             '<svg class="svc-process-svg" viewBox="0 0 1148 ' + stageH + '" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
               '<defs>' +
                 '<linearGradient id="svcProcTrail" data-process-trail gradientUnits="userSpaceOnUse" x1="' + points[0].x + '" y1="' + points[0].y + '" x2="' + points[0].x + '" y2="' + points[0].y + '">' +
-                  '<stop offset="0" stop-color="' + esc(d.accent) + '" stop-opacity="0"></stop>' +
-                  '<stop offset="0.55" stop-color="' + esc(d.accent) + '" stop-opacity="0.45"></stop>' +
+                  '<stop offset="0" stop-color="' + esc(accent) + '" stop-opacity="0"></stop>' +
+                  '<stop offset="0.55" stop-color="' + esc(accent) + '" stop-opacity="0.45"></stop>' +
                   '<stop offset="1" stop-color="#FFFFFF" stop-opacity="1"></stop>' +
                 '</linearGradient>' +
               '</defs>' +
@@ -961,6 +1464,175 @@
     } catch (e) { return false; }
   }
 
+  // React Bits AnimatedContent — vanilla WAAPI + scroll trigger port.
+  // Defaults match the requested stats config:
+  // distance=100, direction=vertical, reverse, duration=1.3, ease=power3.out,
+  // initialOpacity=0.3, animateOpacity, scale=1.2, threshold=0.5, delay=0
+  function setupAnimatedContent(root, store) {
+    var nodes = Array.prototype.slice.call(root.querySelectorAll("[data-animated-content]"));
+    if (!nodes.length) return;
+    var reduce = isCapture() || (window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches);
+    if (reduce) {
+      nodes.forEach(function (el) {
+        el.classList.add("is-ac-ready");
+        el.style.visibility = "visible";
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+      return;
+    }
+
+    var DISTANCE = 100;
+    var REVERSE = true;
+    var DURATION = 1300;
+    var INITIAL_OPACITY = 0;
+    var SCALE = 1.2;
+    var THRESHOLD = 0.5; // ScrollTrigger start: top 50%
+    var EASE = "cubic-bezier(0.215, 0.61, 0.355, 1)"; // ≈ power3.out
+    var offset = REVERSE ? -DISTANCE : DISTANCE;
+    var pending = nodes.slice();
+    var raf = 0;
+    var cleanups = [];
+
+    // Unique staggered delays, shuffled so cards don't enter in lockstep.
+    var delays = nodes.map(function (_, i) { return i * 0.26; });
+    for (var i = delays.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = delays[i];
+      delays[i] = delays[j];
+      delays[j] = tmp;
+    }
+    // Small extra jitter so timing feels organic across reloads.
+    nodes.forEach(function (el, idx) {
+      var jitter = Math.random() * 0.20;
+      el.setAttribute("data-ac-delay", String((delays[idx] + jitter).toFixed(3)));
+      el.style.visibility = "visible";
+      el.classList.add("is-ac-ready");
+      el.style.opacity = String(INITIAL_OPACITY);
+      el.style.transform = "translate3d(0," + offset + "px,0) scale(" + SCALE + ")";
+    });
+
+    var play = function (el) {
+      var delayMs = parseFloat(el.getAttribute("data-ac-delay") || "0") * 1000;
+      var anim = el.animate(
+        [
+          {
+            opacity: INITIAL_OPACITY,
+            transform: "translate3d(0," + offset + "px,0) scale(" + SCALE + ")"
+          },
+          {
+            opacity: 1,
+            transform: "translate3d(0,0,0) scale(1)"
+          }
+        ],
+        {
+          duration: DURATION,
+          delay: delayMs,
+          easing: EASE,
+          fill: "forwards"
+        }
+      );
+      cleanups.push(function () {
+        try { anim.cancel(); } catch (e) {}
+      });
+      anim.finished.then(function () {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+        try { anim.cancel(); } catch (e) {}
+      }).catch(function () {});
+    };
+
+    var tick = function () {
+      raf = 0;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var startY = vh * (1 - THRESHOLD);
+      pending = pending.filter(function (el) {
+        if (el.getBoundingClientRect().top < startY) {
+          play(el);
+          return false;
+        }
+        return true;
+      });
+      if (pending.length) {
+        raf = requestAnimationFrame(function () {
+          // keep polling lightly via scroll/resize instead of perpetual raf
+        });
+      }
+    };
+
+    var onScroll = function () {
+      if (!pending.length) return;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var startY = vh * (1 - THRESHOLD);
+      pending = pending.filter(function (el) {
+        if (el.getBoundingClientRect().top < startY) {
+          play(el);
+          return false;
+        }
+        return true;
+      });
+      if (!pending.length) {
+        window.removeEventListener("scroll", onScroll, true);
+        window.removeEventListener("resize", onScroll);
+      }
+    };
+
+    // Initial check (hero stats are usually already in view)
+    onScroll();
+    if (pending.length) {
+      window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+      window.addEventListener("resize", onScroll);
+    }
+
+    store.animatedContentCleanup = function () {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("resize", onScroll);
+      cleanups.forEach(function (fn) { try { fn(); } catch (e) {} });
+      cleanups = [];
+    };
+  }
+
+  function setupFoldStats(root, store) {
+    var cards = Array.prototype.slice.call(root.querySelectorAll("[data-fold-card]"));
+    if (!cards.length) return;
+    var reduce = isCapture() || (window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches);
+    var timers = [];
+
+    if (reduce) {
+      Array.prototype.forEach.call(root.querySelectorAll(".fold-text-piece"), function (p) {
+        p.classList.add("is-folded-in");
+        p.style.opacity = "1";
+        p.style.transform = "none";
+        p.style.setProperty("--fold-crease", "0");
+      });
+      return;
+    }
+
+    var playCard = function (card) {
+      var pieces = Array.prototype.slice.call(card.querySelectorAll(".fold-text-piece"));
+      var baseDelay = parseInt(card.getAttribute("data-fold-delay") || "0", 10);
+      pieces.forEach(function (piece, i) {
+        var delay = baseDelay + i * 45;
+        var t = setTimeout(function () {
+          piece.classList.add("is-folded-in");
+        }, delay);
+        timers.push(t);
+      });
+    };
+
+    // Hero stats are above the fold — start shortly after mount.
+    var start = setTimeout(function () {
+      cards.forEach(playCard);
+    }, 120);
+    timers.push(start);
+
+    store.foldCleanup = function () {
+      timers.forEach(function (t) { clearTimeout(t); });
+      timers = [];
+    };
+  }
+
   function setupReveal(root, store) {
     var reveals = Array.prototype.slice.call(root.querySelectorAll("[data-reveal]"));
     var reduce = isCapture() || (window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches);
@@ -1012,6 +1684,215 @@
       return null;
     }
     return sh;
+  }
+
+  function setupSpecularStats(root, store) {
+    var nodes = Array.prototype.slice.call(root.querySelectorAll("[data-specular]"));
+    if (!nodes.length) return;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    var fine = !window.matchMedia || window.matchMedia("(pointer:fine)").matches;
+    if (reduce || !fine) return;
+
+    var RADIUS = 16.867;
+    var INTENSITY = 1;
+    var SHINE_SIZE = (10 * Math.PI) / 180;
+    var SHINE_FADE = (40 * Math.PI) / 180;
+    var THICKNESS = 1;
+    var SPEED = 0.35;
+    var PROXIMITY = 250;
+    var lineRGB = hexToVec3("#ffffff");
+    var baseRGB = hexToVec3("#525252");
+    var instances = [];
+    var pointer = { x: 0, y: 0, moved: false };
+    var sharedRaf = 0;
+    var last = performance.now();
+
+    var onPointerMove = function (e) {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.moved = true;
+    };
+    window.addEventListener("pointermove", onPointerMove);
+
+    nodes.forEach(function (btn) {
+      var fx = btn.querySelector(".svc-stat-fx");
+      if (!fx) return;
+      var canvas = document.createElement("canvas");
+      fx.appendChild(canvas);
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var gl = canvas.getContext("webgl2", {
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: true,
+        powerPreference: "high-performance"
+      });
+      if (!gl) return;
+
+      gl.clearColor(0, 0, 0, 0);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+      var vs = compileShader(gl, gl.VERTEX_SHADER, SPECULAR_VERT);
+      var fs = compileShader(gl, gl.FRAGMENT_SHADER, SPECULAR_FRAG);
+      if (!vs || !fs) return;
+      var prog = gl.createProgram();
+      gl.attachShader(prog, vs);
+      gl.attachShader(prog, fs);
+      gl.bindAttribLocation(prog, 0, "position");
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.warn("[Specular] program link:", gl.getProgramInfoLog(prog));
+        return;
+      }
+      gl.useProgram(prog);
+
+      var buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(0);
+      gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+      var U = {
+        uCenter: gl.getUniformLocation(prog, "uCenter"),
+        uHalfSize: gl.getUniformLocation(prog, "uHalfSize"),
+        uRadius: gl.getUniformLocation(prog, "uRadius"),
+        uAngle: gl.getUniformLocation(prog, "uAngle"),
+        uPx: gl.getUniformLocation(prog, "uPx"),
+        uLineColor: gl.getUniformLocation(prog, "uLineColor"),
+        uBaseColor: gl.getUniformLocation(prog, "uBaseColor"),
+        uIntensity: gl.getUniformLocation(prog, "uIntensity"),
+        uShineSize: gl.getUniformLocation(prog, "uShineSize"),
+        uShineFade: gl.getUniformLocation(prog, "uShineFade"),
+        uThickness: gl.getUniformLocation(prog, "uThickness"),
+        uBaseWidth: gl.getUniformLocation(prog, "uBaseWidth")
+      };
+      gl.uniform1f(U.uPx, dpr);
+      gl.uniform1f(U.uBaseWidth, dpr);
+      gl.uniform3fv(U.uLineColor, lineRGB);
+      gl.uniform3fv(U.uBaseColor, baseRGB);
+      gl.uniform1f(U.uShineSize, SHINE_SIZE);
+      gl.uniform1f(U.uShineFade, SHINE_FADE);
+
+      var size = { w: 1, h: 1 };
+      var resize = function () {
+        var rect = btn.getBoundingClientRect();
+        var w = Math.max(1, rect.width);
+        var h = Math.max(1, rect.height);
+        size.w = w;
+        size.h = h;
+        var cw = Math.max(1, Math.round((w + SPECULAR_PAD * 2) * dpr));
+        var ch = Math.max(1, Math.round((h + SPECULAR_PAD * 2) * dpr));
+        if (canvas.width !== cw || canvas.height !== ch) {
+          canvas.width = cw;
+          canvas.height = ch;
+        }
+        gl.viewport(0, 0, cw, ch);
+        gl.useProgram(prog);
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.enableVertexAttribArray(0);
+        gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+        gl.uniform2f(U.uCenter, (SPECULAR_PAD + w / 2) * dpr, (SPECULAR_PAD + h / 2) * dpr);
+        gl.uniform2f(U.uHalfSize, (w / 2) * dpr, (h / 2) * dpr);
+        gl.uniform1f(U.uRadius, Math.min(RADIUS, Math.min(w, h) / 2) * dpr);
+        gl.uniform1f(U.uThickness, THICKNESS * dpr);
+        gl.uniform1f(U.uPx, dpr);
+        gl.uniform1f(U.uBaseWidth, dpr);
+      };
+
+      var ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(resize) : null;
+      if (ro) ro.observe(btn);
+      resize();
+
+      instances.push({
+        btn: btn,
+        gl: gl,
+        canvas: canvas,
+        fx: fx,
+        prog: prog,
+        buf: buf,
+        U: U,
+        size: size,
+        dpr: dpr,
+        resize: resize,
+        ro: ro,
+        angle: 2.4,
+        idleAngle: 2.4,
+        bright: 0
+      });
+    });
+
+    if (!instances.length) {
+      window.removeEventListener("pointermove", onPointerMove);
+      return;
+    }
+
+    var tick = function (now) {
+      sharedRaf = requestAnimationFrame(tick);
+      var dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+
+      for (var i = 0; i < instances.length; i++) {
+        var inst = instances[i];
+        var gl = inst.gl;
+        var U = inst.U;
+        var btn = inst.btn;
+        var rect = btn.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var pointerAngle = null;
+        var proximityT = 0;
+
+        if (pointer.moved) {
+          var dx = Math.max(rect.left - pointer.x, 0, pointer.x - rect.right);
+          var dy = Math.max(rect.top - pointer.y, 0, pointer.y - rect.bottom);
+          var dist = Math.hypot(dx, dy);
+          if (dist === 0) {
+            var nx = (pointer.x - cx) / Math.max(rect.width / 2, 1);
+            var ny = (cy - pointer.y) / Math.max(rect.height / 2, 1);
+            pointerAngle = Math.atan2(2 / Math.max(rect.height, 1), -2 / Math.max(rect.width, 1)) + nx * 0.3 + ny * 0.15;
+          } else {
+            pointerAngle = Math.atan2(cy - pointer.y, pointer.x - cx);
+          }
+          var t = Math.max(0, 1 - dist / Math.max(PROXIMITY, 1));
+          proximityT = t * t * (3 - 2 * t);
+        }
+
+        inst.idleAngle += SPEED * dt;
+        var target = pointerAngle != null ? pointerAngle : inst.idleAngle;
+        var diff = ((target - inst.angle + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+        inst.angle += diff * (1 - Math.exp(-dt * 7));
+        // Keep a visible idle sweep; intensify when the pointer is near.
+        var brightTarget = Math.max(0.55, proximityT);
+        inst.bright += (brightTarget - inst.bright) * (1 - Math.exp(-dt * 8));
+
+        gl.useProgram(inst.prog);
+        gl.bindBuffer(gl.ARRAY_BUFFER, inst.buf);
+        gl.enableVertexAttribArray(0);
+        gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+        gl.viewport(0, 0, inst.canvas.width, inst.canvas.height);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform1f(U.uAngle, inst.angle);
+        gl.uniform1f(U.uIntensity, INTENSITY * inst.bright);
+        gl.uniform3fv(U.uLineColor, lineRGB);
+        gl.uniform3fv(U.uBaseColor, baseRGB);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+      }
+    };
+    sharedRaf = requestAnimationFrame(tick);
+
+    store.specularCleanup = function () {
+      if (sharedRaf) cancelAnimationFrame(sharedRaf);
+      window.removeEventListener("pointermove", onPointerMove);
+      instances.forEach(function (inst) {
+        if (inst.ro) inst.ro.disconnect();
+        try {
+          if (inst.canvas.parentNode === inst.fx) inst.fx.removeChild(inst.canvas);
+          var lose = inst.gl.getExtension("WEBGL_lose_context");
+          if (lose) lose.loseContext();
+        } catch (e) {}
+      });
+      instances = [];
+    };
   }
 
   function setupGrainient(root, store) {
@@ -1168,6 +2049,154 @@
     });
   }
 
+  function setupStoryHighlight(root, store) {
+    var section = root.querySelector("[data-svc-story]");
+    var textEl = root.querySelector("[data-story-text]");
+    var mark = root.querySelector("[data-story-mark]");
+    if (!section || !textEl) return;
+
+    var words = Array.prototype.slice.call(textEl.querySelectorAll(".svc-hl-word"));
+    var dims = words.map(function (w) { return w.querySelector(".svc-hl-dim"); });
+    var lits = words.map(function (w) { return w.querySelector(".svc-hl-lit"); });
+    var n = lits.length;
+    if (!n) return;
+
+    var reduce = isCapture() || (window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches);
+    if (reduce) {
+      lits.forEach(function (el) { if (el) el.style.opacity = "1"; });
+      dims.forEach(function (el) { if (el) el.style.opacity = "0"; });
+      if (mark) mark.classList.add("is-in");
+      return;
+    }
+
+    var clamp = function (v, lo, hi) { return Math.min(hi, Math.max(lo, v)); };
+    var smoothstep = function (t) { return t * t * (3 - 2 * t); };
+    // Soft ramp across ~4 words so fill feels continuous, not stepwise
+    var SOFT = 4.25;
+    var raf = 0;
+    var lastKey = "";
+    var markIn = false;
+
+    var apply = function (progress, markProgress) {
+      var key = progress.toFixed(4) + ":" + (markProgress > 0.12 ? "1" : "0");
+      if (key === lastKey) return;
+      lastKey = key;
+
+      var cursor = progress * (n + SOFT);
+      for (var i = 0; i < n; i++) {
+        var t = clamp((cursor - i) / SOFT, 0, 1);
+        var o = smoothstep(t);
+        if (lits[i]) lits[i].style.opacity = String(o);
+        // Regular layer fades out of view as bold fills in
+        if (dims[i]) dims[i].style.opacity = String(1 - o);
+      }
+
+      if (mark && !markIn && markProgress > 0.08) {
+        markIn = true;
+        mark.classList.add("is-in");
+      }
+    };
+
+    var measure = function () {
+      var rect = textEl.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      // Mirror ScrollHighlight defaults: start "top center", end "bottom center"
+      var start = rect.top + window.scrollY - vh * 0.5;
+      var end = rect.bottom + window.scrollY - vh * 0.5;
+      var range = Math.max(1, end - start);
+      var y = window.scrollY || window.pageYOffset || 0;
+      var progress = clamp((y - start) / range, 0, 1);
+
+      var sec = section.getBoundingClientRect();
+      var markProgress = clamp(1 - sec.top / (vh * 0.85), 0, 1);
+      apply(progress, markProgress);
+    };
+
+    var onScroll = function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        measure();
+      });
+    };
+
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    store.storyCleanup = function () {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      lits.forEach(function (el) { if (el) el.style.opacity = ""; });
+      dims.forEach(function (el) { if (el) el.style.opacity = ""; });
+      if (mark) mark.classList.remove("is-in");
+    };
+  }
+
+  function setupHeroWatermark(root, store) {
+    var mark = root.querySelector("[data-hero-mark]");
+    if (!mark) return;
+
+    var BASE = 181; // Figma 23003:3084 at 1440px artboard
+    var MIN = 28;
+    var PAD = 32;
+    var GAP = 12; // sit just below the fixed nav bar
+    var raf = 0;
+
+    var placeBelowNav = function () {
+      var nav = document.querySelector("[data-agn-nav], nav.agn-nav");
+      var layer = mark.offsetParent || mark.parentElement;
+      var top = 102; // fallback: desktop nav top 18 + height 72 + gap 12
+      if (nav && layer) {
+        var navRect = nav.getBoundingClientRect();
+        var layerRect = layer.getBoundingClientRect();
+        if (navRect.height > 0) {
+          top = Math.max(0, Math.round(navRect.bottom - layerRect.top + GAP));
+        }
+      }
+      mark.style.top = top + "px";
+    };
+
+    var fit = function () {
+      raf = 0;
+      placeBelowNav();
+      mark.style.fontSize = BASE + "px";
+      mark.style.transform = "translateX(-50%)";
+      var avail = Math.max(120, (mark.parentElement ? mark.parentElement.clientWidth : window.innerWidth) - PAD);
+      var natural = mark.scrollWidth || avail;
+      var scale = natural > avail ? avail / natural : 1;
+      var size = Math.max(MIN, Math.floor(BASE * scale));
+      mark.style.fontSize = size + "px";
+      // Final clamp if letter metrics still overflow after rounding
+      if (mark.scrollWidth > avail && size > MIN) {
+        size = Math.max(MIN, Math.floor(size * (avail / mark.scrollWidth)));
+        mark.style.fontSize = size + "px";
+      }
+    };
+
+    var onResize = function () {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(fit);
+    };
+
+    fit();
+    // Nav may mount/layout a tick later than the service page
+    requestAnimationFrame(fit);
+    // FoldText pieces can affect metrics until first paint settles
+    var refit = setTimeout(fit, 80);
+    var refit2 = setTimeout(fit, 520);
+    window.addEventListener("resize", onResize);
+    store.heroMarkCleanup = function () {
+      clearTimeout(refit);
+      clearTimeout(refit2);
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+      mark.style.fontSize = "";
+      mark.style.transform = "";
+      mark.style.top = "";
+    };
+  }
+
   function setupHeroCover(root, store) {
     var wrap = root.querySelector("[data-hero-scroll]");
     var pin = root.querySelector("[data-hero-pin]");
@@ -1178,10 +2207,15 @@
     var clamp = function (v, lo, hi) { return Math.min(hi, Math.max(lo, v)); };
     var easeOutCubic = function (t) { return 1 - Math.pow(1 - t, 3); };
     var lastKey = "";
+    // Once story covers the hero, keep the blurred "receded" state locked
+    // until the user scrolls back into the hero viewport.
+    var locked = false;
 
     var apply = function () {
       if (window.matchMedia && window.matchMedia("(max-width:640px)").matches) {
+        locked = false;
         pin.style.display = "";
+        pin.style.visibility = "";
         pin.style.pointerEvents = "";
         pin.style.setProperty("--hero-veil", "0");
         layer.style.transform = "";
@@ -1192,26 +2226,32 @@
       var vh = Math.max(1, wrap.offsetHeight || window.innerHeight || 1);
       var top = wrap.getBoundingClientRect().top;
       var raw = clamp((-top) / vh, 0, 1);
-      var p = easeOutCubic(raw);
-      var key = raw.toFixed(4);
+
+      // Latch blur while content is over the hero; release only near top
+      if (raw >= 0.72) locked = true;
+      if (raw <= 0.08) locked = false;
+      var use = locked ? Math.max(raw, 0.92) : raw;
+      var p = easeOutCubic(use);
+      var key = (locked ? "L" : "U") + use.toFixed(4);
       if (key === lastKey) return raw;
       lastKey = key;
 
-      var scale = 1 + p * 0.22;
-      var y = p * 28;
-      var veil = p * 0.55;
-      var blur = p < 0.01 ? 0 : p * 16;
+      // Hero recedes into the background (scale down + blur), never unmounts
+      var scale = 1 - p * 0.14;
+      var y = p * 36;
+      var veil = p * 0.42;
+      var blur = p < 0.01 ? 0 : 8 + p * 18;
 
+      pin.style.display = "";
+      pin.style.visibility = "visible";
       pin.style.transform = "none";
       pin.style.filter = "none";
       pin.style.opacity = "1";
       pin.style.setProperty("--hero-veil", veil.toFixed(3));
-      pin.style.display = raw >= 0.999 ? "none" : "";
-      pin.style.visibility = "";
-      pin.style.pointerEvents = raw > 0.2 ? "none" : "";
+      pin.style.pointerEvents = use > 0.18 ? "none" : "";
       layer.style.transform = "translate3d(0," + y.toFixed(2) + "px,0) scale(" + scale.toFixed(4) + ")";
       layer.style.filter = blur < 0.05 ? "none" : "blur(" + blur.toFixed(2) + "px)";
-      layer.style.opacity = Math.max(0, 1 - p * 0.35).toFixed(3);
+      layer.style.opacity = Math.max(0.55, 1 - p * 0.28).toFixed(3);
       return raw;
     };
 
@@ -1230,6 +2270,7 @@
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       pin.style.display = "";
+      pin.style.visibility = "";
       pin.style.pointerEvents = "";
       pin.style.setProperty("--hero-veil", "0");
       layer.style.transform = "";
@@ -1238,14 +2279,15 @@
     };
   }
 
-  // React Bits "Tilted Card" — compact vanilla spring port.
+  // TiltCard-style interaction: 3D spring tilt + image spotlight (replaces white ClippedCircle).
   function setupTilt(root, store) {
     var fine = window.matchMedia && window.matchMedia("(pointer:fine)").matches;
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
     if (!fine || reduce) return;
     var nodes = Array.prototype.slice.call(root.querySelectorAll("[data-tilt]"));
-    var AMP = 10, SCALE = 1.03;
+    var AMP = 11, SCALE = 1.035;
     nodes.forEach(function (node) {
+      var isGet = node.hasAttribute("data-get-card");
       var target = { rx: 0, ry: 0, s: 1 };
       var cur = { rx: 0, ry: 0, s: 1 };
       var raf = null;
@@ -1263,16 +2305,36 @@
         } else { raf = null; }
       };
       var kick = function () { if (!raf) raf = requestAnimationFrame(step); };
+      var setSpotlight = function (e) {
+        if (!isGet) return;
+        var r = node.getBoundingClientRect();
+        var x = ((e.clientX - r.left) / Math.max(1, r.width)) * 100;
+        var y = ((e.clientY - r.top) / Math.max(1, r.height)) * 100;
+        node.style.setProperty("--mx", x.toFixed(2) + "%");
+        node.style.setProperty("--my", y.toFixed(2) + "%");
+      };
       var onMove = function (e) {
         var r = node.getBoundingClientRect();
         var px = (e.clientX - r.left) / r.width - 0.5;
         var py = (e.clientY - r.top) / r.height - 0.5;
         target.ry = px * AMP * 2;
         target.rx = -py * AMP * 2;
+        setSpotlight(e);
         kick();
       };
-      var onEnter = function () { node.classList.add("is-tilting"); target.s = SCALE; kick(); };
-      var onLeave = function () { node.classList.remove("is-tilting"); target.rx = 0; target.ry = 0; target.s = 1; kick(); };
+      var onEnter = function (e) {
+        node.classList.add("is-tilting");
+        target.s = SCALE;
+        setSpotlight(e);
+        kick();
+      };
+      var onLeave = function () {
+        node.classList.remove("is-tilting");
+        target.rx = 0;
+        target.ry = 0;
+        target.s = 1;
+        kick();
+      };
       node.addEventListener("mousemove", onMove);
       node.addEventListener("mouseenter", onEnter);
       node.addEventListener("mouseleave", onLeave);
@@ -1282,6 +2344,9 @@
         node.removeEventListener("mouseleave", onLeave);
         if (raf) cancelAnimationFrame(raf);
         node.style.transform = "";
+        node.style.removeProperty("--mx");
+        node.style.removeProperty("--my");
+        node.classList.remove("is-tilting");
       });
     });
   }
@@ -1567,6 +2632,197 @@
     };
   }
 
+  // Infinite blog marquee: same as explore, but auto-scrolls left → right.
+  function setupBlogs(root, store) {
+    var marquee = root.querySelector("[data-blogs-marquee]");
+    if (!marquee) return;
+    var viewport = marquee.querySelector("[data-blogs-viewport]");
+    var track = marquee.querySelector("[data-blogs-track]");
+    var seq = marquee.querySelector("[data-blogs-group]");
+    if (!viewport || !track || !seq) return;
+
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var isMobile = function () { return window.innerWidth <= 960; };
+    var speed = 36;
+    var seqWidth = 0;
+    var copies = 1;
+    var offset = 0;
+    var vel = 0;
+    var last = null;
+    var raf = null;
+    var dragging = false;
+    var moved = false;
+    var pressing = false;
+    var dragStartX = 0;
+    var dragStartOffset = 0;
+    var focusCard = null;
+    var SMOOTH_TAU = 0.22;
+
+    var ensureCopies = function () {
+      while (track.children.length > 1) track.removeChild(track.lastElementChild);
+      copies = 1;
+      if (isMobile() || reduce || isCapture()) return;
+      seqWidth = seq.getBoundingClientRect().width;
+      if (seqWidth <= 0) return;
+      var want = Math.max(2, Math.ceil(viewport.clientWidth / seqWidth) + 2);
+      while (copies < want) {
+        var clone = seq.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+        copies += 1;
+      }
+    };
+
+    var wrapOffset = function () {
+      if (seqWidth <= 0) return;
+      offset = (((offset % seqWidth) + seqWidth) % seqWidth);
+    };
+
+    var applyTransform = function () {
+      wrapOffset();
+      track.style.transform = "translate3d(" + (-offset).toFixed(2) + "px,0,0)";
+    };
+
+    var setFocus = function (card) {
+      var hadFocus = !!focusCard;
+      focusCard = card || null;
+      Array.prototype.forEach.call(track.querySelectorAll(".svc-blog-card"), function (c) {
+        c.classList.toggle("is-focus", c === focusCard);
+      });
+      marquee.classList.toggle("is-dim", !!focusCard);
+      if (!focusCard && hadFocus) {
+        vel = speed;
+        last = null;
+      }
+    };
+
+    var cardAtPoint = function (x, y) {
+      var el = document.elementFromPoint(x, y);
+      if (!el || !el.closest) return null;
+      var card = el.closest(".svc-blog-card");
+      return card && track.contains(card) ? card : null;
+    };
+
+    var syncFocusFromPointer = function (e) {
+      if (dragging || isMobile() || reduce || isCapture()) return;
+      var card = cardAtPoint(e.clientX, e.clientY);
+      if (card !== focusCard) setFocus(card);
+    };
+
+    var targetSpeed = function () {
+      if (reduce || isMobile() || isCapture() || dragging) return 0;
+      if (focusCard) return 0;
+      return speed;
+    };
+
+    var step = function (t) {
+      raf = requestAnimationFrame(step);
+      if (reduce || isMobile() || isCapture()) return;
+      if (last === null) last = t;
+      var dt = Math.max(0, t - last) / 1000;
+      last = t;
+      var ease = 1 - Math.exp(-dt / SMOOTH_TAU);
+      vel += (targetSpeed() - vel) * ease;
+      if (seqWidth > 0 && !dragging) {
+        // Invert explore direction: content travels left → right.
+        offset -= vel * dt;
+        applyTransform();
+      }
+    };
+
+    ensureCopies();
+    applyTransform();
+    if (!reduce && !isMobile() && !isCapture()) raf = requestAnimationFrame(step);
+
+    var onResize = function () {
+      ensureCopies();
+      applyTransform();
+    };
+    window.addEventListener("resize", onResize);
+
+    var onLeave = function () {
+      if (!dragging) setFocus(null);
+    };
+    marquee.addEventListener("pointerleave", onLeave);
+    marquee.addEventListener("pointermove", syncFocusFromPointer);
+
+    var goToCard = function (card) {
+      if (!card) return;
+      var href = card.getAttribute("href");
+      if (!href || href === "#") return;
+      if (window.__agnPageGo) window.__agnPageGo(href);
+      else window.location.href = href;
+    };
+
+    track.addEventListener("click", function (e) {
+      var card = e.target.closest ? e.target.closest(".svc-blog-card") : null;
+      if (!card) return;
+      e.preventDefault();
+      if (moved) return;
+      goToCard(card);
+    });
+
+    var onDown = function (e) {
+      if (isMobile() || reduce || isCapture()) return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      pressing = true;
+      dragging = false;
+      moved = false;
+      dragStartX = e.clientX;
+      dragStartOffset = offset;
+    };
+    var onMove = function (e) {
+      if (!pressing || isMobile() || reduce || isCapture()) return;
+      var dx = e.clientX - dragStartX;
+      if (!dragging) {
+        if (Math.abs(dx) <= 6) return;
+        dragging = true;
+        moved = true;
+        viewport.classList.add("is-dragging");
+        try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      offset = dragStartOffset - dx;
+      applyTransform();
+    };
+    var onUp = function (e) {
+      pressing = false;
+      if (dragging) {
+        dragging = false;
+        viewport.classList.remove("is-dragging");
+        try { viewport.releasePointerCapture(e.pointerId); } catch (err) {}
+      }
+      syncFocusFromPointer(e);
+      setTimeout(function () { moved = false; }, 0);
+    };
+    viewport.addEventListener("pointerdown", onDown);
+    viewport.addEventListener("pointermove", onMove);
+    viewport.addEventListener("pointerup", onUp);
+    viewport.addEventListener("pointercancel", onUp);
+
+    var onWheel = function (e) {
+      if (isMobile() || reduce || isCapture()) return;
+      var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!delta) return;
+      e.preventDefault();
+      offset += delta;
+      applyTransform();
+    };
+    marquee.addEventListener("wheel", onWheel, { passive: false, capture: true });
+
+    store.blogsCleanup = function () {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+      marquee.removeEventListener("pointerleave", onLeave);
+      marquee.removeEventListener("pointermove", syncFocusFromPointer);
+      marquee.removeEventListener("wheel", onWheel, { capture: true });
+      viewport.removeEventListener("pointerdown", onDown);
+      viewport.removeEventListener("pointermove", onMove);
+      viewport.removeEventListener("pointerup", onUp);
+      viewport.removeEventListener("pointercancel", onUp);
+      track.style.transform = "";
+    };
+  }
+
   // Infinite explore marquee: auto-scroll, pause + focus on card hover, manual drag/wheel.
   function setupExplore(root, store) {
     var marquee = root.querySelector("[data-explore-marquee]");
@@ -1775,15 +3031,21 @@
 
     var mount = rootEl.querySelector("[data-service-mount]") || rootEl;
     mount.innerHTML =
-      heroHTML(d) + whyHTML(d) + howHTML(d) + whatHTML(d) + switchHTML(slug) + finalHTML(d);
+      heroHTML(d) + storyHTML(d) + pillarsHTML(d) + getsHTML(d) + blogsHTML() + switchHTML(slug) + finalHTML(d);
 
-    var store = { revealRaf: null, tlRaf: null, heroCoverRaf: null, tiltCleanups: [], grainientCleanups: [], timelineCleanup: null, heroCoverCleanup: null, whatCleanup: null, exploreCleanup: null };
+    var store = { revealRaf: null, tlRaf: null, heroCoverRaf: null, tiltCleanups: [], grainientCleanups: [], timelineCleanup: null, heroCoverCleanup: null, heroMarkCleanup: null, storyCleanup: null, whatCleanup: null, blogsCleanup: null, exploreCleanup: null, specularCleanup: null, foldCleanup: null, animatedContentCleanup: null };
     setupHeroCover(mount, store);
+    setupHeroWatermark(mount, store);
+    setupStoryHighlight(mount, store);
     setupGrainient(mount, store);
+    setupSpecularStats(mount, store);
+    setupAnimatedContent(mount, store);
+    setupFoldStats(mount, store);
     setupReveal(mount, store);
     setupTilt(mount, store);
     setupTimeline(mount, store);
     setupWhatMarquee(mount, store);
+    setupBlogs(mount, store);
     setupExplore(mount, store);
     if (window.AzarianButton && window.AzarianButton.bindMagnetic) {
       try { window.AzarianButton.bindMagnetic(mount); } catch (e) {}
@@ -1801,9 +3063,15 @@
     if (store.heroCoverRaf) cancelAnimationFrame(store.heroCoverRaf);
     if (store.timelineCleanup) store.timelineCleanup();
     if (store.whatCleanup) store.whatCleanup();
+    if (store.blogsCleanup) store.blogsCleanup();
     if (store.exploreCleanup) store.exploreCleanup();
     if (store.heroCoverCleanup) store.heroCoverCleanup();
+    if (store.heroMarkCleanup) store.heroMarkCleanup();
+    if (store.storyCleanup) store.storyCleanup();
     if (store.grainientCleanups) store.grainientCleanups.forEach(function (fn) { try { fn(); } catch (e) {} });
+    if (store.specularCleanup) store.specularCleanup();
+    if (store.animatedContentCleanup) store.animatedContentCleanup();
+    if (store.foldCleanup) store.foldCleanup();
     if (store.tiltCleanups) store.tiltCleanups.forEach(function (fn) { try { fn(); } catch (e) {} });
     rootEl.__svcStore = null;
   }
