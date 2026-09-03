@@ -73,7 +73,9 @@
 
   function col(title, links) {
     var items = links.map(function (t) {
-      return "<li><a href=\"#\">" + t + "</a></li>";
+      var label = typeof t === "string" ? t : t.label;
+      var href = typeof t === "string" ? "#" : (t.href || "#");
+      return "<li><a href=\"" + href + "\">" + label + "</a></li>";
     }).join("");
     return "<div class=\"ft-col\"><h4>" + title + "</h4><ul>" + items + "</ul></div>";
   }
@@ -103,6 +105,7 @@
             "Custom CMS Solutions","Performance Measurement","Usability Testing","Subscriber Segmentation",
           ]) +
           col("Who We Are", [
+            { label: "Growth OS", href: "Azarian Growth OS.dc.html" },
             "Influencer Collaborations","Customer Support Systems","Marketing Materials","App Store Optimization",
             "Theme and Plugin Development","Reporting Dashboards","Interaction Design","Analytics and Reporting",
           ]) +

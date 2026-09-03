@@ -86,7 +86,7 @@
       ]},
       { label: "Academy", children: [ "Growth Fundamentals Course" ]}
     ]},
-    { label: "Growth OS", href: "Azarian Home.dc.html#os" },
+    { label: "Growth OS", href: "Azarian Growth OS.dc.html" },
     { label: "About Us",  href: "Azarian About.dc.html" }
   ];
 

@@ -7,7 +7,7 @@
 
   Usage in markup:
     <a href="#cta" class="agn-btn" data-magnetic>Start a Conversation</a>
-    <a href="#os" class="agn-btn agn-btn--ghost" data-magnetic>See how it works</a>
+    <a href="Azarian Growth OS.dc.html" class="agn-btn agn-btn--ghost" data-magnetic>See how it works</a>
     <button type="submit" class="agn-btn" data-magnetic>Start the Conversation</button>
 
   Or via API:

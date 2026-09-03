@@ -26,55 +26,38 @@
       tag: "Diagnostic",
       accent: "#1BFED1",
       grain: ["#0C4E56", "#0A2E49", "#081226"],
-      title: "Portfolio Growth Diagnostic™",
-      heroHeadline: "Know what's driving revenue — before you invest.",
-      lead: "A board-ready commercial assessment: what's working, what's leaking, and what to fix first.",
+      title: "Portfolio Growth Diagnostic",
+      heroHeadline: "Is your portfolio company's marketing engine built to scale, or just running?",
+      lead: "A structured, AI-powered commercial assessment that maps every channel, dollar, and handoff to closed revenue.",
       cta: "Book the Diagnostic",
+      finalCta: "Start the Diagnostic",
       stats: [
-        { k: "Board-ready", v: "findings your leadership can act on" },
-        { k: "30-60-90", v: "day prioritized execution roadmap" },
-        { k: "Full-funnel", v: "paid, SEO, email, CRM, analytics" },
-        { k: "PE-grade", v: "commercial due diligence, not a pitch" }
+        { k: "AI-powered", v: "commercial audit" },
+        { k: "30-60-90", v: "execution roadmap" },
+        { k: "Board-ready", v: "findings deck" },
+        { k: "Days", v: "not weeks to deliver" }
       ],
-      story: "You're inheriting a marketing org built on founder instinct and agency relationships — not systems. Before you invest in growth, you need to know exactly what's broken and what it will cost to fix it. The Portfolio Growth Diagnostic maps every channel, dollar, and handoff to closed revenue — so your board gets a clear answer, not another pitch.",
-      pillarsTitle: "Commercial due diligence your board can underwrite.",
+      story: "Most PE-backed businesses spend on marketing without knowing what's actually driving revenue. You're inheriting a marketing org built on founder instinct and agency relationships, not systems. Before you invest in growth, you need to know exactly what's broken and what it will cost to fix. That's what this diagnostic answers. It works as pre-acquisition commercial due diligence, a post-close baseline, or a platform carve-out assessment.",
+      pillarsTitle: "Due diligence, not a marketing audit.",
       pillars: [
-        { label: "01 / The audit", t: "Full-funnel commercial assessment", b: "We map paid, SEO, email, CRM, and analytics end to end — every channel, dollar, and handoff to closed revenue. Not a marketing audit. A commercial read.", anim: "funnel" },
-        { label: "02 / The gaps", t: "Quantified revenue impact", b: "Every finding carries a dollar figure. You see exactly what each leak costs the portfolio company — and which fixes move EBITDA first.", anim: "num" },
-        { label: "03 / The roadmap", t: "30-60-90 day execution plan", b: "Prioritized actions your operators can run immediately. Immediate wins, 90-day initiatives, and hold-period priorities — board-ready.", anim: "road" },
-        { label: "04 / The delivery", t: "A deck leadership can act on", b: "Works as pre-acquisition diligence, post-close baseline, or carve-out assessment. Written in investment-thesis language, not vanity metrics.", anim: "dash" }
+        { label: "01 / The scope", t: "Kickoff", b: "We scope around your hold period, revenue targets, and the specific gaps your team is asking about.", anim: "funnel" },
+        { label: "02 / The scope", t: "Data pull", b: "Read access to ad platforms, CRM, analytics, email, and tag manager. Nothing invasive, nothing slow.", anim: "num" },
+        { label: "03 / The scope", t: "AI analysis", b: "Growth OS agents run parallel analysis across every connected system simultaneously.", anim: "road" },
+        { label: "04 / The scope", t: "Senior review + delivery", b: "Our team interprets the data, builds the findings report, and presents it to your leadership team.", anim: "dash" }
       ],
-      sections: [
-        {
-          type: "prose",
-          title: "Why PE firms run this first",
-          paragraphs: [
-            "You're inheriting a marketing org built on founder instinct and agency relationships — not systems. Before you invest in growth, you need to know exactly what's broken and what it will cost to fix it. That's what this diagnostic answers.",
-            "Works as pre-acquisition commercial due diligence, post-close baseline, or platform carve-out assessment."
-          ]
-        },
-        {
-          type: "steps",
-          title: "How it works",
-          items: [
-            { t: "Kickoff", b: "We scope around your hold period, revenue targets, and the specific gaps your team is asking about." },
-            { t: "Data pull", b: "Read access to ad platforms, CRM, analytics, email, and tag manager." },
-            { t: "AI analysis", b: "Our Growth OS agents run parallel analysis across every connected system." },
-            { t: "Senior review", b: "Our team interprets the data and builds the findings report." },
-            { t: "Delivery", b: "Prioritized findings, revenue impact, and an execution roadmap. Presented to your leadership team." }
-          ]
-        }
-      ],
-      finalTitle: "Commercial due diligence your board can act on",
-      finalBody: "A board-ready assessment of what's working, what's leaking, and what to fix first — written in the language of your investment thesis, not marketing metrics.",
-      getsTitle: "What You Get",
+      sections: [],
+      finalTitle: "Know what's broken before you invest in growth.",
+      finalBody: "Get the diagnostic that reads like due diligence, not a marketing report.",
+      getsTitle: "What you walk away with",
       gets: [
-        { t: "Full-funnel commercial audit", b: "Paid, SEO, email, CRM, and analytics mapped end to end — every channel and handoff traced to closed revenue.", img: "svc-get/diag-01.png" },
-        { t: "Quantified revenue gaps", b: "Each finding carries a dollar impact. You see what is leaking, what it costs, and what to fix first.", img: "svc-get/diag-02.png" },
-        { t: "30-60-90 day roadmap", b: "A prioritized execution plan your operators can run immediately — board-ready and hold-period aware.", img: "svc-get/diag-03.png" },
-        { t: "Leadership presentation", b: "A deck written for PE operating partners and portfolio leadership — investment language, not marketing jargon.", img: "svc-get/diag-04.png" },
-        { t: "Diligence-ready deliverable", b: "Usable as pre-acquisition commercial DD, post-close baseline, or platform carve-out assessment.", img: "svc-get/diag-05.png" }
-      ]
+        { t: "Full-funnel audit", b: "We map every channel end to end. Paid, SEO, email, CRM, and analytics all sit in one view. Nothing hides in a silo. Hand-offs between teams become visible. You see where demand enters, where it stalls, and where revenue actually closes.", img: "svc-get/diag-01.png" },
+        { t: "Quantified revenue impact", b: "Every gap gets a dollar figure. We show what each leak costs you. You see the size of the prize before you spend. Priorities stop being opinions. The investment case for each fix is already in the numbers.", img: "svc-get/diag-02.png" },
+        { t: "30-60-90 roadmap", b: "We hand you a sequenced plan. The highest-impact moves come first. Your operators execute from day one. Owners, timelines, and dependencies are clear. Momentum replaces another backlog of ideas.", img: "svc-get/diag-03.png" },
+        { t: "Board-ready presentation", b: "We translate findings into thesis language. Your board reads value, not vanity metrics. It's a deck you can present as is. Risks, upside, and next steps land in one narrative. No rewrite before the next IC.", img: "svc-get/diag-04.png" },
+        { t: "True revenue attribution", b: "We trace every channel to closed revenue. No last-click guesswork. You learn what actually moves the number. Assisted paths and dark influencers surface. Budget follows proof, not habit.", img: "svc-get/diag-05.png" }
+      ],
+      contactTitle: "Start with a conversation, not a commitment",
+      contactBody: "Every engagement begins with a scoping call built around your hold period and targets."
     },
 
     "fractional-cmo": {
@@ -83,52 +66,36 @@
       accent: "#4F8CFF",
       grain: ["#123C7A", "#0B3358", "#081226"],
       title: "Fractional CMO",
-      heroHeadline: "Growth Unlocked: Your Fractional CMO from Day One",
-      lead: "Empower your business with expert marketing leadership — without the full-time cost or the 6-month search.",
+      heroHeadline: "Senior marketing leadership, without the full-time cost or the six-month search.",
+      lead: "We embed a senior growth leader in your business in weeks, aligned to the revenue targets in your model.",
       cta: "Talk to Us",
       stats: [
-        { k: "Day 1", v: "senior leadership in seat" },
-        { k: "90-day", v: "milestones for the PE clock" },
-        { k: "Team", v: "Senior operators only" },
-        { k: "30-day", v: "exit clause, no severance" }
+        { k: "Weeks", v: "to embed, not quarters" },
+        { k: "Operator", v: "not an advisor" },
+        { k: "3x", v: "leverage via Growth OS" },
+        { k: "Board-level", v: "reporting from day one" }
       ],
-      story: "PE-backed companies rarely have time for a six-month CMO search — or the wrong-hire risk that comes with it. We embed a senior growth leader in weeks: a working operator who owns strategy, manages your team and agencies, and reports at board level, with Growth OS amplifying every function they run.",
-      pillarsTitle: "The most impactful growth strategy of the last ten years.",
+      story: "PE-backed companies often don't have the time or budget to recruit a $300K-plus CMO, and even when they do, onboarding takes quarters. A Fractional CMO from AGA is a working operator, not an advisor. They own your marketing strategy, manage your team and agencies, build the reporting layer your board expects, and drive toward the revenue targets in your model. This isn't a staffing solution. It's a leadership layer with an AI operating system underneath.",
+      pillarsTitle: "Full-time CMO power at fractional cost.",
       pillars: [
-        { label: "01 / The scope", t: "Strategy tied to the hold period", b: "Marketing strategy locked to your investment thesis, EBITDA targets, and exit criteria — not a generic playbook dropped on day one.", anim: "target" },
-        { label: "02 / The seat", t: "Operator, not advisor", b: "A senior AGA practitioner embeds as acting CMO. They own the team, the agencies, and the board reporting layer from week one.", anim: "speed" },
-        { label: "03 / The leverage", t: "Growth OS underneath", b: "AI agents handle research, reporting, content, and competitive intel — so your Fractional CMO runs at multiples of a standalone hire.", anim: "agents" },
-        { label: "04 / The fit", t: "Built for PE timelines", b: "Post-close coverage, mid-search bridge, or consistent leadership across multiple portfolio companies — without a six-month search.", anim: "shield" }
+        { label: "01 / The scope", t: "Strategy ownership", b: "Marketing strategy tied directly to your investment thesis and hold timeline.", anim: "target" },
+        { label: "02 / The scope", t: "Team and vendor control", b: "Full ownership of the internal team and every existing agency relationship.", anim: "speed" },
+        { label: "03 / The scope", t: "Board accountability", b: "Board-level reporting and KPI ownership, aligned to EBITDA and exit criteria.", anim: "agents" },
+        { label: "04 / The scope", t: "Scale and hire", b: "Org design and hiring as you grow, with Growth OS agents augmenting every function.", anim: "shield" }
       ],
-      sections: [
-        {
-          type: "prose",
-          title: "What this is",
-          paragraphs: [
-            "A Fractional CMO from AGA is a working operator, not an advisor. They own your marketing strategy, manage your team and agencies, build the reporting layer your board expects, and drive toward the revenue targets in your model."
-          ]
-        },
-        {
-          type: "list",
-          title: "Who this is for",
-          items: [
-            { b: "Portfolio companies that need a marketing leader post-close before a full-time hire" },
-            { b: "Companies mid-search that can't afford to wait" },
-            { b: "Operators who want a senior pair of hands while they evaluate the permanent hire" },
-            { b: "PE firms that want consistent marketing leadership quality across multiple portfolio companies" }
-          ]
-        }
-      ],
-      finalTitle: "Full-time CMO capability at fractional cost",
-      finalBody: "A leadership layer with an AI operating system underneath — institutional growth frameworks baked in, aligned to your hold timeline and EBITDA targets.",
-      getsTitle: "What You Get",
+      sections: [],
+      finalTitle: "Senior marketing leadership, in seat from day one.",
+      finalBody: "Get a working operator, not another advisor deck.",
+      getsTitle: "What's included",
       gets: [
-        { t: "Senior strategic leadership", b: "A CMO-level operator in seat, in board meetings, challenging agencies, managing vendors, and directing your team. The person who built your diagnostic runs the retainer.", img: "svc-get/cmo-01.png" },
-        { t: "Growth OS deployed in your business", b: "The agents the diagnostic identified, installed and running against your data. Configured for your business, not a generic template.", img: "svc-get/cmo-02.png" },
-        { t: "Board-ready monthly reporting", b: "Pipeline contribution, CAC by channel, LTV-to-CAC, contribution margin, and revenue attribution. Investor-grade, on the cadence your sponsor expects.", img: "svc-get/cmo-03.png" },
-        { t: "Vendor and agency oversight", b: "We manage your existing agencies, hold them to outcomes, and rationalize or replace the spend. You stop paying for execution disconnected from results.", img: "svc-get/cmo-04.png" },
-        { t: "Quarterly strategy refresh", b: "Every quarter the roadmap is refreshed against actual performance. What works scales. What does not gets cut. The strategy stays tied to the value creation plan.", img: "svc-get/cmo-05.png" }
-      ]
+        { t: "Thesis-aligned strategy", b: "We build the plan around your investment thesis. Every play maps to your hold timeline. Marketing finally moves toward the model. Channel choices follow the exit math. Activity that doesn't serve the thesis gets cut.", img: "svc-get/cmo-01.png" },
+        { t: "Team and vendor ownership", b: "One senior leader owns all of it. Internal team and outside agencies included. You get a single point of accountability. Conflicting briefs stop competing for attention. Execution stays tight across the stack.", img: "svc-get/cmo-02.png" },
+        { t: "Board reporting and KPIs", b: "We install the reporting layer your board expects. Every number ties to EBITDA and exit criteria. No more scrambling before a QBR. Trends, risks, and asks arrive in one package. Leadership reads progress without translation.", img: "svc-get/cmo-03.png" },
+        { t: "Hiring and org design", b: "We build the team as you scale. The right roles at the right time. You reach exit with an org that holds. Role charters and succession are designed in. Capability compounds instead of resetting every hire.", img: "svc-get/cmo-04.png" },
+        { t: "Growth OS access", b: "AI agents run behind your CMO. Research, reporting, content, and monitoring, all automated. One leader operates at the leverage of a full team. Throughput rises without headcount spikes. Judgment stays human where it matters.", img: "svc-get/cmo-05.png" }
+      ],
+      contactTitle: "Start with a conversation, not a commitment",
+      contactBody: "Tell us where the marketing org stands today and we'll scope the fit."
     },
 
     "paid-media-demand-generation": {
@@ -136,44 +103,37 @@
       tag: "Demand",
       accent: "#F7B733",
       grain: ["#5D3F12", "#4A2414", "#1D184B"],
-      title: "Paid Media & Demand Generation",
-      heroHeadline: "Every paid dollar tracked to pipeline.",
-      lead: "Campaigns built around your CAC targets and unit economics — not vanity metrics.",
+      title: "Paid Media & Demand Gen",
+      heroHeadline: "Every paid dollar tracked to pipeline. No exceptions.",
+      lead: "Campaigns built around your CAC target, conversion economics, and the unit economics in your model.",
       cta: "Get a Paid Media Assessment",
       stats: [
-        { k: "CAC · LTV", v: "tied to your operating model" },
-        { k: "P&L", v: "weekly reporting your CFO can read" },
-        { k: "AI watch", v: "real-time anomaly detection" },
-        { k: "Full-funnel", v: "first click to closed deal" }
+        { k: "Every dollar", v: "tracked to pipeline" },
+        { k: "CAC + margin", v: "not vanity metrics" },
+        { k: "Real-time", v: "AI anomaly detection" },
+        { k: "P&L language", v: "your CFO can read" }
       ],
-      story: "Most paid media relationships produce dashboards full of impressions. We produce revenue. Every campaign is built around your CAC target, conversion economics, and the unit economics in your operating model — tracked from first click to closed deal, with AI monitoring so nothing breaks quietly.",
-      pillarsTitle: "Every paid dollar accountable to the operating model.",
+      story: "Most paid media relationships produce dashboards full of impressions. We produce revenue. We build campaigns around your financial model, not platform defaults: CAC by channel, LTV by cohort, contribution margin by campaign, all tracked and reported in terms your CFO can read. Growth OS agents run real-time monitoring and anomaly detection across your accounts, so nothing breaks quietly.",
+      pillarsTitle: "Built for the model, not the platform.",
       pillars: [
-        { label: "01 / The channels", t: "Full-funnel paid coverage", b: "Google Search, Performance Max, YouTube, Meta, LinkedIn, and programmatic — structured around CAC targets, not platform defaults.", anim: "attn" },
-        { label: "02 / The model", t: "Built on unit economics", b: "CAC by channel. LTV by cohort. Contribution margin by campaign. Reported in language your CFO can read at the QBR.", anim: "scale" },
-        { label: "03 / The watch", t: "AI anomaly detection", b: "Growth OS monitors accounts in real time — catching budget waste, creative fatigue, and conversion drops before they compound.", anim: "pulse" },
-        { label: "04 / The close", t: "Attribution to revenue", b: "Full path from first click to closed deal. Weekly P&L reporting: pipeline, cost per acquisition, and revenue per channel.", anim: "budget" }
+        { label: "01 / The scope", t: "Search and video", b: "Google Search, Performance Max, and YouTube, structured to CAC targets.", anim: "attn" },
+        { label: "02 / The scope", t: "Social and display", b: "Meta, LinkedIn, and programmatic display for B2B and B2C.", anim: "scale" },
+        { label: "03 / The scope", t: "Full-funnel testing", b: "From creative to landing page to CRM handoff.", anim: "pulse" },
+        { label: "04 / The scope", t: "AI monitoring", b: "Growth OS catches budget waste, creative fatigue, and conversion drops early.", anim: "budget" }
       ],
-      sections: [
-        {
-          type: "prose",
-          title: "What makes it different",
-          paragraphs: [
-            "We build campaigns around your financial model, not platform defaults. CAC by channel. LTV by cohort. Contribution margin by campaign. All tracked, all reported in terms your CFO can read.",
-            "Our Growth OS agents run real-time monitoring and anomaly detection across your accounts — so nothing breaks quietly."
-          ]
-        }
-      ],
-      finalTitle: "Every dollar accountable to the operating model",
-      finalBody: "Campaigns built around your financial model, not platform defaults — with an AI layer that means nothing breaks quietly.",
-      getsTitle: "What You Get",
+      sections: [],
+      finalTitle: "Stop paying for impressions. Start paying for pipeline.",
+      finalBody: "Get paid media accountable to your operating model.",
+      getsTitle: "What you get",
       gets: [
-        { t: "Campaigns built to CAC targets", b: "Search, social, and programmatic structured around your unit economics — not platform vanity defaults.", img: "svc-get/paid-01.png" },
-        { t: "P&L weekly reporting", b: "Revenue, pipeline, and cost per acquisition in language your CFO can read — every week.", img: "svc-get/paid-02.png" },
-        { t: "AI performance monitoring", b: "Growth OS watches accounts in real time for budget waste, creative fatigue, and conversion drops.", img: "svc-get/paid-03.png" },
-        { t: "Full-funnel ownership", b: "From creative to landing page to CRM handoff — senior practitioners managing the whole path.", img: "svc-get/paid-04.png" },
-        { t: "Attribution to closed revenue", b: "First click to closed deal. Every paid dollar accountable to the operating model.", img: "svc-get/paid-05.png" }
-      ]
+        { t: "Senior-run campaigns", b: "Practitioners build and manage every account. No juniors learning on your budget. The people who plan it are the people who run it. Strategy and execution stay in one seat. Feedback loops close in days, not monthly reviews.", img: "svc-get/paid-01.png" },
+        { t: "AI budget optimization", b: "Growth OS watches your spend in real time. Waste and creative fatigue get caught early. Budget flows to what's working. Alerts land before the weekly check-in. You stop paying for decay you haven't noticed yet.", img: "svc-get/paid-02.png" },
+        { t: "Weekly P&L reporting", b: "You get numbers your CFO can read. Revenue, pipeline, and cost per acquisition. No impressions dressed up as results. Channel contribution is explicit. Decisions land on contribution, not vanity volume.", img: "svc-get/paid-03.png" },
+        { t: "Full attribution", b: "We trace every dollar first click to closed deal. The full path stays visible. You always know which channel earned the revenue. Assisted touches stop disappearing. Reallocation becomes a deliberate move.", img: "svc-get/paid-04.png" },
+        { t: "Margin-first structure", b: "Campaigns are built around contribution margin. Not platform defaults, not vanity reach. Every play answers to the operating model. Creative, bids, and audiences inherit the same constraint. Scale only follows efficient units.", img: "svc-get/paid-05.png" }
+      ],
+      contactTitle: "Start with a conversation, not a commitment",
+      contactBody: "Send us your accounts and we'll show you where the spend is leaking."
     },
 
     "seo-content": {
@@ -182,42 +142,36 @@
       accent: "#34E0A1",
       grain: ["#0D5842", "#0A3F4D", "#081226"],
       title: "SEO & Content",
-      heroHeadline: "Organic traffic that compounds — and converts.",
-      lead: "Durable demand for a multi-year hold: SEO, topical authority, and AI answer engines.",
+      heroHeadline: "Organic traffic that compounds, and converts.",
+      lead: "For a multi-year hold, organic search is one of the highest-ROI investments in the first 12 months.",
       cta: "Get an SEO Assessment",
       stats: [
-        { k: "SEO + GEO", v: "Google and AI answer engines" },
-        { k: "Compounding", v: "less dependence on paid spend" },
-        { k: "Revenue", v: "pipeline attributed to organic" },
-        { k: "Hold ROI", v: "highest-ROI bet in year one" }
+        { k: "Compounding", v: "organic demand" },
+        { k: "12 months", v: "high-ROI window" },
+        { k: "AI engines", v: "GEO built in" },
+        { k: "Revenue", v: "attributed to organic" }
       ],
-      story: "Paid media stops the moment you stop paying. SEO builds durable demand. For PE-backed companies with a multi-year hold, organic search is one of the highest-ROI investments you can make in the first twelve months — compounding traffic, authority, and pipeline that reduce paid dependence over time.",
-      pillarsTitle: "Organic demand that compounds across the hold.",
+      story: "Paid media stops the moment you stop paying. SEO builds durable demand. We build the technical foundation and compound it with topical authority content mapped to buyer intent. Most agencies write content. We build a compounding organic asset, one that reduces paid dependence over a hold period and increases enterprise value at exit through demonstrated demand generation infrastructure.",
+      pillarsTitle: "A compounding asset, not blog posts.",
       pillars: [
-        { label: "01 / The foundation", t: "Technical SEO that holds", b: "Crawlability, Core Web Vitals, and site architecture fixed first — so content has a surface that can actually rank and convert.", anim: "stack" },
-        { label: "02 / The authority", t: "Topical content mapped to buyers", b: "Content built around how your buyers search — not category fluff. Depth that earns rankings and shortens sales cycles.", anim: "cast" },
-        { label: "03 / The engines", t: "Google and AI answer engines", b: "Optimized for traditional search and GEO — Perplexity, ChatGPT, Gemini — so you show up where buyers now decide.", anim: "engines" },
-        { label: "04 / The proof", t: "Pipeline attributed to organic", b: "Rankings, traffic, conversion rate, AI citation rate, and revenue from organic — reported against the operating model.", anim: "target" }
+        { label: "01 / The scope", t: "Technical foundation", b: "Crawlability, Core Web Vitals, and site architecture, fixed first.", anim: "stack" },
+        { label: "02 / The scope", t: "Topical authority", b: "Content mapped to how your buyers actually search.", anim: "cast" },
+        { label: "03 / The scope", t: "Built for AI search", b: "Optimized for Google and the AI answer engines: Perplexity, ChatGPT, Gemini.", anim: "engines" },
+        { label: "04 / The scope", t: "Conversion architecture", b: "Internal linking and conversion paths throughout every asset.", anim: "target" }
       ],
-      sections: [
-        {
-          type: "prose",
-          title: "What it produces",
-          paragraphs: [
-            "Compounding organic traffic that reduces dependence on paid spend over time. Industry authority that shortens sales cycles. Content assets that work across every other channel — paid, email, sales."
-          ]
-        }
-      ],
-      finalTitle: "A compounding organic asset for your hold period",
-      finalBody: "Organic infrastructure that reduces paid dependence over time and increases enterprise value at exit through demonstrated demand generation.",
-      getsTitle: "What You Get",
+      sections: [],
+      finalTitle: "Build demand that keeps working after the spend stops.",
+      finalBody: "Get organic infrastructure that raises enterprise value at exit.",
+      getsTitle: "What it produces",
       gets: [
-        { t: "Technical SEO foundation", b: "Crawlability, Core Web Vitals, and architecture fixed so content has a surface that can rank and convert.", img: "svc-get/seo-01.png" },
-        { t: "Topical authority content", b: "Buyer-mapped content that compounds rankings, shortens sales cycles, and feeds every other channel.", img: "svc-get/seo-02.png" },
-        { t: "GEO for AI answer engines", b: "Built for Google and Perplexity, ChatGPT, Gemini — so you show up where buyers now decide.", img: "svc-get/seo-03.png" },
-        { t: "Conversion architecture", b: "Internal linking and page structure designed to turn organic traffic into pipeline, not just sessions.", img: "svc-get/seo-04.png" },
-        { t: "Organic revenue reporting", b: "Rankings, traffic, conversion, AI citation rate, and pipeline attributed to organic search.", img: "svc-get/seo-05.png" }
-      ]
+        { t: "Compounding traffic", b: "Organic demand builds month over month. Your reliance on paid spend drops. The asset keeps working long after launch. Rankings and topical coverage stack over the hold. Each quarter starts from a higher base.", img: "svc-get/seo-01.png" },
+        { t: "Shorter sales cycles", b: "Authority content does the early selling. Buyers arrive already convinced. Deals close faster and with less friction. Sales inherits trust instead of cold education. Objection handling shrinks before the first call.", img: "svc-get/seo-02.png" },
+        { t: "Cross-channel assets", b: "Every piece works in more than one place. Paid, email, and sales all draw from it. One investment pays across the funnel. Briefs stay consistent from search to outreach. Production cost amortizes instead of resetting.", img: "svc-get/seo-03.png" },
+        { t: "Visible in AI search", b: "We optimize for the answer engines, not just Google. Perplexity, ChatGPT, and Gemini cite you. We track that citation rate as it grows. Structure and authority earn inclusion. You stay present where buyers now ask.", img: "svc-get/seo-04.png" },
+        { t: "Revenue reporting", b: "We tie organic to pipeline, page by page. You see the sessions and the revenue behind them. Growth stays accountable to the model. Content priorities follow closed deals. Vanity traffic loses the argument.", img: "svc-get/seo-05.png" }
+      ],
+      contactTitle: "Start with a conversation, not a commitment",
+      contactBody: "We'll audit where your organic stands and what the 12-month upside looks like."
     },
 
     "website-conversion-optimization": {
@@ -225,43 +179,37 @@
       tag: "Web & CRO",
       accent: "#C08BFF",
       grain: ["#4B2F72", "#243B73", "#4D1E53"],
-      title: "Website & Conversion Optimization",
+      title: "Website & Conversion",
       heroHeadline: "Traffic without conversion is just cost.",
-      lead: "Fix conversion architecture fast — without a full rebuild.",
+      lead: "Your site was built to look credible, not to convert. We fix that, without a full rebuild.",
       cta: "Get a CRO Audit",
       stats: [
-        { k: "30 days", v: "quick wins on forms and CTAs" },
-        { k: "CRO audit", v: "pages, forms, messaging hierarchy" },
-        { k: "A/B tests", v: "built on real traffic data" },
-        { k: "Revenue", v: "influenced by CRO changes" }
+        { k: "No rebuild", v: "required to fix it" },
+        { k: "30 days", v: "to first quick wins" },
+        { k: "Data-led", v: "not aesthetic preference" },
+        { k: "Revenue", v: "influenced by CRO" }
       ],
-      story: "For most PE-backed companies, the website was built to look credible — not to convert. Traffic without conversion is just cost. We fix conversion architecture without a full rebuild: quick wins in the first thirty days, then tests that compound on top of real traffic and revenue impact.",
-      pillarsTitle: "Fix conversion architecture — without a rebuild.",
+      story: "For most PE-backed companies, the website is an afterthought. It was built to look credible, not to convert. We don't sell websites. We fix the conversion problem: we start with the data, identify the highest-impact changes, and move fast. In most cases we find quick wins within the first 30 days, then longer-term tests compound on top. PE-backed companies don't have six months for a rebrand.",
+      pillarsTitle: "Fix conversion, not the brand.",
       pillars: [
-        { label: "01 / The audit", t: "CRO across pages and forms", b: "Pages, forms, CTAs, and messaging hierarchy reviewed against buyer intent — not aesthetic preference.", anim: "page" },
-        { label: "02 / The tests", t: "A/B on real traffic", b: "Hypothesis-driven experiments grounded in behavior data. Highest-impact friction fixed first; longer tests compound on top.", anim: "ab" },
-        { label: "03 / The pages", t: "Landing builds for paid", b: "Conversion paths for paid campaigns that match the offer, the audience, and the unit economics behind the spend.", anim: "attn" },
-        { label: "04 / The signal", t: "Revenue-tied reporting", b: "Conversion by page and source, revenue influenced by CRO, and test results with statistical significance.", anim: "data" }
+        { label: "01 / The scope", t: "Full CRO audit", b: "Pages, forms, CTAs, and messaging hierarchy, all reviewed against intent.", anim: "page" },
+        { label: "02 / The scope", t: "Highest-leverage first", b: "Homepage, service pages, and primary conversion paths, rewritten first.", anim: "ab" },
+        { label: "03 / The scope", t: "Testing on real data", b: "A/B and multivariate tests where traffic volume supports them.", anim: "attn" },
+        { label: "04 / The scope", t: "Post-launch monitoring", b: "Growth OS flags conversion drops before they become revenue problems.", anim: "data" }
       ],
-      sections: [
-        {
-          type: "prose",
-          title: "What to expect",
-          paragraphs: [
-            "In most cases we find quick wins within the first 30 days — form fields that kill conversions, CTAs in the wrong place, messaging that speaks to the wrong buyer. We fix those first. Longer-term tests compound on top."
-          ]
-        }
-      ],
-      finalTitle: "Fix the conversion problem — fast",
-      finalBody: "We start with the data, identify the highest-impact changes, and move fast. PE-backed companies don't have 6 months for a rebrand.",
-      getsTitle: "What You Get",
+      sections: [],
+      finalTitle: "Turn the traffic you already pay for into pipeline.",
+      finalBody: "Get a CRO fix that moves in weeks, not a six-month rebrand.",
+      getsTitle: "What to expect",
       gets: [
-        { t: "Full CRO audit", b: "Pages, forms, CTAs, and messaging hierarchy reviewed against buyer intent — not aesthetic preference.", img: "svc-get/cro-01.png" },
-        { t: "Quick wins in 30 days", b: "Form friction, misplaced CTAs, and wrong-buyer messaging fixed first — visible impact fast.", img: "svc-get/cro-02.png" },
-        { t: "A/B testing program", b: "Hypothesis-driven tests on real traffic. Highest-impact changes first; longer tests compound on top.", img: "svc-get/cro-03.png" },
-        { t: "Paid landing pages", b: "Conversion paths built for paid campaigns that match the offer, audience, and unit economics.", img: "svc-get/cro-04.png" },
-        { t: "Revenue-tied CRO reporting", b: "Conversion by page and source, revenue influenced by changes, and statistically significant test results.", img: "svc-get/cro-05.png" }
-      ]
+        { t: "Quick wins in 30 days", b: "We fix the obvious leaks first. Form friction and misplaced CTAs go early. You see conversion move inside the first month. Momentum funds the harder tests. The site starts earning while the roadmap deepens.", img: "svc-get/cro-01.png" },
+        { t: "Landing page builds", b: "We build pages made to convert. Each one is matched to a paid campaign. Traffic lands somewhere built to close. Message match holds from ad to form. Waste from generic destinations drops fast.", img: "svc-get/cro-02.png" },
+        { t: "Conversion-led UX", b: "Every change answers to a metric. We follow the data, not personal taste. Design serves conversion, not the other way around. Hierarchy, proof, and path stay deliberate. Pretty that doesn't convert doesn't ship.", img: "svc-get/cro-03.png" },
+        { t: "Tests you can trust", b: "We test where traffic supports it. Results come with statistical significance. You act on evidence, not opinion. Losers get killed cleanly. Winners scale with confidence.", img: "svc-get/cro-04.png" },
+        { t: "Revenue influence", b: "We trace lift back to each change. You see which fixes moved the number. Nothing ships on a hunch. Pipeline and revenue sit next to the experiment. CRO becomes an operating lever, not a redesign hobby.", img: "svc-get/cro-05.png" }
+      ],
+      contactTitle: "Start with a conversation, not a commitment",
+      contactBody: "Share your top pages and we'll point to the conversions you're losing."
     },
 
     "marketing-analytics-reporting": {
@@ -269,43 +217,37 @@
       tag: "Analytics",
       accent: "#38BDF8",
       grain: ["#0E4F6A", "#123C7A", "#0A2D47"],
-      title: "Marketing Analytics & Reporting",
-      heroHeadline: "If you can't measure it, you can't manage it.",
-      lead: "Board-ready reporting that ties marketing spend to revenue — so you always know what's working.",
+      title: "Marketing Analytics",
+      heroHeadline: "If you can't measure it, you can't manage it. Neither can your board.",
+      lead: "We build the analytics layer that ties marketing spend to revenue, so you always know what's working.",
       cta: "Talk to Us About Reporting",
       stats: [
-        { k: "One truth", v: "ads, CRM, and revenue connected" },
-        { k: "Board-ready", v: "KPIs for your operating model" },
-        { k: "Attribution", v: "first, last, and multi-touch" },
-        { k: "Growth OS", v: "real-time anomaly monitoring" }
+        { k: "One layer", v: "every source connected" },
+        { k: "Multi-touch", v: "attribution modeling" },
+        { k: "Speaks CFO", v: "CAC, LTV, payback" },
+        { k: "Never dark", v: "we maintain it" }
       ],
-      story: "Most portfolio companies have data. Almost none have clean, connected, board-ready reporting. We build the analytics layer that ties marketing spend to revenue — so you always know what's working, why it works, and what your board should see before the next QBR.",
-      pillarsTitle: "One source of truth your board can trust.",
+      story: "Most portfolio companies have data. Almost none have clean, connected, board-ready reporting. We build the measurement infrastructure from scratch if it doesn't exist, then connect every source into a single reporting layer that speaks CFO. Most portfolio companies have data everywhere and insight nowhere. We build the system that turns scattered platform data into board-ready revenue intelligence, and then we maintain it so it never goes dark.",
+      pillarsTitle: "Data everywhere. Insight nowhere — fixed.",
       pillars: [
-        { label: "01 / The layer", t: "Unified revenue dashboard", b: "Ad platforms, CRM, and revenue data connected into one reporting layer built around your operating model.", anim: "merge" },
-        { label: "02 / The path", t: "Multi-touch attribution", b: "First touch, last touch, and multi-touch models — so credit stops ending at the click and starts reaching the close.", anim: "funnel" },
-        { label: "03 / The board", t: "KPI packs for QBRs", b: "Custom reporting your CFO can act on: CAC, LTV, payback, channel ROAS — delivered on the cadence the board expects.", anim: "dash" },
-        { label: "04 / The OS", t: "Real-time Growth OS watch", b: "AI agents flag anomalies and inform spend decisions. You stop flying blind and run marketing like an operating function.", anim: "radar" }
+        { label: "01 / The scope", t: "Build the foundation", b: "GA4, GTM, CRM attribution, and channel tagging, configured from scratch.", anim: "merge" },
+        { label: "02 / The scope", t: "Connect every source", b: "Paid, organic, email, CRM, and product, into one reporting layer.", anim: "funnel" },
+        { label: "03 / The scope", t: "Report in revenue", b: "Marketing's contribution to pipeline, not metrics in isolation.", anim: "dash" },
+        { label: "04 / The scope", t: "Install before the QBR", b: "CAC, LTV, payback, and channel ROAS, tied to the model.", anim: "radar" }
       ],
-      sections: [
-        {
-          type: "prose",
-          title: "Powered by Growth OS",
-          paragraphs: [
-            "Our AI agents monitor your data in real time. Anomalies get flagged. Spend decisions get informed. You stop flying blind and start running marketing like an operating function."
-          ]
-        }
-      ],
-      finalTitle: "Board-ready revenue intelligence",
-      finalBody: "Turn scattered platform data into board-ready revenue intelligence — and maintain it so it never goes dark.",
-      getsTitle: "What You Get",
+      sections: [],
+      finalTitle: "Stop flying blind. Run marketing like an operating function.",
+      finalBody: "Get board-ready revenue intelligence that never goes dark.",
+      getsTitle: "What gets fixed",
       gets: [
-        { t: "Unified revenue dashboard", b: "Ad platforms, CRM, and revenue connected into one reporting layer built around your operating model.", img: "svc-get/ana-01.png" },
-        { t: "Multi-touch attribution", b: "First, last, and multi-touch models — so credit reaches the close, not just the click.", img: "svc-get/ana-02.png" },
-        { t: "Board KPI packages", b: "CAC, LTV, payback, and channel ROAS delivered on the cadence your board expects.", img: "svc-get/ana-03.png" },
-        { t: "Automated reporting cadence", b: "Weekly and monthly packages that stop eating analyst time — and never go dark.", img: "svc-get/ana-04.png" },
-        { t: "Growth OS monitoring", b: "AI agents flag anomalies and inform spend decisions so marketing runs like an operating function.", img: "svc-get/ana-05.png" }
-      ]
+        { t: "Siloed tools", b: "We connect every platform into one layer. Paid, organic, email, and CRM stop reporting apart. You get a single source of truth. Definitions align across teams. Debates shift from whose dashboard to what to do.", img: "svc-get/ana-01.png" },
+        { t: "Attribution that stalls", b: "We model past the click. The path runs all the way to closed revenue. You learn what earned the deal, not just the visit. Multi-touch views replace last-click myths. Budget follows the full journey.", img: "svc-get/ana-02.png" },
+        { t: "Metrics your CFO can't use", b: "We rebuild reporting in the language of the board. CAC, LTV, and payback, tied to the model. Every number is one you can act on. Marketing stops translating under pressure. The IC gets the same frame every time.", img: "svc-get/ana-03.png" },
+        { t: "Manual reporting", b: "We automate the weekly and monthly packages. Your analysts stop rebuilding decks by hand. The reports arrive on their own. Time moves from assembly to insight. Consistency holds even when the team is thin.", img: "svc-get/ana-04.png" },
+        { t: "Real-time anomalies", b: "Growth OS watches the data around the clock. Issues get flagged before they cost you. You stop finding out a month late. Thresholds and context travel with the alert. Operators intervene while the window is still open.", img: "svc-get/ana-05.png" }
+      ],
+      contactTitle: "Start with a conversation, not a commitment",
+      contactBody: "Tell us what you're measuring today and we'll show you the gaps."
     }
   };
 
@@ -363,27 +305,27 @@
   var CAPABILITIES = {
     "strategic-growth-diagnostic": {
       img: "capability-01.png",
-      blurb: "A structured, AI-powered commercial assessment — board-ready findings and a 30-60-90 day roadmap your operators can execute."
+      blurb: "A structured, AI-powered commercial assessment that maps every channel, dollar, and handoff to closed revenue."
     },
     "fractional-cmo": {
       img: "capability-02.png",
-      blurb: "A working operator who owns strategy, manages your team and agencies, and reports at board level — with Growth OS underneath."
+      blurb: "We embed a senior growth leader in your business in weeks, aligned to the revenue targets in your model."
     },
     "paid-media-demand-generation": {
       img: "capability-03.png",
-      blurb: "Every paid dollar tracked to pipeline. Campaigns built around CAC targets and unit economics, not platform vanity metrics."
+      blurb: "Campaigns built around your CAC target, conversion economics, and the unit economics in your model."
     },
     "seo-content": {
       img: "capability-04.png",
-      blurb: "Compounding organic traffic for a multi-year hold — technical SEO, topical authority, and AI answer engine optimization."
+      blurb: "For a multi-year hold, organic search is one of the highest-ROI investments in the first 12 months."
     },
     "website-conversion-optimization": {
       img: "capability-05.png",
-      blurb: "Fix conversion architecture without a full rebuild — CRO audits, testing, and landing pages tied to revenue metrics."
+      blurb: "Your site was built to look credible, not to convert. We fix that, without a full rebuild."
     },
     "marketing-analytics-reporting": {
       img: "capability-06.png",
-      blurb: "Unified dashboards and board-ready reporting that ties marketing spend to revenue — built for your operating model."
+      blurb: "We build the analytics layer that ties marketing spend to revenue, so you always know what's working."
     }
   };
 
@@ -544,8 +486,11 @@
 
   // ---- one-time CSS -------------------------------------------------------
   var STYLE_ID = "agn-svc-styles";
+  var STYLE_VER = "20260812-36";
   function injectStyles() {
-    if (document.getElementById(STYLE_ID)) return;
+    var existing = document.getElementById(STYLE_ID);
+    if (existing && existing.getAttribute("data-ver") === STYLE_VER) return;
+    if (existing) existing.remove();
     var css = [
       "[data-svc-page]{--svc:" + A + ";background:transparent !important;color:#fff;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;position:relative;width:100%;overflow-x:clip;}",
       ".svc-wrap{max-width:1160px;margin:0 auto;padding:0 40px;box-sizing:border-box;position:relative;z-index:1;}",
@@ -563,16 +508,14 @@
       ".svc-grainient canvas{display:block;width:100%;height:100%;opacity:.92;mix-blend-mode:screen;}",
       ".svc-hero-grid{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(90% 70% at 50% 20%,#000,transparent 78%);-webkit-mask-image:radial-gradient(90% 70% at 50% 20%,#000,transparent 78%);}",
       ".svc-hero-mark{position:absolute;left:50%;top:102px;z-index:0;width:100%;max-width:100%;margin:0;padding:0 16px;box-sizing:border-box;transform:translateX(-50%);transform-origin:center top;font-size:181px;font-weight:700;line-height:1;letter-spacing:-.02em;text-align:center;white-space:nowrap;color:rgba(255,255,255,.1);pointer-events:none;user-select:none;}",
-      ".svc-hero-mark.fold-text{display:block;color:rgba(255,255,255,.1);white-space:nowrap;line-height:1;letter-spacing:-.02em;}",
-      ".svc-hero-mark .fold-text-segment{vertical-align:baseline;}",
-      ".svc-hero-mark .fold-text-piece::after{mix-blend-mode:normal;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(255,255,255,.12) 100%);}",
+      ".svc-hero-mark.is-shiny{-webkit-text-fill-color:transparent;color:transparent;background-image:linear-gradient(120deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.1) 35%,rgba(255,255,255,.2) 50%,rgba(255,255,255,.1) 65%,rgba(255,255,255,.1) 100%);background-size:200% auto;background-position:150% center;-webkit-background-clip:text;background-clip:text;animation:svc-shiny-text 2.4s linear infinite;}",
       ".svc-hero-inner{position:relative;z-index:1;width:100%;max-width:1312px;margin:0 auto;display:flex;flex-direction:column;gap:72px;}",
       ".svc-hero-copy{width:100%;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;}",
       ".svc-hero-text{width:100%;display:flex;flex-direction:column;gap:10px;overflow:visible;}",
-      ".svc-title{margin:0;font-size:clamp(32px,3.4vw,48px);font-weight:700;line-height:1.083;letter-spacing:-.02em;color:#fff;}",
-      ".svc-title.fold-text{display:block;color:#fff;line-height:1.083;letter-spacing:-.02em;}",
+      ".svc-title{margin:0;font-size:48px;font-weight:700;line-height:1.083;letter-spacing:-.02em;color:#fff;}",
+      ".svc-title.fold-text{display:block;font-size:48px;color:#fff;line-height:1.083;letter-spacing:-.02em;}",
       ".svc-lead{margin:0 auto;font-size:18px;line-height:1.35;color:#C0C7CC;max-width:920px;}",
-      ".svc-lead.fold-text{display:block;color:#C0C7CC;line-height:1.35;letter-spacing:0;overflow:visible;}",
+      ".svc-lead.fold-text{display:block;font-size:18px;color:#C0C7CC;line-height:1.35;letter-spacing:0;overflow:visible;}",
       ".svc-hero-cta{display:flex;justify-content:center;gap:14px;margin:0;}",
       ".svc-hero-cta .agn-btn{min-width:0;justify-content:center;box-shadow:0 12px 34px -10px color-mix(in srgb,var(--svc) 52%,transparent);}",
       ".svc-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;width:100%;overflow:visible;}",
@@ -584,11 +527,12 @@
       ".svc-stat-v{display:block;margin-top:0;font-size:14px;font-weight:400;line-height:1.35;color:#8FA0B5;max-width:100%;}",
       ".svc-stat[data-animated-content]{visibility:hidden;will-change:transform,opacity;}",
       ".svc-stat[data-animated-content].is-ac-ready{visibility:visible;}",
-      "@media(prefers-reduced-motion:reduce){.svc-stat-fx{display:none;}.svc-stat[data-animated-content]{visibility:visible !important;transform:none !important;opacity:1 !important;}}",
+      "@keyframes svc-shiny-text{0%{background-position:150% center;}100%{background-position:-50% center;}}",
+      "@media(prefers-reduced-motion:reduce){.svc-stat-fx{display:none;}.svc-stat[data-animated-content]{visibility:visible !important;transform:none !important;opacity:1 !important;}.svc-hero-mark.is-shiny{animation:none;background:none;-webkit-text-fill-color:rgba(255,255,255,.1);color:rgba(255,255,255,.1);}}",
 
       /* ---- FoldText (React Bits) ---- */
       "@property --fold-crease{syntax:'<number>';inherits:true;initial-value:0;}",
-      ".fold-text{display:inline-block;color:var(--fold-text-color,currentColor);font-size:var(--fold-text-font-size,inherit);font-weight:var(--fold-text-font-weight,inherit);line-height:inherit;letter-spacing:inherit;}",
+      ".fold-text{display:inline-block;color:var(--fold-text-color,currentColor);font-size:var(--fold-text-font-size);font-weight:var(--fold-text-font-weight,inherit);line-height:inherit;letter-spacing:inherit;}",
       ".fold-text-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}",
       ".fold-text-visual{display:inline;}",
       ".fold-text-whitespace{display:inline;}",
@@ -627,7 +571,7 @@
       ".svc-gets-title{margin:0 0 42px;text-align:center;font-size:clamp(32px,3.4vw,48px);font-weight:700;line-height:1.083;color:#fff;}",
       ".svc-gets-grid{display:flex;flex-direction:column;gap:12px;width:100%;max-width:1312px;margin:0 auto;}",
       ".svc-gets-row{display:flex;gap:12px;width:100%;align-items:stretch;}",
-      ".svc-get-card{position:relative;flex:1 1 0;min-width:0;height:280px;padding:25px 1px;border-radius:14px;border:1px solid rgba(255,255,255,.1);box-sizing:border-box;overflow:hidden;background:transparent;backdrop-filter:blur(20px) saturate(1.1);-webkit-backdrop-filter:blur(20px) saturate(1.1);transform-style:preserve-3d;will-change:transform;cursor:default;isolation:isolate;--mx:50%;--my:50%;}",
+      ".svc-get-card{position:relative;flex:1 1 0;min-width:0;min-height:340px;height:auto;padding:28px 1px;border-radius:14px;border:1px solid rgba(255,255,255,.1);box-sizing:border-box;overflow:hidden;background:transparent;backdrop-filter:blur(20px) saturate(1.1);-webkit-backdrop-filter:blur(20px) saturate(1.1);transform-style:preserve-3d;will-change:transform;cursor:default;isolation:isolate;--mx:50%;--my:50%;}",
       ".svc-get-card--wide{flex:1 1 100%;width:100%;}",
       ".svc-get-media{position:absolute;inset:-1px;z-index:0;border-radius:14px;overflow:hidden;pointer-events:none;}",
       ".svc-get-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}",
@@ -648,7 +592,7 @@
       ".svc-blogs-edge{position:absolute;top:0;bottom:0;width:min(120px,12vw);z-index:3;pointer-events:none;}",
       ".svc-blogs-edge--left{left:0;background:linear-gradient(90deg,#021526 0%,rgba(2,21,38,0) 100%);}",
       ".svc-blogs-edge--right{right:0;background:linear-gradient(270deg,#021526 0%,rgba(2,21,38,0) 100%);}",
-      ".svc-blogs-viewport{width:100%;overflow-x:hidden;overflow-y:visible;cursor:grab;padding:0 clamp(24px,4vw,64px);box-sizing:border-box;}",
+      ".svc-blogs-viewport{width:100%;overflow-x:hidden;overflow-y:visible;cursor:grab;padding:0 clamp(24px,4vw,64px);box-sizing:border-box;touch-action:pan-y;}",
       ".svc-blogs-viewport.is-dragging{cursor:grabbing;user-select:none;}",
       ".svc-blogs-viewport:focus-visible{outline:2px solid color-mix(in srgb,var(--svc) 70%,transparent);outline-offset:4px;border-radius:12px;}",
       ".svc-blogs-track{display:flex;width:max-content;will-change:transform;padding:8px 0 16px;}",
@@ -668,7 +612,7 @@
 
       /* ---- PILLARS / 03 How Works (Figma 23003:3165) ---- */
       ".svc-pillars{position:relative;padding:130px 40px;box-sizing:border-box;background:transparent;}",
-      ".svc-pillars-title{margin:0 auto 60px;max-width:920px;text-align:center;font-size:clamp(24px,2.4vw,32px);font-weight:700;line-height:1.125;color:#fff;}",
+      ".svc-pillars-title{margin:0 auto 60px;max-width:920px;text-align:center;font-size:48px;font-weight:700;line-height:1.125;color:#fff;}",
       ".svc-pillars-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:1360px;margin:0 auto;border-top:1px solid rgba(255,255,255,.1);border-left:1px solid rgba(255,255,255,.1);}",
       ".svc-pillar{display:flex;flex-direction:column;gap:8px;min-height:350px;height:100%;padding:32px 35px;box-sizing:border-box;border-right:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);background:transparent;overflow:hidden;}",
       ".svc-pillar-label{margin:0;font-size:14px;font-weight:400;line-height:1.2;color:rgba(255,255,255,.4);white-space:nowrap;}",
@@ -841,7 +785,7 @@
       ".svc-explore{padding:64px 0;overflow:visible;}",
       ".svc-explore-head{margin:0 0 24px;padding:0 40px;text-align:center;font-size:13.7px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:#8FA0B5;box-sizing:border-box;}",
       ".svc-explore-marquee{position:relative;overflow:visible;padding:16px 0;}",
-      ".svc-explore-viewport{width:100%;overflow-x:hidden;overflow-y:visible;cursor:grab;padding:0 clamp(24px,4vw,64px);box-sizing:border-box;}",
+      ".svc-explore-viewport{width:100%;overflow-x:hidden;overflow-y:visible;cursor:grab;padding:0 clamp(24px,4vw,64px);box-sizing:border-box;touch-action:pan-y;}",
       ".svc-explore-viewport.is-dragging{cursor:grabbing;user-select:none;}",
       ".svc-explore-viewport:focus-visible{outline:2px solid color-mix(in srgb,var(--svc) 70%,transparent);outline-offset:4px;border-radius:12px;}",
       ".svc-explore-track{display:flex;width:max-content;will-change:transform;padding:14px 0;}",
@@ -877,7 +821,7 @@
         ".svc-hero-mark{padding:0 12px;}",
         ".svc-hero-inner{gap:40px;}",
         ".svc-hero-copy{gap:20px;}",
-        ".svc-title{font-size:32px;line-height:1.15;}",
+        ".svc-title{font-size:48px;line-height:1.15;}",
         ".svc-lead{max-width:100%;font-size:16px;line-height:1.4;}",
         ".svc-hero-cta{margin:0;width:100%;}",
         ".svc-hero-cta .agn-btn{min-width:0;width:100%;}",
@@ -889,7 +833,7 @@
         ".svc-story-text{font-size:22px;line-height:1.45;}",
         ".svc-story-mark{width:min(180px,46vw);align-self:center;}",
         ".svc-pillars{padding:72px 16px;}",
-        ".svc-pillars-title{margin-bottom:32px;font-size:24px;text-align:left;}",
+        ".svc-pillars-title{margin-bottom:32px;font-size:32px;text-align:left;}",
         ".svc-pillars-grid{grid-template-columns:1fr;}",
         ".svc-pillar{min-height:0;padding:24px 20px;}",
         ".svc-pillar-stage{min-height:110px;}",
@@ -963,6 +907,7 @@
     ].join("");
     var s = document.createElement("style");
     s.id = STYLE_ID;
+    s.setAttribute("data-ver", STYLE_VER);
     s.textContent = css;
     (document.head || document.documentElement).appendChild(s);
   }
@@ -1004,11 +949,14 @@
     var splitBy = o.splitBy || "char";
     var color = o.color || "#fff";
     var weight = o.weight || "700";
+    var fontSize = o.fontSize || "";
     var cls = o.className || "";
     var tag = o.tag || "span";
     var attrs = o.attrs || "";
     var safe = String(text == null ? "" : text);
-    return "<" + tag + ' class="fold-text ' + esc(cls) + '" data-fold-text data-fold-split="' + esc(splitBy) + '" style="--fold-text-color:' + esc(color) + ';--fold-text-font-weight:' + esc(String(weight)) + '"' + (attrs ? " " + attrs : "") + ">" +
+    var style = "--fold-text-color:" + esc(color) + ";--fold-text-font-weight:" + esc(String(weight));
+    if (fontSize) style += ";--fold-text-font-size:" + esc(String(fontSize));
+    return "<" + tag + ' class="fold-text ' + esc(cls) + '" data-fold-text data-fold-split="' + esc(splitBy) + '" style="' + style + '"' + (attrs ? " " + attrs : "") + ">" +
       '<span class="fold-text-sr-only">' + esc(safe) + "</span>" +
       '<span class="fold-text-visual" aria-hidden="true">' + foldSegmentsHTML(safe, splitBy) + "</span>" +
     "</" + tag + ">";
@@ -1030,19 +978,15 @@
     var statsHTML = stats
       ? '<div class="svc-stats">' + stats + "</div>"
       : "";
-    var markHTML = foldTextHTML(titleRaw, {
-      tag: "p",
-      splitBy: "char",
-      color: "rgba(255,255,255,.1)",
-      weight: "700",
-      className: "svc-hero-mark",
-      attrs: 'data-hero-mark data-fold-card data-fold-delay="0" aria-hidden="true"'
-    });
+    var markHTML = titleRaw
+      ? '<p class="svc-hero-mark" data-hero-mark aria-hidden="true">' + esc(titleRaw) + "</p>"
+      : "";
     var titleHTML = foldTextHTML(headlineRaw, {
       tag: "h1",
       splitBy: "word",
       color: "#fff",
       weight: "700",
+      fontSize: "48px",
       className: "svc-title"
     });
     var leadHTML = leadRaw
@@ -1051,6 +995,7 @@
           splitBy: "word",
           color: "#C0C7CC",
           weight: "400",
+          fontSize: "18px",
           className: "svc-lead"
         })
       : "";
@@ -1449,7 +1394,7 @@
           '<h2>' + esc(d.finalTitle) + '</h2>' +
           '<p>' + esc(d.finalBody) + '</p>' +
         '</div>' +
-        '<a class="agn-btn" href="#cta" data-magnetic="true">' + esc(d.cta) + '</a>' +
+        '<a class="agn-btn" href="#cta" data-magnetic="true">' + esc(d.finalCta || d.cta) + '</a>' +
       '</div>' +
     '</section>';
   }
@@ -2182,15 +2127,24 @@
     fit();
     // Nav may mount/layout a tick later than the service page
     requestAnimationFrame(fit);
-    // FoldText pieces can affect metrics until first paint settles
     var refit = setTimeout(fit, 80);
     var refit2 = setTimeout(fit, 520);
+    // ShinyText on page-name watermark (no FoldText).
+    var shinyT = null;
+    var reduce = isCapture() || (window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches);
+    if (!reduce) {
+      shinyT = setTimeout(function () {
+        mark.classList.add("is-shiny");
+      }, 200);
+    }
     window.addEventListener("resize", onResize);
     store.heroMarkCleanup = function () {
       clearTimeout(refit);
       clearTimeout(refit2);
+      if (shinyT) clearTimeout(shinyT);
       if (raf) cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
+      mark.classList.remove("is-shiny");
       mark.style.fontSize = "";
       mark.style.transform = "";
       mark.style.top = "";
@@ -2801,10 +2755,11 @@
 
     var onWheel = function (e) {
       if (isMobile() || reduce || isCapture()) return;
-      var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (!delta) return;
+      // Horizontal-only: ignore vertical wheel so the page can scroll normally.
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      if (!e.deltaX) return;
       e.preventDefault();
-      offset += delta;
+      offset += e.deltaX;
       applyTransform();
     };
     marquee.addEventListener("wheel", onWheel, { passive: false, capture: true });
@@ -2995,10 +2950,11 @@
 
     var onWheel = function (e) {
       if (isMobile() || reduce || isCapture()) return;
-      var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (!delta) return;
+      // Horizontal-only: ignore vertical wheel so the page can scroll normally.
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      if (!e.deltaX) return;
       e.preventDefault();
-      offset += delta;
+      offset += e.deltaX;
       applyTransform();
     };
     marquee.addEventListener("wheel", onWheel, { passive: false, capture: true });
