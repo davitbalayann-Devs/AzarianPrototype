@@ -40,10 +40,10 @@
       story: "Most PE-backed businesses spend on marketing without knowing what's actually driving revenue. You're inheriting a marketing org built on founder instinct and agency relationships, not systems. Before you invest in growth, you need to know exactly what's broken and what it will cost to fix. That's what this diagnostic answers. It works as pre-acquisition commercial due diligence, a post-close baseline, or a platform carve-out assessment.",
       pillarsTitle: "Due diligence, not a marketing audit.",
       pillars: [
-        { label: "01 / The scope", t: "Kickoff", b: "We scope around your hold period, revenue targets, and the specific gaps your team is asking about.", anim: "funnel" },
-        { label: "02 / The scope", t: "Data pull", b: "Read access to ad platforms, CRM, analytics, email, and tag manager. Nothing invasive, nothing slow.", anim: "num" },
-        { label: "03 / The scope", t: "AI analysis", b: "Growth OS agents run parallel analysis across every connected system simultaneously.", anim: "road" },
-        { label: "04 / The scope", t: "Senior review + delivery", b: "Our team interprets the data, builds the findings report, and presents it to your leadership team.", anim: "dash" }
+        { label: "01", t: "Kickoff", b: "We scope around your hold period, revenue targets, and the specific gaps your team is asking about.", anim: "funnel" },
+        { label: "02", t: "Data pull", b: "Read access to ad platforms, CRM, analytics, email, and tag manager. Nothing invasive, nothing slow.", anim: "num" },
+        { label: "03", t: "AI analysis", b: "Growth OS agents run parallel analysis across every connected system simultaneously.", anim: "road" },
+        { label: "04", t: "Senior review + delivery", b: "Our team interprets the data, builds the findings report, and presents it to your leadership team.", anim: "dash" }
       ],
       sections: [],
       finalTitle: "Know what's broken before you invest in growth.",
@@ -78,10 +78,10 @@
       story: "PE-backed companies often don't have the time or budget to recruit a $300K-plus CMO, and even when they do, onboarding takes quarters. A Fractional CMO from AGA is a working operator, not an advisor. They own your marketing strategy, manage your team and agencies, build the reporting layer your board expects, and drive toward the revenue targets in your model. This isn't a staffing solution. It's a leadership layer with an AI operating system underneath.",
       pillarsTitle: "Full-time CMO power at fractional cost.",
       pillars: [
-        { label: "01 / The scope", t: "Strategy ownership", b: "Marketing strategy tied directly to your investment thesis and hold timeline.", anim: "target" },
-        { label: "02 / The scope", t: "Team and vendor control", b: "Full ownership of the internal team and every existing agency relationship.", anim: "speed" },
-        { label: "03 / The scope", t: "Board accountability", b: "Board-level reporting and KPI ownership, aligned to EBITDA and exit criteria.", anim: "agents" },
-        { label: "04 / The scope", t: "Scale and hire", b: "Org design and hiring as you grow, with Growth OS agents augmenting every function.", anim: "shield" }
+        { label: "01", t: "Strategy ownership", b: "Marketing strategy tied directly to your investment thesis and hold timeline.", anim: "target" },
+        { label: "02", t: "Team and vendor control", b: "Full ownership of the internal team and every existing agency relationship.", anim: "speed" },
+        { label: "03", t: "Board accountability", b: "Board-level reporting and KPI ownership, aligned to EBITDA and exit criteria.", anim: "agents" },
+        { label: "04", t: "Scale and hire", b: "Org design and hiring as you grow, with Growth OS agents augmenting every function.", anim: "shield" }
       ],
       sections: [],
       finalTitle: "Senior marketing leadership, in seat from day one.",
@@ -116,10 +116,10 @@
       story: "Most paid media relationships produce dashboards full of impressions. We produce revenue. We build campaigns around your financial model, not platform defaults: CAC by channel, LTV by cohort, contribution margin by campaign, all tracked and reported in terms your CFO can read. Growth OS agents run real-time monitoring and anomaly detection across your accounts, so nothing breaks quietly.",
       pillarsTitle: "Built for the model, not the platform.",
       pillars: [
-        { label: "01 / The scope", t: "Search and video", b: "Google Search, Performance Max, and YouTube, structured to CAC targets.", anim: "attn" },
-        { label: "02 / The scope", t: "Social and display", b: "Meta, LinkedIn, and programmatic display for B2B and B2C.", anim: "scale" },
-        { label: "03 / The scope", t: "Full-funnel testing", b: "From creative to landing page to CRM handoff.", anim: "pulse" },
-        { label: "04 / The scope", t: "AI monitoring", b: "Growth OS catches budget waste, creative fatigue, and conversion drops early.", anim: "budget" }
+        { label: "01", t: "Search and video", b: "Google Search, Performance Max, and YouTube, structured to CAC targets.", anim: "attn" },
+        { label: "02", t: "Social and display", b: "Meta, LinkedIn, and programmatic display for B2B and B2C.", anim: "scale" },
+        { label: "03", t: "Full-funnel testing", b: "From creative to landing page to CRM handoff.", anim: "pulse" },
+        { label: "04", t: "AI monitoring", b: "Growth OS catches budget waste, creative fatigue, and conversion drops early.", anim: "budget" }
       ],
       sections: [],
       finalTitle: "Stop paying for impressions. Start paying for pipeline.",
@@ -154,10 +154,10 @@
       story: "Paid media stops the moment you stop paying. SEO builds durable demand. We build the technical foundation and compound it with topical authority content mapped to buyer intent. Most agencies write content. We build a compounding organic asset, one that reduces paid dependence over a hold period and increases enterprise value at exit through demonstrated demand generation infrastructure.",
       pillarsTitle: "A compounding asset, not blog posts.",
       pillars: [
-        { label: "01 / The scope", t: "Technical foundation", b: "Crawlability, Core Web Vitals, and site architecture, fixed first.", anim: "stack" },
-        { label: "02 / The scope", t: "Topical authority", b: "Content mapped to how your buyers actually search.", anim: "cast" },
-        { label: "03 / The scope", t: "Built for AI search", b: "Optimized for Google and the AI answer engines: Perplexity, ChatGPT, Gemini.", anim: "engines" },
-        { label: "04 / The scope", t: "Conversion architecture", b: "Internal linking and conversion paths throughout every asset.", anim: "target" }
+        { label: "01", t: "Technical foundation", b: "Crawlability, Core Web Vitals, and site architecture, fixed first.", anim: "stack" },
+        { label: "02", t: "Topical authority", b: "Content mapped to how your buyers actually search.", anim: "cast" },
+        { label: "03", t: "Built for AI search", b: "Optimized for Google and the AI answer engines: Perplexity, ChatGPT, Gemini.", anim: "engines" },
+        { label: "04", t: "Conversion architecture", b: "Internal linking and conversion paths throughout every asset.", anim: "target" }
       ],
       sections: [],
       finalTitle: "Build demand that keeps working after the spend stops.",
@@ -192,10 +192,10 @@
       story: "For most PE-backed companies, the website is an afterthought. It was built to look credible, not to convert. We don't sell websites. We fix the conversion problem: we start with the data, identify the highest-impact changes, and move fast. In most cases we find quick wins within the first 30 days, then longer-term tests compound on top. PE-backed companies don't have six months for a rebrand.",
       pillarsTitle: "Fix conversion, not the brand.",
       pillars: [
-        { label: "01 / The scope", t: "Full CRO audit", b: "Pages, forms, CTAs, and messaging hierarchy, all reviewed against intent.", anim: "page" },
-        { label: "02 / The scope", t: "Highest-leverage first", b: "Homepage, service pages, and primary conversion paths, rewritten first.", anim: "ab" },
-        { label: "03 / The scope", t: "Testing on real data", b: "A/B and multivariate tests where traffic volume supports them.", anim: "attn" },
-        { label: "04 / The scope", t: "Post-launch monitoring", b: "Growth OS flags conversion drops before they become revenue problems.", anim: "data" }
+        { label: "01", t: "Full CRO audit", b: "Pages, forms, CTAs, and messaging hierarchy, all reviewed against intent.", anim: "page" },
+        { label: "02", t: "Highest-leverage first", b: "Homepage, service pages, and primary conversion paths, rewritten first.", anim: "ab" },
+        { label: "03", t: "Testing on real data", b: "A/B and multivariate tests where traffic volume supports them.", anim: "attn" },
+        { label: "04", t: "Post-launch monitoring", b: "Growth OS flags conversion drops before they become revenue problems.", anim: "data" }
       ],
       sections: [],
       finalTitle: "Turn the traffic you already pay for into pipeline.",
@@ -230,10 +230,10 @@
       story: "Most portfolio companies have data. Almost none have clean, connected, board-ready reporting. We build the measurement infrastructure from scratch if it doesn't exist, then connect every source into a single reporting layer that speaks CFO. Most portfolio companies have data everywhere and insight nowhere. We build the system that turns scattered platform data into board-ready revenue intelligence, and then we maintain it so it never goes dark.",
       pillarsTitle: "Data everywhere. Insight nowhere — fixed.",
       pillars: [
-        { label: "01 / The scope", t: "Build the foundation", b: "GA4, GTM, CRM attribution, and channel tagging, configured from scratch.", anim: "merge" },
-        { label: "02 / The scope", t: "Connect every source", b: "Paid, organic, email, CRM, and product, into one reporting layer.", anim: "funnel" },
-        { label: "03 / The scope", t: "Report in revenue", b: "Marketing's contribution to pipeline, not metrics in isolation.", anim: "dash" },
-        { label: "04 / The scope", t: "Install before the QBR", b: "CAC, LTV, payback, and channel ROAS, tied to the model.", anim: "radar" }
+        { label: "01", t: "Build the foundation", b: "GA4, GTM, CRM attribution, and channel tagging, configured from scratch.", anim: "merge" },
+        { label: "02", t: "Connect every source", b: "Paid, organic, email, CRM, and product, into one reporting layer.", anim: "funnel" },
+        { label: "03", t: "Report in revenue", b: "Marketing's contribution to pipeline, not metrics in isolation.", anim: "dash" },
+        { label: "04", t: "Install before the QBR", b: "CAC, LTV, payback, and channel ROAS, tied to the model.", anim: "radar" }
       ],
       sections: [],
       finalTitle: "Stop flying blind. Run marketing like an operating function.",
@@ -486,7 +486,7 @@
 
   // ---- one-time CSS -------------------------------------------------------
   var STYLE_ID = "agn-svc-styles";
-  var STYLE_VER = "20260812-36";
+  var STYLE_VER = "20260812-37";
   function injectStyles() {
     var existing = document.getElementById(STYLE_ID);
     if (existing && existing.getAttribute("data-ver") === STYLE_VER) return;
@@ -1120,7 +1120,7 @@
     if (!items.length) return "";
     var cells = items.map(function (p, i) {
       return '<article class="svc-pillar" data-reveal data-reveal-delay="' + (60 + i * 50) + '">' +
-        '<p class="svc-pillar-label">' + esc(p.label || ((i + 1 < 10 ? "0" : "") + (i + 1) + " / Scope")) + "</p>" +
+        '<p class="svc-pillar-label">' + esc(p.label || ((i + 1 < 10 ? "0" : "") + (i + 1))) + "</p>" +
         '<div class="svc-pillar-stage" aria-hidden="true">' + stageAnim(p.anim, i) + "</div>" +
         '<div class="svc-pillar-copy">' +
           "<h3>" + esc(p.t) + "</h3>" +

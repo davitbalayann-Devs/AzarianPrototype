@@ -4,15 +4,23 @@
   Variants:
     .agn-btn              → filled teal primary (hero CTA)
     .agn-btn--ghost       → transparent / glass secondary
+    .agn-btn-link         → text link (Figma Buttons/Link · 20097:5834)
+    .agn-btn-link--dark   → text link for light surfaces
+
+  Buttons/Link behaviour (White on dark):
+    Default → white label + icon; underline clipped off-screen left
+    Hover   → #1BFED1 label + icon; underline slides in full-width
 
   Usage in markup:
     <a href="#cta" class="agn-btn" data-magnetic>Start a Conversation</a>
     <a href="Azarian Growth OS.dc.html" class="agn-btn agn-btn--ghost" data-magnetic>See how it works</a>
+    <a href="#cta" class="agn-btn-link">Reserve your seat<svg>…</svg></a>
     <button type="submit" class="agn-btn" data-magnetic>Start the Conversation</button>
 
   Or via API:
     AzarianButton.create({ href:'#cta', label:'Start a Conversation', variant:'primary' })
     AzarianButton.create({ href:'#x', label:'Ghost', variant:'ghost', html:'…' })
+    AzarianButton.create({ href:'#cta', label:'Reserve your seat', variant:'link', html:'…' })
     AzarianButton.bindMagnetic(root)  // wires [data-magnetic] pull — desktop hover only
 */
 (function () {
@@ -20,9 +28,13 @@
   if (window.AzarianButton) return;
 
   var STYLE_ID = "agn-btn-styles";
+  var STYLE_VER = "20260915-1";
 
   function injectStyles() {
-    if (document.getElementById(STYLE_ID)) return;
+    var existing = document.getElementById(STYLE_ID);
+    if (existing && existing.getAttribute("data-ver") === STYLE_VER) return;
+    if (existing) existing.remove();
+
     var css = [
       ".agn-btn{",
         "display:inline-flex;align-items:center;justify-content:center;gap:10px;",
@@ -61,15 +73,68 @@
       /* Block / full-width helpers */
       ".agn-btn--block{width:100%;}",
 
+      /* ── Text link · Figma Buttons/Link (20097:5834) ───────────────
+         Default: label + icons in --agn-link-fg
+         Hover:   color → --agn-link-hover; underline slides in from left
+         Underline lives as a clipped absolute line (Figma “Hover Line”). */
+      ".agn-btn-link{",
+        "--agn-link-fg:#ffffff;",
+        "--agn-link-hover:#1BFED1;",
+        "--agn-link-line:#1BFED1;",
+        "position:relative;display:inline-flex;align-items:center;gap:4px;",
+        "box-sizing:border-box;appearance:none;border:none;background:transparent;",
+        "padding:0 0 2px;margin:0;cursor:pointer;overflow:clip;",
+        "font-family:'Poppins',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;",
+        "font-weight:500;font-size:14px;line-height:1;letter-spacing:0;",
+        "color:var(--agn-link-fg);text-decoration:none;white-space:nowrap;flex-shrink:0;",
+        "transition:color .28s cubic-bezier(.16,.84,.44,1);",
+      "}",
+      ".agn-btn-link svg,.agn-btn-link img{",
+        "width:16px;height:16px;flex:0 0 auto;display:block;",
+        "color:inherit;transition:color .28s cubic-bezier(.16,.84,.44,1),opacity .28s ease;",
+      "}",
+      ".agn-btn-link img{filter:none;}",
+      /* Hover Line — parked off-canvas left, slides to full width on hover */
+      ".agn-btn-link::after{",
+        "content:\"\";position:absolute;bottom:0;left:-100%;width:100%;height:1px;",
+        "background:var(--agn-link-line);pointer-events:none;",
+        "transition:left .32s cubic-bezier(.16,.84,.44,1);",
+      "}",
+      ".agn-btn-link:hover,",
+      ".agn-btn-link:focus-visible{",
+        "color:var(--agn-link-hover);outline:none;",
+      "}",
+      ".agn-btn-link:hover::after,",
+      ".agn-btn-link:focus-visible::after{",
+        "left:0;",
+      "}",
+      ".agn-btn-link.is-disabled,",
+      ".agn-btn-link[aria-disabled='true'],",
+      ".agn-btn-link:disabled{",
+        "opacity:.2;cursor:not-allowed;pointer-events:none;",
+      "}",
+
+      /* Dark type — for light surfaces (Figma type=Dark) */
+      ".agn-btn-link--dark{",
+        "--agn-link-fg:#063B6D;",
+        "--agn-link-hover:#063B6D;",
+        "--agn-link-line:#063B6D;",
+      "}",
+
       /* Mobile hero sizing (matches former .hero-cta) */
       "@media(max-width:960px){",
         ".agn-btn{font-size:14px;padding:12px 18px;gap:4px;}",
         ".agn-btn--sm{font-size:14px;height:auto;min-height:34px;padding:8px 12px;}",
+        ".agn-btn-link{font-size:13px;}",
+      "}",
+      "@media(prefers-reduced-motion:reduce){",
+        ".agn-btn-link,.agn-btn-link::after,.agn-btn-link svg,.agn-btn-link img{transition:none !important;}",
       "}",
     ].join("");
 
     var style = document.createElement("style");
     style.id = STYLE_ID;
+    style.setAttribute("data-ver", STYLE_VER);
     style.textContent = css;
     document.head.appendChild(style);
   }
@@ -79,11 +144,18 @@
     injectStyles();
     var tag = opts.tag || (opts.href ? "a" : "button");
     var el = document.createElement(tag);
-    var variant = opts.variant === "ghost" ? "ghost" : "primary";
-    var classes = ["agn-btn"];
-    if (variant === "ghost") classes.push("agn-btn--ghost");
-    if (opts.size === "sm") classes.push("agn-btn--sm");
-    if (opts.block) classes.push("agn-btn--block");
+    var variant = opts.variant || "primary";
+    var classes = [];
+
+    if (variant === "link") {
+      classes.push("agn-btn-link");
+      if (opts.tone === "dark") classes.push("agn-btn-link--dark");
+    } else {
+      classes.push("agn-btn");
+      if (variant === "ghost") classes.push("agn-btn--ghost");
+      if (opts.size === "sm") classes.push("agn-btn--sm");
+      if (opts.block) classes.push("agn-btn--block");
+    }
     if (opts.className) classes.push(opts.className);
     el.className = classes.join(" ");
 
@@ -99,7 +171,9 @@
     if (opts.html != null) el.innerHTML = opts.html;
     else el.textContent = opts.label != null ? opts.label : "Button";
 
-    if (opts.magnetic !== false) el.setAttribute("data-magnetic", "true");
+    if (variant !== "link" && opts.magnetic !== false) {
+      el.setAttribute("data-magnetic", "true");
+    }
     if (opts.attrs) {
       Object.keys(opts.attrs).forEach(function (k) { el.setAttribute(k, opts.attrs[k]); });
     }
