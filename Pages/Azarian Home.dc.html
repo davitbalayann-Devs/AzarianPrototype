@@ -10,7 +10,8 @@
 <script src="../cursor.js?v=20260723-2"></script>
 <script src="../cta.js?v=20260723-2" defer></script>
 <script src="../footer.js?v=20260803-2" defer></script>
-<script src="../nav.js?v=20260804-10" defer></script>
+<script src="../promo-banner.js?v=20260916-5" defer></script>
+<script src="../nav.js?v=20260916-2" defer></script>
 </head>
 <body>
 <x-dc>
@@ -46,96 +47,6 @@
   .hero-title [data-prox-letter].is-accent{color:#1BFED1;}
   .hero-sub{margin:0;max-width:920px;font-family:Poppins,system-ui,sans-serif;font-weight:400;font-size:clamp(14px,1.15vw,16px);line-height:22px;color:#DEE2E5;}
   .hero-cta-wrap{display:flex;justify-content:center;width:100%;}
-  /* Hero webinar banners · Figma 23083:2820 / hover 23083:3003 */
-  .hero-banners{
-    position:absolute;left:50%;bottom:0;transform:translateX(-50%);
-    z-index:4;width:min(1296px,calc(100% - 36px));
-    display:flex;gap:12px;align-items:flex-end;box-sizing:border-box;
-  }
-  .hero-banner{
-    flex:1 1 0;min-width:0;height:100px;padding:24px;box-sizing:border-box;
-    display:flex;flex-direction:column;justify-content:center;gap:0;
-    overflow:hidden;cursor:default;isolation:isolate;
-    border-radius:24px 24px 0 0;
-    border:1px solid rgba(255,255,255,.08);
-    background:linear-gradient(180deg,rgba(108,181,251,.12) 0%,rgba(108,181,251,0) 100%);
-    backdrop-filter:blur(12px) saturate(1.15);-webkit-backdrop-filter:blur(12px) saturate(1.15);
-    transition:height .38s cubic-bezier(.16,.84,.44,1),padding .38s cubic-bezier(.16,.84,.44,1),background .3s ease,border-color .3s ease;
-  }
-  .hero-banner:hover,.hero-banner:focus-within{
-    height:155px;padding:28px 24px 16px;justify-content:space-between;gap:12px;
-    border-color:rgba(255,255,255,.14);
-    background:linear-gradient(180deg,rgba(108,181,251,.16) 0%,rgba(108,181,251,.02) 100%);
-  }
-  .hero-banner-top{
-    display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-width:0;
-  }
-  .hero-banner-left{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto;}
-  .hero-banner-title-row{display:flex;align-items:center;gap:8px;min-width:0;}
-  .hero-banner-live{
-    position:relative;width:12px;height:12px;flex:0 0 auto;
-  }
-  .hero-banner-live::before{
-    content:"";position:absolute;inset:-4px;border-radius:50%;
-    background:rgba(24,229,188,.35);animation:heroLivePulse 1.6s ease-in-out infinite;
-  }
-  .hero-banner-live img{
-    position:relative;z-index:1;display:block;width:12px;height:12px;
-    animation:agaBlink 1.4s ease-in-out infinite;
-  }
-  @keyframes heroLivePulse{
-    0%,100%{transform:scale(.72);opacity:.55;}
-    50%{transform:scale(1.35);opacity:0;}
-  }
-  .hero-banner-name{
-    margin:0;font-family:Poppins,system-ui,sans-serif;font-weight:700;font-size:clamp(20px,2.2vw,32px);
-    line-height:1.125;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
-  .hero-banner-date{
-    flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
-    padding:9px 13px;border-radius:999px;
-    background:rgba(255,255,255,.1);border:1px solid rgba(232,255,250,.1);
-    font-family:Poppins,system-ui,sans-serif;font-weight:600;font-size:12px;line-height:1;color:#1BFED1;
-    white-space:nowrap;
-  }
-  .hero-banner .agn-btn-link{flex:0 0 auto;}
-  .hero-banner-rule{
-    width:100%;height:1px;background:rgba(255,255,255,.1);flex:0 0 auto;
-    opacity:0;transform:scaleX(.92);transform-origin:center;
-    transition:opacity .28s ease,transform .38s cubic-bezier(.16,.84,.44,1);
-  }
-  .hero-banner-details{
-    display:flex;align-items:flex-start;justify-content:space-between;gap:16px;width:100%;
-    opacity:0;max-height:0;overflow:hidden;pointer-events:none;
-    transition:opacity .28s ease,max-height .38s cubic-bezier(.16,.84,.44,1);
-  }
-  .hero-banner:hover .hero-banner-rule,
-  .hero-banner:focus-within .hero-banner-rule{opacity:1;transform:none;}
-  .hero-banner:hover .hero-banner-details,
-  .hero-banner:focus-within .hero-banner-details{
-    opacity:1;max-height:72px;pointer-events:auto;
-  }
-  .hero-banner-topic{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;text-align:left;}
-  .hero-banner-topic span{font-family:Poppins,system-ui,sans-serif;font-weight:400;font-size:16px;line-height:22px;color:#96A0AA;}
-  .hero-banner-topic strong{font-family:Poppins,system-ui,sans-serif;font-weight:600;font-size:18px;line-height:24px;color:#fff;}
-  .hero-banner-runtime{display:flex;flex-direction:column;align-items:flex-start;gap:2px;flex:0 0 auto;text-align:left;}
-  .hero-banner-runtime span{font-family:Poppins,system-ui,sans-serif;font-weight:400;font-size:14px;line-height:1;color:#fff;}
-  .hero-banner-runtime strong{font-family:Poppins,system-ui,sans-serif;font-weight:600;font-size:18px;line-height:24px;color:#1BFED1;}
-  @media(max-width:960px){
-    .hero-banners{
-      width:calc(100% - 16px);gap:8px;flex-direction:column;align-items:stretch;
-    }
-    .hero-banner{height:auto;min-height:72px;padding:16px;border-radius:16px 16px 0 0;}
-    .hero-banner:hover,.hero-banner:focus-within{height:auto;min-height:132px;padding:18px 16px 14px;}
-    .hero-banner-name{font-size:18px;}
-    .hero-banner-left{flex-wrap:wrap;gap:8px;}
-    .hero-banner-topic span{font-size:13px;line-height:18px;}
-    .hero-banner-topic strong,.hero-banner-runtime strong{font-size:15px;line-height:20px;}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .hero-banner,.hero-banner-rule,.hero-banner-details{transition:none !important;}
-    .hero-banner-live::before,.hero-banner-live img{animation:none !important;opacity:1;}
-  }
   .hero-scroll ~ *{position:relative;z-index:2;}
   /* Mobile Hero — Figma 22664:4424 · full first screen + same cover-scroll as desktop
      Type bumped above raw Figma 20/12 so it reads at real phone size (Figma frame
@@ -154,7 +65,7 @@
     }
     [data-services-pin],[data-stack-pin],[data-hscroll-pin]{height:100svh !important;max-height:100svh !important;}
     /* Testimonials mobile: content height (Figma 22664:4769), not forced 100vh */
-    .hero-shell{padding:max(96px,calc(env(safe-area-inset-top,0px) + 76px)) 16px max(168px,calc(env(safe-area-inset-bottom,0px) + 148px));}
+    .hero-shell{padding:max(148px,calc(env(safe-area-inset-top,0px) + var(--agn-top-banner,0px) + 76px)) 16px max(180px,calc(env(safe-area-inset-bottom,0px) + 156px));}
     .hero-inner{gap:22px;max-width:100%;}
     .hero-copy{gap:14px;}
     .hero-title{font-size:clamp(26px,7.2vw,32px);line-height:1.2;}
@@ -1075,7 +986,10 @@
 </helmet>
 <div ref="{{ setRoot }}" style="--accent:#1BFED1;background:radial-gradient(ellipse 120% 110% at 80% 0%,#12315e 0%,#0B1B38 55%,#081226 100%);color:#0B1B38;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased;position:relative;width:100%;">
 
-  <!-- NAV — shared component built by ./nav.js (edit that file once, applies everywhere) -->
+  <!-- Sticky webinar banner — shared ./promo-banner.js · Figma 23099:5781 -->
+  <div data-promo-banner></div>
+
+    <!-- NAV — shared component built by ./nav.js (edit that file once, applies everywhere) -->
   <nav class="agn-nav" data-agn-nav aria-label="Primary"></nav>
 
   <!-- HERO (Figma 01 · 22347:598) · fixed cover scroll -->
@@ -1094,63 +1008,6 @@
       <div class="hero-cta-wrap" data-reveal data-reveal-delay="220" style="opacity:0;translate:0 28px;transition:opacity .7s cubic-bezier(.16,.84,.44,1),translate .7s cubic-bezier(.16,.84,.44,1);">
         <a href="#cta" class="agn-btn" data-magnetic="true">Start a Conversation</a>
       </div>
-    </div>
-
-    <!-- Webinar banners · Figma 23083:2820 (hover 23083:3003) -->
-    <div class="hero-banners" data-hero-banners aria-label="Upcoming webinars">
-      <article class="hero-banner" data-hero-banner tabindex="0">
-        <div class="hero-banner-top">
-          <div class="hero-banner-left">
-            <div class="hero-banner-title-row">
-              <span class="hero-banner-live" aria-hidden="true"><img src="../assets/hero-banners/live-dot.svg" alt="" width="12" height="12" draggable="false"></span>
-              <h2 class="hero-banner-name">SF Tech Week</h2>
-            </div>
-            <span class="hero-banner-date">Oct 8</span>
-          </div>
-          <a class="agn-btn-link" href="#cta">
-            Reserve your seat
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33333 8 1.33333C4.3181 1.33333 1.33333 4.3181 1.33333 8C1.33333 11.6819 4.3181 14.6667 8 14.6667ZM6.5 6C6.5 5.72386 6.72386 5.5 7 5.5H10C10.2761 5.5 10.5 5.72386 10.5 6V9C10.5 9.27614 10.2761 9.5 10 9.5C9.72386 9.5 9.5 9.27614 9.5 9V7.20711L6.35355 10.3536C6.15829 10.5488 5.84171 10.5488 5.64645 10.3536C5.45118 10.1583 5.45118 9.84171 5.64645 9.64645L8.79289 6.5H7C6.72386 6.5 6.5 6.27614 6.5 6Z" fill="currentColor"/></svg>
-          </a>
-        </div>
-        <div class="hero-banner-rule" aria-hidden="true"></div>
-        <div class="hero-banner-details">
-          <div class="hero-banner-topic">
-            <span>Topic</span>
-            <strong>Inside the AI-native PE firm.</strong>
-          </div>
-          <div class="hero-banner-runtime">
-            <span>Runtime</span>
-            <strong>60 min.</strong>
-          </div>
-        </div>
-      </article>
-
-      <article class="hero-banner" data-hero-banner tabindex="0">
-        <div class="hero-banner-top">
-          <div class="hero-banner-left">
-            <div class="hero-banner-title-row">
-              <span class="hero-banner-live" aria-hidden="true"><img src="../assets/hero-banners/live-dot.svg" alt="" width="12" height="12" draggable="false"></span>
-              <h2 class="hero-banner-name">LA Tech Week</h2>
-            </div>
-            <span class="hero-banner-date">Oct 15</span>
-          </div>
-          <a class="agn-btn-link" href="#cta">
-            Reserve your seat
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33333 8 1.33333C4.3181 1.33333 1.33333 4.3181 1.33333 8C1.33333 11.6819 4.3181 14.6667 8 14.6667ZM6.5 6C6.5 5.72386 6.72386 5.5 7 5.5H10C10.2761 5.5 10.5 5.72386 10.5 6V9C10.5 9.27614 10.2761 9.5 10 9.5C9.72386 9.5 9.5 9.27614 9.5 9V7.20711L6.35355 10.3536C6.15829 10.5488 5.84171 10.5488 5.64645 10.3536C5.45118 10.1583 5.45118 9.84171 5.64645 9.64645L8.79289 6.5H7C6.72386 6.5 6.5 6.27614 6.5 6Z" fill="currentColor"/></svg>
-          </a>
-        </div>
-        <div class="hero-banner-rule" aria-hidden="true"></div>
-        <div class="hero-banner-details">
-          <div class="hero-banner-topic">
-            <span>Topic</span>
-            <strong>The value-creation plan, built live.</strong>
-          </div>
-          <div class="hero-banner-runtime">
-            <span>Runtime</span>
-            <strong>60 min.</strong>
-          </div>
-        </div>
-      </article>
     </div>
   </header>
   </div>

@@ -11,7 +11,8 @@
 <script src="../cta.js?v=20260723-2" defer></script>
 <script src="../footer.js?v=20260803-2" defer></script>
 <script src="../glass-surface.js?v=20260723-1"></script>
-<script src="../nav.js?v=20260804-10" defer></script>
+<script src="../promo-banner.js?v=20260916-5" defer></script>
+<script src="../nav.js?v=20260916-2" defer></script>
 </head>
 <body>
 <x-dc>
@@ -48,7 +49,7 @@
     display:flex;align-items:center;justify-content:center;text-align:center;
     /* bottom padding reserves the Question-and-Answer panel (+64px Figma gap) so the
        centred logo/title never collide with it; --hero-qa-h is measured in setupHeroQA(). */
-    padding:130px 40px calc(var(--hero-qa-h,200px) + 64px);color:#fff;
+    padding:calc(130px + var(--agn-top-banner,0px)) 40px calc(var(--hero-qa-h,200px) + 64px);color:#fff;
     background:linear-gradient(180deg,#1e1a47 0%,#181441 42%,#0e0b29 100%);}
   .agn-about-hero::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:#04101f;opacity:var(--hero-veil,0);}
   .agn-hero-plasma{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
@@ -108,7 +109,7 @@
     .agn-about-hero{
       inset:0;width:100%;height:auto;min-height:100%;
       min-height:100vh;min-height:100dvh;min-height:-webkit-fill-available;
-      padding:max(88px,calc(env(safe-area-inset-top,0px) + 72px)) 16px calc(var(--hero-qa-h,410px) + 24px);
+      padding:max(148px,calc(env(safe-area-inset-top,0px) + var(--agn-top-banner,0px) + 72px)) 16px calc(var(--hero-qa-h,410px) + 24px);
     }
     .agn-hero-content{gap:24px;max-width:none;}
     .agn-hero-logo{width:min(300px,100%);}
@@ -457,8 +458,8 @@
   .agn-media-grid{position:relative;width:100%;overflow:hidden;
     -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
     mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);}
-  .agn-media-lane{position:relative;width:100%;overflow:hidden;cursor:grab;touch-action:pan-y pinch-zoom;}
-  .agn-media-lane.is-dragging{cursor:grabbing;}
+  .agn-media-lane{position:relative;width:100%;overflow:hidden;cursor:grab;touch-action:pan-x pan-y pinch-zoom;}
+  .agn-media-lane.is-dragging{cursor:grabbing;touch-action:none;}
   /* max-content keeps the row from being squeezed — the loop needs overflow for translateX. */
   .agn-media-track{display:flex;flex-direction:row;width:max-content;will-change:transform;}
   /* Trailing padding equals the gap so cloned sequences tile with no seam. */
@@ -650,7 +651,8 @@
 </style>
 </helmet>
 <div ref="{{ setRoot }}" style="--accent:#1FC9A0;background:linear-gradient(180deg,#1e1a47 0%,#181441 42%,#0e0b29 100%);background-attachment:fixed;color:#0B1B38;font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased;position:relative;width:100%;">
-
+  <!-- Sticky webinar banner — shared ./promo-banner.js · Figma 23099:5781 -->
+  <div data-promo-banner></div>
   <!-- NAV — shared component built by ./nav.js (edit that file once, applies everywhere) -->
   <nav class="agn-nav" data-agn-nav aria-label="Primary"></nav>
 
@@ -2320,7 +2322,7 @@ class Component extends DCLogic {
         lane.addEventListener('scroll', onScroll);
 
         // Manual scrub · pause auto, drag the track, then resume carousel after a short beat.
-        // Horizontal only on mobile (horiz); desktop keeps vertical auto + hover pause.
+        // Horizontal on both breakpoints (Figma 22823:1900 merges to one row).
         const scrubEnabled = horiz && !reduce;
         const onPointerDown = (e) => {
           if (!scrubEnabled) return;
@@ -2367,11 +2369,37 @@ class Component extends DCLogic {
             }
           }
         };
+        // Wheel / trackpad over the lane → horizontal carousel scrub only.
+        // - Trackpad: native horizontal delta (deltaX)
+        // - Mouse: Shift + vertical wheel, or click-and-drag (pointer handlers above)
+        // Plain vertical wheel is ignored so the page can scroll normally.
+        const onWheel = (e) => {
+          if (!horiz) return;
+          let dx = 0;
+          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            dx = e.deltaX;
+          } else if (e.shiftKey && e.deltaY) {
+            dx = e.deltaY;
+          } else {
+            return;
+          }
+          if (e.deltaMode === 1) dx *= 16;
+          else if (e.deltaMode === 2) dx *= lane.clientWidth || 320;
+          if (!dx) return;
+          e.preventDefault();
+          vel = 0;
+          offset += dx;
+          applyTransform();
+          resumeAt = performance.now() + 1400;
+        };
         if (scrubEnabled) {
           lane.addEventListener('pointerdown', onPointerDown);
           lane.addEventListener('pointermove', onPointerMove, { passive: false });
           lane.addEventListener('pointerup', endDrag);
           lane.addEventListener('pointercancel', endDrag);
+        }
+        if (horiz) {
+          lane.addEventListener('wheel', onWheel, { passive: false });
         }
 
         this._mediaCleanups.push(() => {
@@ -2387,6 +2415,7 @@ class Component extends DCLogic {
             lane.removeEventListener('pointercancel', endDrag);
             lane.classList.remove('is-dragging');
           }
+          if (horiz) lane.removeEventListener('wheel', onWheel);
         });
       });
 

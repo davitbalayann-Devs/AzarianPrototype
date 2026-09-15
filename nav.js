@@ -344,7 +344,8 @@
     // background behind the bar and toggles .theme-light over light sections.
     // Dropdown is portaled to <body> with the same blur(22px) saturate(1.4) glass
     // as the bar, plus a denser tint so menu text stays readable.
-    ".agn-nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:120;",
+    /* --agn-top-banner: fixed promo strip height (set by pages that show one) */
+    ".agn-nav{position:fixed;top:calc(18px + var(--agn-top-banner,0px));left:50%;transform:translateX(-50%);z-index:120;",
       "--agn-txt:#C6D0E0;--agn-txt-strong:#fff;--agn-bar-bg:rgba(255,255,255,0.06);--agn-bar-border:rgba(255,255,255,0.12);",
       "--agn-icon-bg:rgba(255,255,255,0.06);--agn-icon-border:rgba(255,255,255,0.14);--agn-icon-fg:#E7ECF4;",
       "--agn-icon-hbg:rgba(255,255,255,0.12);--agn-icon-hborder:rgba(255,255,255,0.28);--agn-hl:rgba(255,255,255,0.10);--agn-logo-fg:#fff;",
@@ -496,7 +497,7 @@
        logo left · search + CTA + burger right · no center links */
     "@media(max-width:960px){",
       ".agn-nav{height:62px;width:calc(100% - 16px);padding:0 16px;gap:8px;justify-content:flex-start;",
-        "top:max(20px,env(safe-area-inset-top,0px));",
+        "top:calc(max(20px,env(safe-area-inset-top,0px)) + var(--agn-top-banner,0px));",
         "--agn-bar-bg:rgba(255,255,255,0.08);--agn-bar-border:rgba(255,255,255,0.14);",
         "backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5);}",
       ".agn-nav.theme-light{--agn-bar-bg:rgba(255,255,255,0.52);--agn-bar-border:rgba(11,27,56,0.10);}",
@@ -517,8 +518,8 @@
       ".agn-search{left:16px;right:16px;}",
       ".agn-search input{height:38px;font-size:15px;}",
       /* Closed drawer is display:none (not just opacity:0). */
-      ".agn-drawer{display:none;position:fixed;top:94px;left:50%;transform:translateX(-50%);z-index:115;",
-        "width:calc(100% - 16px);max-height:calc(var(--vh-stable,1vh)*100 - 110px);overflow-y:auto;box-sizing:border-box;",
+      ".agn-drawer{display:none;position:fixed;top:calc(94px + var(--agn-top-banner,0px));left:50%;transform:translateX(-50%);z-index:115;",
+        "width:calc(100% - 16px);max-height:calc(var(--vh-stable,1vh)*100 - 110px - var(--agn-top-banner,0px));overflow-y:auto;box-sizing:border-box;",
         "border-radius:24px;border:1px solid var(--agn-drop-border);background:var(--agn-drop-bg);color:var(--agn-txt);",
         "-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);padding:12px;",
         "box-shadow:var(--agn-drop-shadow);pointer-events:none;opacity:0;translate:0 -10px;",
@@ -1028,6 +1029,12 @@
         state.drawer.classList.toggle("theme-light", light);
         state.drawer.classList.toggle("theme-dark", !light);
       }
+      // Sticky promo banner (if present) follows the same light/dark tokens
+      var banners = document.querySelectorAll("[data-promo-banner]");
+      for (var bi = 0; bi < banners.length; bi++) {
+        banners[bi].classList.toggle("theme-light", light);
+        banners[bi].classList.toggle("theme-dark", !light);
+      }
     }
     function applyScroll() {                        // rAF-throttled; keeps the name the listeners use
       if (_themeRaf) return;
@@ -1040,6 +1047,9 @@
     nav.classList.add("theme-dark");               // definite default (dark bg / light bar)
     mega.classList.add("theme-dark");
     if (state.drawer) state.drawer.classList.add("theme-dark");
+    document.querySelectorAll("[data-promo-banner]").forEach(function (el) {
+      el.classList.add("theme-dark");
+    });
     detectTheme();
     // re-check after layout / fonts / async content settle
     setTimeout(detectTheme, 120);
