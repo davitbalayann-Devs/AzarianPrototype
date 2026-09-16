@@ -23,12 +23,12 @@
     {
       title: "SF Tech Week",
       date: "Oct 8",
-      href: "https://us02web.zoom.us/webinar/register/WN_kf5vb4lnTWmpcHuIvCcVRg#/registration",
+      href: "https://azariangrowthagency.com/webinars/ai-native-pe-firm-live-demo-sftechweek/",
     },
     {
       title: "LA Tech Week",
       date: "Oct 15",
-      href: "https://us02web.zoom.us/webinar/register/WN_8YtyQYHaToq_GA39diQXsw#/registration",
+      href: "https://azariangrowthagency.com/webinars/the-value-creation-plan-built-live-how-ai-turns-a-portfolio-company-into-a-roll-up-platform-latechweek/",
     },
   ];
 
