@@ -112,7 +112,7 @@
       ".promo-banner-half:focus-visible .promo-banner-cta::after{left:0;}",
       ".promo-banner-date{",
         "position:relative;z-index:1;flex:0 0 auto;",
-        "font-family:inherit;font-weight:700;font-size:clamp(22px,2.2vw,32px);line-height:1.125;",
+        "font-family:inherit;font-weight:700;font-size:clamp(22px,2.2vw,24px);line-height:1.125;",
         "color:var(--promo-date);white-space:nowrap;",
         "transition:transform .32s cubic-bezier(.16,.84,.44,1),color .28s ease;",
       "}",
